@@ -1,0 +1,26 @@
+
+  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @access_item} %>    
+<div class="b-formfield-div">
+  <%= f.label :name, 'Название клиента' %>
+  <%= f.text_field :name %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :ip_addr, 'IP адрес' %>
+  <%= f.text_field :ip_addr %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :param_key, 'Ключ' %>
+  <%= f.text_field :param_key %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :accepted_from, 'Начало действия доступа' %>
+  <%= f.text_field :accepted_from %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :accepted_to, 'Окончание действия доступа' %>
+  <%= f.text_field :accepted_to %>
+</div>
+<div class="b-formfield-div">
+  <%= f.submit "Сохранить" %>
+</div>
+

@@ -1,0 +1,43 @@
+<% title 'Изменение категории товара' %>
+
+<div class="grid_8 alpha">
+<%= render @category %>
+</div>
+
+<div class="grid_8 omega">
+  <h3>Изображение для категории</h3>
+    <div class="b-uploadfile">
+  <%= render :partial => 'admin/images/upload_image', :object => add_image_admin_category_path(@category) %>
+  </div>  
+  <div style="margin-top:5px;">
+   <%= image_tag @category.images.first.picture.url unless @category.images.blank? %> 
+   </div>
+  <%= link_to_unless @category.images.blank?, 'Удалить изображения', remove_image_admin_category_path(@category) , :method=>:delete %> 
+<div class="spacer"></div>
+<% if @category.kind==0 -%>
+  <h3>Дочерние категории для виртуальной</h3>
+  <ul>
+  <% @category.child_for_virtual.each do |virtual_child| %> 
+    <li><%= link_to image_tag("edit.png"), edit_admin_category_path(virtual_child) %> <%= virtual_child.name %></li>
+  <% end -%>
+  </ul>
+<% end -%>   
+  <div class="spacer"></div>
+    Перемещение всех товаров из категори '<%= @category.name %>' в категорию:
+<%= form_for :move, :url => move_admin_category_path(@category) do |f| -%>
+  <%= tree_select  Category.cached_all_categories.select { |c| c.kind !=0 } , :move, :category_to  %>
+  <%= f.submit "Переместить" %>
+<% end -%>
+
+ </div>
+
+<div class="clear"></div>
+
+<div id="products_list">
+<div class="b-command-menu">
+  <%= link_to 'Показать список товаров', {:action => "show_products_list", :id =>@category.id  }, :remote => true, :html => {:class =>"pseudo-link" }%>
+</div>
+</div>
+
+<div class="spacer"></div>
+<%= link_to 'Назад к списку категоий', admin_categories_path %>

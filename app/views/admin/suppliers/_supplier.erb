@@ -1,0 +1,15 @@
+<%= form_for [:admin,@supplier], :html => {:class => 'one_line_form'}  do |f|%>
+  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @supplier} %>    
+<div class="b-formfield-div">
+  <%= f.label :name, 'Название поставщика' %>
+  <%= f.text_field :name %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :address, 'Адрес' %>
+  <%= f.text_area :address, :cols=>22, :rows=>5 %>
+</div>
+<div class="b-formfield-div">
+  <%= f.submit "Сохранить" %>
+</div>
+<%  end %>
+<div class="clr"></div>

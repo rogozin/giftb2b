@@ -1,0 +1,6 @@
+<% title 'Предоставление доступа к каталогу' %>
+<%= form_for :access_item, :url => admin_foreign_access_index_path, :html => {:class => 'one_line_form'}  do |f|%>
+<%= render :partial => "foreign_access", :locals => {:f => f} %>
+<%  end %>
+<div class="clr"></div>
+<%= link_to 'Назад к списку', admin_foreign_access_index_path %>

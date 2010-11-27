@@ -1,0 +1,19 @@
+<%= render :partial => 'admin/shared/sub_menu_categories' %>
+
+
+<%title 'Категории (разделы) каталога'  %>
+
+  <%#=render :partial => 'category_tree', :object => @cat %>
+
+<div id ="category_tree" class ="b-tree_list">
+<table>
+  <% @cat.each do |item| -%>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= item.active %></td>      
+      <td><%= item.sort_order %></td>
+    </tr>
+  <% end -%>
+</table>
+</div>
+

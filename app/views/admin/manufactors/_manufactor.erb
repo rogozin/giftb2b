@@ -1,0 +1,11 @@
+<%= form_for [:admin,@manufactor], :html => {:class => 'one_line_form'}  do |f|%>
+    <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @manufactor} %>
+<div class="b-formfield-div">
+  <%= f.label :name, 'Название производителя' %>
+  <%= f.text_field :name %>
+</div>
+<div class="b-formfield-div">
+  <%= f.submit "Сохранить" %>
+</div>
+<%  end %>
+<div class="clr"></div>

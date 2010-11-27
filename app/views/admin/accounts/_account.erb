@@ -1,0 +1,44 @@
+
+    <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @account} %>
+
+    <div class ="b-formfield-div">
+      <%= form.label :username, "Имя пользователя" %>
+      <%= form.text_field :username %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :email, "Email" %>
+      <%= form.text_field :email %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :password, "Пароль" %>
+      <%= form.password_field :password %>
+    </div>    
+    <div class="b-formfield-div">
+      <%= form.label :expire_date, "Срок действия" %>
+      <%= form.text_field :expire_date, :class => "datepicker" %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :phone, "Телефон" %>
+      <%= form.text_field :phone %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :fio, "Фамилия, Имя, Отчество" %>
+      <%= form.text_field :fio %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :active, "Активировать?" %>
+      <%= form.check_box :active %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.submit "Сохранить" %>
+    </div>
+
+<div>
+<p>
+   <%for r in Role.all %>
+  <%= check_box_tag "admin_account[role_object_ids][]", r.id, @account.role_objects.include?(r)  %>
+  <%= r.name %>
+  <%end%>
+</p>
+
+</div>

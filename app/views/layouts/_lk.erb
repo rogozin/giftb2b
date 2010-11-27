@@ -1,0 +1,8 @@
+<% if current_user %>
+  Вы вошли как   [<%=  current_user.username %>]
+  <%= link_to "Администрирование", admin_accounts_path if (current_user.is_admin? or current_user.has_role?("Редактор"))%>
+ <%= link_to "Выход", logout_path  %>
+<% else %>
+  <%= link_to "Регистрация", new_user_path  %>
+  <%= link_to "Вход в систему", login_path  %>
+<% end %>

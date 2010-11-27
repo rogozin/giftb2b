@@ -1,0 +1,11 @@
+<div class="content left_block">
+<h3>Результаты поиска:</h3>
+
+<h4>
+  <%= "Показаны первые 50 результатов:"  if @products.size==50 %> 
+</h4>
+<% @products.each do |item| -%>
+  <%= link_to item.short_name, product_path(item) %> <br />
+<% end -%>
+
+</div>

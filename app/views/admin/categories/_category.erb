@@ -1,0 +1,45 @@
+<%= form_for [:admin, @category], :html => {:class => 'one_line_form'}  do |f|%>
+  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @category} %>
+<div class="b-formfield-div">
+  <%= f.label :name, 'Название категории' %>
+  <%= f.text_field :name %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :kind, 'Тип категории' %>
+<%=  @category.parent_id ? @category.kind_name : f.select( :kind, options_for_select(Category.kinds,@category.kind), {}, {:onchange=>"if (value!=0) {$('#virtual_category, #parent_category').show() } else {$('#virtual_category, #parent_category').hide()} return false;"})  %>  
+</div>
+
+<% st = "display:none" if @category.kind==0 -%>
+
+<div class="b-formfield-div" id="parent_category" style="<%= st %>">
+  <%= f.label :parent_id, 'Родительская категория' %>
+  <%= tree_select  Category.cached_all_categories , :category, :parent_id,{}, @category.parent_id %>
+</div>
+
+<div class="b-formfield-div" id="virtual_category" style="<%= st %>">
+  <%= f.label :virtual_id, 'Виртуальная категория' %>
+  <%= f.select(:virtual_id,  Category.virtual.map{ |p| [ p.name, p.id] }, { :include_blank => "<-Виртуальная категория->" })%>
+</div>
+
+<div class="b-formfield-div">
+  <%= f.label :sort_order, 'Порядок сортировки' %>
+  <%= f.text_field :sort_order %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :active, 'Отображать?' %>
+  <%= f.check_box :active %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :meta, 'Теги МЕТА' %>
+  <%= f.text_area :meta, :cols=>22, :rows=>3 %>
+</div>
+<div>
+  <%= f.label :description, 'Описание' %>  <br /> <br />
+  <%= f.textile_editor :description, :cols=>54, :rows=>6%>  
+  <%= raw textile_editor_initialize(:framework => :jquery) %>
+</div>  
+<div class="b-formfield-div">
+  <%= f.submit "Сохранить" %>
+</div>
+<%  end %>
+<div class="clr"></div>

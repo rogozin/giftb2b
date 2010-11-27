@@ -1,0 +1,10 @@
+<div id="user_nav">
+        <% if current_user %>
+          <%= link_to "Администрирование", admin_accounts_path if current_user.is_admin? %>
+          <%= link_to current_user.username, edit_user_path(:current) %>
+          <%= link_to "Выход", logout_path  %>
+        <% else %>
+          <%= link_to "Регистрация", new_user_path  %>
+          <%= link_to "Вход в систему", login_path  %>
+        <% end %>
+      </div>

@@ -1,0 +1,28 @@
+<%= render 'admin/shared/sub_menu_data_changes' %>
+<% title "Экспорт данных" -%>
+
+<%= form_for :export_data, :url=> export_admin_export_data_path, :html => {:class=>'filter'}  do |f| -%>
+  <%= tree_select(Category.cached_all_categories,  'category',nil,{:value=>"-1", :name => "<-Без категории->"} ,params[:category].to_i ) %>
+ <%= select(nil ,'manufactor', options_for_select( Manufactor.all.collect{|i| [i.name, i.id] },params[:manufactor].to_i),{:prompt=>'<-Производитель->'}, {:name=>'manufactor'}) %>
+  <%= select(nil ,'supplier', options_for_select( Supplier.all.collect{|i| [i.name, i.id] },params[:supplier].to_i),{:prompt=>'<-Поставщик->'}, {:name=>'supplier'}) %> <br />
+  <div class="spacer"></div>
+  <h3>Выгружать следующую информацию:</h3>
+  <div class="grid_5" style="border:solid 1px #e8eef4; padding:5px;margin-top:10px;">
+  <ul>
+    <li><%= check_box_tag "options[additional_properties]", "1", true %>   <%= label_tag "options[additional_properties]", "Доп. свойства" %></li>       
+    <li><%= check_box_tag "options[images]", "1", true %>   <%= label_tag "options[images]", "Изображения" %></li>           
+    <li><%= check_box_tag "options[description]", "1", true %>   <%= label_tag "options[description]", "Описание" %></li>       
+    <li><%= check_box_tag "options[factur]", "1", true %>   <%= label_tag "options[factur]", "Материал" %></li>
+    <li><%= check_box_tag "options[size]", "1", true %>   <%= label_tag "options[size]", "Размер" %></li>
+    <li><%= check_box_tag "options[color]", "1", true %>   <%= label_tag "options[color]", "Цвет" %></li>
+    <li><%= check_box_tag "options[box]", "1", true %>   <%= label_tag "options[box]", "Упаковка" %></li>
+    <li><%= check_box_tag "options[price]", "1", true %>   <%= label_tag "options[price]", "Цена" %></li>
+    <li><%= check_box_tag "options[store]", "1", true %>   <%= label_tag "options[store]", "Склад" %></li>
+    <li><%= check_box_tag "options[meta]", "1", true %>   <%= label_tag "options[meta]", "Meta данные" %> </li>
+  </ul>
+  </div>
+  <div class="clear"></div>
+ <%=  f.submit "Экспорт в XML" %>
+<% end -%>
+
+

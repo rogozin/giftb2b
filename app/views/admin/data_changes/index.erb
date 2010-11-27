@@ -1,0 +1,56 @@
+<%= render 'admin/shared/sub_menu_data_changes' %>
+<% title "Импорт данных" -%>
+<%= javascript_include_tag 'jquery.form.js' -%>
+ <%= javascript_tag :defer => 'defer' do -%>
+    $(function() {
+      $('form').ajaxForm({dataType: 'script'});
+    })
+  <% end -%>
+  
+<%= render :partial => "file_upload" if @can_upload  %> 
+
+
+<div id="log" style="display:none">
+
+<div id="call_remote">
+<% unless @can_upload -%>
+  <%= javascript_tag do -%>
+    allow_pcr = true;
+    $('#log').show();
+ <% end %>      
+  <%= render :partial => "progress" %> 
+<% end -%>
+</div>
+
+<h3>Состояние:</h3>
+<div id="messages"></div>
+
+<h3>Прогресс:</h3>
+<div id="progress">0</div>
+
+<h3>Ошибки:</h3>
+<div id="errors"></div>
+</div>
+<div class="spacer"></div>
+<div class="last_workers">
+<h3>Последние задания:</h3>
+<table>
+<tr>
+  <th>Имя файла</th>
+  <th>Статус</th>
+  <th>Обработано</th>
+  <th>Старт</th>
+  <th>Финиш</th>
+</tr>
+<% @workers.each do |item| -%>
+  <tr>
+    <td><%= item.task_name %></td>
+    <td><%= item.current_status %></td>
+    <td><%= item.current_item %>/<%= item.total_items %></td>
+    <td><%= item.created_at %></td>
+    <td><%= item.task_end %></td>
+  </tr>  
+<% end -%>
+
+</table>
+</div>

@@ -1,0 +1,16 @@
+<%  @product.image_properties.group_by(&:property_name).each do |property_name, property_values|  -%>
+  <p class="article_name_2"><%= property_name %></p><br /><hr />
+  <div class="pict_float_2">
+	  <% property_values.each do |article_value| -%>
+    <div class="article_img_2_float">
+       <div class="article_img_2">
+          <div class="article_img_3">
+            <% p= Product.find_by_article(article_value.value) -%>
+            <%= link_to product_image(p), product_path(p) if p %>
+          </div>
+       </div>
+    </div>
+    <% end -%>	
+	<div class="clear"></div>
+  </div>
+<% end -%>		

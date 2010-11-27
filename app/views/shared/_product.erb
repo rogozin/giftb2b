@@ -1,0 +1,14 @@
+	<div class="article"> 
+		<div class="article_img_1"><div class="article_img_2"><div class="article_img_3">
+ 		  <%= link_to_function product_image(product), "bookmarks.sethash('#!products/#{product.permalink}','#{product_path(product)}','all_content'); get_data('#{product_path(product)}', 'all_content', true, 'all_content', product_load_complete)", :href=> product_path(product), :class => "article_a"  %>		   
+ </div></div></div> 
+
+		<p class="article_name"><%= product.short_name %></p> 
+		<p class="article_t">Материал: <span class="article_s"><%= product.factur %></span></p> 
+		<p class="article_t">Цвет: <span class="article_s"><%= product.color %></span></p> 
+		<p class="article_t">Размер: <span class="article_s"><%= product.size %></span></p> 
+		<p class="article_t">Цена: <span class="article_name"><%= product_price(product) %></span></p> 
+		<div class="article_t">
+		  <%= link_to_function 'Подробнее о товаре', "bookmarks.sethash('#!products/#{product.permalink}','#{product_path(product)}','all_content'); get_data('#{product_path(product)}', 'all_content', true, 'all_content', product_load_complete)", :href=> product_path(product), :class => "article_a"  %>		  
+		</div> 
+	</div> 

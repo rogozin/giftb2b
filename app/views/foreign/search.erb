@@ -1,0 +1,29 @@
+<div class="search"> 
+<div class="s_left1"></div><div class="s_center">
+  <%= form_for :search, :url => {:controller=>"foreign", :action => "search"}, :html => {:method => :get} do |f| -%>
+    <%= text_field_tag "request" %> <%= f.submit "Искать", :name => nil %>
+  <% end -%>
+</div><div class="s_right1"></div> 
+</div> <!-- end search --> 
+    
+ <% if @products -%>          
+<div class="content"> 
+<div class="center_block"> 
+
+<%= render :partial => 'shared/paginate', :object=> @products %>
+</div> <!-- end center_block --> 
+ 
+<div class="center_block" id="catalog_items"> 
+  <% for product  in @products do -%>
+    <%= render :partial => 'shared/product', :object=>product %>  
+  <% end -%>
+  	
+  <div class="clear"></div> 
+</div> <!-- end center_block --> 
+ 
+<div class="center_block"> 
+
+<%= render :partial => 'shared/paginate', :object=> @products %>
+</div> <!-- end center_block --> 
+</div>
+ <% end -%>

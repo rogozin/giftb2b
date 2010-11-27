@@ -1,0 +1,13 @@
+<%= render 'admin/shared/sub_menu_product' %>
+
+<%title 'Поставщики'  %>
+
+<div class='b-command-menu'>
+[<%= link_to 'Новый поставщик', new_admin_supplier_path %>]
+</div>
+
+
+  <div id='collection_items'>
+   <%= render :partial => "suppliers_list" , :object => @suppliers %>
+  </div>
+

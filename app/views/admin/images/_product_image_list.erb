@@ -1,0 +1,30 @@
+<table>
+  <tr>
+    <th>Изображение</th>
+    <th>Имя файла</th>
+    <th>Размер</th>
+     <th>Дт. создания</th>
+     <th></th>
+  </tr>
+  <% @images.each do |item| -%>
+   <tr>
+    	<td>
+    	  <%= image_tag item.picture.url(:thumb) %>
+
+    	</td>
+    	<td>
+    	  <%= item.picture_file_name %> <br />
+     	  <%= link_to 'оригинал', item.picture.url, :popup => ['new_window_name', 'height=300,width=300']  %>
+    	</td>
+    	<td>
+    	  <%= number_to_human_size(item.picture_file_size) %>
+    	</td>
+    	<td>
+    	  <%= item.created_at.to_s %>
+    	</td>
+    	<td><%= link_to image_tag('bin.png'), remove_admin_product_image_path(@product,item), :method => :delete, :confirm => 'Изображение будет отвязано от товараю Вы уверены?', :title=>'Отвязать изображение от товара'  %></td>
+    </tr>
+  <% end -%>
+
+</table>
+

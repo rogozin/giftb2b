@@ -1,0 +1,33 @@
+<% title 'Список пользователей'  %>
+
+<div class="b-command-menu">
+  <%= link_to "Новый пользователь", new_admin_account_path %>
+</div>
+<div class="clr"></div>
+<% if @users.size >0 %>
+<table>
+  <tr>
+    <th>Пользователь</th>
+    <th>ФИО</th>
+    <th>E-Mail</th>
+    <th>Дата создания</th>
+    <th>Последний вход</th>
+    <th>Кол-во входов</th>
+    <th></th>
+  </tr>
+<% for user in @users do %>
+  <tr>
+    <td><%= link_to  user.username, edit_admin_account_path(user.id) %></td>
+    <td><%= user.fio %></td>
+    <td><%= user.email %></td>
+    <td><%= Russian.l(user.created_at, :format =>:long) %></td>
+    <td><%= Russian.l(user.current_login_at, :format => :long)  if user.current_login_at %></td>
+    <td><%= user.login_count %></td>
+    <td><%=  link_to(user.active? ? "Закрыть доступ":"Активировать" , activate_admin_account_path(user.id), :method => :put )  %></td>
+  </tr>
+<% end %>
+</table>
+<%  else %>
+Пользователей в системе нет!
+<% end %>
+

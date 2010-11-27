@@ -1,0 +1,14 @@
+  <tr id=<%= "prop_#{property.id}_values" %> style="display:none">  
+    <td colspan="5">
+<table  class="noborder" >
+    <% property.property_values.each do |prop_value_item| -%>
+    <tr>      
+      <td style="padding-left:40px"><%= prop_value_item.value %></td>
+      <td><%=  link_to image_tag('edit.png'), edit_admin_property_value_path(property.id,prop_value_item.id), :title =>'Редактировать'  %> <%=  link_to image_tag('bin.png'), admin_property_value_path(property.id,prop_value_item.id), :method=> :delete, :confirm => "Вы уверены?",  :title => 'Удалить'  %></td>
+
+    </tr>      
+
+    <% end -%>
+</table> 
+    </td>
+  </tr>     

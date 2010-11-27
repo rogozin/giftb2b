@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru-ru" lang="ru-ru"> 
+<head> 
+  <%= stylesheet_link_tag  'main','jquery-ui-1.7.2.custom.css','jquery.treeview' %>
+  <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie', 'bookmarks.js' %>
+  <script type="text/javascript">
+window.onload = function(){
+    bookmarks.initialize();
+}
+</script>
+  
+  <script type="text/javascript">
+
+    <%= yield :script %>
+   $(document).ready(function()
+  {
+    //$(".datepicker").datepicker($.datepicker.regional['ru']);
+    $('.treeview').treeview({collapsed: true,persist: "cookie"});    
+    <%= yield :document_ready %>
+  })
+  
+ </script>
+  <%= csrf_meta_tag %>
+</head> 
+<body> 
+  <div id="header_title"> 
+  </div> <!-- end header_title --> 
+  <div id="header"> 
+  </div> <!-- end header --> 
+  
+  <div id="all_content"> 
+ <div class="content">
+   <%= render :partial => 'shared/search' %>
+  <div class="clear"></div> 
+   <%= render :partial => 'shared/description' %>
+ </div>
+  <div class="clear"></div>       
+
+       <%= yield :layout  %>
+
+  </div> <!-- end all_content --> 
+  <div id="right_content"> 
+ 
+    <div class="banner_right"></div> 
+ 
+      <!-- <div class="line_right"></div> --> 
+    <div class="line"></div> 
+    <div class="left_block"> 
+       <%= render :partial => 'shared/prodazha_suvenirov' %>     
+    </div> <!-- end left_block --> 
+    <div class="line"></div> 
+    <div class="left_block"> 
+      <%= render :partial => 'shared/tematicheskie' %>       
+    </div> <!-- end left_block --> 
+    <div class="line"></div> 
+    <div class="left_block"> 
+      <%= render :partial => 'shared/predlozheniya' %> 
+    </div> <!-- end left_block --> 
+    <div class="line"></div> 
+    <div class="left_block"> 
+      <%= render :partial => 'shared/uslugi' %> 
+    </div> <!-- end left_block --> 
+    <div class="line"></div> 
+    <div class="banner_left"></div> 
+    <div class="line"></div> 
+    <div class="left_block"> 
+      <%= render :partial => 'shared/sovety' %> 
+    </div> <!-- end left_block --> 
+    <div class="line"></div> 
+    <div class="left_block"> 
+      <%= render :partial => 'shared/statistika' %>
+    </div> <!-- end left_block --> 
+    <div class="line"></div> 
+    <div class="left_block"> 
+      <%= render :partial => 'shared/opros' %>
+    </div> <!-- end left_block --> 
+  </div> <!--end right_content --> 
+  <div id="left_content"> 
+    <%= link_to image_tag("/images/logo_giftb2b.gif", :width => "207", :height => "68px", :alt => "giftb2b.ru", :style => "margin-top:13px;margin-left:0px;" ), root_path  %>
+    <div style="width:100%;text-align:center;padding-top:20px;"><p class="text_11pt_ff66cc">узнать больше...</p></div> 
+    <div class="lk" id="lk"> 
+    <%  if current_user -%>
+      <%= render  :partial =>'layouts/lk' %>
+    <% else -%>
+    <%= render :partial => "layouts/pass_input" %>
+    <% end -%>
+    </div> <!-- end lk --> 
+    <div class="line"></div> 
+    <div class="left_block"> 
+       <%= render :partial => 'shared/catalog' %>
+    </div> <!-- end left_block --> 
+  </div> <!--end left_content --> 
+  <div class="clear"></div> 
+  <div id="footer">здесь наши координаты и адрес
+  </div> <!-- end footer --> 
+</body> 
+</html>

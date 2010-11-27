@@ -1,0 +1,8 @@
+<% content_for :sub_menu do %>
+  <ul id="sub_nav">
+    <%= tab :categories, :route => :catalog_admin_categories, :label => 'Каталог', :match_path => "/categories/catalog" %>
+    <%= tab :thematic, :route => :thematic_admin_categories, :label => 'Тематические', :match_path => "/categories/thematic" %>
+    <%= tab :analogs, :route => :analogs_admin_categories, :label => 'Аналоги', :match_path => "/categories/analog"  %>    
+    <%= tab :virtuals, :route => :virtuals_admin_categories, :label => 'Виртуальные', :match_path => "/categories/virtual", :css_class => 'last' %>        
+  </ul>
+<% end %>

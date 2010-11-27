@@ -1,0 +1,8 @@
+<%= render 'admin/shared/sub_menu_product' %>
+
+<%title 'Новый товар'  %>
+
+<%= render :partial => "product", :object => @product %>
+<div class="clr"></div> 
+<%= link_to 'К списку продуктов', admin_products_path  %>
+

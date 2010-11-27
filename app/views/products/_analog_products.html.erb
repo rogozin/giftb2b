@@ -1,0 +1,13 @@
+		<p class="article_name_2">Аналогичные товары</p><BR><HR>
+		<div class="pict_float_2">
+		<% @product.analogs(3).each do |analog| -%>
+		<div class="article_img_2_float">
+		  <div class="article_img_2">
+		    <div class="article_img_3">
+		    <%= link_to product_image(analog), product_path(analog) %>
+		    </div>
+		  </div>
+		</div>
+		<% end -%>
+		<div class="clear"></div>
+		</div>

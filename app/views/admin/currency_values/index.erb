@@ -1,0 +1,64 @@
+<%= render 'admin/shared/sub_menu_product' %>
+<% title "Валютные соотношения" -%>
+<%= javascript_tag " $(document).ready(function()
+ { $('#currency_dt').datepicker($.datepicker.regional['ru']); })" %>
+ 
+ <% if @currency_values.present? -%>
+ <h3>Текущее значение курса: <span>(Установлен <%= @currency_values.first.created_at %>)</span></h3>
+ 
+ <p>>USD: <%= @currency_values.first.usd %></p>
+ <p>>EUR: <%= @currency_values.first.eur %></p>   
+ <% end -%>
+
+<h3>Установить новое значение курса:</h3>
+<div class="grid_5 alpha">
+  <div class="one_line_form">
+  <%= form_for "currency", :url=> admin_currency_values_path do |f| -%>
+    <div class="b-formfield-div b-date">
+    <%= f.label "dt", "Дата" %> 
+    <%= f.text_field "dt" %>
+    </div>
+
+    <div class="b-formfield-div b-date">
+    <%= f.label "usd"%> 
+    <%= f.text_field "usd" %>
+    </div>
+   
+    <div class="b-formfield-div b-date">
+    <%= f.label "eur"%> 
+    <%= f.text_field "eur" %>
+    </div>
+    
+    <div class="b-formfield-div">
+    <%= f.submit "Ok" %>
+    </div>
+  <% end -%>
+  </div>
+</div>
+
+<div class="grid_8 omega">
+  <%= link_to 'Курс ЦБРФ', { :action=>'cbrf_tax' }, :remote => true %>
+  <div id="kurs" style="padding:5px;"></div>
+</div>
+<div class="clear"></div>
+<div class="grid_16">
+
+<h3>История:</h3>
+<table >
+  <tr>
+    <th>Дата</th>
+    <th>USD</th>
+    <th>EUR</th>
+    <th></th>
+  </tr>
+  <% @currency_values.each do |currency_item| -%>  
+  <tr>
+    <td><%= currency_item.dt %></td>
+  	<td><%= currency_item.usd %></td>
+	  <td><%= currency_item.eur %></td>
+	  <td><%= link_to image_tag('bin.png'), admin_currency_value_path(currency_item), :method => :delete, :confirm => "Удалить это значение курса?"  %></td>
+  </tr>
+  <% end -%>
+</table>
+
+</div>

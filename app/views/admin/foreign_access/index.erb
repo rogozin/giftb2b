@@ -1,0 +1,31 @@
+<%title 'Доступ к удаленному каталогу'  %>
+
+<div class='b-command-menu'>
+[<%= link_to 'Предоставить доступ', new_admin_foreign_access_path %>]
+</div>
+
+  <div id='collection_items'>
+    <table>
+    <tr>
+      <th></th>
+      <th>Название</th>
+      <th>IP</th>
+      <th>Ключ</th>      
+      <th>Доступ с</th>      
+      <th>Доступ по</th>
+      <th></th>      
+    </tr>
+    <% @catalog_clients.each do |cl| -%>
+      <tr>
+        <td><%= link_to image_tag("edit.png"), edit_admin_foreign_access_path(cl) %></td>
+        <td><%= cl.name %></td>
+        <td><%= cl.ip_addr %></td>
+        <td><%= cl.param_key %></td>
+        <td><%= cl.accepted_from %></td>
+        <td><%= cl.accepted_to %></td>        
+        <td><%= link_to image_tag("bin.png"), admin_foreign_access_path(cl), :method=>:delete, :confirm=>"Удалить?"  %></td>
+      </tr>
+    <% end -%>
+    </table>
+  </div>
+

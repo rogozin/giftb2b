@@ -1,0 +1,8 @@
+<%= render 'admin/shared/sub_menu_product' %>
+
+<%title 'Новое свойство'  %>
+
+<%= render  :partial => 'property', :object => @property %>
+<div class="clr"></div> 
+<%= link_to 'К списку свойств', admin_properties_path  %>
+

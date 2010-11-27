@@ -1,0 +1,4 @@
+<p class="b-header"><span><strong>Тематические сувениры</strong></span></p> 
+        <div style="margin-left:15px;">
+  <%= tree_ul(Category.cached_active_categories.select{|cat| cat.kind==2}) {|item| "<a class='menu_left' href=#{category_path(item)}>#{item.name}</a>"} %>
+        </div>

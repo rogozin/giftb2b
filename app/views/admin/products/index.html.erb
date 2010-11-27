@@ -1,0 +1,29 @@
+<%= render 'admin/shared/sub_menu_product' %>
+
+<%title 'Список товаров',false  %>
+
+<div class="grid_8 alpha">
+  <h1>Список товаров <span>[<%= link_to 'Создать новый', new_admin_product_path %>]</span></h1>
+</div>
+<div class="clear"></div>
+<fieldset>
+<legend>Фильтр</legend>
+<%= form_tag admin_products_path, :method=>:get, :class=>'filter' do -%>
+<%= raw tree_select(Category.cached_all_categories,  'category',nil,{:value=>"-1", :name => "<-Без категории->"} ,params[:category].to_i ) %>
+ <%= select(nil ,'manufactor', options_for_select( Manufactor.all.collect{|i| [i.name, i.id] },params[:manufactor].to_i),{:prompt=>'<-Производитель->'}, {:name=>'manufactor'}) %>
+  <%= select(nil ,'supplier', options_for_select( Supplier.all.collect{|i| [i.name, i.id] },params[:supplier].to_i),{:prompt=>'<-Поставщик->'}, {:name=>'supplier'}) %>
+ артикул:&nbsp;&nbsp;&nbsp;    <%= text_field_tag :name, params[:name] %>    <%= submit_tag "Ok", :name=>nil %><br />
+ <%= select(nil ,'active', options_for_select( [['Нет', '0'],['Да','1']],params[:active]),{:prompt=>'<-Опубликован->'},
+ {:name=>'active'}) %> 
+<%= select(nil ,'store', options_for_select( [['Отсуствует', '0'],['В наличии','1']],params[:store]),{:prompt=>'<-Наличие на складе->'},
+ {:name=>'store'}) %>
+<% end -%>
+</fieldset>
+
+<div class="spacer"></div>
+<div>
+  <%=render :partial => 'products' %>  
+</div>
+
+<%= will_paginate @products %>
+<%= link_to 'Выгрузить в формате XML', :action => "index", :format => :xml, :category=>params[:category], :manufactor => params[:manufactor], :supplier => params[:supplier] %>

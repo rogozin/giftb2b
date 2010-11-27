@@ -1,0 +1,17 @@
+<%= render 'admin/shared/sub_menu_product' %>
+
+<%title 'Категории продуктов'  %>
+
+<div class='b-command-menu'>
+[<%= link_to_function 'Новый производитель', "$('#div_new').show()"%> ]
+</div>
+    <div id='div_new' style='display:none'>
+       <input type='text' id='new_item'/>
+       <%= link_to_function image_tag('disk.png'), "$.post('manufactors', {name: $('#new_item').attr('value')})"%>
+    </div>
+<%#= $('#new_item').attr('value') %>
+
+  <div id='collection_items'>
+   <%= render :partial => "manufactors_list" , :locals => {:manufactors_list => @manufactors_list} %>
+  </div>
+

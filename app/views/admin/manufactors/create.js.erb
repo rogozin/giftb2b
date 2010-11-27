@@ -1,0 +1,3 @@
+$('#collection_items').html("<%= escape_javascript render(:partial => 'manufactors_list', :object => Manufactor.all) %>") 
+$('#div_new').hide();
+$('#new_item').attr('value','')

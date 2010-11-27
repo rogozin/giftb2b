@@ -1,0 +1,7 @@
+  <% form_remote_tag  :url => {:action=>"find_product"}, :html=> {:class=>'filter'} do  %>
+<%= tree_select(Category.cached_all_categories,  'category',nil,{} ,params[:category].to_i ) %>
+ <%= select(nil ,'manufactor', options_for_select( Manufactor.all.collect{|i| [i.name, i.id] },params[:manufactor].to_i),{:prompt=>'<-Производитель->'}, {:name=>'manufactor'}) %>
+ Название:<%= text_field_tag :name, params[:name] %> код:<%= text_field_tag :code, params[:code] %>
+<%= submit_tag "Ok", :name=>nil %>
+  <% end %>
+  <div id="ajax_products"></div>

@@ -1,0 +1,32 @@
+<%= form_for user,  :html => {:class => 'one_line_form'} do |form| %>
+  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => user} %>    
+
+    <div class="b-formfield-div">
+      <%= form.label :username, "Имя пользователя" %><span>*</span>
+      <%= form.text_field :username %>
+    </div>
+    <div class="b-formfield-div">
+      <%= form.label :email, "Email" %><span>*</span>
+      <%= form.text_field :email %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :password, "Пароль" %><span>* (не менее 4-х знаков)</span>
+      <%= form.password_field :password %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :password_confirmation, "Подтверждение пароля" %>
+      <%= form.password_field :password_confirmation %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :phone, "Телефон" %>
+      <%= form.text_field :phone %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :fio, "Фамилия, Имя, Отчество" %>
+      <%= form.text_field :fio %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.submit "Сохранить" %>
+    </div>
+  <% end %>
+

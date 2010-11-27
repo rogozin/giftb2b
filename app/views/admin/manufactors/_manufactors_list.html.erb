@@ -1,0 +1,20 @@
+ <table>
+      <tr>
+        <th></th>
+        <th>Производитель</th>
+        <th></th>
+       <% manufactors_list.each do |item| %>
+  	    <tr>
+    	    <td>
+        		<%= link_to image_tag('edit.png'), edit_admin_manufactor_path(item)  %>
+    	    </td>
+    	   	<td>
+      		  <span id="<%="item_#{item.id}"%>"><%=h item.name %></span>
+      		</td>
+      		<td>
+      		  <%= link_to image_tag('bin.png'), admin_manufactor_path(item) , :method => :delete, :confirm=>"Уверены?", :html => {:title =>'Удалить'}  %>
+      		</td>
+      	</tr>
+    	<% end %>
+  </table>
+

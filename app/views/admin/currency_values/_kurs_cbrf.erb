@@ -1,0 +1,9 @@
+Дата:<span id="usd"><%= kurs_cbrf[0] %></span> <br />
+USD: <span id="usd"><%= kurs_cbrf[1] %></span> <br />
+EUR: <span id="usd"><%= kurs_cbrf[2] %></span>
+<%= form_for "currency", :url=> admin_currency_values_path do |f| -%>
+    <%= hidden_field_tag "currency[dt]", kurs_cbrf[0].to_s %>
+    <%= hidden_field_tag "currency[usd]", kurs_cbrf[1].sub(',','.') %>
+    <%= hidden_field_tag "currency[eur]", kurs_cbrf[2].sub(',','.') %>
+    <%= f.submit "Установить" %>
+  <% end -%>

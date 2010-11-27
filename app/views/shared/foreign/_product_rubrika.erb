@@ -1,0 +1,6 @@
+<div class="center_block">
+<p class="product_h_product"><strong>Рубрика: 
+<%= @product.main_categories.map{|x| link_to( x.name, '#', :class => "menu_left")}.join(', ') -%>
+</strong></p>
+</div>
+

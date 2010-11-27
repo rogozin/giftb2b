@@ -1,0 +1,17 @@
+<%= render 'admin/shared/sub_menu_product2' %>
+
+<%title 'Изображения товара'  %>
+
+  <div class="b-uploadfile">
+  <%= render :partial => 'upload_image', :object => admin_product_images_path(@product) %>
+  </div>
+
+
+<div class="clear"></div>
+  <div>
+    <h3>Список изображений </h3>
+   <%= render :partial => "product_image_list" %>
+  </div>
+
+<div class="clr"></div>
+

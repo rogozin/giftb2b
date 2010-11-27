@@ -1,0 +1,33 @@
+<table class="products">
+  <tr>
+    <th></th>
+    <th>КОД</th>
+    <th>Категория</th>
+    <th>Производитель</th>
+    <th>Поставщик</th>
+    <th>Артикул</th>
+    <th>Наименование</th>
+    <th>Цена</th>
+    <th>П?</th>
+    <th>Скл</th>
+    <th></th>
+  </tr>
+  <% @products.each do |item| -%>
+    <tr>
+      <td><%= link_to image_tag('edit.png') ,edit_admin_product_path(item) %></td>    
+      <td><%= item.id %></td>
+      <td><%=h item.categories.collect(&:name).join(', ')%> </td>
+      <td><%=h item.manufactor_name %> </td>
+      <td><%=h item.supplier_name %> </td>      
+      <td><%=h item.article %> </td>
+      <td><%=h item.short_name %></td>
+      <td><%=h product_price(item) %></td>
+     
+      <td class="center"><%=link_to  image_tag(item.active ? 'checked.gif' : 'unchecked.gif', :id => "img_#{item.id}") ,   activate_admin_product_path(item.id), :remote => true, :method=>:put %>
+</td>
+      <td><%= h item.store_count %></td>
+      <td><%= link_to image_tag('bin.png'), admin_product_path(item, :back_url=>request.url), :method=>:delete, :confirm => 'Вы уверены?'   %></td>
+    </tr>
+  <% end -%>
+</table>
+

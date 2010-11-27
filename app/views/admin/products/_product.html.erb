@@ -1,0 +1,97 @@
+<div class="grid_7 alpha">
+<h2>Основная информация</h2>
+<%= form_for [:admin,product],  :html => {:class => 'one_line_form'} do |form| %>
+    <%= render :partial => 'admin/shared/error_messages', :locals => {:target => product} %>
+    <div class="b-formfield-div">
+     <%= form.label :manufactor, "Производитель товара" %>
+    <%= form.collection_select(:manufactor_id, Manufactor.all, :id, :name, :prompt => '<Выберите значение>') %>
+    </div>
+    <div class="b-formfield-div">
+     <%= form.label :supplier, "Поставщик товара" %>
+    <%= form.collection_select(:supplier_id, Supplier.all, :id, :name, :prompt => '<Выберите значение>') %>
+    </div>    
+    <div class="b-formfield-div">
+      <%= form.label :article, "Артикул" %>
+      <%= form.text_field :article %>
+    </div>
+     <div class ="b-formfield-div">
+      <%= form.label :short_name, "Краткое наименование" %>
+      <%= form.text_field :short_name %>
+    </div>
+     <div class ="b-formfield-div">
+      <%= form.label :full_name, "Полное наименование" %>
+      <%= form.text_field :full_name %>
+    </div>    
+    <div class ="b-formfield-div">
+      <%= form.label :color, "Цвет" %>
+      <%= form.text_field :color %>
+    </div>          
+    <div class ="b-formfield-div">
+      <%= form.label :factur, "Материал" %>
+      <%= form.text_field :factur %>
+    </div>    
+    <div class ="b-formfield-div">
+      <%= form.label :box, "Упаковка" %>
+      <%= form.text_field :box %>
+    </div>        
+    <div class ="b-formfield-div">
+      <%= form.label :size, "Размер" %>
+      <%= form.text_field :size %>
+    </div>            
+     <div class ="b-formfield-div">
+      <%= form.label :price, "Цена" %>
+      <%= form.text_field :price %>
+    </div>
+     <div class ="b-formfield-div">
+      <%= form.label :currency_type, "Валюта" %>
+      <%= select_tag "product[currency_type]", options_for_select(["RUB","USD","EUR"],product.currency_type) %>
+    </div>               
+     <div class ="b-formfield-div">
+      <%= form.label :sort_order, "Порядок сортировки" %>
+      <%= form.text_field :sort_order %>
+    </div>    
+     <div class ="b-formfield-div">
+      <%= form.label :acive, "Разрешить публикацию?" %>
+      <%= form.check_box :active%>
+    </div>            
+    <div class="b-formfield-div">
+      <%= form.label :store_count, "Наличие на складе" %>
+      <%= form.text_field :store_count %>
+    </div>    
+    <div class="b-formfield-div">
+      <%= form.label :remote_store_count, "Наличие на удал. складе" %>
+      <%= form.text_field :remote_store_count %>
+    </div>        
+     <div class ="b-formfield-div">
+      <%= form.label :from_store, "Поставка со склада" %>
+      <%= form.check_box :from_store%>
+    </div>  
+     <div class ="b-formfield-div">
+      <%= form.label :from_remote_store, "Поставка с удал. склада" %>
+      <%= form.check_box :from_remote_store%>
+    </div>      
+    <div class="b-formfield-div">
+      <%= form.submit 'Сохранить' %>
+    </div>
+ </div>    
+
+<div class="grid_5">
+<%#= render :partial => "additional_props" %>
+<h3>Категории</h3>
+<%= tree_ul_category(Category.cached_all_categories,nil,true,'product',@product.category_ids) %>
+<%#= prop_list_for_categories(@product.category_ids) %>
+</div>
+<div class="grid_4 omega">
+<h3>Свойства</h3>
+<%= product_properties_tree(@product.category_ids, @product.property_value_ids) %>  
+</div>
+
+<div class="clear"></div>
+    <div class="grid_8">
+    <h3>Описание товара</h3>
+      <%= form.textile_editor :description, :cols=>55, :rows=>10%>
+    </div>    
+
+  <% end %>
+  <%= textile_editor_initialize(:framework => :jquery) %>
+

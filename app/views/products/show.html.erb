@@ -1,0 +1,60 @@
+<div class="content">
+<%= render :partial => (controller_name == "foreign" ? "/shared/foreign/product_rubrika" : "product_rubrika") %>
+<div class="center_block">
+	<div class="big_pict">
+		<div class="pict_2"><div class="pict_3" id="big_img">
+		<%= product_image(@product,false) %>
+		</div>
+		</div>
+	</div>
+	<div class="text_block">
+		<div class="text_bg">
+			<div class="margin_text">
+			<p class="article_name_2"><span class="article_t">Название: </span><%= @product.short_name %></p>
+		<p class="article_name_2"><span class="article_t">Артикул: </span><%= @product.unique_code %></p>						
+			<p class="article_t">Описание: <span class="article_s"><%= @product.description %></span></p>
+			<p class="article_t">Материал: <span class="article_s"><%= @product.factur %></span></p>
+			<p class="article_t">Цвет: <span class="article_s"><%= @product.color %></span></p>
+			<p class="article_t">Размер: <span class="article_s"><%= @product.size %></span></p>
+			<%= render :partial => "products/text_properties" %>
+			<br />
+			<p class="article_t">Цена: <span class="article_name"><%= product_price(@product) %></span></p>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="pict_block">
+		<div class="pict_float">
+		<% @product.images.each_with_index do |image,index| -%>
+		 <% unless index == 0 -%>
+		  <div class="article_img_1_float">
+		    <div class="article_img_2">
+    		  <div class="article_img_3" >
+    		    <%#= link_to image_tag (image.picture.url(:thumb)), image.picture.url, :popup => true %>
+    		    <%= link_to_function image_tag (image.picture.url(:thumb), :id=>"small_img_#{index}"), "return changeImage(#{index})" %>
+    		  </div>
+    	  </div>
+    	</div>
+    	<% end -%>
+		<% end -%>
+		<div class="clear"></div>
+		</div>
+<!--		<div class="button_block">
+		<A href="http://test.giftb2b.ru/index3.html#"><IMG src="./index3_files/buttons_1.png" alt="" width="232px" height="38px"></A><BR>
+		<A href="http://test.giftb2b.ru/index3.html#"><IMG src="./index3_files/buttons_2.png" alt="" width="232px" height="38px"></A>
+		</div>
+		-->
+		<div class="clear"></div>
+	</div>
+	<div class="pict_block">
+	  <%= render :partial => "products/image_properties" %>
+	</div>
+	<div class="pict_block">
+    <%= render :partial => "products/analog_products" %>
+	</div>
+
+</div> <!-- end center_block -->
+
+<!--<div class="banner_center"></div>
+<div class="banner_center"></div>-->
+</div> <!-- end content -->

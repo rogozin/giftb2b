@@ -1,0 +1,24 @@
+<% title "Авторизация" %>
+
+<div class="grid_16">
+
+<%= form_for @user_session, :html => { :class => 'one_line_form'} do |form| %>
+  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @user_session %>    
+
+    <div class="b-formfield-div">
+      <%= form.label :username, "Имя пользователя" %>
+      <%= form.text_field :username %>
+    </div>
+    <div class="b-formfield-div">
+      <%= form.label :password, "Пароль" %>
+      <%= form.password_field :password %>
+    </div>
+    <div class="b-formfield-div">
+      <%= form.submit "Войти" %>
+    </div>
+<% end %>
+
+
+
+    </div>
+

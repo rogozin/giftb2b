@@ -1,0 +1,32 @@
+<%= form_for [:admin,@property], :html => {:class => 'one_line_form'}  do |f|%>
+  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @property} %>    
+<div class="grid_8 alpha">
+<div class="b-formfield-div">
+  <%= f.label :name, 'Название' %>
+  <%= f.text_field :name %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :property_type, 'Тип' %>
+  <%= f.select :property_type, options_for_select(Property.property_types, @property.property_type) %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :sort_order, 'Порядок сортировки' %>
+  <%= f.text_field :sort_order %>
+</div>
+<div class="b-formfield-div">
+<%= f.label :active, 'Активно?' %>
+  <%= f.check_box :active %>
+</div>
+<div class="b-formfield-div">
+  <%= f.submit "Сохранить" %>
+</div>
+</div>
+
+<div class="grid_8 omega">
+<h3>Категории</h3>
+<%= tree_ul_category(Category.cached_all_categories,nil,true,'property',@property.category_ids) %>
+</div>
+
+
+<%  end %>
+<div class="clr"></div>
