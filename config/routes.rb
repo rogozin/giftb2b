@@ -33,6 +33,7 @@ Giftr3::Application.routes.draw do
         post :move
         post :add_image
         delete :remove_image
+        post :change_sort
       end    
       collection do
         get :catalog

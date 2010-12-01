@@ -1,1 +1,2 @@
 $('#category_tree').html("<%= escape_javascript render(:partial => 'category_tree', :object =>  @cat) %>");
+$("#sort_<%=@category.id%>").parents('tr').effect("highlight", {}, 2000);

@@ -1,0 +1,1 @@
+$('#child_of_<%= @category.id %>').toggle().children('td').html("<%= escape_javascript render(:partial => 'category_tree', :object =>  @cat)  %>");

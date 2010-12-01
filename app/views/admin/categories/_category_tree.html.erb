@@ -1,8 +1,13 @@
-<div class="b-command-menu">
- [<%= link_to 'Новая категория', new_admin_category_path %>]
-</div>
-
-<%= category_tree_table (category_tree)  do |item|
-  item.name
-end%>
-
+<table>
+  <% @cat.each do |item| -%>
+    <tr>
+      <td><%= link_to '+', {:action => "child_items", :id => item.id}, :remote => true, :class=>"toggle-sign"  %><%= item.name %></td>
+      <td><%= link_to_function checked_box_image(item.active, "active_state_#{item.id}"),  "$.post('toggle_state/#{item.id}',{action_name: $('#current_action_name').attr('value') } )"  %></td>            
+      <td><%= text_field_tag "sort_#{item.id}", item.sort_order, :size =>1 %>
+      <%= link_to_function image_tag('disk.png'), "$.post('change_sort/#{item.id}', {action_name: $('#current_action_name').attr('value'), sort: $('#sort_#{item.id}').attr('value') } )" %></td>
+    </tr>
+      <tr class="g-hidden toggled" id="child_of_<%= item.id %>">
+      <td style="padding-left:30px;" colspan=3></td>
+      </tr>    
+  <% end -%>
+</table>

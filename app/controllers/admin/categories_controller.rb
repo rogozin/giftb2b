@@ -3,24 +3,23 @@ class Admin::CategoriesController < Admin::BaseController
      allow :Администратор, :Редактор
   end
   
+  before_filter :find_catalog_items, :only => [:catalog, :thematic, :analogs, :virtuals]
+  
   def index
     
   end
 
   def catalog
-    @cat = Category.catalog.roots
- end
+       
+  end
  
   def thematic
-    @cat = Category.thematic
   end
   
   def analogs
-    @cat = Category.analog
   end
   
   def virtuals
-    @cat = Category.virtual
   end
   
   def new
@@ -60,26 +59,24 @@ class Admin::CategoriesController < Admin::BaseController
   end
   
   def toggle_state
-    @categroy  =Category.find(params[:id])
-    @categroy.update_attribute :active, !@categroy.active
-    if request.xhr?
-       @cat = Category.roots
-       render :update do |page|
-        page.replace_html :category_tree, :partial => "category_tree", :object => @cat      
-      end
+    @category  =Category.find(params[:id])
+    @category.toggle! :active
+    if request.xhr?      
+      @cat = get_catalog_items(params[:action_name])
     else 
-    redirect_to admin_categories_path
+      flash[:notice] = "Состояние изменено!"      
+      redirect_to send("admin_#{params[:action_name]}_path")
     end
   end
   
   def change_sort
-    @categroy = Category.find(params[:id])
-    @categroy.update_attribute :sort_order, params[:sort]    
-    if request.xhr?
-      @cat = Category.roots
+    @category = Category.find(params[:id])
+    @category.update_attribute :sort_order, params[:sort]    
+    if request.xhr?      
+      @cat = get_catalog_items(params[:action_name])
     else 
       flash[:notice] = "Порядок сортировки изменен"      
-      redirect_to admin_categories_path
+      redirect_to send("admin_#{params[:action_name]}_path")
     end
   end
   
@@ -120,6 +117,32 @@ class Admin::CategoriesController < Admin::BaseController
     render :update do |page|
       page.replace_html :products_list, :partial => "products"
     end    
+  end
+  
+  def child_items
+    @category = Category.find(params[:id])
+    @cat = @category.children
+  end
+  
+  private 
+  
+  def find_catalog_items
+    @cat = get_catalog_items(action_name) 
+  end
+  
+  def get_catalog_items catalog_type
+      case catalog_type
+        when "catalog"
+          Category.catalog.roots
+        when "thematic"  
+          Category.thematic.roots
+        when "analogs"
+          Category.analog.roots
+        when "virtuals"
+          Catalog.virtual.roots              
+        else
+          Catalog.roots                
+      end
   end
   
 end

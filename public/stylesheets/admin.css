@@ -215,6 +215,9 @@ a img {border:0 none;}
 
 .pagination {margin: 15px 0;}
 
+/*============GLOBAL===============*/
+.g-hidden{display:none;}
+
 /*==========================================================
           OTHERS
 ===========================================================*/
@@ -369,3 +372,10 @@ fieldset
     padding:10px;
 }
 
+.toggle-sign
+{
+  text-decoration:none;
+  font-size:16px;
+  font-weight:bold;
+  padding:0 3px;
+}
