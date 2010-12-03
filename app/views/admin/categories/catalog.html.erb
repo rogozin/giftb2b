@@ -1,16 +1,5 @@
 <%= render :partial => 'admin/shared/sub_menu_categories' %>
 
-<% content_for :document_ready do -%>
-$('tr').toggle(function() {
-  alert($(this).children('a.toggle-sign').first().html());
-  return true;
-}, function() {
-  alert('Second handler for .toggle() called.');
-  return true;
-});
-
-<% end -%>
-
 <%title 'Категории (разделы) каталога'  %>
 
 <%= hidden_field_tag :current_action_name, action_name -%>

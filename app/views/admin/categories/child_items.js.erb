@@ -1,1 +1,4 @@
-$('#child_of_<%= @category.id %>').toggle().children('td').html("<%= escape_javascript render(:partial => 'category_tree', :object =>  @cat)  %>");
+$('#child_of_<%= @category.id %>').children('td').html("<%= escape_javascript render(:partial => 'category_tree', :object =>  @cat)  %>");
+$('#child_of_<%= @category.id %>').show();
+$('#sign_plus<%= @category.id %>').hide();
+$('#sign_minus<%= @category.id %>').show();
