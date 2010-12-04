@@ -1,1 +1,15 @@
 <%= render :partial => 'admin/shared/sub_menu_categories' %>
+
+<%title 'Аналоги'  %>
+
+<div class="b-command-menu">
+[<%= link_to 'Создать новую категорию', new_admin_category_path(:kind => 3) %>]
+
+</div>
+
+<%= hidden_field_tag :current_action_name, action_name -%>
+
+<div id ="category_tree" class ="b-tree_list">
+<%= render :partial => "category_tree" %>
+</div>
+

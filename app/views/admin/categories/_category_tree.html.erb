@@ -1,13 +1,22 @@
 <table>
+    <% if @cat.empty? and @category and @category.kind>0 -%>
+      <tr>
+      <td colspan="6"><%= link_to 'Добавить подкатегорию', new_admin_category_path(:parent_id => @category.id, :kind => @category.kind)  %></td>
+     </tr>    
+    <% end -%>
   <% @cat.each do |item| -%>
     <tr class="plus-minus">
-      <td><%= link_to_function '-', "$('#child_of_#{item.id}').hide(); $(this).hide(); $(this).next().show();", :class => "toggle-sign g-hidden",  :id => "sign_minus#{item.id}" %> <%= link_to '+', {:action => "child_items", :id => item.id}, :remote => true, :class=>"toggle-sign", :id => "sign_plus#{item.id}"  %><%= item.name %></td>
-      <td><%= link_to_function checked_box_image(item.active, "active_state_#{item.id}"),  "$.post('toggle_state/#{item.id}',{action_name: $('#current_action_name').attr('value') } )"  %></td>            
+      <td><%= link_to_function '-', "$('#child_of_#{item.id}').hide(); $(this).hide(); $(this).next().show();", :class => "toggle-sign g-hidden",  :id => "sign_minus#{item.id}" %> <%= link_to '+', {:action => "child_items", :id => item.id}, :remote => true, :class=>"toggle-sign", :id => "sign_plus#{item.id}" if item.kind>0 %><%= item.name %></td>
       <td><%= text_field_tag "sort_#{item.id}", item.sort_order, :size =>1 %>
       <%= link_to_function image_tag('disk.png'), "$.post('change_sort/#{item.id}', {action_name: $('#current_action_name').attr('value'), sort: $('#sort_#{item.id}').attr('value') } )" %></td>
+      <td><%= link_to_function checked_box_image(item.active, "active_state_#{item.id}"),  "$.post('toggle_state/#{item.id}',{action_name: $('#current_action_name').attr('value') } )"  %></td>                  
+      <td><%= link_to image_tag('edit.png', :title => "Редактировать"), edit_admin_category_path(item) %></td>
+      <td><%= link_to image_tag('bin.png', :title => "Удалить категорию"), admin_category_path(item.id), :remote => true, :method => :delete, :confirm => "Удалить категорию и все дочерние подкатегории?" %></td>      
+      <td colspan="6"><%= link_to image_tag('add.png', :title => "Добавить подкатегорию"), new_admin_category_path(:parent_id => item.id, :kind => item.kind) if item.kind>0 %></td>      
+
     </tr>
       <tr class="g-hidden toggled" id="child_of_<%= item.id %>">
-      <td style="padding-left:30px;" colspan=3></td>
+      <td style="padding-left:30px;" colspan="5"></td>      
       </tr>    
   <% end -%>
 </table>

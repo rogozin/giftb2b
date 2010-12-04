@@ -2,7 +2,7 @@ class Admin::CategoriesController < Admin::BaseController
   access_control do
      allow :Администратор, :Редактор
   end
-  
+  respond_to :html, :js
   before_filter :find_catalog_items, :only => [:catalog, :thematic, :analogs, :virtuals]
   
   def index
@@ -25,6 +25,7 @@ class Admin::CategoriesController < Admin::BaseController
   def new
     @category = Category.new
     @category.parent_id = params[:parent_id] if params[:parent_id]
+    @category.kind = params[:kind] if params[:kind]
   end
 
   def create
@@ -41,9 +42,10 @@ class Admin::CategoriesController < Admin::BaseController
   def destroy
     @category = Category.find(params[:id])    
     expire_main_cache if @category.destroy
-    render :update do |page|
-        page.replace_html 'category_tree', :partial => 'category_tree', :object => Category.all
-      end
+    @cat = get_catalog_items(@category.catalog_type)
+    respond_to do |format|
+      format.js {render  'reload' }
+    end  
   end
   
   def edit
@@ -139,7 +141,7 @@ class Admin::CategoriesController < Admin::BaseController
         when "analogs"
           Category.analog.roots
         when "virtuals"
-          Catalog.virtual.roots              
+          Category.virtual.roots              
         else
           Catalog.roots                
       end

@@ -82,6 +82,19 @@ class Category < ActiveRecord::Base
     [["Виртуальный",0],["Каталог",1],["Тематический",2],["Аналоги",3]] 
   end
  
+  def catalog_type
+    case self.kind
+      when 0
+      "virtuals"
+      when 2
+      "thematic"  
+      when 3
+      "analogs"
+     else 
+      "catalog" 
+    end
+  end
+ 
   def self.clearcache
     unless @@disable_cache
       Rails.cache.delete('active_categories')

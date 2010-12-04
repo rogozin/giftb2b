@@ -6,14 +6,21 @@
 </div>
 <div class="b-formfield-div">
   <%= f.label :kind, 'Тип категории' %>
-<%=  @category.parent_id ? @category.kind_name : f.select( :kind, options_for_select(Category.kinds,@category.kind), {}, {:onchange=>"if (value!=0) {$('#virtual_category, #parent_category').show() } else {$('#virtual_category, #parent_category').hide()} return false;"})  %>  
+  
+<% if  @category.parent_id or @category.kind >=0 %>
+<%= @category.kind_name %>  
+<%= hidden_field_tag 'category[kind]', @category.kind %>
+<% else %>
+<%=  f.select( :kind, options_for_select(Category.kinds,@category.kind), {}, {:onchange=>"if (value!=0) {$('#virtual_category, #parent_category').show() } else {$('#virtual_category, #parent_category').hide()} return false;"})   %>
+<% end -%>
+  
 </div>
 
 <% st = "display:none" if @category.kind==0 -%>
 
 <div class="b-formfield-div" id="parent_category" style="<%= st %>">
   <%= f.label :parent_id, 'Родительская категория' %>
-  <%= tree_select  Category.cached_all_categories , :category, :parent_id,{}, @category.parent_id %>
+  <%= tree_select  Category.cached_all_categories.select{|c| c.kind==@category.kind} , :category, :parent_id,{}, @category.parent_id %>
 </div>
 
 <div class="b-formfield-div" id="virtual_category" style="<%= st %>">
