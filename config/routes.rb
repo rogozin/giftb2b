@@ -68,6 +68,7 @@ Giftr3::Application.routes.draw do
     resources :data_changes do
       collection do
         post :import
+        get :get_status
       end    
     end
     resources :export_data do

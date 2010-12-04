@@ -36,7 +36,7 @@ GEM
     builder (2.1.2)
     daemons (1.1.0)
     dalli (0.11.0)
-    delayed_job (2.1.1)
+    delayed_job (2.1.2)
       activesupport (~> 3.0)
       daemons
     erubis (2.6.6)
@@ -98,6 +98,3 @@ DEPENDENCIES
   rails (= 3.0.3)
   russian
   will_paginate (~> 3.0.pre2)
-
-METADATA
-  version: 1.0.6
