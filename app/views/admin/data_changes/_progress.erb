@@ -1,2 +1,0 @@
-<%#= periodically_call_remote(:url => { :action => 'get_status' },:method => :get, :frequency => 5, :condition => "allow_pcr == true") %>
-<%= link_to 'Отмена',  {:action => "cancel_thread"  }, :remote => true %> 

@@ -33,25 +33,11 @@ respond_to :html, :js
     else
       render :text => "Обработка завершена!"
     end
-#    render :update  do |page| 
-#      unless bw.task_end
-#        page.replace_html :messages, "Статус: #{state}"
-#        page.replace_html :progress, "обработано  #{bw.current_item} из #{bw.total_items}" 
-#        page.replace_html :errors, bw.log_errors        
- #     else        
-#        page.replace_html :call_remote, ""
-#        page<< "allow_pcr = false;"
-#        page.replace_html :messages, "Обработка завершена."
-#      end
-#    end
   end
   
    def cancel_thread
     bw = BackgroundWorker.last   
     bw.update_attribute :current_status, "stoping"
-    render :update  do |page|       
-        page.replace_html :messages, "Отменяю обработку..."
-    end
   end 
   
   protected

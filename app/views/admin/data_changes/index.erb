@@ -5,32 +5,30 @@
     $(function() {
       $('form').ajaxForm({dataType: 'script'});
     })
+function processing_in_progress() {
+$('#cancel').show(); 
+$(document).ready(
+  function(){
+    setInterval(function(){
+      $('#progress').load('/admin/data_changes/get_status');
+    }, 3000);
+  });
+return false;
+}
   <% end -%>
-  
-<%= render :partial => "file_upload" if @can_upload  %> 
 
-
-<div id="log" style="display:none">
-<div id="mydiv"></div>
-<div id="call_remote">
 <% unless @can_upload -%>
-  <%= javascript_tag do -%>
-    allow_pcr = true;
-    $('#log').show();
- <% end %>      
-  <%= render :partial => "progress" %> 
+  <script>processing_in_progress();</script>
+<% else -%>
+  <%= render :partial => "file_upload"%> 
 <% end -%>
+
+<div id="cancel" class="g-hidden">
+<%= link_to 'Отмена',  {:action => "cancel_thread"  }, :remote => true %>
 </div>
 
-<h3>Состояние:</h3>
-<div id="messages"></div>
+<div id="progress"></div>
 
-<h3>Прогресс:</h3>
-<div id="progress">0</div>
-
-<h3>Ошибки:</h3>
-<div id="errors"></div>
-</div>
 <div class="spacer"></div>
 <div class="last_workers">
 <h3>Последние задания:</h3>
