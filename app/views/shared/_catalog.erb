@@ -1,8 +1,6 @@
 <p class="b-header"><span><strong>Каталог сувениров</strong></span></p> 
-        <div style="margin-left:15px;">
+<div style="margin-left:15px;">
   <%= tree_ul(Category.cached_active_categories.select{|cat| cat.kind==1}) do |item|
-   raw "<span id='tree_item_#{item.id}'>"+
-     link_to_function(item.name, "bookmarks.sethash('#!categories/#{item.permalink}','#{category_url(item)}','all_content'); get_data('#{category_url(item)}', 'tree_item_#{item.id}', false, 'all_content', catalog_load_complete )", :href=> category_url(item)  )  +                              
-   "</span>"
+  content_tag(:span, link_to(item.name, category_path(item), :remote => true, :class => "tree-animate"), :id =>  "tree_item_#{item.id}" )
    end %>   
-        </div>
+</div>

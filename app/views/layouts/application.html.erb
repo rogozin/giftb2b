@@ -2,23 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru-ru" lang="ru-ru"> 
 <head> 
   <%= stylesheet_link_tag  'main','jquery-ui-1.7.2.custom.css','jquery.treeview' %>
-  <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie', 'bookmarks.js' %>
-  <script type="text/javascript">
-window.onload = function(){
-    bookmarks.initialize();
-}
-</script>
-  
-  <script type="text/javascript">
+  <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie' %>
 
+  <script type="text/javascript">
     <%= yield :script %>
    $(document).ready(function()
   {
     //$(".datepicker").datepicker($.datepicker.regional['ru']);
-    $('.treeview').treeview({collapsed: true,persist: "cookie"});    
+    $('.treeview').treeview({collapsed: true,persist: "cookie"});  
+    $('.tree-animate').bind("ajax:loading",  function(et, e){add_animate($(this).parent().attr('id') )}); 
     <%= yield :document_ready %>
   })
-  
  </script>
   <%= csrf_meta_tag %>
 </head> 
