@@ -5,7 +5,7 @@
     <%= link_to_function(cat.name, "#", :class=> "text_b_z") %> 
     <ul class="text_c_ul">
     <% Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.each do |child_cat| -%>
-      <li><%=link_to_function(child_cat.name, "get_data('#{category_url(child_cat)}', 'all_content', true, 'all_content', catalog_load_complete )", :href=> category_url(child_cat), :class=>"text_n_z"  ) %></li>      
+      <li><%=link_to(child_cat.name, category_path(child_cat), :remote => true, :class=>"text_n_z"  ) %></li>      
     <% end -%>
     </ul>
 </div>  

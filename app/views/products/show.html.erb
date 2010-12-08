@@ -30,7 +30,6 @@
 		  <div class="article_img_1_float">
 		    <div class="article_img_2">
     		  <div class="article_img_3" >
-    		    <%#= link_to image_tag (image.picture.url(:thumb)), image.picture.url, :popup => true %>
     		    <%= link_to_function image_tag (image.picture.url(:thumb), :id=>"small_img_#{index}"), "return changeImage(#{index})" %>
     		  </div>
     	  </div>
@@ -39,11 +38,6 @@
 		<% end -%>
 		<div class="clear"></div>
 		</div>
-<!--		<div class="button_block">
-		<A href="http://test.giftb2b.ru/index3.html#"><IMG src="./index3_files/buttons_1.png" alt="" width="232px" height="38px"></A><BR>
-		<A href="http://test.giftb2b.ru/index3.html#"><IMG src="./index3_files/buttons_2.png" alt="" width="232px" height="38px"></A>
-		</div>
-		-->
 		<div class="clear"></div>
 	</div>
 	<div class="pict_block">
@@ -54,7 +48,4 @@
 	</div>
 
 </div> <!-- end center_block -->
-
-<!--<div class="banner_center"></div>
-<div class="banner_center"></div>-->
 </div> <!-- end content -->
