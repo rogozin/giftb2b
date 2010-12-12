@@ -104,7 +104,6 @@ body {
 
 .center_block {
 	width:100%;
-
 	text-align:left;
 	margin-bottom:20px;
 }
@@ -319,7 +318,7 @@ div.article_img_2_float {float:left; display: table; height: 120px; width:120px;
 	font-size:8pt;
 }
 
-.treeview span a {  color:#999;}
+.treeviewgg span a {  color:#999;}
 
 /*===============================================================*/
 div.article_img_1_z {display: table; height: 120px; width:120px; #position: relative; overflow: hidden; border:0;background:white;}
@@ -328,13 +327,12 @@ div.article_img_1_z {display: table; height: 120px; width:120px; #position: rela
     width:160px;
     font-size:8pt;
     margin-right:10px;
-    float:left;
     margin-bottom:10px;
-    text-align:center;
+    text-align:left;
 }
 a.text_b_z {
-    color:black;
-    font-size:12pt;
+    color:#333333;
+    font-size:10pt;
     font-weight:bold;
 }
 
@@ -345,8 +343,8 @@ a:hover.text_b_z {
 
 a.text_n_z {
     color:#336699;
-    font-size:10pt;
-    font-weight:bold;
+    font-size:8pt;
+    font-weight:normal;
 }
 
 a:hover.text_n_z {
@@ -355,7 +353,43 @@ a:hover.text_n_z {
 }
 
 .text_c_ul {
-    color:#336699;
-    padding-left:10px;
+    padding-left:15px;
 }
 
+.text_c_ul li{
+    color:#336699;
+	margin-bottom:2px;
+}
+
+.ul_v {
+	list-style-type:none;
+	width:100%;
+	margin:0 auto;
+}
+
+.li_v {
+	width:160px;
+	display:-moz-inline-box;
+	display:inline-block;
+	vertical-align:top;
+	margin-right:10px;
+    margin-bottom:10px;
+}
+
+.treeview li a {
+	color:#999999;
+	font-weight:bold;
+}
+
+.treeview li a:hover, .treeview ul a:hover {
+	color:#ff66cc;
+}
+
+.treeview li a:visited, .treeview ul a:visited {
+	color:red;
+}
+
+.treeview ul a {
+	color:#999999;
+	font-weight:normal;
+}
