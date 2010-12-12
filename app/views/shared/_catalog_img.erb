@@ -1,5 +1,5 @@
-<% cache do -%>
 <% Category.cached_active_categories.select{|c| c.kind==0 }.each do |cat| -%>
+<li class="li_v">
 <div class="article_z">
   <span style="text-align:center;width:120px;"><span class="article_img_1_z"><span class="article_img_2"><span class="article_img_3"> <%= image_tag url_for(:controller => cat.images.first.picture.url), :width =>"120px", :height =>"120px" unless cat.images.blank? %> </span></span></span></span> 
     <%= link_to_function(cat.name, "#", :class=> "text_b_z") %> 
@@ -9,7 +9,7 @@
     <% end -%>
     </ul>
 </div>  
+</li>
 <% end -%>
- <% end -%>
 <div class="clear"></div>
 
