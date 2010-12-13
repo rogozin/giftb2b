@@ -1,5 +1,5 @@
 class ForeignController < ApplicationController
- before_filter :check_acccess
+# before_filter :check_acccess
  before_filter :find_category, :except => [:thematic_tree, :analog_tree, :search, :virtual]
   def index
    render "index" , :layout => "foreign"
@@ -37,7 +37,7 @@ class ForeignController < ApplicationController
   end
   
   def virtual
-    render :template => "shared/_catalog_img", :layout => false    
+    render   :layout => false    
   end
 
 private
