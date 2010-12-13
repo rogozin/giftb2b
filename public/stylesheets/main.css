@@ -65,7 +65,7 @@ body {
 
 .text_11pt_ff66cc {
 	font-size:11pt;
-	color:#ff66cc;
+	color:#cc3366;
 	text-decoration:underline;
 }
 
@@ -123,7 +123,7 @@ div.article_img_3 {#position: relative; #top: -50%; #left:-50%}
 
 .article_name {
 	margin:0px;
-	color:#ff66cc;
+	color:#cc3366;
 	font-weight:bold;
 	margin-top:5px;ar
 	width:120px;
@@ -165,7 +165,7 @@ a.menu_left {
 }
 
 a:hover.menu_left {
-	color:#ff66cc;
+	color:#cc3366;
 	text-decoration:underline;
 }
 
@@ -285,7 +285,7 @@ div.pict_3 {#position: relative; #top: -50%; #left:-50%}
 }
 
 .article_name_2 {
-	color:#ff66cc;
+	color:#cc3366;
 	font-weight:bold;
 	margin-top:5px;
 }
@@ -382,11 +382,7 @@ a:hover.text_n_z {
 }
 
 .treeview li a:hover, .treeview ul a:hover {
-	color:#ff66cc;
-}
-
-.treeview li a:visited, .treeview ul a:visited {
-	color:red;
+	color:#cc3366;
 }
 
 .treeview ul a {
