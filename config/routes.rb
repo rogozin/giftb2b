@@ -10,9 +10,11 @@ Giftr3::Application.routes.draw do
   resources :categories
   resources :foreign do
     collection do
-  get :search
-  get :tree
-  get :virtual
+      get :search
+      get :tree
+      get :analog_tree
+      get :thematic_tree
+      get :virtual  
   end
     member do
   get :product

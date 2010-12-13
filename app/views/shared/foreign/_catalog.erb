@@ -1,6 +1,6 @@
 <p class="b-header"><span><strong>Каталог сувениров</strong></span></p> 
         <div style="margin-left:15px;">
-  <%= tree_ul(Category.cached_active_categories.select{|cat| cat.kind==1}) do|item|
+  <%= tree_ul(@categories) do|item|
    "<span id='tree_item_#{item.id}'>"+
      link_to(item.name,   foreign_path(item)+ '.html')   +                              
    "</span>"

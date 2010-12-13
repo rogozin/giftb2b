@@ -4,24 +4,16 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <%= stylesheet_link_tag  'main','jquery-ui-1.7.2.custom.css','jquery.treeview' %>  
   <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie' %>
- 
+  
   <script type="text/javascript">
     <%= yield :script %>
-   $(document).ready(function() {
+   $(document).ready(function(){
     $('.treeview').treeview({collapsed: true,persist: "cookie"});    
-    <%= yield :document_ready %>
   });  
-  </script>
+ </script>
+
 </head> 
 <body> 
-  <div id="all_content"> 
-       <%= yield :layout  %>
-  </div> 
-  <div id="left_content"> 
-    <div class="left_block"> 
-       <%= render :partial => 'shared/foreign/catalog' %>
-    </div> 
-  </div> 
-  <div class="clear"></div> 
+     <%= yield :layout  %>
 </body> 
 </html>
