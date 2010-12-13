@@ -1,5 +1,5 @@
 class ForeignController < ApplicationController
- #before_filter :check_acccess
+ before_filter :check_acccess
  before_filter :find_category, :except => [:thematic_tree, :analog_tree, :search, :virtual]
   def index
    render "index" , :layout => "foreign"
