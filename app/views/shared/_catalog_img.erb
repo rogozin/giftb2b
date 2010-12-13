@@ -1,3 +1,21 @@
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+    $('.all-list').toggle(function(){
+      $(this).prev().html('-');
+    }, function(){
+      $(this).prev().html('+');
+    });    
+
+    $('.all-list').bind('click', function(){
+      $(this).prev().prev().parent().find('li.g-hidden').toggle();        
+      return false;     
+    });
+  })
+
+//$(this).empty().prev().html().parents('ul li').find('.g-hidden').show();
+</script>
+
 <% Category.cached_active_categories.select{|c| c.kind==0 }.each do |cat| -%>
 <li class="li_v">
 <div class="article_z">
@@ -11,7 +29,7 @@
         <%= content_tag(:li,link_to(child_cat.name, category_path(child_cat), :remote => true, :class=>"text_n_z")) %>
       <% end -%>
     <% end -%>
-    <%=  link_to_function( "весь список", "$(this).empty().prev().parents('ul li').find('.g-hidden').show();", :class=>"text_n_z") if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
+    <%= content_tag(:span, "+", :class => "text_n_z") + link_to( "весь список", "#", :class=>"all-list text_n_z") if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
     </ul>
 </div>  
 </li>

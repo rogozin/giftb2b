@@ -38,9 +38,6 @@ module Giftr3
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-    config.cache_store = :dalli_store
-    #,  '127.0.0.1', 
-    #{ :namespace => Giftr3, :expires_in => 1.day}
     #config.action_controller.session = {
     #:session_key => '_podarok',
     #:secret      => 'b018dd5d2'

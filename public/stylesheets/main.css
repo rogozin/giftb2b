@@ -341,7 +341,7 @@ a:hover.text_b_z {
     text-decoration:none;
 }
 
-a.text_n_z {
+span.text_n_z, a.text_n_z {
     color:#336699;
     font-size:8pt;
     font-weight:normal;
