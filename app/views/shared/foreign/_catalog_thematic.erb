@@ -1,0 +1,8 @@
+<p class="b-header"><span><strong>Тематические сувениры</strong></span></p> 
+        <div style="margin-left:15px;">
+  <%= tree_ul(@categories) do|item|
+   "<span id='tree_item_#{item.id}'>"+
+     link_to(item.name,   foreign_path(item)+ '.html')   +                              
+   "</span>"
+   end %>   
+        </div>
