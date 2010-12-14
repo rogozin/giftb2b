@@ -1,13 +1,19 @@
 var ANIMATE_ELEMENT =  "<span class='loader_animate'>&nbsp;<img alt='Loading' src='/images/ajax-loader.gif'></span>"
 
 $(function() {
-  $(".article_t_p a").live("click", function() {
-    //$(".pagination").html("<img src='/images/ajax-loader.gif'/>");
+  $(".pagination a").live("click", function() {
     $(ANIMATE_ELEMENT).insertAfter('.article_t_p');
     $.get(this.href, null, null, "script");
     return false;
   });
+
+ $(".pagination_per_page select").live("change", function() {
+    $(ANIMATE_ELEMENT).insertAfter('.pagination_per_page');
+    $.get($(this).attr('href')+'?per_page='+this.value, null, null, "script");
+    return false;
+  }); 
 });
+
 
 function add_animate(element_id,replace){ 
     remove_animate();
@@ -21,13 +27,7 @@ function remove_animate() {
    return false;
 }
 
-$(function() {
-  $(".article_t a").live("click", function() {
-    add_animate('catalog_items',true); 
-    $.get(this.href, function(data){$('#all_content').html(data);}, null, "script");
-    return false;
-  });
-});
+
 
 function get_data(target,animation_cont,animation_cont_replace, container, on_complete) {
 jQuery.ajax({beforeSend:function(request){add_animate(animation_cont,animation_cont_replace);}, complete:function(request){remove_animate();try{ if (on_complete) {return on_complete();}}catch(e){alert(e.description);}},success:function(data){$('#'+container).html(data);}, data:{}, dataType:'script', type:'get', url:target});
