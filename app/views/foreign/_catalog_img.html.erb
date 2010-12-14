@@ -23,7 +23,7 @@
     <ul class="text_c_ul">
     <% Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.each_with_index do |child_cat, index| -%>
       <% if index > 4  -%>
-        <%= content_tag(:li,link_to(child_cat.name, category_path(child_cat), :remote => true, :class=>"text_n_z"), :class => "g-hidden") %>              
+        <%= content_tag(:li,link_to(child_cat.name, category_path(child_cat)+ '.html', :remote => true, :class=>"text_n_z"), :class => "g-hidden") %>              
       <% else -%>
         <%= content_tag(:li,link_to(child_cat.name, category_path(child_cat), :remote => true, :class=>"text_n_z")) %>
       <% end -%>
