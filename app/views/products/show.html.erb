@@ -1,4 +1,5 @@
 <div class="content">
+<span class="article_s">Ссылка на текущую страницу: <%= link_to_this_page(controller_name, action_name, @product.permalink) %> </span>
 <%= render :partial => (controller_name == "foreign" ? "/shared/foreign/product_rubrika" : "product_rubrika") %>
 <div class="center_block">
 	<div class="big_pict">

@@ -1,8 +1,7 @@
-	<%= will_paginate @products, :class=>"article_t_p" %>
+	<%= will_paginate @products, :class=>"article_t_p pagination" %>
   <div id="animate_paggination"></div>
 	<div class="pagenav"> 
-		<p class="article_t"><span class="article_s">по </span>
-  	<%= select_tag :per_page, options_for_select([20,50,100],params[:per_page].to_i||20),
-  	 :onchange => "if(this.value){window.location='#{request.path}?per_page='+this.value;}",  :id=>nil %>
+		<p class="article_t pagination_per_page"><span class="article_s">по </span>
+  	<%= select_tag :per_page, options_for_select([20,50,100],params[:per_page].to_i||20),  :id=>nil, :href=> url_for(:controller => controller_name, :action => action_name, :id => @category.permalink)   %>
 		<span class="article_s"> товаров на странице </span></p> 
 	</div> 

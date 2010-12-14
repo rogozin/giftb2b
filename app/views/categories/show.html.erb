@@ -1,5 +1,6 @@
-<div class="content"> 
 
+<div class="content"> 
+<span class="article_s">Ссылка на текущую страницу: <%= link_to_this_page(controller_name, action_name, @category.permalink) %> </span>
 <div class="text_center"> 
 Краткое описание проекта + справа потом будет стоять модуль с ссылками
 </div> 
@@ -8,8 +9,8 @@
 </div> <!-- end center_block --> 
  
 <div class="center_block"> 
-
 <%= render :partial => 'shared/paginate' %>
+
 </div> <!-- end center_block --> 
  
 <div class="center_block" id="catalog_items"> 
