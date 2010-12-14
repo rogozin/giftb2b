@@ -21,4 +21,9 @@ module LayoutHelper
     args = args.map { |arg| arg == :defaults ? arg : arg.to_s }
     content_for(:head) { javascript_include_tag(*args) }
   end
+  
+  def link_to_this_page(controller, action, id)
+    l = url_for(:only_path => false, :controller => controller, :action => action, :id => id )
+    link_to(l,l);
+  end
 end 
