@@ -1,6 +1,6 @@
 <div class="content">
 <span class="article_s">Ссылка на текущую страницу: <%= link_to_this_page(controller_name, action_name, @product.permalink) %> </span>
-<%= render :partial => (controller_name == "foreign" ? "/shared/product_rubrika" : "product_rubrika") %>
+<%= render :partial =>"foreign/shared/product_rubrika"  %>
 <div class="center_block">
 	<div class="big_pict">
 		<div class="pict_2"><div class="pict_3" id="big_img">
@@ -17,36 +17,19 @@
 			<p class="article_t">Материал: <span class="article_s"><%= @product.factur %></span></p>
 			<p class="article_t">Цвет: <span class="article_s"><%= @product.color %></span></p>
 			<p class="article_t">Размер: <span class="article_s"><%= @product.size %></span></p>
-			<%= render :partial => "products/text_properties" %>
+			<%= render :partial => "foreign/product/text_properties" %>
 			<br />
 			<p class="article_t">Цена: <span class="article_name"><%= product_price(@product) %></span></p>
 			</div>
 		</div>
 	</div>
 	<div class="clear"></div>
+  <%= render :partial => "foreign/product/product_images" %>
 	<div class="pict_block">
-		<div class="pict_float">
-		<% @product.images.each_with_index do |image,index| -%>
-		 <% unless index == 0 -%>
-		  <div class="article_img_1_float">
-		    <div class="article_img_2">
-    		  <div class="article_img_3" >
-    		    <%= link_to_function image_tag (image.picture.url(:thumb), :id=>"small_img_#{index}"), "return changeImage(#{index})" %>
-    		  </div>
-    	  </div>
-    	</div>
-    	<% end -%>
-		<% end -%>
-		<div class="clear"></div>
-		</div>
-		<div class="clear"></div>
+	  <%= render :partial => "foreign/product/image_properties" %>
 	</div>
 	<div class="pict_block">
-	  <%= render :partial => "products/image_properties" %>
+    <%= render :partial => "foreign/product/analog_products" %>
 	</div>
-	<div class="pict_block">
-    <%= render :partial => "products/analog_products" %>
-	</div>
-
 </div> <!-- end center_block -->
 </div> <!-- end content -->
