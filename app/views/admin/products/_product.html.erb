@@ -69,7 +69,15 @@
      <div class ="b-formfield-div">
       <%= form.label :from_remote_store, "Поставка с удал. склада" %>
       <%= form.check_box :from_remote_store%>
+    </div>    
+     <div class ="b-formfield-div">
+      <%= form.label :meta_description, "META Description" %>
+      <%= form.text_area :meta_description, :rows => 5, :cols => 22 %>
     </div>      
+     <div class ="b-formfield-div">
+      <%= form.label :meta_keywords, "META Keywords" %>
+      <%= form.text_area :meta_keywords, :rows => 5, :cols => 22 %>
+    </div>            
     <div class="b-formfield-div">
       <%= form.submit 'Сохранить' %>
     </div>
@@ -93,5 +101,5 @@
     </div>    
 
   <% end %>
-  <%= textile_editor_initialize(:framework => :jquery) %>
+  <%= raw textile_editor_initialize(:framework => :jquery) %>
 
