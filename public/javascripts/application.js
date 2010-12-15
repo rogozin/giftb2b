@@ -3,7 +3,10 @@ var ANIMATE_ELEMENT =  "<span class='loader_animate'>&nbsp;<img alt='Loading' sr
 $(function() {
   $(".pagination a").live("click", function() {
     $(ANIMATE_ELEMENT).insertAfter('.article_t_p');
-    $.get(this.href, null, null, "script");
+	var reReplacePattern = "http://"+ location.host + "/catalog";
+	var strReplaceTo = "http://r3.giftb2b.ru/foreign";
+	link = this.href.replace (reReplacePattern, strReplaceTo);
+	$.get(link, null, null, "script");
     return false;
   });
 
