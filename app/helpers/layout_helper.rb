@@ -8,6 +8,10 @@ module LayoutHelper
     @show_title = show_title
   end
 
+  def page_title(header=nil)
+    default = "giftb2b.ru" 
+    @page_title = [header, default].compact.join(' | ')
+  end
   
   def show_title?
     @show_title
