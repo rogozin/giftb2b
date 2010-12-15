@@ -1,0 +1,5 @@
+<%  @product.text_properties.group_by(&:property_name).each do |property_name, property_values|  -%>
+			   <p class="article_t"><%= property_name %>:
+			    <span class="article_s"><%= property_values.map(&:value).join(', ') %></span>
+			   </p>
+			<% end -%>

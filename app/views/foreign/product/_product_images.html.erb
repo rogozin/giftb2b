@@ -1,0 +1,17 @@
+	<div class="pict_block">
+		<div class="pict_float">
+		<% @product.images.each_with_index do |image,index| -%>
+		 <% unless index == 0 -%>
+		  <div class="article_img_1_float">
+		    <div class="article_img_2">
+    		  <div class="article_img_3" >
+    		    <%= link_to_function image_tag (image.picture.url(:thumb), :id=>"small_img_#{index}"), "return changeImage(#{index})" %>
+    		  </div>
+    	  </div>
+    	</div>
+    	<% end -%>
+		<% end -%>
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>

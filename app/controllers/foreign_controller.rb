@@ -14,7 +14,7 @@ class ForeignController < ApplicationController
 
   def product
     @product = Product.find_by_permalink(params[:id])
-    render "products/show"
+    render "foreign/product/show"
   end
   
   def tree

@@ -4,12 +4,12 @@
 <div class="content"> 
 <div class="center_block"> 
 
-<%= render :partial => 'shared/paginate', :object=> @products %>
+<%= render :partial => 'foreign/shared/paginate', :object=> @products %>
 </div> <!-- end center_block --> 
  
 <div class="center_block" id="catalog_items"> 
   <% for product  in @products do -%>
-    <%= render :partial => 'shared/foreign/product', :object=>product %>  
+    <%= render :partial => 'foreign/shared/product', :object=>product %>  
   <% end -%>
   	
   <div class="clear"></div> 
@@ -17,7 +17,7 @@
  
 <div class="center_block"> 
 
-<%= render :partial => 'shared/paginate', :object=> @products %>
+<%= render :partial => 'foreign/shared/paginate', :object=> @products %>
 </div> <!-- end center_block --> 
 </div>
  <% end -%>
