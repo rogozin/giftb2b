@@ -1,2 +1,3 @@
 $('#all_content').html("<%= escape_javascript render(:template => "categories/show.html") %>");
+$('title').html('<%= @page_title %>');
 remove_animate();

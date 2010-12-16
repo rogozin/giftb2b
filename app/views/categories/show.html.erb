@@ -1,6 +1,6 @@
 <% page_title(Category.tree_nesting_by_name(Category.cached_active_categories, @category).join(' | ')) -%>
 <div class="content"> 
-<span class="article_s">Ссылка на текущую страницу: <%= link_to_this_page(controller_name, action_name, @category.permalink) %> </span>
+<span class="article_s">Ссылка на текущую страницу: <%= link_to(@ltp, @ltp) %> </span>
 <div class="text_center"> 
 Краткое описание проекта + справа потом будет стоять модуль с ссылками
 </div> 
