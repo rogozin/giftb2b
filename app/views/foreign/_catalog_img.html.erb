@@ -28,7 +28,7 @@
         <%= content_tag(:li,link_to(child_cat.name, category_path(child_cat)+ '.html', :class=>"text_n_z")) %>
       <% end -%>
     <% end -%>
-    <%= content_tag(:li, :span, "+", :class => "text_n_z") + link_to( "весь список", "#", :class=>"all-list text_n_z") if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
+    <%= content_tag(:span, "+", :class => "text_n_z") + link_to( "весь список", "#", :class=>"all-list text_n_z") if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
 </div>  
 </li>
 <% end -%>
