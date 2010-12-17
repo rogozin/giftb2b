@@ -1,20 +1,4 @@
-<script type="text/javascript">
-  $(document).ready(function()
-  {
-    $('.all-list').toggle(function(){
-      $(this).prev().html('-');
-    }, function(){
-      $(this).prev().html('+');
-    });    
 
-    $('.all-list').bind('click', function(){
-      $(this).prev().prev().parent().find('li.g-hidden').toggle();        
-      return false;     
-    });
-  })
-//
-//$(this).empty().prev().html().parents('ul li').find('.g-hidden').show();
-</script>
 
 <% Category.cached_active_categories.select{|c| c.kind==0 }.each do |cat| -%>
 <li class="li_v">

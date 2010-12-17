@@ -1,11 +1,26 @@
 <div class="content">
-      <div class="banner_center"></div> 
-      <div class="banner_center"></div> 
-      <div class="banner_center"></div> 
-      <div class="banner_center"></div>   
-   	  <div class="center_block">
-    		<ul class="ul_v">
-          <%= render :partial => 'catalog_img' %>
-    		</ul>
-      </div> 
+<div class="banner_center"></div> 
+<div class="banner_center"></div> 
+<div class="banner_center"></div> 
+<div class="banner_center"></div>   
+<div class="center_block">
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+    $('.all-list').toggle(function(){
+      $(this).prev().html('-');
+    }, function(){
+      $(this).prev().html('+');
+    });    
+
+    $('.all-list').bind('click', function(){
+      $(this).prev().prev().parent().find('li.g-hidden').toggle();        
+      return false;     
+    });
+  })
+</script>
+<ul class="ul_v">
+<%= render :partial => 'catalog_img' %>
+</ul>
+</div> 
 </div>
