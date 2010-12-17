@@ -42,7 +42,7 @@ module Admin::CategoriesHelper
     end   
     if roots.size > 0
       
-      ret = init ?  "<ul#{" id='tree_list'" if init}> \n" : "<ul id='child_list_#{roots.first.parent_id}' style='display:none;' > \n"
+      ret = init ?  "<ul#{" id='tree_listr'" if init}> \n" : "<ul id='child_list_#{roots.first.parent_id}' style='display:none;' > \n"
       roots.collect do |item|
         #next if item.parent_id && init
         ret += '<li>'
