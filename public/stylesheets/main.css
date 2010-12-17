@@ -1,4 +1,4 @@
- * {
+﻿ * {
 	padding:0px;
 	margin:0px;
 }
@@ -391,3 +391,6 @@ a:hover.text_n_z {
 }
 
 .g-hidden {display:none;}
+
+.li_no { list-style-type:none;)
+	
