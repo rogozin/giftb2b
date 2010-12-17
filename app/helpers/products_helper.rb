@@ -9,7 +9,7 @@ module ProductsHelper
         if thumb
           image_tag pfi.picture.url(:thumb), :alt=>product.article
         else
-          image_tag pfi.picture.url, :alt=>product.article, :title=>property_name
+          image_tag pfi.picture.url, :alt=>product.article
         end
       else
        default_image
