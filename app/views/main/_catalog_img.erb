@@ -14,7 +14,7 @@
       <% end -%>
     <% end -%>
 	</ul>
-    <%= content_tag(:span, "+", :class => "text_n_z") + link_to( "весь список", "#", :class=>"all-list text_n_z") if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
+    <%= content_tag(:span, "+", :class => "text_n_z") + link_to( "весь список", "#", :class=>"all-list") if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
     
 </div>  
 </li>
