@@ -318,13 +318,12 @@ div.article_img_2_float {float:left; display: table; height: 120px; width:120px;
 	font-size:8pt;
 }
 
-.treeviewgg span a {  color:#999;}
-
 /*===============================================================*/
 div.article_img_1_z {display: table; height: 120px; width:120px; #position: relative; overflow: hidden; border:0;background:white;}
 
 .article_z {
     width:160px;
+    min-heigh:150px;
     font-size:8pt;
     margin-right:10px;
     margin-bottom:10px;
