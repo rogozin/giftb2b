@@ -12,7 +12,6 @@
       return false;     
     });
   })
-//$(this).empty().prev().html().parents('ul li').find('.g-hidden').show();
 </script>
 <ul class="ul_v">
 <% Category.cached_active_categories.select{|c| c.kind==0 }.each do |cat| -%>
