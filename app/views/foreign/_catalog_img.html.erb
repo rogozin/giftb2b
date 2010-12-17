@@ -18,7 +18,7 @@
 <% Category.cached_active_categories.select{|c| c.kind==0 }.each do |cat| -%>
 <li class="li_v">
 <div class="article_z">
-  <span style="text-align:center;width:120px;"><span class="article_img_1_z"><span class="article_img_2"><span class="article_img_3"> <%= image_tag url_for(:controller => cat.images.first.picture.url), :width =>"120px", :height =>"120px" unless cat.images.blank? %> </span></span></span></span> 
+  <span style="text-align:center;width:120px;"><span class="article_img_1_z"><span class="article_img_2"><span class="article_img_3"> <%= image_tag url_for(:controller => cat.images.first.picture.url), :width =>"120", :height =>"120" unless cat.images.blank? %> </span></span></span></span> 
     <p><%= link_to_function(cat.name, "#", :class=> "text_b_z") %></p> 
     <ul class="text_c_ul">
     <% Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.each_with_index do |child_cat, index| -%>
@@ -28,7 +28,7 @@
         <%= content_tag(:li,link_to(child_cat.name, category_path(child_cat)+ '.html', :class=>"text_n_z")) %>
       <% end -%>
     <% end -%>
-    <%= content_tag(:span, "+", :class => "text_n_z") + link_to( "весь список", "#", :class=>"all-list text_n_z") if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
+    <%= content_tag(:li +((:span, "+", :class => "text_n_z") + link_to( "весь список", "#", :class=>"all-list text_n_z") if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 )%>
 	</ul>
 </div>  
 </li>
