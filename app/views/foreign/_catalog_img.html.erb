@@ -14,7 +14,7 @@
   })
 //$(this).empty().prev().html().parents('ul li').find('.g-hidden').show();
 </script>
-
+<ul class="ul_v">
 <% Category.cached_active_categories.select{|c| c.kind==0 }.each do |cat| -%>
 <li class="li_v">
 <div class="article_z">
@@ -33,5 +33,6 @@
 </div>  
 </li>
 <% end -%>
+</ul>
 <div class="clear"></div>
 
