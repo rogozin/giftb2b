@@ -351,12 +351,12 @@ form.filter input[type="text"]
   width:100px;
 }
 
-ul#tree_list, ul#tree_list li
+ul.treeview, ul.treeview li
 {
   	list-style: none;
   	padding:0;
 }
-ul#tree_list li
+ul.treeview li
 {
   padding: 3px 0;
 }

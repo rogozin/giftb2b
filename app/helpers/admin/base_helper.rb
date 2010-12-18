@@ -46,7 +46,7 @@ module Admin::BaseHelper
       roots = child
     end   
     if roots.size > 0
-      ret = "<ul#{" id='tree_list' class='treeview'" if init}> \n"
+      ret = "<ul#{" class='treeview'" if init}> \n"
       roots.each do |item|
         #next if item.parent_id && init
         ret += '<li>'
