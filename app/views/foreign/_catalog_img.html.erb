@@ -29,8 +29,6 @@ $(document).ready(function(){
       <% end -%>
     <% end -%>
 	
-	<%= content_tag(link_to( "", "#", :class=>"all-list2")) if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
-
  </ul>
 	
 </div>  
