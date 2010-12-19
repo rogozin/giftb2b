@@ -7,9 +7,9 @@ module ProductsHelper
       pfi = product.images.first
       if pfi
         if thumb
-          image_tag pfi.picture.url(:thumb), :alt=>product.article
+          image_tag pfi.picture.url(:thumb), :alt=>product.id, :title => product.short_name
         else
-          image_tag pfi.picture.url, :alt=>product.article
+          image_tag pfi.picture.url, :alt=>product.id, :title => product.short_name
         end
       else
        default_image

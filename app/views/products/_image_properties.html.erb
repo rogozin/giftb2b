@@ -6,7 +6,7 @@
        <div class="article_img_2">
           <div class="article_img_3">
             <% p= Product.find_by_article(article_value.value) -%>
-            <%= link_to product_image(p), product_path(p) if p %>
+            <%= link_to product_image(p), product_path(p), :title => p.short_name if p %>
           </div>
        </div>
     </div>
