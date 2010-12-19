@@ -29,8 +29,8 @@ $(document).ready(function(){
       <% end -%>
     <% end -%>
 	</ul>
-	<p class="g-hidden">text bla bla bla</p>
-    <p class="all-list">hjhhgh</p>
+	<%= content_tag(:p( "весь список", "#", :class=>"all-list")) if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
+ 
 	
 </div>  
 </li>
