@@ -4,7 +4,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <title><%= @page_title || page_title %></title>
   <%= stylesheet_link_tag  'main','jquery-ui-1.7.2.custom.css','jquery.treeview' %>  
-  <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie' %>
+  <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie', 'jquery.collapser' %>
  
   <script type="text/javascript">
     <%= yield :script %>
@@ -13,11 +13,7 @@
     <%= yield :document_ready %>
   });  
   </script>
-   <!--[if lte IE 7]>
-<style type="text/css">
-    #all_content ul li {
-        display: inline;
-    } 
+
 </style>
 <![endif]-->
 </head> 
