@@ -29,7 +29,8 @@ $(document).ready(function(){
       <% end -%>
     <% end -%>
 	
-	<%= content_tag(:p(:class=>"all-list")) if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
+	<%= content_tag(link_to( "весь список", "#", :class=>"all-list")) if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
+
  </ul>
 	
 </div>  
