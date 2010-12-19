@@ -1,3 +1,5 @@
+<% content_for :meta_description, @product.meta_description -%>
+<% content_for :meta_keywords, @product.meta_keywords -%>
 <% page_title(@product.short_name) -%>
 <div class="content">
 <span class="article_s">Ссылка на текущую страницу: <%= link_to_this_page(controller_name, action_name, @product.permalink) %> </span>

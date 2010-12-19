@@ -37,11 +37,19 @@
   <%= f.check_box :active %>
 </div>
 <div class="b-formfield-div">
-  <%= f.label :meta, 'Теги МЕТА' %>
-  <%= f.text_area :meta, :cols=>22, :rows=>3 %>
+  <%= f.label :meta_keywords, 'META KEYWORDS' %>
+  <%= f.text_area :meta_keywords, :cols=>22, :rows=>3 %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :meta_description, 'META DESCRIPTION' %>
+  <%= f.text_area :meta_description, :cols=>22, :rows=>3 %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :show_description, 'Отображать описание' %>
+  <%= f.check_box :show_description %>
 </div>
 <div>
-  <%= f.label :description, 'Описание' %>  <br /> <br />
+  <%= f.label :show_description, 'Описание ' %>  <br /> <br />
   <%= f.textile_editor :description, :cols=>54, :rows=>6%>  
   <%= raw textile_editor_initialize(:framework => :jquery) %>
 </div>  

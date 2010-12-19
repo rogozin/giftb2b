@@ -1,3 +1,5 @@
+<% content_for :meta_description, @category.meta_description -%>
+<% content_for :meta_keywords, @category.meta_keywords -%>
 <% page_title(Category.tree_nesting_by_name(Category.cached_active_categories, @category).join(' | ')) -%>
 <div class="content"> 
 <span class="article_s">Ссылка на текущую страницу: <%= link_to(@ltp, @ltp) %> </span>
@@ -22,8 +24,11 @@
 </div> <!-- end center_block --> 
  
 <div class="center_block"> 
-
 <%= render :partial => 'shared/paginate' %>
+</div> <!-- end center_block --> 
+
+<div class="center_block"> 
+<div class="descript_category"><%= @category.description if @category.show_description %></div>
 </div> <!-- end center_block --> 
  
  
