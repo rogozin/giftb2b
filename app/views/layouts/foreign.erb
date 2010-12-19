@@ -13,6 +13,13 @@
     <%= yield :document_ready %>
   });  
   </script>
+   <!--[if lte IE 7]>
+<style type="text/css">
+    #all_content ul li {
+        display: inline;
+    }
+</style>
+<![endif]-->
 </head> 
 <body> 
   <div id="all_content"> 
