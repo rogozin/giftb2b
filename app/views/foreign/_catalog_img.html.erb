@@ -2,9 +2,9 @@
 $(document).ready(function(){
 	/** Demo 2 ****************************/
 	
-	$('.all-list').collapser({
+	$('.all-list2').collapser({
 		target: 'siblings',
-		targetOnly: '.g-hidden',
+		targetOnly: '.g-hidden2',
 		expandHtml: 'Expand Text',
 		collapseHtml: 'Collapse Text',
 		expandClass: 'expArrow',
@@ -23,13 +23,13 @@ $(document).ready(function(){
     <ul class="text_c_ul">
     <% Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.each_with_index do |child_cat, index| -%>
       <% if index > 4  -%>
-        <%= content_tag(:li,link_to(child_cat.name, category_path(child_cat)+ '.html', :class=>"text_n_z", :title => child_cat.name), :class => "g-hidden") %>              
+        <%= content_tag(:li,link_to(child_cat.name, category_path(child_cat)+ '.html', :class=>"text_n_z", :title => child_cat.name), :class => "g-hidden2") %>              
       <% else -%>
         <%= content_tag(:li,link_to(child_cat.name, category_path(child_cat)+ '.html', :class=>"text_n_z", :title => child_cat.name)) %>
       <% end -%>
     <% end -%>
 	
-	<%= content_tag(link_to( "", "#", :class=>"all-list")) if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
+	<%= content_tag(link_to( "", "#", :class=>"all-list2")) if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
 
  </ul>
 	
