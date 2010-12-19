@@ -28,9 +28,9 @@ $(document).ready(function(){
         <%= content_tag(:li,link_to(child_cat.name, category_path(child_cat)+ '.html', :class=>"text_n_z", :title => child_cat.name)) %>
       <% end -%>
     <% end -%>
-	</ul>
+	
 	<%= content_tag(:p(:class=>"all-list")) if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
- 
+ </ul>
 	
 </div>  
 </li>
