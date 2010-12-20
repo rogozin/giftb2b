@@ -374,6 +374,8 @@ a:hover.text_n_z {
     margin-bottom:10px;
 }
 
+.treeview li span.selected a {color:#cc3366;}
+
 .treeview li a {
 	color:#999999;
 	font-weight:bold;
@@ -391,4 +393,3 @@ a:hover.text_n_z {
 .g-hidden {display:none;}
 
 .li_no { list-style-type:none;)
-	
