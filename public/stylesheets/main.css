@@ -322,8 +322,6 @@ div.article_img_2_float {float:left; display: table; height: 120px; width:120px;
 div.article_img_1_z {display: table; height: 120px; width:120px; #position: relative; overflow: hidden; border:0;background:white;}
 
 .article_z {
-    width:160px;
-    min-heigh:150px;
     font-size:8pt;
     margin-right:10px;
     margin-bottom:10px;
@@ -357,7 +355,8 @@ a:hover.text_n_z {
 
 .text_c_ul li{
     color:#336699;
-	margin-bottom:2px;
+    margin-bottom:2px;
+    width:160px;
 }
 
 .ul_v {
