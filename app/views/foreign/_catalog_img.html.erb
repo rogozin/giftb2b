@@ -8,7 +8,8 @@
     });    
 
     $('.all-list').bind('click', function(){
-      $(this).prev().prev().parent().find('li.g-hidden').toggle();        
+      $(this).prev().prev().parent().find('li.g-hidden').toggle();
+	$('ul.ul_v > li.li_v).addClass('v_a_li');  
       return false;     
     });
   })
