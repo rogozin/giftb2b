@@ -108,19 +108,23 @@ class Admin::CategoriesController < Admin::BaseController
   def show_products_list    
     @category= Category.find(params[:id])
   end
-  
+     
   def change_category_products
     @category= Category.find(params[:id])
-    if params[:category_products] and params[:category_products][:product_ids]
-      @category.update_attributes params[:category_products]
+    if params[:commit] == "Изменить"
+      if params[:category_products] and params[:category_products][:product_ids]
+        flash[:notice] = "Изменения сохранены!" if  @category.update_attributes params[:category_products]
+      else
+        @category.product_ids = []
+      end
     else
-      @category.product_ids = []
+      @remote_category = Category.find(params[:remote_category_id])
+      @remote_category.product_ids += params[:category_products][:product_ids]
+      flash[:notice] = "Товары скопированы в категорию #{@remote_category.name}!"      
     end
-    render :update do |page|
-      page.replace_html :products_list, :partial => "products"
-    end    
+    redirect_to edit_admin_category_path @category   
   end
-  
+    
   def child_items
     @category = Category.find(params[:id])
     @cat = @category.children
