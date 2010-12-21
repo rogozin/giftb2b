@@ -90,10 +90,10 @@ module XmlUpload
     node= xml_nodes.find{|i| i.name==XmlSettings.fields_hash[:article]}
     return -1 unless node or node.content
     puts "=======import_product  #{node.content}"
-    p=Product.find_or_initialize_by_manufactor_id_and_article(manufactor, node.content)  if node and manufactor>0
+    p=Product.find_or_initialize_by_supplier_id_and_article(manufactor, node.content)  if node and supplier>0
     p.new_record? ? @log_new_products +=1 : @log_upd_products +=1
     p.category_ids= categories if categories.present?
-    p.supplier_id= supplier if supplier.present?
+    p.manufactor_id= manufactor if manufactor.present?
     inverted_fields = XmlSettings.fields_hash.invert
     for node in xml_nodes do
       if inverted_fields[node.name]
@@ -139,7 +139,7 @@ module XmlUpload
     for node in image_nodes.children do
       if node.element?
        # TODO: В дальнейшем нужно использовать URI.parse, URI.absolute?, URI.relative?
-       url =  node.content.index('http://') ? node.content : "http://81.176.236.201#{ node.content }"
+       url =  node.content.index('http://') ? node.content : "http://81.176.236.100#{ node.content }"
        @log_total_images +=1 if upload_image(product, url)
       end
     end  
@@ -189,11 +189,10 @@ module XmlUpload
   def processing_manufactor(manufactor_name)
     return -1 if manufactor_name.blank?
     #item = @manufactors.find{|i| i.name==manufactor_name }
-    item = Manufactor.find_by_name(manufactor_name)
-    if item.blank?
-      item =  Manufactor.create({:name=>manufactor_name })
-      #@manufactors<< item
+    item = Manufactor.find_or_initialize_by_name(manufactor_name)
+    if item.new_record?
       @log_manufacors +=1
+      item.save
     end
     item.id
   end
@@ -202,11 +201,10 @@ module XmlUpload
     return -1 if supplier_name.blank?
     #@suppliers ||= Supplier.all  
     #item = @suppliers.find{|i| i.name==supplier_name }
-    item = Supplier.find_by_name(supplier_name)
-    if item.blank?
-      item =  Supplier.create({:name=>supplier_name })
-      #@suppliers<< item
+    item = Supplier.find_or_initialize_by_name(supplier_name)
+    if item.new_record?
       @log_suppliers +=1
+      item.save
     end
     item.id
   end
