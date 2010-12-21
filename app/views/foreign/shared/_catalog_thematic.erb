@@ -1,8 +1,6 @@
 <p class="b-header"><span><strong>Тематические сувениры</strong></span></p> 
         <div style="margin-left:15px;">
   <%= tree_ul(@categories) do|item|
-   "<span id='tree_item_#{item.id}'>"+
-     link_to(item.name,   foreign_path(item)+ '.html', :title => item.name)   +                              
-   "</span>"
+   content_tag(:span,link_to(item.name,   foreign_path(item)+ '.html'), :id => "tree_item_#{item.id}", :class => (defined?(@category) and @category.id==item.id) ? "selected"  : nil )
    end %>   
         </div>
