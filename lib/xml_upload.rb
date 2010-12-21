@@ -90,7 +90,7 @@ module XmlUpload
     node= xml_nodes.find{|i| i.name==XmlSettings.fields_hash[:article]}
     return -1 unless node or node.content
     puts "=======import_product  #{node.content}"
-    p=Product.find_or_initialize_by_supplier_id_and_article(manufactor, node.content)  if node and supplier>0
+    p=Product.find_or_initialize_by_supplier_id_and_article(supplier, node.content)  if node and supplier>0
     p.new_record? ? @log_new_products +=1 : @log_upd_products +=1
     p.category_ids= categories if categories.present?
     p.manufactor_id= manufactor if manufactor.present?

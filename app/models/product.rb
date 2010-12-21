@@ -18,7 +18,7 @@ class Product < ActiveRecord::Base
   scope :search, lambda { |search_text|
   {:conditions => ["products.short_name like ?",  '%' + search_text + '%'], :limit => 50} }
   
-  validates_presence_of  :manufactor_id, :supplier_id, :article
+  validates_presence_of  :supplier_id, :article
   validates_uniqueness_of :permalink, :allow_nil => true
   
 
