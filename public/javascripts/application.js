@@ -1,7 +1,7 @@
 var ANIMATE_ELEMENT =  "<span class='loader_animate'>&nbsp;<img alt='Loading' src='/images/ajax-loader.gif'></span>"
 
 $(function() {
-  $(".pagination a").live("click", function() {
+  $(".catalog_pages a").live("click", function() {
     $(ANIMATE_ELEMENT).insertAfter('.article_t_p');
 	var reReplacePattern = "http://"+ location.host + "/catalog";
 	var strReplaceTo = "http://r3.giftb2b.ru/foreign";

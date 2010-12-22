@@ -1,15 +1,18 @@
-<fieldset style="width:200px;">
+<fieldset style="width:300px;">
 <legend>Загрузить каталог товаров из xml-файла:</legend>
  <%= form_for :import_data,  :url => admin_data_changes_path, :html => { :multipart => true } do |form| %>
   <%= hidden_field_tag :format, 'js' %>
     <%= form.file_field :xml_file %> 
     <fieldset>
       <legend>Опции</legend>
-    <%= check_box_tag "import_data[process_images]", "1", true %> <%= form.label :process_images, "Загружать картинки" %> <br />
+    <%= check_box_tag "import_data[reset_images]", "1", true %> <%= form.label :reset_images, "Удалять существующие картинки" %> <br />    
+    <%= check_box_tag "import_data[process_images]", "1", true %> <%= form.label :process_images, "Загружать новые картинки" %> <br />    
+<p>
     Деактивация всех товаров у поставщика: <br />
     <% @suppliers.each do |sup| -%>
       <%= check_box_tag "import_data[suppliers][]", sup.id, false %> <%= form.label :suppliers, sup.name %> <br /> 
     <% end -%>
+</p>
     </fieldset>
    
      <%= form.submit "Запуск" %>
