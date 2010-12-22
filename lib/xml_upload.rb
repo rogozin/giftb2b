@@ -5,16 +5,17 @@ module XmlUpload
 
  class << self
 
-  def process_file(path, bw_id, import_images = true)
-    File.open(path, 'r') do |io|
-      process_stream(io, bw_id,import_images)
+  def process_file(path, bw_id, import_images = true, reset_images = false)
+    @process_images = import_images
+    @reset_images = reset_images
+    @bw = BackgroundWorker.find(bw_id)    
+    File.open(path, 'r') do |io|      
+      process_stream(io)
     end
   end
   
-  def process_stream(io, bw_id, import_images = true)
+  def process_stream(io)
     Category.disable_cache
-    @process_images = import_images
-    @bw = BackgroundWorker.find(bw_id)
     @log_categories = 0
     @log_manufacors = 0
     @log_suppliers = 0
@@ -32,14 +33,11 @@ module XmlUpload
     @log_exec_time = Benchmark.ms do
       reader.root.xpath('//item').each do |node_set|          
           begin
-
             processing_xml_item( node_set.children.select{|child_nodes| child_nodes.element? })     
             rescue => error
               @log_errors<< "processing error #{error} "            
           end
           @log_current +=1
-          #calc_progress
-          
           @bw.update_attribute(:current_item, @log_current)
           @bw.update_attributes({:current_item => @log_current, :log_errors => @log_errors.reverse.join('<br />') } )
           @bw.reload
@@ -85,8 +83,7 @@ module XmlUpload
      @log_error<< "processing_xml_item error: #{error}"
   end
   
-  def import_product(manufactor, supplier, categories, xml_nodes)
-    
+  def import_product(manufactor, supplier, categories, xml_nodes)    
     node= xml_nodes.find{|i| i.name==XmlSettings.fields_hash[:article]}
     return -1 unless node or node.content
     puts "=======import_product  #{node.content}"
@@ -101,6 +98,7 @@ module XmlUpload
       end
     end
     p.save
+    p.images.clear if @reset_images    
     process_image_nodes(p, xml_nodes) if @process_images
     additional_props_nodes = xml_nodes.find { |i| i.name == "additional_properties"}
     if additional_props_nodes
@@ -133,6 +131,7 @@ module XmlUpload
     rescue => error
       @log_errors<< "find_property_error: #{error}"
   end
+
   
   def process_image_nodes(product,xml_nodes)
     image_nodes=xml_nodes.find{ |i| i.name=="product_full_image"}

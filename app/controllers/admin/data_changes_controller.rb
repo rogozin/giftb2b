@@ -20,8 +20,9 @@ respond_to :html, :js
       return true
     end  
     pr_images = params[:import_data][:process_images] || false
+    reset_images = params[:import_data][:reset_images] || false    
     Product.update_all("active = 0", ["supplier_id in (?)",params[:import_data][:suppliers] ])
-    Delayed::Job.enqueue(ProcessingJob.new(f.tempfile.path,f.original_filename, current_user.id, pr_images))    
+    Delayed::Job.enqueue(ProcessingJob.new(f.tempfile.path,f.original_filename, current_user.id, pr_images, reset_images))    
  end
   
   
