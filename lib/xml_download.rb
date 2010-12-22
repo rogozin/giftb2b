@@ -13,8 +13,8 @@ module XmlDownload
         products.each do |product|
         xml.item {
             xml.product_sku product.article
-            xml.brand_name product.supplier_name
-            xml.manufacturer_name product.manufactor_name
+            xml.brand_name product.manufactor_name
+            xml.manufacturer_name product.supplier_name
             xml.category_path {xml.cdata decode_categories(product)}
             xml.product_name { xml.cdata product.short_name }
             xml.product_desc { xml.cdata product.description } if options.key? :description
@@ -45,7 +45,7 @@ module XmlDownload
                   xml.name {xml.cdata property_name}
                   property_values.each do |pv|
                   xml.values{
-                    xml.value pv.value 
+                    xml.value {xml.cdata pv.value}
                   }                  
                   end
                 }
