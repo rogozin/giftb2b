@@ -45,7 +45,7 @@ module XmlDownload
                   xml.name {xml.cdata property_name}
                   property_values.each do |pv|
                   xml.values{
-                    xml.value pv.value 
+                    xml.value{xml.cdata pv.value} 
                   }                  
                   end
                 }
