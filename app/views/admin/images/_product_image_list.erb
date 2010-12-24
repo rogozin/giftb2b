@@ -3,26 +3,28 @@
     <th>Изображение</th>
     <th>Имя файла</th>
     <th>Размер</th>
-     <th>Дт. создания</th>
-     <th></th>
+    <th>Основное</th>
+    <th>Дт. создания</th>
+    <th></th>
   </tr>
-  <% @images.each do |item| -%>
+  <% @product.attach_images.each do |item| -%>
    <tr>
     	<td>
-    	  <%= image_tag item.picture.url(:thumb) %>
+    	  <%= image_tag item.image.picture.url(:thumb) %>
 
     	</td>
     	<td>
-    	  <%= item.picture_file_name %> <br />
-     	  <%= link_to 'оригинал', item.picture.url, :popup => ['new_window_name', 'height=300,width=300']  %>
+    	  <%= item.image.picture_file_name %> <br />
+     	  <%= link_to 'оригинал', "#", :onclick =>"window.open('#{item.image.picture.url}','new_window_name','height=300,width=300')" %>
     	</td>
     	<td>
-    	  <%= number_to_human_size(item.picture_file_size) %>
+    	  <%= number_to_human_size(item.image.picture_file_size) %>
     	</td>
+    	<td><%= link_to checked_box_image(item.main_img), set_main_admin_product_image_path(@product.id, item.image_id), :remote => true  %></td>
     	<td>
-    	  <%= item.created_at.to_s %>
+    	  <%= item.image.created_at.to_s %>
     	</td>
-    	<td><%= link_to image_tag('bin.png'), remove_admin_product_image_path(@product,item), :method => :delete, :confirm => 'Изображение будет отвязано от товараю Вы уверены?', :title=>'Отвязать изображение от товара'  %></td>
+    	<td><%= link_to image_tag('bin.png'), remove_admin_product_image_path(@product,item.image_id), :method => :delete, :confirm => 'Изображение будет отвязано от товараю Вы уверены?', :title=>'Отвязать изображение от товара'  %></td>
     </tr>
   <% end -%>
 

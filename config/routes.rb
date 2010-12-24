@@ -61,6 +61,7 @@ Giftr3::Application.routes.draw do
       resources :images do
         member do
           delete :remove
+          get :set_main
         end
       end
     end

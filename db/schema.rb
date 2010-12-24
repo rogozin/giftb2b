@@ -10,12 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101219124632) do
+ActiveRecord::Schema.define(:version => 20101224211049) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
     t.string  "attachable_type"
     t.integer "image_id"
+    t.boolean "main_img",        :default => false
   end
 
   add_index "attach_images", ["attachable_id", "attachable_type", "image_id"], :name => "attach_images_uniq", :unique => true
