@@ -18,7 +18,9 @@
 			<div class="margin_text">
 			<p class="article_name_2"><span class="article_t">Название: </span><%= @product.short_name %></p>
 		<p class="article_name_2"><span class="article_t">Артикул: </span><%= @product.unique_code %></p>						
-			<p class="article_t">Описание: <span class="article_s"><%= @product.description %></span></p>
+		  <div class="article_t">
+  			<p>Описание:</p><div class="article_s"><%=raw RedCloth.new(@product.description).to_html %></div>
+			</div>			
 			<p class="article_t">Материал: <span class="article_s"><%= @product.factur %></span></p>
 			<p class="article_t">Цвет: <span class="article_s"><%= @product.color %></span></p>
 			<p class="article_t">Размер: <span class="article_s"><%= @product.size %></span></p>
