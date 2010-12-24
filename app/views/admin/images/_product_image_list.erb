@@ -14,7 +14,7 @@
     	</td>
     	<td>
     	  <%= item.picture_file_name %> <br />
-     	  <%= link_to 'оригинал', item.picture.url, :popup => ['new_window_name', 'height=300,width=300']  %>
+     	  <%= link_to 'оригинал', "#", :onclick =>"window.open('#{item.picture.url}','new_window_name','height=300,width=300')" %>
     	</td>
     	<td>
     	  <%= number_to_human_size(item.picture_file_size) %>

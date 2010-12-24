@@ -21,6 +21,8 @@ class Product < ActiveRecord::Base
   validates_presence_of  :supplier_id, :article
   validates_uniqueness_of :permalink, :allow_nil => true
   
+  before_save :set_permalink  
+  
 
   def self.filter_data_by_category(category=0, manufactor=0) 
      cond=[[],{}]
@@ -127,16 +129,16 @@ class Product < ActiveRecord::Base
     ind.to_s.rjust(6,'0')
    end
    
-  protected 
-  def before_save
+
+  
+  private
+  def set_permalink
     if self.permalink.blank? 
       self.permalink = prepare_permalink
     else 
       self.permalink= self.permalink.parameterize
     end
   end
-  
-  private
    
    def prepare_permalink
      Product.exists?(:permalink =>self.short_name.parameterize) ? "#{self.unique_code}-#{self.short_name.parameterize}" : self.short_name.parameterize
