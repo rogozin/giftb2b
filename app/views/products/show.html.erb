@@ -31,12 +31,12 @@
 	<div class="clear"></div>
 	<div class="pict_block">
 		<div class="pict_float">
-		<% @product.images.each_with_index do |image,index| -%>
-		 <% unless index == 0 -%>
+		<% @product.attach_images.each do |attachable| -%>
+		 <% unless attachable.main_img -%>
 		  <div class="article_img_1_float">
 		    <div class="article_img_2">
     		  <div class="article_img_3" >
-    		    <%= link_to_function image_tag (image.picture.url(:thumb), :id=>"small_img_#{index}"), "return changeImage(#{index})" %>
+    		    <%= link_to_function image_tag (attachable.image.picture.url(:thumb), :id=>"small_img_#{attachable.image_id}"), "return changeImage(#{attachable.image_id})" %>
     		  </div>
     	  </div>
     	</div>

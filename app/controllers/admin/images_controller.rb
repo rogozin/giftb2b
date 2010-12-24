@@ -12,7 +12,6 @@ class Admin::ImagesController < Admin::BaseController
   def index
     if params[:product_id]
       @product= Product.find_by_permalink(params[:product_id])
-      @images = @product.images
     end
   end
 
@@ -40,6 +39,16 @@ class Admin::ImagesController < Admin::BaseController
     image = Image.find(params[:id])
    flash[:notice] = "Изображение отвязано от товара" if product.images.delete(image) 
     redirect_to admin_product_images_path(params[:product_id])
+  end
+  
+  def set_main
+    @product = Product.find(params[:product_id])
+    attach_image = @product.attach_images.find_by_image_id(params[:id])
+    attach_image.toggle! :main_img
+    respond_to do |format|
+      format.js {render 'reload_images'}
+      format.html {redirect_to admin_product_images_path(@product)}
+    end
   end
   
 end

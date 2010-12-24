@@ -35,6 +35,8 @@ GEM
     authlogic (2.1.6)
       activesupport
     builder (2.1.2)
+    composite_primary_keys (3.1.0)
+      activerecord (>= 3.0.3)
     daemons (1.1.0)
     dalli (0.11.0)
     delayed_job (2.1.2)
@@ -91,6 +93,7 @@ DEPENDENCIES
   RedCloth
   acl9
   authlogic
+  composite_primary_keys (= 3.1.0)
   dalli
   delayed_job
   jquery-rails

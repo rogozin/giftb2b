@@ -4,7 +4,8 @@ module ProductsHelper
     end
     
     def product_image(product, thumb = true)
-      pfi = product.images.first
+      main_attachable_image = product.attach_images.find_by_main_img(true)
+      pfi =  main_attachable_image ? main_attachable_image.image : product.images.first
       if pfi
         if thumb
           image_tag pfi.picture.url(:thumb), :alt=>product.id, :title => product.short_name
