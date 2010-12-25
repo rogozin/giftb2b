@@ -1,7 +1,7 @@
 <% content_for :sub_menu do %>
   <ul id="sub_nav">
-    <%= tab (:url => edit_admin_product_path(@product), :label => 'Товар', :match_path => "/products/#{@product.id}/edit") if @product %>
-    <%= tab (:url => admin_product_images_path(@product), :label => 'Изображения', :match_path => "/products/#{@product.id}/images",  :css_class => 'last') if @product %>    
+    <%= tab(:url => edit_admin_product_path(@product), :label => 'Товар', :match_path => "/products/#{@product.id}/edit") if @product %>
+    <%= tab(:url => admin_product_images_path(@product), :label => 'Изображения', :match_path => "/products/#{@product.id}/images",  :css_class => 'last') if @product %>    
   
   </ul>
 <% end %>

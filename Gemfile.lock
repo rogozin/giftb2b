@@ -2,7 +2,6 @@ GEM
   remote: http://rubygems.org/
   remote: http://gemcutter.org/
   specs:
-    RedCloth (4.2.3)
     abstract (1.0.0)
     acl9 (0.12.0)
     actionmailer (3.0.3)
@@ -35,8 +34,6 @@ GEM
     authlogic (2.1.6)
       activesupport
     builder (2.1.2)
-    composite_primary_keys (3.1.0)
-      activerecord (>= 3.0.3)
     daemons (1.1.0)
     dalli (0.11.0)
     delayed_job (2.1.2)
@@ -90,10 +87,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  RedCloth
   acl9
   authlogic
-  composite_primary_keys (= 3.1.0)
   dalli
   delayed_job
   jquery-rails
