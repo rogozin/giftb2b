@@ -48,4 +48,5 @@ Giftr3::Application.configure do
   config.active_support.deprecation = :notify
   
   config.cache_store = :dalli_store, '127.0.0.1',  { :namespace => Giftr3, :expires_in => 1.day}
+  Paperclip.options[:command_path] = '/usr/bin/'
 end
