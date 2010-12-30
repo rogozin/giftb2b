@@ -43,9 +43,8 @@ class Admin::CategoriesController < Admin::BaseController
     @category = Category.find(params[:id])    
     expire_main_cache if @category.destroy
     @cat = get_catalog_items(@category.catalog_type)
-    respond_to do |format|
-      format.js {render  'reload' }
-    end  
+    flash[:notice] = "Категория удалена!"      
+    redirect_to send("#{@category.catalog_type}_admin_categories_path")
   end
   
   def edit
@@ -67,7 +66,7 @@ class Admin::CategoriesController < Admin::BaseController
       @cat = get_catalog_items(params[:action_name])
     else 
       flash[:notice] = "Состояние изменено!"      
-      redirect_to send("admin_#{params[:action_name]}_path")
+      redirect_to send("#{params[:action_name]}_admin_categories_path_path")
     end
   end
   
@@ -78,7 +77,7 @@ class Admin::CategoriesController < Admin::BaseController
       @cat = get_catalog_items(params[:action_name])
     else 
       flash[:notice] = "Порядок сортировки изменен"      
-      redirect_to send("admin_#{params[:action_name]}_path")
+      redirect_to send("#{params[:action_name]}_admin_categories_path_path")
     end
   end
   

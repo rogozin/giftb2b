@@ -2,7 +2,7 @@ class Category < ActiveRecord::Base
   acts_as_tree :order => "sort_order,name"
   has_many :products, :through => :product_category
   has_many :product_category, :dependent => :delete_all
-  has_many :attach_images, :as => :attachable, :dependent => :delete_all
+  has_many :attach_images, :as => :attachable, :dependent => :delete_all, :foreign_key => :attachable_id
   has_many :images, :through => :attach_images
   has_many :property_category, :dependent => :delete_all
   has_many :properties, :through=>:property_category
