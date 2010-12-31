@@ -97,10 +97,22 @@ class Admin::CategoriesController < Admin::BaseController
   
   def move
     @category = Category.find_by_permalink(params[:id])    
-    @category_to = Category.find(params["move"]["category_to"])
-    res = ProductCategory.update_all("category_id=#{@category_to.id}", "category_id=#{@category.id}")
+    @category_to = Category.find(params["move"]["category_to"])  
+    res=0
+    cnt_err =0
+    # поштучно переносим товары в новую категорию.
+    @category.products.each do |p|
+      begin
+        res += 1 if @category_to.products << p
+      rescue ActiveRecord::RecordNotUnique
+        cnt_err +=1
+      end
+    end
+    # и очищаем старую.
+    @category.products.clear
     @category.update_attribute(:active, false)
-    flash[:notice] = "#{res} товаров перемещено в категорию  <a href='#{edit_admin_category_path(@category_to)}'>#{@category_to.name}</a>"
+    flash[:notice] = "#{res} товар(ов) перемещено в категорию  <a href='#{edit_admin_category_path(@category_to)}'>#{@category_to.name}</a>."
+    flash[:notice] << " #{cnt_err} товар(ов) оказались дубликатами." if cnt_err > 0
     redirect_to edit_admin_category_path(@category)
   end
   
