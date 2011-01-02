@@ -1,4 +1,4 @@
-
+<div class="g-left">
     <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @account} %>
 
     <div class ="b-formfield-div">
@@ -32,13 +32,15 @@
     <div class ="b-formfield-div">
       <%= form.submit "Сохранить" %>
     </div>
+</div>    
 
-<div>
-<p>
-   <%for r in Role.all %>
-  <%= check_box_tag "admin_account[role_object_ids][]", r.id, @account.role_objects.include?(r)  %>
-  <%= r.name %>
+<div class="g-left margin-left">
+<h3>Роль пользователя:</h3>
+   <% Role.all.group_by(&:group).each do |gr, items| %>
+   <p>
+   <% items.each do |r| -%>
+      <%= check_box_tag "admin_account[role_object_ids][]", r.id, @account.role_objects.include?(r), :id => r.id  %> <%= label_tag r.id, r.name %> <br />
+   <% end -%>
+   </p>       
   <%end%>
-</p>
-
 </div>

@@ -15,15 +15,14 @@ Giftr3::Application.routes.draw do
       get :analog_tree
       get :thematic_tree
       get :virtual  
-  end
+    end
     member do
-  get :product
+      get :product
+    end 
   end
   
-  end
-
-  resources :users
   namespace :admin do
+    resources :firms
     resources :accounts do   
       member do
           put :activate

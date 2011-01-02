@@ -141,22 +141,12 @@ table tr.alert td
 a img {border:0 none;}
 
 .one_line_form {float: left;}
-.one_line_form input[type="text"]
+.one_line_form input[type="text"], .one_line_form input[type="email"], .one_line_form input[type="url"], .one_line_form  input[type="password"], .one_line_form  select
 {
     width: 200px;
     border: 1px solid #CCC;
 }
-.one_line_form  input[type="password"]
-{
-    width: 200px;
-    border: 1px solid #CCC;
-}
-.one_line_form  select
-{
-    width: 200px;
-    background-color: white;
-    border: 1px solid #CCC;
-}
+.one_line_form  select {background-color: white;}
 .one_line_form .b-date input[type="text"]  {width: 94px;}
 .one_line_form .b-big-text input[type="text"], .one_line_form .b-big-select select {width: 300px !important;}
 .one_line_form label:first-child, .b-formfield-div span
@@ -253,7 +243,7 @@ span#msg
 
 /*================================BLOCK==============================*/
 
-.b-table-sub { margin-left: 30px;}
+.b-table-sub, .margin-left { margin-left: 30px;}
 
 .b-yellow-block
 {
