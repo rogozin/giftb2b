@@ -9,6 +9,7 @@
 <table>
   <tr>
     <th>Пользователь</th>
+    <th>Роль</th>
     <th>ФИО</th>
     <th>E-Mail</th>
     <th>Дата создания</th>
@@ -19,6 +20,7 @@
 <% for user in @users do %>
   <tr>
     <td><%= link_to  user.username, edit_admin_account_path(user.id) %></td>
+    <td><%= user.role_objects.map(&:name).join(', ') %></td>    
     <td><%= user.fio %></td>
     <td><%= user.email %></td>
     <td><%= Russian.l(user.created_at, :format =>:long) %></td>
