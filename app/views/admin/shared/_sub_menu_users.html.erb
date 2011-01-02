@@ -1,0 +1,6 @@
+<% content_for :sub_menu do %>
+  <ul id="sub_nav">
+    <%= tab :accounts, :route => :admin_accounts, :label => 'Пользователи' %>
+    <%= tab :firms, :route => :admin_firms, :label => 'Фирмы', :css_class => 'last' %>        
+  </ul>
+<% end %>

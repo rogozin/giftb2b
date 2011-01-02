@@ -1,0 +1,30 @@
+<%= render :partial => 'admin/shared/sub_menu_users' %>
+<% title "Управление фирмами" -%>
+
+<div class="b-command-menu">
+<%= link_to 'Добавить новую фирму', new_admin_firm_path  %>
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Юр. название</th>
+  <th>Псевдоним</th>
+  <th>Тел/факс</th>
+  <th>e-mail</th>
+  <th>url</th>
+  <th></th>
+</tr>
+<% @firms.each do |firm| -%>
+  <tr>
+    <td><%= link_to image_tag('edit.png'), edit_admin_firm_path(firm) %></td>
+    <td><%= firm.name %></td>
+    <td><%= firm.short_name %></td>
+    <td><%= firm.phone %></td>
+    <td><%= mail_to firm.email %></td>
+    <td><%= link_to firm.url, firm.url %></td>
+    <td><%= link_to image_tag('bin.png'), admin_firm_path(firm), :method => :delete, :confirm => "Удалить фирму?" %></td>
+  </tr>  
+<% end -%>
+</table>
+

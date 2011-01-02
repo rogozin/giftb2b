@@ -5,6 +5,8 @@ module ApplicationHelper
     id.blank?  ?  image_tag(checked ? 'checked.gif' : 'unchecked.gif') :  image_tag(checked ? 'checked.gif' : 'unchecked.gif', :id=>id) 
   end
   
-
+  def mark_required(object, attribute)  
+    "*" if object.class.validators_on(attribute).map(&:class).include? ActiveModel::Validations::PresenceValidator  
+  end  
 end
 
