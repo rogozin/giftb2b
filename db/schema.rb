@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101224211049) do
+ActiveRecord::Schema.define(:version => 20110102110959) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -74,6 +74,19 @@ ActiveRecord::Schema.define(:version => 20101224211049) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "firms", :force => true do |t|
+    t.string   "name"
+    t.string   "short_name"
+    t.text     "addr_u"
+    t.text     "addr_f"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "url"
+    t.boolean  "is_supplier", :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "foreign_access", :force => true do |t|
     t.string   "name"
