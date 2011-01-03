@@ -9,6 +9,6 @@
 		<p class="article_t">Размер: <span class="article_s"><%= product.size %></span></p> 
 		<p class="article_t">Цена: <span class="article_name"><%= product_price(product) %></span></p> 
 		<div class="article_t">
-		  <%= link_to 'Подробнее о товаре', product_foreign_path(product)+'.html', :class => "article_a", :title => product.short_name  %>		  
+		  <%= link_to 'Подробнее о товаре', product_foreign_path(product)+'.html', :class => "article_a", :title => product.short_name, :target => "_blank"  %>		  
 		</div> 
 	</div> 
