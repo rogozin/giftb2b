@@ -17,6 +17,7 @@
  {:name=>'active'}) %> 
 <%= select(nil ,'store', options_for_select( [['Отсуствует', '0'],['В наличии','1']],params[:store]),{:prompt=>'<-Наличие на складе->'},
  {:name=>'store'}) %>
+ код: <%= text_field_tag :code, params[:code] %> <%= submit_tag "Ok", :name => nil %>
 <% end -%>
 </fieldset>
 
