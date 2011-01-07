@@ -6,6 +6,10 @@
       <%= form.text_field :username %>
     </div>
     <div class ="b-formfield-div">
+      <%= form.label :firm_id, "Фирма" %>
+      <%= form.select :firm_id, @firms, {:include_blank => true} %>
+    </div>    
+    <div class ="b-formfield-div">
       <%= form.label :email, "Email" %>
       <%= form.text_field :email %>
     </div>

@@ -5,3 +5,13 @@
 <%= render :partial => 'account', :locals => {:form => form}%>
 
 <%end%>
+
+<div class="clear"></div>
+<p>
+Дата создания записи:
+<%= Russian.l(@account.created_at, :format =>:long) %>
+</p>
+<p>
+Последний вход:
+<%= Russian.l(@account.current_login_at, :format => :long)  if @account.current_login_at %>
+</p>

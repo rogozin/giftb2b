@@ -12,7 +12,7 @@
     <th>Роль</th>
     <th>ФИО</th>
     <th>E-Mail</th>
-    <th>Дата создания</th>
+    <th>Фирма</th>
     <th>Последний вход</th>
     <th>Кол-во входов</th>
     <th></th>
@@ -23,7 +23,7 @@
     <td><%= user.role_objects.map(&:name).join(', ') %></td>    
     <td><%= user.fio %></td>
     <td><%= user.email %></td>
-    <td><%= Russian.l(user.created_at, :format =>:long) %></td>
+    <td><%= user.firm.name if user.firm %></td>
     <td><%= Russian.l(user.current_login_at, :format => :long)  if user.current_login_at %></td>
     <td><%= user.login_count %></td>
     <td><%=  link_to(user.active? ? "Закрыть доступ":"Активировать" , activate_admin_account_path(user.id), :method => :put )  %></td>

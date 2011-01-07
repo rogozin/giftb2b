@@ -9,6 +9,7 @@ class AccountsController < BaseController
 
   def new
     @account = User.new(:password=>friendly_pass)
+    select_firms
   end
 
   def create
@@ -17,7 +18,9 @@ class AccountsController < BaseController
     if @account.save
       flash[:notice] = 'Пользователь успешно создан!'
       render :show
-    else render :new
+    else 
+       select_firms
+      render :new
     end
 
   end
@@ -25,6 +28,7 @@ class AccountsController < BaseController
   def edit
     @account = User.find(params[:id])
     @roles = Role.all
+    select_firms    
   end
 
   def update
@@ -34,6 +38,7 @@ class AccountsController < BaseController
     if @account.update_attributes params[:admin_account]
       succ_updated
     else
+      select_firms
       render :edit
     end
   end
@@ -57,6 +62,10 @@ class AccountsController < BaseController
         1.upto(6) { |i| newpass << fr_chars[rand(fr_chars.size-1)] }
         newpass
    end
+
+  def select_firms
+    @firms = Firm.all.collect{|f| [f.name, f.id]}
+  end
 
   def succ_updated
     flash[:notice] = "Учетная запись обновлена!"
