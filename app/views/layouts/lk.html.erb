@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru-ru" lang="ru-ru"> 
+<head> 
+  <title><%= @page_title || page_title %></title>
+  <meta name="description" content="<%= yield :meta_description%>" /> 
+  <meta name="keywords" content="<%= yield :meta_keywords %>" />
+  <%= stylesheet_link_tag  'main','jquery-ui-1.7.2.custom.css','jquery.treeview' %>
+  <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie' %>
+  <%= csrf_meta_tag %>
+</head> 
+<body> 
+<div id="header_title"> 
+</div> <!-- end header_title --> 
+<div id="header"> 
+</div> <!-- end header --> 
+  
+<div id="all_content"> 
+<div class="content"><p>Личный кабинет</p></div>
+<div class="clear"></div>       
+
+<div class="content"><div class="center_block"></div></div>
+
+</div> <!-- end all_content --> 
+
+<div id="right_content"> 
+ 
+<div class="banner_right"></div> 
+<div class="line"></div> 
+<div class="left_block"> 
+    <p class="b-header"><span><strong>Здесь пока просто пустой модуль</strong></span></p> 
+	<p><a class="menu_left" href="#">- Что-то будет</a></p>	
+	<p><a class="menu_left" href="#">- Что-то будет</a></p>	 
+</div> <!-- end left_block --> 
+</div> <!--end right_content --> 
+
+<div id="left_content">
+ <%= link_to image_tag("/images/logo_giftb2b.gif", :width => "208", :height => "86", :alt => "giftb2b.ru", :style => "margin-top:13px;margin-left:0px;" ), root_path  %>
+    <div style="width:100%;text-align:center;padding-top:20px;"><p class="text_11pt_ff66cc">узнать больше...</p></div> 
+    
+	<div class="lk" id="lk"> 
+        Вы вошли как   [admin]
+	<a href="/admin/accounts">Администрирование</a>
+	<a href="/logout">Выход</a>
+
+    </div> <!-- end lk -->
+	
+	<div class="line"></div> 
+    <div class="left_block">
+	<p class="b-header"><span><strong>Управление</strong></span></p> 
+	<p><a class="menu_left" href="#">Пользователи</a></p>	
+	<p><a class="menu_left" href="#">Заказы</a></p>	
+	<p><a class="menu_left" href="#">Подписки</a></p>	
+	<p><a class="menu_left" href="#">Мой профиль</a></p>	
+    </div> <!-- end left_block --> 
+	
+</div> <!--end left_content --> 
+<div class="clear"></div> 
+<div id="footer">здесь наши координаты и адрес</div> <!-- end footer --> 
+</body> 
+</html>

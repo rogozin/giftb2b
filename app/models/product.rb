@@ -72,7 +72,7 @@ class Product < ActiveRecord::Base
       cond[1][:search_text]= '%'+options[:search_text]+'%'
     end  
     unless options[:code].blank? 
-      cond[0]<< "products.code like :code"
+      cond[0]<< "products.id like :code"
       cond[1][:code]= '%'+options[:code]+'%'
     end 
     cond[0]<< "products.price =0"    if options[:price] && options[:price]=="0"
