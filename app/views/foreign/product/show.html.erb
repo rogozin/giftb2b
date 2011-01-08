@@ -27,6 +27,10 @@
 			<%= render :partial => "foreign/product/text_properties" %>
 			<br />
 			<p class="article_t">Цена: <span class="article_name"><%= product_price(@product) %></span></p>
+			<div class="popup_block">
+				<button id="openD4">Хочу индивидуальный дизайн</button>
+				<button id="openD5">Хочу цену ниже</button> 
+			</div>
 			</div>
 		</div>
 	</div>
@@ -37,10 +41,6 @@
 	</div>
 	<div class="pict_block">
     <%= render :partial => "foreign/product/analog_products" %>
-	</div>
-	<div class="popup_block">
-		<button id="openD4">Хочу индивидуальный дизайн</button>
-		<button id="openD5">Хочу цену ниже</button> 
 	</div>
 </div> <!-- end center_block -->
 </div> <!-- end content -->
