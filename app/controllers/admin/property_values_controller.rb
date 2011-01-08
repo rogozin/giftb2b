@@ -1,6 +1,6 @@
 class Admin::PropertyValuesController < Admin::BaseController
   access_control do
-     allow :Администратор, :Редактор
+     allow :Администратор, "Редактор каталога"
   end
   
 def new

@@ -1,6 +1,6 @@
 class Admin::SuppliersController < Admin::BaseController
   access_control do
-     allow :Администратор, :Редактор
+     allow :Администратор, "Редактор каталога"
   end
   
   def index

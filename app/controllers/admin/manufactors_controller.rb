@@ -1,7 +1,8 @@
 class Admin::ManufactorsController < Admin::BaseController
   access_control do
-     allow :Администратор, :Редактор
+     allow :Администратор, "Редактор каталога"
   end
+  
   def index
     @manufactors_list = Manufactor.all
   end

@@ -1,6 +1,6 @@
 <% if target.errors.any? %>  
 <div class="errorExplanation">  
-  <h2><%= pluralize(target.errors.count, "error") %> prohibited this record from being saved:</h2>  
+  <h2>Сохранение не удалось из-за <%= target.errors.count %> <%= Russian.p(target.errors.count, "ошибки", "ошибок", "ошибок") %>:</h2>  
   <ul>  
   <% target.errors.full_messages.each do |msg| %>  
     <li><%= msg %></li>  

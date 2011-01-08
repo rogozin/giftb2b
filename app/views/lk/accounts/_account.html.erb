@@ -1,0 +1,31 @@
+    <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @account} %>
+    <%= form.hidden_field :firm_id %>
+    <div class ="b-formfield-div">
+      <%= form.label :username %>
+      <%= form.text_field :username %>
+    </div>
+  
+    <div class ="b-formfield-div">
+      <%= form.label :email %>
+      <%= form.text_field :email %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :password %>
+      <%= form.password_field :password %>
+    </div>    
+    <div class ="b-formfield-div">
+      <%= form.label :password_confirmation %>
+      <%= form.password_field :password_confirmation %>
+    </div>    
+    <div class ="b-formfield-div">
+      <%= form.label :fio %>
+      <%= form.text_field :fio %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :phone %>
+      <%= form.text_field :phone %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.submit "Сохранить" %>
+    </div>
+

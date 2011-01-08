@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from  'Acl9::AccessDenied',  :with => :access_denied
   helper :all # include all helpers, all the time
-
+  
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '14d398aec746ebb20e8f187bda7c3ba3'

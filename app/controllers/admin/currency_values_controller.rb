@@ -2,7 +2,7 @@ require 'open-uri'
 require 'rexml/document'
 class Admin::CurrencyValuesController < Admin::BaseController
   access_control do
-     allow :Администратор, :Редактор
+     allow :Администратор, "Редактор каталога"
   end
 
  def index
