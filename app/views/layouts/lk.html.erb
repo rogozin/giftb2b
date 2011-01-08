@@ -16,10 +16,15 @@
   
 <div id="all_content"> 
 <div class="content"><p>Личный кабинет</p></div>
-<div class="clear"></div>       
-
-<div class="content"><div class="center_block"></div></div>
-
+<div class="clear"></div>   
+<div class="content">
+ <%- flash.each do |name, msg| -%>
+    <%= content_tag :div, raw(msg), :id => "flash_#{name}" if name.to_s.index("notice") or name.to_s.index("error") %>
+    <%- end -%>
+</div>
+ <div class="content"><div class="center_block">   
+  <%= yield :layout  %>
+</div></div>
 </div> <!-- end all_content --> 
 
 <div id="right_content"> 
@@ -38,16 +43,18 @@
     <div style="width:100%;text-align:center;padding-top:20px;"><p class="text_11pt_ff66cc">узнать больше...</p></div> 
     
 	<div class="lk" id="lk"> 
-        Вы вошли как   [admin]
-	<a href="/admin/accounts">Администрирование</a>
-	<a href="/logout">Выход</a>
+    <%  if current_user -%>
+      <%= render  :partial =>'layouts/lk' %>
+    <% else -%>
+    <%= render :partial => "layouts/pass_input" %>
+    <% end -%>
 
     </div> <!-- end lk -->
 	
 	<div class="line"></div> 
     <div class="left_block">
 	<p class="b-header"><span><strong>Управление</strong></span></p> 
-	<p><a class="menu_left" href="#">Пользователи</a></p>	
+	<p><%= link_to 'Пользователи', lk_accounts_path, :class => "menu_left"  %></p>	
 	<p><a class="menu_left" href="#">Заказы</a></p>	
 	<p><a class="menu_left" href="#">Подписки</a></p>	
 	<p><a class="menu_left" href="#">Мой профиль</a></p>	

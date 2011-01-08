@@ -1,4 +1,8 @@
 class Admin::FirmsController < Admin::BaseController
+  access_control do
+     allow :Администратор, "Менеджер продаж"
+  end
+  
   def index
     @firms = Firm.all
   end

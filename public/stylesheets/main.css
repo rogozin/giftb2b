@@ -319,7 +319,7 @@ div.article_img_2_float {float:left; display: table; height: 120px; width:120px;
 }
 
 /*===============================================================*/
-div.article_img_1_z {display: table; height: 120px; width:120px; #position: relative; overflow: hidden; border:0;background:white;}
+div.article_img_1_z {display: <table>>; height: 120px; width:120px; #position: relative; overflow: hidden; border:0;background:white;}
 
 .article_z {
     font-size:8pt;
@@ -392,4 +392,105 @@ a:hover.text_n_z {
 
 .g-hidden {display:none;}
 
-.li_no { list-style-type:none;)
+.li_no { list-style-type:none;}
+
+
+
+#flash_error, #flash_notice
+{
+    font-size: 1 em;
+    margin: 10px 0;
+    letter-spacing: 0.12em;  
+    padding: 10px;
+    -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;    
+}
+
+#flash_error
+{
+    color: #C36;
+    background: #FFECEC;
+}
+#flash_notice
+{
+    color: black;
+    background-color: #9CA01C;
+}
+
+.errorExplanation
+{
+    color: black;
+    background-color: #fedada;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.fieldWithErrors
+{
+    background-color:  #fedada;
+    padding: 1px 1px 4px 1px;
+}
+
+h1 {font-size:1.6em;}
+h2 {font-size:1.3em;}
+h3 {font-size:1.1em;}
+
+table
+{
+  border: solid 1px #e8eef4;
+  border-collapse: collapse;
+}
+
+table.noborder, table.noborder td {border:0px}
+
+table td
+{
+  padding: 5px;
+  border: solid 1px #e8eef4;
+  font-size:0.8em;
+}
+
+
+table th
+{
+  font-size:0.8em;
+  padding: 6px 5px;
+  text-align: left;
+  color:#EAF7E6;
+  background-color: #C36;
+  border: solid 1px #e8eef4;
+}
+
+table tr.alert td
+{
+  background-color:red;
+}
+
+div.spacer {height:10px;}
+
+.one_line_form {float: left;}
+.one_line_form input[type="text"], .one_line_form input[type="email"], .one_line_form input[type="url"], .one_line_form  input[type="password"], .one_line_form  select
+{
+    width: 200px;
+    border: 1px solid #CCC;
+}
+.one_line_form  select {background-color: white;}
+
+.one_line_form label:first-child, .b-formfield-div span
+{
+    float: left;
+    padding-right: 10px;
+}
+.b-formfield-div
+{
+    clear:both;
+    text-align:right;
+    line-height: 25px;
+    margin-bottom: 10px;
+}
+.b-formfield-div span
+{
+  margin-left: -10px;
+  font-size: 0.8em;
+  color: #9f9a9a !important;
+}

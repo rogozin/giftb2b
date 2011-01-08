@@ -2,7 +2,7 @@ require 'xml_download'
 
 class Admin::ProductsController < Admin::BaseController
   access_control do
-     allow :Администратор, :Редактор
+     allow :Администратор, "Редактор каталога"
   end
   
   def index 

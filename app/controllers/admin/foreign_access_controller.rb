@@ -1,7 +1,8 @@
 class Admin::ForeignAccessController < Admin::BaseController
   access_control do
-     allow :Администратор
+     allow :Администратор, "Менеджер продаж"
   end
+  
 def index
   @catalog_clients = ForeignAccess.all
 end

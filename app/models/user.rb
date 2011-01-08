@@ -3,8 +3,15 @@ class User < ActiveRecord::Base
   acts_as_authorization_subject :role_class_name => 'Role'
   belongs_to :firm
   def is_admin?
-    has_role? 'Администратор'
-   # Rails.cache.fetch('is_admin?', :expires_in=>5) {}
+    Rails.cache.fetch('is_admin?', :expires_in=>10) {has_role? 'Администратор'}
+  end
+  
+  def is_lk_user?
+     Rails.cache.fetch('is_lk_user?', :expires_in=>10) {role_objects.exists?(["roles.group>0"])}
+  end
+  
+  def is_admin_user?
+     Rails.cache.fetch('is_admin_user?', :expires_in=>10) {role_objects.exists?(["roles.group=0"])}
   end
   
   def activate!
