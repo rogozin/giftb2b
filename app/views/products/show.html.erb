@@ -15,7 +15,8 @@
 		<div class="text_bg">
 			<div class="margin_text">
 			<p class="article_name_2"><span class="article_t">Название: </span><%= @product.short_name %></p>
-		<p class="article_name_2"><span class="article_t">Артикул: </span><%= @product.unique_code %></p>						
+	  	<p class="article_name_2"><span class="article_t">Артикул: </span><%= article @product %></p>						
+	  	<%= supplier @product %>				
 		  <div class="article_t">
   			<p>Описание:</p><div class="article_s"><%=raw RedCloth.new(@product.description).to_html %></div>
 			</div>
