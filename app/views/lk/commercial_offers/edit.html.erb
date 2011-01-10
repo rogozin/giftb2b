@@ -1,0 +1,23 @@
+<h1>Коммерческое предложение</h1>
+<div class="spacer"></div>
+<p>Кому: <%= @commercial_offer.to %></p>
+<p>Email: <%= @commercial_offer.email %></p>
+
+<div class="spacer"></div>
+
+<table>
+<tr>
+  <th>Товар</th>
+  <th>Цена</th>
+  <th>Кол-во</th>
+</tr>
+<% @commercial_offer.commercial_offer_items.each do |item| -%>
+  <tr>
+    <td><%= item.product.short_name %></td>
+    <td><%= item.price %></td>
+    <td><%= item.quantity %></td>
+  </tr>
+<% end -%>
+</table>
+
+<%= link_to 'Назад к списку КО', lk_commercial_offers_path %>

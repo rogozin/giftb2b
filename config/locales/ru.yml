@@ -2,6 +2,7 @@ ru:
   activerecord:
     models:
       user: "Учетная запись"
+      commercial_offer: "Коммерческое предложение"
     attributes:
       user:
         email: "E-mail"
@@ -10,6 +11,12 @@ ru:
         password_confirmation: "Подтверждение пароля"
         phone: "Контактный телефон"
         fio: "Фамилия, Имя, Отчество"
+      commercial_offer:
+        to: "Кому"
+        addr: "Реквизиты"
+        email: "E-mail"
+        sale: "Скидка, %"
+        signature: "Подпись"
   authlogic:
     error_messages:
       login_blank: "не может быть пустым"

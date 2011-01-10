@@ -20,10 +20,16 @@ Giftr3::Application.routes.draw do
       get :product
     end 
   end
-  
+  resources :cart, :only => [:index] do
+    post :add, :on => :member
+    post :empty, :on => :collection
+    post :calculate, :on => :collection
+    post :generate_co, :on => :collection
+  end
   resources :lk, :only =>[:index]
   namespace :lk do
     resources :accounts 
+    resources :commercial_offers 
   end
   
   

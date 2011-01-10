@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110107105312) do
+ActiveRecord::Schema.define(:version => 20110110164812) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -51,6 +51,27 @@ ActiveRecord::Schema.define(:version => 20110107105312) do
   end
 
   add_index "categories", ["permalink"], :name => "index_categories_on_permalink", :unique => true
+
+  create_table "commercial_offer_items", :force => true do |t|
+    t.integer "commercial_offer_id"
+    t.integer "product_id"
+    t.integer "quantity"
+    t.decimal "price",               :precision => 10, :scale => 2, :default => 0.0
+    t.text    "description"
+    t.text    "remark"
+  end
+
+  create_table "commercial_offers", :force => true do |t|
+    t.integer  "firm_id"
+    t.integer  "sale"
+    t.string   "to"
+    t.string   "addr"
+    t.string   "email"
+    t.text     "signature"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "currency_values", :force => true do |t|
     t.date     "dt"

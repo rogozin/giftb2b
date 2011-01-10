@@ -1,0 +1,20 @@
+<h1>Коммерчиские предложения</h1>
+
+<table width="100%">
+  <tr>
+    <th></th>
+    <th>Кому</th>
+    <th>Создано</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @commercial_offers.each do |item| -%>
+    <tr>
+      <td><%= link_to image_tag('edit.png'), edit_lk_commercial_offer_path(item), :title => "Редактировать коммерческое предложение"  %></td>
+      <td><%= item.to %></td>
+      <td><%= Russian.l(item.created_at, :format => :long) %></td>
+      <td><%= link_to image_tag('bin.png'), lk_commercial_offer_path(item), :method => :delete, :confirm => "Действительно хотите удалить коммерческое предложение?", :title => "Удалить коммерческое предложение"  %></td>
+      <td></td>      
+    </tr>
+  <% end -%>
+</table>
