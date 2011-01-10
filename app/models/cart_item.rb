@@ -3,7 +3,7 @@ class CartItem
   
   def initialize(product)
     @product=product
-    @start_price=product.price
+    @start_price=product.price_in_rub
     @quantity=1
     @sale=0
   end

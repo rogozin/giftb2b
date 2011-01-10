@@ -10,6 +10,37 @@
 
      <% if current_user and session[:cart] and session[:cart].total_items >0 -%>
       <p><%= link_to "Оформить заказ", "#"  %></p>
-      <p> <%= link_to "Коммерческое предложение", "#" if current_user.is_firm_user? %></p>
+      <% if current_user.is_firm_user?  -%>      
+        <p> <%= link_to_function "Преобразовать в коммерческое предложение", "$('#commercial_offer').show();" %></p>
+        <div class="spacer"></div>
+        <div id="commercial_offer" class = "g-hidden">
+        <h3>Формирование нового коммерческого предложения:</h3>
+        <% form_for CommercialOffer.new, :url => generate_co_cart_index_path,  :html => {:class => :one_line_form } do |f| -%>
+           <div class ="b-formfield-div">
+            <%= f.label :to %>
+            <%= f.text_field :to %>
+          </div>
+          <div class ="b-formfield-div">
+            <%= f.label :email %>
+            <%= f.text_field :email %>
+          </div>
+          <div class ="b-formfield-div">
+            <%= f.label :sale %>
+            <%= f.text_field :sale %>
+          </div>          
+          <div class ="b-formfield-div">
+            <%= f.label :addr %>
+            <%= f.text_area :addr, :cols => 23, :rows => 5 %>
+          </div>
+          <div class ="b-formfield-div">
+            <%= f.label :signature %>
+            <%= f.text_area :signature, :cols => 23, :rows => 5 %>
+          </div>
+          <div class ="b-formfield-div">
+            <%= f.submit "Преобразовать" %>
+          </div>          
+        <% end -%>
+        </div>
+      <% end -%>
       <% end -%>
 </div>
