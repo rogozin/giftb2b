@@ -1,0 +1,6 @@
+      <p>
+      <%= link_to_if (my_cart and my_cart.total_items >0 ), 'Ваша корзина:', cart_index_path  %>
+      <%= cart_items %>
+      </p>
+      <p><%= link_to 'Очистить', empty_cart_index_path, :remote => true, :method => :post %> </p>
+ 

@@ -26,6 +26,7 @@
 			<%= render :partial => "products/text_properties" %>
 			<br />
 			<p class="article_t">Цена: <span class="article_name"><%= product_price(@product) %></span></p>
+			<p><%= link_to 'Добавить в корзину', add_cart_path(@product.id), :remote => true, :method => :post if current_user %></p>
 			</div>
 		</div>
 	</div>

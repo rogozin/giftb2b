@@ -1,0 +1,24 @@
+<table width="100%">
+  <tr>
+    <th>Артикул</th>
+    <th>Наименование</th>
+    <th>Цена за шт</th>
+    <th>Кол-во</th>
+    <th>Сумма</th>
+  </tr>
+  <% @cart.items.each do |item| -%>
+    <tr>
+      <td><%= article item.product %></td>
+      <td><%= item.product.short_name %></td>
+      <td><%= product_price(item.product) %></td>
+      <td><%= text_field_tag "cart_items[#{item.product.id}]", item.quantity, :size =>1 %></td>
+      <td><%= number_to_currency item.price, :unit => 'руб.' %></td>
+    </tr>
+  <% end -%>
+  <tr>
+    <td colspan="2"><%= submit_tag "Пересчитать" %></td>
+    <td>Итого:</td>
+    <td><%= @cart.total_items %> шт.</td>
+    <td><%= number_to_currency @cart.total_price, :unit => 'руб.'  %></td>
+  </tr>
+</table>

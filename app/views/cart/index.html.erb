@@ -1,0 +1,15 @@
+<div class="content"> 
+<h1>Ваша корзина:</h1>
+
+<% form_tag "cart/calculate", :remote => true  do -%>
+<div id="cart_items">
+  <%= render :partial => "cart_items"  if @cart.total_items >0%>
+</div>
+
+<% end -%>
+
+     <% if current_user and session[:cart] and session[:cart].total_items >0 -%>
+      <p><%= link_to "Оформить заказ", "#"  %></p>
+      <p> <%= link_to "Коммерческое предложение", "#" if current_user.is_firm_user? %></p>
+      <% end -%>
+</div>
