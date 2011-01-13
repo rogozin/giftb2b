@@ -46,14 +46,9 @@
 
   </div> <!-- end all_content --> 
   <div id="right_content"> 
- 
-    <div class="banner_right">
-    <div id="cart">
-      <%= render :partial => "cart/cart"  if current_user %>
+    <div id="cart" class="basket_right">
+    <%= render :partial => "cart/cart"  if current_user %>
     </div>
-        
-    </div> 
- 
       <!-- <div class="line_right"></div> --> 
     <div class="line"></div> 
     <div class="left_block"> 
