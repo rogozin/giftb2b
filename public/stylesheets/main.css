@@ -496,3 +496,39 @@ div.spacer {height:10px;}
   font-size: 0.8em;
   color: #9f9a9a !important;
 }
+
+/* Style basket */
+
+.basket_right {
+    height:140px;
+    width:240px;
+}
+
+.basket_right img {
+    position:relative;
+    top:5px;
+    left:60px;
+}
+.basket_50 a {
+    color:#999999;
+}
+
+.basket_50 {
+    width:49%;
+    font-size:8pt;
+    margin-top:15px;
+    float:left;
+
+}
+
+/*------------------------------*/
+ 
+.article_date {
+    color:#999999;
+    margin-top:3px;
+    font-size:7pt;
+}
+
+.article_date span.article_s {
+    font-style: italic;
+}

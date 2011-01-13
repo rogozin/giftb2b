@@ -29,7 +29,9 @@
 
 <div id="right_content"> 
  
-<div class="banner_right"></div> 
+ <div id="cart" class="basket_right">
+    <%= render :partial => "cart/cart"  if current_user %>
+    </div>
 <div class="line"></div> 
 <div class="left_block"> 
     <p class="b-header"><span><strong>Здесь пока просто пустой модуль</strong></span></p> 
