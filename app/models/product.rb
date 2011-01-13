@@ -16,7 +16,7 @@ class Product < ActiveRecord::Base
   scope :for_admin, :joins=>[:supplier,:manufactor], :select =>"distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name"
   
   scope :search, lambda { |search_text|
-  {:conditions => ["products.short_name like ?",  '%' + search_text + '%'], :limit => 50} }
+  {:conditions => ["(products.short_name like ?) or (lpad(products.id,6,'0')=?)",  '%' + search_text + '%', search_text], :limit => 50} }
   
   validates_presence_of  :supplier_id, :article
   validates_uniqueness_of :permalink, :allow_nil => true
@@ -72,8 +72,8 @@ class Product < ActiveRecord::Base
       cond[1][:search_text]= '%'+options[:search_text]+'%'
     end  
     unless options[:code].blank? 
-      cond[0]<< "products.id like :code"
-      cond[1][:code]= '%'+options[:code]+'%'
+      cond[0]<< "lpad(products.id,6,'0') = :code"
+      cond[1][:code]= options[:code]
     end 
     cond[0]<< "products.price =0"    if options[:price] && options[:price]=="0"
     cond[0]<< "products.price >0"    if options[:price] && options[:price]=="1"
