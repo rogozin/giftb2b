@@ -23,7 +23,7 @@ module ProductsHelper
     
     def article product
       if current_user and (current_user.is_firm_user? or current_user.is_admin_user?)
-        product.article
+        "#{product.unique_code} (#{product.article})"
       else
         product.unique_code
       end
