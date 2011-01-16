@@ -1,6 +1,9 @@
 require 'cart'
 require 'cart_item'
 require 'product'
+require 'attach_image'
+require 'image'
+
 class CartController < ApplicationController
   def index
     @cart = find_cart
