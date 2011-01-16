@@ -4,6 +4,7 @@ ru:
       user: "Учетная запись"
       commercial_offer: "Коммерческое предложение"
       commercial_offer_item: "Товар"
+      lk_firm: "Фирма"
     attributes:
       user:
         email: "E-mail"
@@ -13,8 +14,7 @@ ru:
         phone: "Контактный телефон"
         fio: "Фамилия, Имя, Отчество"
       commercial_offer:
-        to: "Кому"
-        addr: "Реквизиты"
+        lk_firm_id: "Фирма"
         email: "E-mail"
         sale: "Скидка, %"
         signature: "Подпись"
@@ -22,6 +22,15 @@ ru:
         quantity: "Количество" 
         price: "Цена"
         description: "Описание" 
+      lk_firm:
+        name: "Название фирмы"
+        contact: "Контактное лицо"
+        phone: "Телефон"
+        email: "E-Mail"
+        url: "Веб-адрес"
+        addr_u: "Адрес юридический"
+        addr_f: "Адрес физический"
+        description: "Примечание"
   authlogic:
     error_messages:
       login_blank: "не может быть пустым"

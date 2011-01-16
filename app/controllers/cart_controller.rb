@@ -1,9 +1,13 @@
 require 'cart'
 require 'cart_item'
 require 'product'
+require 'attach_image'
+require 'image'
+
 class CartController < ApplicationController
   def index
     @cart = find_cart
+    @lk_firms = LkFirm.find_all_by_firm_id(current_user.firm_id) if current_user.is_firm_user?
   end
   
  def add
@@ -43,11 +47,17 @@ class CartController < ApplicationController
     @co = CommercialOffer.new(params[:commercial_offer])
     @co.firm = current_user.firm
     @co.user = current_user
-    flash[:notice] = "Коммерческое предложенеие сгенерировано на основе набора товаров Вашей корзины." if @co.save
-    for item in @cart.items
-      @co.commercial_offer_items.create({:product_id=>item.product.id, :quantity => item.quantity, :price => item.start_price, :description => item.product.description})
-    end
-    redirect_to lk_commercial_offer_path(@co)
+    if @co.save
+     flash[:notice] = "Коммерческое предложенеие сгенерировано на основе набора товаров Вашей корзины." 
+      for item in @cart.items
+       @co.commercial_offer_items.create({:product_id=>item.product.id, :quantity => item.quantity, :price => item.start_price, :description => item.product.description})
+      end
+      redirect_to lk_commercial_offer_path(@co)
+    else 
+      flash[:error] = "Коммерческое предложение не может быть сгенерировано!" 
+      redirect_to cart_index_path
+    end  
+    
   end
 
   private 

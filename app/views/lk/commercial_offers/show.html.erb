@@ -1,4 +1,4 @@
-<h1>Коммерческое предложение  <%= @commercial_offer.to %></h1>
+<h1>Коммерческое предложение  <%= @commercial_offer.lk_firm.name if @commercial_offer.lk_firm %></h1>
 <div class="spacer"></div>
 <p>дата создания <%= Russian.l(@commercial_offer.created_at, :format => :long) %></p>
 

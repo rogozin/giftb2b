@@ -1,0 +1,2 @@
+module Lk::FirmsHelper
+end
