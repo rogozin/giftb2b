@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110110164812) do
+ActiveRecord::Schema.define(:version => 20110116144308) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -63,14 +63,13 @@ ActiveRecord::Schema.define(:version => 20110110164812) do
 
   create_table "commercial_offers", :force => true do |t|
     t.integer  "firm_id"
-    t.integer  "sale"
-    t.string   "to"
-    t.string   "addr"
+    t.integer  "sale",       :default => 0
     t.string   "email"
     t.text     "signature"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "lk_firm_id"
   end
 
   create_table "currency_values", :force => true do |t|
@@ -124,6 +123,20 @@ ActiveRecord::Schema.define(:version => 20110110164812) do
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lk_firms", :force => true do |t|
+    t.integer  "firm_id"
+    t.string   "name"
+    t.string   "contact"
+    t.text     "addr_u"
+    t.text     "addr_f"
+    t.text     "description"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

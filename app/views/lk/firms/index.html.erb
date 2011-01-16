@@ -1,0 +1,26 @@
+<h1>Мои фирмы</h1>
+<div class="spacer"></div>
+<%= link_to 'Добавить фирму', new_lk_firm_path %>
+<div class="spacer"></div>
+<% if @firms.present? -%>
+  <table width="100%">
+  <tr>
+    <th></th>
+    <th>Название</th>
+    <th>Контактное лицо</th>
+    <th>E-mail</th>
+    <th></th>
+  </tr>
+   <% @firms.each do |item| -%>
+     <tr>
+       <td><%= link_to image_tag('edit.png'), edit_lk_firm_path(item) %></td>
+       <td><%= item.name %></td>
+       <td><%= item.contact %></td>
+       <td><%= item.email %></td>
+       <td><%= link_to image_tag('bin.png'), lk_firm_path(item), :method => :delete, :confirm => "Удалить фирму?"  %></td>
+     </tr>
+   <% end -%>
+</table>
+<% else -%>
+<p>В списке нет ни одной фирмы</p>
+<% end -%>

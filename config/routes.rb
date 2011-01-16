@@ -29,6 +29,7 @@ Giftr3::Application.routes.draw do
   resources :lk, :only =>[:index]
   namespace :lk do
     resources :accounts 
+    resources :firms
     resources :commercial_offers do
       member do 
         post :calculate
