@@ -1,6 +1,10 @@
 module ProductsHelper
     def product_price(product)
-      number_to_currency(product.price_in_rub, :unit => 'руб. ')
+      price_ru_label(product.price_in_rub)
+    end
+    
+    def price_ru_label val
+      number_to_currency(val, :unit => 'руб. ')
     end
     
     def product_image(product, thumb = true)

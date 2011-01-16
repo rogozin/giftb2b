@@ -12,7 +12,7 @@ class Lk::CommercialOffersController < Lk::BaseController
     end
   end
 
-  def edit
+  def show
     @commercial_offer = CommercialOffer.find(params[:id])
   end
   
@@ -20,6 +20,20 @@ class Lk::CommercialOffersController < Lk::BaseController
     @commercial_offer = CommercialOffer.find(params[:id])
     flash[:notice] = "Коммерческое предложение удалено" if @commercial_offer.destroy
     redirect_to lk_commercial_offers_path
+  end
+  
+  def calculate 
+    @commercial_offer = CommercialOffer.find(params[:id])
+    @commercial_offer.sale = params[:sale]
+    flash[:error] = "Ошибка при пересчете!" unless @commercial_offer.save
+    params[:co_items].each do |product_id, quantity|
+      if quantity.to_i >0
+        @commercial_offer.commercial_offer_items.find_by_product_id(product_id).update_attribute :quantity, quantity
+      else
+        @commercial_offer.commercial_offer_items.find_by_product_id(product_id).destroy
+      end 
+    end
+    redirect_to lk_commercial_offer_path(@commercial_offer)  
   end
 
 end
