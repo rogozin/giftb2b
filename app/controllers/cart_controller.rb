@@ -45,9 +45,9 @@ class CartController < ApplicationController
     @co.user = current_user
     flash[:notice] = "Коммерческое предложенеие сгенерировано на основе набора товаров Вашей корзины." if @co.save
     for item in @cart.items
-      @co.commercial_offer_items.create({:product_id=>item.product.id, :quantity => item.quantity, :price => item.start_price})
+      @co.commercial_offer_items.create({:product_id=>item.product.id, :quantity => item.quantity, :price => item.start_price, :description => item.product.description})
     end
-    redirect_to edit_lk_commercial_offer_path(@co)
+    redirect_to lk_commercial_offer_path(@co)
   end
 
   private 

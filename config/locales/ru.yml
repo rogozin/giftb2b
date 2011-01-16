@@ -3,6 +3,7 @@ ru:
     models:
       user: "Учетная запись"
       commercial_offer: "Коммерческое предложение"
+      commercial_offer_item: "Товар"
     attributes:
       user:
         email: "E-mail"
@@ -17,6 +18,10 @@ ru:
         email: "E-mail"
         sale: "Скидка, %"
         signature: "Подпись"
+      commercial_offer_item:
+        quantity: "Количество" 
+        price: "Цена"
+        description: "Описание" 
   authlogic:
     error_messages:
       login_blank: "не может быть пустым"

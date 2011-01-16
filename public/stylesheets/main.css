@@ -1,5 +1,5 @@
 ﻿ * {
-	padding:0px;
+/*	padding:0px;*/
 	margin:0px;
 }
 
@@ -321,7 +321,7 @@ div.article_img_2_float {float:left; display: table; height: 120px; width:120px;
 }
 
 /*===============================================================*/
-div.article_img_1_z {display: <table>>; height: 120px; width:120px; #position: relative; overflow: hidden; border:0;background:white;}
+div.article_img_1_z {display: table; height: 120px; width:120px; #position: relative; overflow: hidden; border:0;background:white;}
 
 .article_z {
     font-size:8pt;
@@ -427,15 +427,22 @@ a:hover.text_n_z {
     margin-bottom: 10px;
 }
 
-.fieldWithErrors
+.field_with_errors
 {
     background-color:  #fedada;
-    padding: 1px 1px 4px 1px;
+    padding: 4px 1px 4px 1px;
 }
 
-h1 {font-size:1.6em;}
-h2 {font-size:1.3em;}
-h3 {font-size:1.1em;}
+h1, h3 {
+    color:#999999;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+h1{font-size:13pt;}
+h2{font-size:12pt;}
+h3{font-size:11pt;}
+
 
 table
 {
@@ -531,4 +538,15 @@ div.spacer {height:10px;}
 
 .article_date span.article_s {
     font-style: italic;
+}
+
+
+.content p, .commercial_offer label {
+    color:#999999;
+    text-align:left;
+    font-size:10pt;
+}
+
+.content a {
+    color:#999999;
 }

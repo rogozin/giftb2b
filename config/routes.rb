@@ -29,7 +29,12 @@ Giftr3::Application.routes.draw do
   resources :lk, :only =>[:index]
   namespace :lk do
     resources :accounts 
-    resources :commercial_offers 
+    resources :commercial_offers do
+      member do 
+        post :calculate
+      end
+      resources :products, :except => [:index] 
+    end  
   end
   
   
