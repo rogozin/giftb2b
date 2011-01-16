@@ -1,6 +1,10 @@
 module ProductsHelper
     def product_price(product)
-      number_to_currency(product.price_in_rub, :unit => 'руб. ')
+      price_ru_label(product.price_in_rub)
+    end
+    
+    def price_ru_label val
+      number_to_currency(val, :unit => 'руб. ')
     end
     
     def product_image(product, thumb = true)
@@ -23,7 +27,7 @@ module ProductsHelper
     
     def article product
       if current_user and (current_user.is_firm_user? or current_user.is_admin_user?)
-        product.article
+        "#{product.unique_code} (#{product.article})"
       else
         product.unique_code
       end

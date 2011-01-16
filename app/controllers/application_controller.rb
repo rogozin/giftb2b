@@ -1,6 +1,5 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base  
 
   rescue_from  'Acl9::AccessDenied',  :with => :access_denied
@@ -14,13 +13,11 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password").
   helper_method :current_user
-  helper_method :cart
   cattr_reader :current_user
 
 
 
   private
-
   def access_denied
      if current_user
        # It's presumed you have a template with words of pity and regret

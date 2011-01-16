@@ -1,0 +1,9 @@
+<h1>Коммерчиские предложения</h1>
+
+<% if @commercial_offers.present? -%>
+<%= render :partial => "comercial_offers" %>
+<% else -%>
+<p>Коммерческие предложения отсутствуют</p>
+<% end -%>
+
+
