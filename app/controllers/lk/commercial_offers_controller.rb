@@ -8,7 +8,7 @@ class Lk::CommercialOffersController < Lk::BaseController
       @commercial_offers = CommercialOffer.find_all_by_firm_id(current_user.firm.id)
     else 
       @commercial_offers  = []
-      flash[:error] = "Вам не назначена фирма!"
+       not_firm_assigned!
     end
   end
 

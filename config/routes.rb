@@ -30,11 +30,12 @@ Giftr3::Application.routes.draw do
   namespace :lk do
     resources :accounts 
     resources :firms
+    resources :products
     resources :commercial_offers do
       member do 
         post :calculate
       end
-      resources :products, :except => [:index] 
+      resources :products, :controller => "commercial_offer_items", :except => [:index] 
     end  
   end
   

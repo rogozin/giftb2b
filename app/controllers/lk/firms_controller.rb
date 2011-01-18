@@ -10,7 +10,7 @@ class Lk::FirmsController < Lk::BaseController
       @firms = LkFirm.find_all_by_firm_id(current_user.firm.id)
     else 
       @firms  = []
-      flash[:error] = "Вам не назначена фирма!"
+      not_firm_assigned!
     end
   end
 
