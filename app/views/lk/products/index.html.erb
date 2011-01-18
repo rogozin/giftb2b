@@ -1,0 +1,11 @@
+<h1>Мои товары</h1>
+<div class="spacer"></div>
+<div><%= link_to 'Добавить новый товар', new_lk_product_path  %></div>
+<div class="spacer"></div>
+<% if @products.present? -%>
+<%= render :partial => "products" %>
+<% else -%>
+<p>Товары отсутствуют</p>
+<% end -%>
+
+

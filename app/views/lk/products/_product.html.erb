@@ -1,0 +1,48 @@
+<% form_for @product, :html => {:multipart => true} do |f| -%>
+<%= f.hidden_field :firm_id %>
+<div><%= render :partial => 'admin/shared/error_messages', :locals => {:target => @product} %></div>
+<table>
+  <tr>
+    <td><%= f.label :article %></td>
+    <td><%= f.text_field :article %></td>
+  </tr>
+  <tr>
+    <td><%= f.label :picture %></td>
+    <td><%= f.file_field :picture %></td>
+  </tr>  
+  <tr>
+    <td><%= f.label :short_name %></td>
+    <td><%= f.text_field :short_name %></td>
+  </tr>
+  <tr>
+    <td><%= f.label :price %></td>
+    <td><%= f.text_field :price %></td>
+  </tr>
+  <tr>
+    <td><%= f.label :color %></td>
+    <td><%= f.text_field :color %></td>
+  </tr>  
+  <tr>
+    <td><%= f.label :factur %></td>
+    <td><%= f.text_field :factur %></td>
+  </tr>  
+  <tr>
+    <td><%= f.label :box %></td>
+    <td><%= f.text_field :box %></td>
+  </tr>  
+  <tr>
+    <td><%= f.label :size %></td>
+    <td><%= f.text_field :size %></td>
+  </tr> 
+  <tr>
+    <td><%= f.label :infliction %></td>
+    <td><%= f.text_field :infliction %></td>
+  </tr>    
+  <tr>
+    <td><%= f.label :description %></td>
+    <td><%= f.text_area :description, :size => "25x5" %></td>
+  </tr>      
+    <td colspan="2"><%= f.submit %></td>
+  </tr>
+</table>
+<% end -%>

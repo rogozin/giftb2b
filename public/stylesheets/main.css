@@ -475,6 +475,8 @@ table tr.alert td
   background-color:red;
 }
 
+.center_block table {width:100%;}
+
 div.spacer {height:10px;}
 
 .one_line_form {float: left;}

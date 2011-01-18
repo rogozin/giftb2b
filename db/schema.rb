@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110116144308) do
+ActiveRecord::Schema.define(:version => 20110117195202) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -137,6 +137,26 @@ ActiveRecord::Schema.define(:version => 20110116144308) do
     t.string   "phone"
     t.string   "email"
     t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lk_products", :force => true do |t|
+    t.integer  "firm_id"
+    t.integer  "product_id"
+    t.string   "article"
+    t.string   "short_name"
+    t.text     "description"
+    t.decimal  "price",                :precision => 10, :scale => 2, :default => 0.0
+    t.string   "color"
+    t.string   "size"
+    t.string   "factur"
+    t.string   "box"
+    t.string   "infliction"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

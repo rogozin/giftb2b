@@ -1,0 +1,18 @@
+<table width="100%">
+<tr>
+  <th></th>
+  <th>Изображение</th>
+  <th>Артикул</th>
+  <th>Наименование</th>
+  <th></th>
+</tr>
+<% @products.each do |item| -%>
+  <tr>
+    <td><%= link_to image_tag('edit.png'), edit_lk_product_path(item) %></td>
+    <td><%= image_tag(item.picture.url)  %></td>
+    <td><%= item.article %></td>
+    <td><%= item.short_name %></td>
+    <td><%= link_to image_tag('bin.png'), lk_product_path(item), :method => :delete, :confirm => "Удалить товар?" %></td>
+  </tr>
+<% end -%>
+</table>

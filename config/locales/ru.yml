@@ -1,10 +1,16 @@
 ru:
+  helpers:
+    submit:
+      create: 'Создать %{model}'
+      update: 'Изменить %{model}'
+      submit: 'Сохранить %{model}'
   activerecord:
     models:
       user: "Учетная запись"
       commercial_offer: "Коммерческое предложение"
       commercial_offer_item: "Товар"
       lk_firm: "Фирма"
+      lk_product: "Товар"
     attributes:
       user:
         email: "E-mail"
@@ -31,6 +37,17 @@ ru:
         addr_u: "Адрес юридический"
         addr_f: "Адрес физический"
         description: "Примечание"
+      lk_product:
+        article: "Артикул"
+        picture: "Изображение"
+        short_name: "Наименование"
+        price: "Цена"
+        color: "Цвет"
+        factur: "Материал"
+        box: "Упаковка"
+        size: "Размер"
+        infliction: "Нанесение"
+        description: "Описание"
   authlogic:
     error_messages:
       login_blank: "не может быть пустым"

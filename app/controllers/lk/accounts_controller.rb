@@ -8,7 +8,7 @@ class Lk::AccountsController < Lk::BaseController
       @users = User.find_all_by_firm_id(current_user.firm_id)
     else 
       @users = []
-      flash[:error] = "Вам не назначена фирма!"
+       not_firm_assigned!
     end
   end
 

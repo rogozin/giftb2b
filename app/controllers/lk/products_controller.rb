@@ -3,41 +3,50 @@ class Lk::ProductsController < Lk::BaseController
      allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
   end
   
-  before_filter :find_co
-  before_filter :find_co_item, :except => [:create, :new]
+  before_filter :find_lk_product, :only => [:edit, :update, :destroy]
   
-  def edit
-    @commercial_offer_product = @commercial_offer_item
-  end
-  
-  def update
-    if @commercial_offer_item.update_attributes(params[:commercial_offer_item])
-      flash[:notice] = "Товар изменен!"
-      redirect_to edit_lk_commercial_offer_product_path(@commercial_offer, @commercial_offer_item)
-    else  
-      render 'edit'
-    end  
+  def index
+    if current_user.firm_id.present?
+      @products = LkProduct.find_all_by_firm_id(current_user.firm.id)
+    else 
+      @products  = []
+      not_firm_assigned!
+    end
   end
   
   def new
-    
+    @product = LkProduct.new({:firm_id => current_user.firm_id})
   end
   
   def create
-    
+    @product = LkProduct.new(params[:lk_product])
+    if @product.save
+      flash[:notice] = "Товар успешно добавлен!"
+      redirect_to edit_lk_product_path(@product)
+    else
+      render 'new'
+    end
   end
   
-  def destroy
-    flash[:notice] = "Товар исключен из коммерческого предложения!" if @commercial_offer_item.destroy
-    redirect_to lk_commercial_offer_path(@commercial_offer)
+  def update
+    if @product.update_attributes(params[:lk_product])
+      flash[:notice] = "Товар изменен!"
+      redirect_to edit_lk_product_path(@product)
+    else
+      render 'edit'
+    end
   end
-  
-  private
-  def find_co
-    @commercial_offer = CommercialOffer.find(params[:commercial_offer_id])
-  end
-  
-  def find_co_item
-    @commercial_offer_item = CommercialOfferItem.find(params[:id])
-  end
+ 
+ def destroy
+   flash[:notice] = "Товар удален!" if @product.destroy
+   redirect_to lk_products_path
+   
+ end
+ 
+ def find_lk_product
+   @product = LkProduct.find(params[:id])
+ end
+ 
+ private :find_lk_product
+ 
 end
