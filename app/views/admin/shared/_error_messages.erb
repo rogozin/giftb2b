@@ -2,7 +2,7 @@
 <div class="errorExplanation">  
   <h2>Сохранение не удалось из-за <%= target.errors.count %> <%= Russian.p(target.errors.count, "ошибки", "ошибок", "ошибок") %>:</h2>  
   <ul>  
-  <% target.errors.full_messages.each do |msg| %>  
+  <%= target.errors.full_messages.each do |msg| %>  
     <li><%= msg %></li>  
   <% end %>  
   </ul>  

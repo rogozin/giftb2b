@@ -1,40 +1,5 @@
-<h1>Коммерческое предложение  <%= @commercial_offer.lk_firm.name %></h1>
-<div class="spacer"></div>
-<p>дата создания <%= Russian.l(@commercial_offer.created_at, :format => :long) %></p>
+<h1>Редактирование товара</h1>
 
+<%= render :partial => "lk/products/product", :locals => {:redirect => lk_commercial_offer_path(@commercial_offer)} %>
 <div class="spacer"></div>
-
-<%= form_for @commercial_offer_item, :url => lk_commercial_offer_product_path(@commercial_offer,@commercial_offer_item), :html => {:method => :put} do |f| %>
-<div><%= render :partial => 'admin/shared/error_messages', :locals => {:target => @commercial_offer_item} %></div>
- <table width="100%">
-  <tr>
-    <td>Артикул:</td>
-    <td><%= article @commercial_offer_item.product %></td>
-  </tr>
-  <tr>
-    <td>Изображение:</td>
-    <td><%= product_image @commercial_offer_item.product %></td>
-  </tr>
-  <tr>
-    <td>Название:</td>
-    <td><%= @commercial_offer_item.product.short_name %></td>
-  </tr>
-  <tr>
-    <td>Описание:</td>
-    <td><%= f.text_area :description, :rows => 5, :cols =>50 %></td>
-  </tr>
-  <tr>
-    <td>Цена за шт., руб.:</td>
-    <td><%= f.text_field :price, :size =>5 %></td>
-  </tr>
-  <tr>
-    <td>Кол-во:</td>
-    <td><%= f.text_field :quantity, :size => 5 %></td>
-  </tr>
-  <tr>
-    <td colspan="2"> <%= f.submit "Сохранить" %></td>
-  </tr>
- </table>
-<% end -%>
-<div class="spacer"></div>
-<%= link_to 'Назад к коммерческому предложению', lk_commercial_offer_path(@commercial_offer)  %>
+<%= link_to 'Назад к коммерческому предложению', lk_commercial_offer_path(@commercial_offer) %>

@@ -1,0 +1,9 @@
+<% form_tag  url_for(:action => :add_product, :id => @commercial_offer) do -%>
+<ul>
+<% @lk_products.each do |item| -%>
+<li><%= check_box_tag "lk_product_ids[]", item.id, false, :id => "lk_product_ids_#{item.id}" %> <%= label_tag "lk_product_ids_#{item.id}", item.article %></li>  
+<% end -%>
+</ul>
+<p><%= submit_tag "Добавить" %></p>
+<% end -%>
+

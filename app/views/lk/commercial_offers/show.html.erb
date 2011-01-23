@@ -3,43 +3,20 @@
 <p>дата создания <%= Russian.l(@commercial_offer.created_at, :format => :long) %></p>
 
 <div class="spacer"></div>
-<%= form_tag calculate_lk_commercial_offer_path(@commercial_offer) do %>
-<table width="100%">
-  <tr>
-    <th></th>
-    <th>Изображение</th>
-    <th>Артикул</th>
-    <th>Наименование</th>
-    <th>Цена за шт</th>
-    <th>Кол-во</th>
-    <th>Сумма</th>
-    <th></th>
-  </tr>
-  <% @commercial_offer.commercial_offer_items.each do |item| -%>
-    <tr>
-      <td><%= link_to image_tag('edit.png'), edit_lk_commercial_offer_product_path(@commercial_offer, item)  %></td>
-      <td><%= product_image item.product %></td>
-      <td><%= article item.product %></td>
-      <td><%= item.product.short_name %></td>
-      <td><%= price_ru_label item.price  %></td>
-      <td><%= text_field_tag "co_items[#{item.product.id}]", item.quantity, :size =>1 %></td>
-      <td><%= price_ru_label item.price * item.quantity %></td>
-      <td><%= link_to image_tag('bin.png'), lk_commercial_offer_product_path(@commercial_offer, item), :method => :delete, :confirm => "Удалить товар из коммерческого предложения?"  %></td>
-    </tr>
-  <% end -%>
-  <tr>
-    <td colspan="2"><%= submit_tag "Пересчитать" %></td>
-    <td colspan="2">
-    <%= label_tag :sale,"Скидка, %:" %> <%= text_field_tag :sale, @commercial_offer.sale, :size => 3 %></td>
-    <td>Итого:</td>
-    <td><%= @commercial_offer.commercial_offer_items.size %> шт.</td>
-    <td colspan="2"><%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
-  </tr>
-</table>
-<% end %>
+<div id="commercial_offer_items">
+  <%= render :partial => "commercial_offer_items" %>
+</div>
 <div class="spacer"></div>
-<p>Добавить товар из корзины</p>
-<p>Добавить товар</p>
+
+<p><%= link_to_function 'Добавить товар из корзины', "$('#add_cart_prodcut').toggle()"  %></p>
+<div id="add_cart_prodcut" class="g-hidden">
+<%= render :partial => 'add_product_from_cart' %>
+</div>
+<p><%= link_to_function 'Добавить товар из моего списка', "$('#add_lk_prodcut').toggle()"  %></p>
+<div class="spacer"></div>
+<div id="add_lk_prodcut" class="g-hidden">
+<%= render :partial => 'add_product_from_lk' %>
+</div>
 <div class="spacer"></div>
 <%= link_to 'Назад к списку КО', lk_commercial_offers_path %>
 

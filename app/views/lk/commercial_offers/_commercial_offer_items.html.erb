@@ -1,0 +1,35 @@
+<%= form_tag calculate_lk_commercial_offer_path(@commercial_offer) do %>
+<table width="100%">
+  <tr>
+    <th></th>
+    <th>Изображение</th>
+    <th>Артикул</th>
+    <th>Наименование</th>
+    <th>Цена за шт</th>
+    <th>Кол-во</th>
+    <th>Сумма</th>
+    <th></th>
+  </tr>
+  <% @commercial_offer.commercial_offer_items.each do |item| -%>
+    <tr>
+      <td><%= link_to image_tag('edit.png'), edit_lk_commercial_offer_product_path(@commercial_offer, item)  %></td>
+      <td><%= image_tag(item.lk_product && item.lk_product.picture ? item.lk_product.picture.url : "default_image.jpg") %></td>
+      <td><%= item.lk_product.article %></td>
+      <td><%= item.lk_product.short_name %></td>
+      <td><%= price_ru_label item.lk_product.price  %></td>
+      <td><%= text_field_tag "co_items[#{item.lk_product.id}]", item.quantity, :size =>1 %></td>
+      <td><%= price_ru_label item.lk_product.price * item.quantity %></td>
+      <td><%= link_to image_tag('bin.png'), lk_commercial_offer_product_path(@commercial_offer, item), :method => :delete, :confirm => "Удалить товар из коммерческого предложения?"  %></td>
+    </tr>
+  <% end -%>
+  <tr>
+    <td colspan="2"><%= submit_tag "Пересчитать" %></td>
+    <td colspan="2">
+    <%= label_tag :sale,"Скидка, %:" %> <%= text_field_tag :sale, @commercial_offer.sale, :size => 3 %></td>
+    <td>Итого:</td>
+    <td><%= @commercial_offer.commercial_offer_items.size %> шт.</td>
+    <td colspan="2"><%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
+  </tr>
+</table>
+<% end %>
+
