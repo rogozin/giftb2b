@@ -16,6 +16,11 @@ class Lk::CommercialOffersController < Lk::BaseController
     @commercial_offer = CommercialOffer.find(params[:id])
   end
   
+  def export
+    @commercial_offer = CommercialOffer.find(params[:id]) 
+    render :layout => 'pdf'
+  end
+  
   def  destroy
     @commercial_offer = CommercialOffer.find(params[:id])
     flash[:notice] = "Коммерческое предложение удалено" if @commercial_offer.destroy
