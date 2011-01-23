@@ -49,8 +49,9 @@ class CartController < ApplicationController
     @co.user = current_user
     if @co.save
      flash[:notice] = "Коммерческое предложенеие сгенерировано на основе набора товаров Вашей корзины." 
-      for item in @cart.items
-       @co.commercial_offer_items.create({:product_id=>item.product.id, :quantity => item.quantity, :price => item.start_price, :description => item.product.description})
+     @cart.items.each do |item|
+       lk_product = copy_product_to_lk(item.product, @co.firm_id, item.price)
+       @co.commercial_offer_items.create({:lk_product=>lk_product, :quantity => item.quantity})
       end
       redirect_to lk_commercial_offer_path(@co)
     else 
@@ -61,6 +62,34 @@ class CartController < ApplicationController
   end
 
   private 
+  
+  def copy_product_to_lk(product, firm_id, price=0, active=false)
+    lk_product = LkProduct.new({ 
+      :firm_id => firm_id, 
+      :product_id => product.id,
+      :article => product.unique_code,
+      :short_name => product.short_name,
+      :description => product.description,
+      :price => price == 0 ? product.price_in_rub : price,
+      :color => product.color, 
+      :size => product.size,
+      :factur => product.factur,
+      :box => product.box,
+      :active => active,
+      :infliction => product.property_values.select{|p| p.property.name="Нанесение"}.map(&:value).join(' ,') })
+    img = product.main_image
+    begin
+    if img
+      File.open(img.picture.path) do  |file| 
+        lk_product.picture = file
+      end      
+    end
+    rescue
+        lk_product.picture = File.open(Rails.root.to_s + "/public/images/default_image.jpg")
+    end    
+    lk_product.save 
+    lk_product
+  end
   
   def find_cart    
     session[:cart] ||= Cart.new          

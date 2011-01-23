@@ -1,5 +1,6 @@
 <% form_for @product, :html => {:multipart => true} do |f| -%>
 <%= f.hidden_field :firm_id %>
+<%= hidden_field_tag :redirect, defined?(redirect) ? redirect : ""   %>
 <div><%= render :partial => 'admin/shared/error_messages', :locals => {:target => @product} %></div>
 <table>
   <tr>

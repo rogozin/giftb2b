@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110117195202) do
+ActiveRecord::Schema.define(:version => 20110123122926) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -54,11 +54,8 @@ ActiveRecord::Schema.define(:version => 20110117195202) do
 
   create_table "commercial_offer_items", :force => true do |t|
     t.integer "commercial_offer_id"
-    t.integer "product_id"
     t.integer "quantity"
-    t.decimal "price",               :precision => 10, :scale => 2, :default => 0.0
-    t.text    "description"
-    t.text    "remark"
+    t.integer "lk_product_id"
   end
 
   create_table "commercial_offers", :force => true do |t|
@@ -159,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20110117195202) do
     t.datetime "picture_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active",                                              :default => true
   end
 
   create_table "manufactors", :force => true do |t|

@@ -7,7 +7,7 @@ class Lk::ProductsController < Lk::BaseController
   
   def index
     if current_user.firm_id.present?
-      @products = LkProduct.find_all_by_firm_id(current_user.firm.id)
+      @products = LkProduct.active.find_all_by_firm_id(current_user.firm.id)
     else 
       @products  = []
       not_firm_assigned!
@@ -31,7 +31,7 @@ class Lk::ProductsController < Lk::BaseController
   def update
     if @product.update_attributes(params[:lk_product])
       flash[:notice] = "Товар изменен!"
-      redirect_to edit_lk_product_path(@product)
+      redirect_to (params[:redirect].present? ?  params[:redirect] :  edit_lk_product_path(@product))
     else
       render 'edit'
     end
