@@ -129,6 +129,10 @@ class Product < ActiveRecord::Base
     ind.to_s.rjust(6,'0')
    end
    
+   def main_image
+      main_img = attach_images.find_by_main_img(true)
+      main_img ? main_img : images.first
+   end
 
   
   private
