@@ -76,7 +76,7 @@ class CartController < ApplicationController
       :factur => product.factur,
       :box => product.box,
       :active => active,
-      :infliction => product.property_values.select{|p| p.property.name="Нанесение"}.map(&:value).join(' ,') })
+      :infliction => product.property_values.select{|p| p.property.name=="Нанесение"}.map(&:value).join(' ,') })
     img = product.main_image
     begin
     if img
