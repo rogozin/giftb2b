@@ -15,22 +15,23 @@
 <% @commercial_offer.commercial_offer_items.each do |item| -%>
 <tr> 
 <td width="90"> 
-  <%= image_tag("#{controller.request.protocol}#{controller.request.host}:#{controller.request.port}/images/default_image.jpg") %>
+   <%= image_tag(image_path("#{controller.request.protocol}#{controller.request.host}:#{controller.request.port}"+item.lk_product.picture.url) )%>
+  <%#= image_tag("#{controller.request.protocol}#{controller.request.host}:#{controller.request.port}/images/default_image.jpg") %>
 </td> 
 <td width="200"> 
-		<p>Название товара: <%= item.product.short_name %></p> 
-		<p>Артикул: <%= item.product.unique_code %></p> 
-		<p>Цена: <%= product_price item.product %></p> 
+		<p>Название товара: <%= item.lk_product.short_name %></p> 
+		<p>Артикул: <%= item.lk_product.article %></p> 
+		<p>Цена: <%= price_ru_label item.lk_product.price %></p> 
 		<p>Количество: <%= item.quantity %></p> 
-		<p>Сумма общая:</p> 
-		<p>Материал:</p> 
-		<p>Цвет:</p> 
-		<p>Размер:</p> 
-		<p>Упаковка:</p>
-		<p>Нанесение:</p> 
+		<p>Сумма общая: <%= price_ru_label item.quantity * item.lk_product.price %></p> 
+		<p>Материал: <%= item.lk_product.factur %></p> 
+		<p>Цвет: <%= item.lk_product.color %></p> 
+		<p>Размер: <%= item.lk_product.size %></p> 
+		<p>Упаковка: <%= item.lk_product.box %></p>
+		<p>Нанесение: <%= item.lk_product.infliction %></p> 
 </td> 
 <td width="200"> 
-		<p>Описание: <%= item.description %></p> 
+		<p>Описание: <%= item.lk_product.description %></p> 
 </td> 
 </tr> 
 <% end -%>
