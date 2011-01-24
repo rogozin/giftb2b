@@ -17,16 +17,12 @@ class Lk::CommercialOffersController < Lk::BaseController
   def show
     @lk_products = LkProduct.active.find_all_by_firm_id(current_user.firm.id)
   end
-<<<<<<< HEAD
- 
-=======
   
   def export
     @commercial_offer = CommercialOffer.find(params[:id]) 
     render :layout => 'pdf'
   end
-  
->>>>>>> issue_261-pdf
+
   def  destroy
     flash[:notice] = "Коммерческое предложение удалено" if @commercial_offer.destroy
     redirect_to lk_commercial_offers_path
