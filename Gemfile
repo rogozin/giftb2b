@@ -4,7 +4,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
 
-source 'http://gemcutter.org'
+#source 'http://gemcutter.org'
 gem 'mysql'
 gem 'russian'
 gem 'authlogic'
@@ -17,3 +17,4 @@ gem 'delayed_job'
 gem 'nokogiri'
 gem 'RedCloth'
 gem 'composite_primary_keys', '=3.1.0'
+gem 'pdfkit', "0.4.6"

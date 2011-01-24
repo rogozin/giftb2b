@@ -35,6 +35,7 @@ Giftr3::Application.routes.draw do
       member do 
         post :calculate
         post :add_product
+        get :export
       end
       resources :products, :controller => "commercial_offer_items", :except => [:index] 
     end  
