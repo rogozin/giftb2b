@@ -131,7 +131,7 @@ class Product < ActiveRecord::Base
    
    def main_image
       main_img = attach_images.find_by_main_img(true)
-      main_img ? main_img : images.first
+      main_img ? main_img.image : images.first
    end
 
   
