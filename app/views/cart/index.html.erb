@@ -8,35 +8,17 @@
 
 <% end -%>
 
-     <% if current_user and session[:cart] and session[:cart].total_items >0 -%>
-      <p><%= link_to "Оформить заказ", "#"  %></p>
-      <% if current_user.is_firm_user?  -%>      
-        <p> <%= link_to_function "Преобразовать в коммерческое предложение", "$('#commercial_offer').show();" %></p>
+     <% if current_user && session[:cart] && session[:cart].total_items >0 && current_user.is_firm_user?  -%>
+        <p><%= link_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  
+        <div id="order" class="g-hidden">
+          <div class="spacer"></div>
+         <%= render :partial => "generate_order" %>
+        </div>
+        <div class="spacer clear"></div>
+        <p> <%= link_to_function "Преобразовать в коммерческое предложение", "$('#commercial_offer').toggle()" %></p>
         <div class="spacer"></div>
         <div id="commercial_offer" class = "g-hidden">
-        <h3>Формирование нового коммерческого предложения:</h3>
-        <% form_for CommercialOffer.new, :url => generate_co_cart_index_path,  :html => {:class => :one_line_form } do |f| -%>
-           <div class ="b-formfield-div">
-            <%= f.label :lk_firm_id %>
-            <%= f.select :lk_firm_id, options_from_collection_for_select(@lk_firms, 'id', 'name') %>
-          </div>
-          <div class ="b-formfield-div">
-            <%= f.label :email %>
-            <%= f.text_field :email %>
-          </div>
-          <div class ="b-formfield-div">
-            <%= f.label :sale %>
-            <%= f.text_field :sale %>
-          </div>          
-          <div class ="b-formfield-div">
-            <%= f.label :signature %>
-            <%= f.text_area :signature, :cols => 23, :rows => 5 %>
-          </div>
-          <div class ="b-formfield-div">
-            <%= f.submit "Преобразовать" %>
-          </div>          
-        <% end -%>
+         <%= render :partial => "generate_co" %>
         </div>
-      <% end -%>
       <% end -%>
 </div>

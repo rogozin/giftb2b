@@ -128,12 +128,16 @@ class Product < ActiveRecord::Base
     ind = self.id.blank? ? Product.maximum(:id)+1 : self.id
     ind.to_s.rjust(6,'0')
    end
+
    
    def main_image
       main_img = attach_images.find_by_main_img(true)
       main_img ? main_img.image : images.first
    end
-
+  
+  def picture
+    main_image.picture if main_image
+  end
   
   private
   def set_permalink

@@ -1,0 +1,29 @@
+<%= form_for :order_items, :url => calculate_lk_order_path(@order) do |form| %>
+<table width="100%">
+  <tr>
+    <th>Изображение</th>
+    <th>Артикул</th>
+    <th>Наименование</th>
+    <th>Цена за шт</th>
+    <th>Кол-во</th>
+    <th>Сумма</th>
+  </tr>
+  <% @order.lk_order_items.each do |item| -%>
+    <tr>
+      <td><%= image_tag(item.product && item.product.picture ? item.product.picture.url : "default_image.jpg") %></td>
+      <td><%= item.product.article %></td>
+      <td><%= item.product.short_name %></td>
+      <td><%= text_field_tag "price[#{item.id}]", item.price, :size => 3  %> руб.</td>
+      <td><%= text_field_tag "quantity[#{item.id}]", item.quantity, :size =>1 %></td>
+      <td><%= price_ru_label item.price * item.quantity %></td>
+    </tr>
+  <% end -%>
+  <tr>
+    <td colspan="3"><%= submit_tag "Пересчитать" %></td>
+    <td>Итого:</td>
+    <td><%= @order.lk_order_items.size %> шт.</td>
+    <td colspan="2"><%= price_ru_label @order.sum  %></td>
+  </tr>
+</table>
+<% end %>
+

@@ -11,6 +11,7 @@ ru:
       commercial_offer_item: "Товар"
       lk_firm: "Фирма"
       lk_product: "Товар"
+      lk_order: "Заказ"
     attributes:
       user:
         email: "E-mail"
@@ -48,6 +49,9 @@ ru:
         size: "Размер"
         infliction: "Нанесение"
         description: "Описание"
+      lk_order:
+        status_id: "Статус"
+        lk_firm_id: "Фирма"
   authlogic:
     error_messages:
       login_blank: "не может быть пустым"

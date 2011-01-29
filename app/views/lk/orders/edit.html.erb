@@ -1,0 +1,22 @@
+<h1>Редактирование заказа</h1>
+<div class="spacer"></div>
+<div id="order">
+  <%= form_for @order do |f| -%>
+   <div>
+   <%= f.label :lk_firm_id %>
+   <%= f.select :lk_firm_id, options_from_collection_for_select(@lk_firms, 'id', 'name', @order.lk_firm_id) %>
+
+   <%= f.label :status_id %>
+   <%= f.select :status_id, options_for_select(LkOrder.statuses, @order.status_id) %>
+   <%= f.submit "Сохранить" %>
+   </div>
+  <% end -%>
+</div>
+
+<div class="spacer"></div>
+<%= render :partial => 'order_items' %>
+
+<div class="spacer"></div>
+<div>
+  <%= link_to 'Наза к заказам', lk_orders_path %>
+</div>

@@ -72,5 +72,9 @@ class ApplicationController < ActionController::Base
     expire_fragment(:controller => "main", :action => "index")
   end
 
+  def find_cart    
+    session[:cart] ||= Cart.new          
+  end
+
 end
 

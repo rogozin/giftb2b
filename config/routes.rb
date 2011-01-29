@@ -1,4 +1,5 @@
 Giftr3::Application.routes.draw do
+
   root :to => 'main#index'
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
@@ -24,20 +25,24 @@ Giftr3::Application.routes.draw do
     post :add, :on => :member
     post :empty, :on => :collection
     post :calculate, :on => :collection
-    post :generate_co, :on => :collection
   end
   resources :lk, :only =>[:index]
   namespace :lk do
     resources :accounts 
     resources :firms
     resources :products
+    resources :orders do
+      member do
+        post :calculate
+      end
+    end
     resources :commercial_offers do
       member do 
         post :calculate
         post :add_product
         get :export
       end
-      resources :products, :controller => "commercial_offer_items", :except => [:index] 
+    resources :products, :controller => "commercial_offer_items", :except => [:index] 
     end  
   end
   

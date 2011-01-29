@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110123122926) do
+ActiveRecord::Schema.define(:version => 20110129093354) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -134,6 +134,26 @@ ActiveRecord::Schema.define(:version => 20110123122926) do
     t.string   "phone"
     t.string   "email"
     t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lk_order_items", :force => true do |t|
+    t.integer  "lk_order_id"
+    t.integer  "product_id"
+    t.string   "product_type"
+    t.integer  "quantity"
+    t.decimal  "price",        :precision => 10, :scale => 2, :default => 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lk_orders", :force => true do |t|
+    t.integer  "firm_id"
+    t.integer  "lk_firm_id"
+    t.integer  "status_id",   :default => 0
+    t.string   "random_link"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

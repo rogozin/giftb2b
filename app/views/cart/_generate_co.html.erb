@@ -1,0 +1,22 @@
+<h3>Формирование нового коммерческого предложения:</h3>
+        <% form_for [:lk, CommercialOffer.new],  :html => {:class => :one_line_form } do |f| -%>
+           <div class ="b-formfield-div">
+            <%= f.label :lk_firm_id %>
+            <%= f.select :lk_firm_id, options_from_collection_for_select(@lk_firms, 'id', 'name') %>
+          </div>
+          <div class ="b-formfield-div">
+            <%= f.label :email %>
+            <%= f.text_field :email %>
+          </div>
+          <div class ="b-formfield-div">
+            <%= f.label :sale %>
+            <%= f.text_field :sale %>
+          </div>          
+          <div class ="b-formfield-div">
+            <%= f.label :signature %>
+            <%= f.text_area :signature, :cols => 23, :rows => 5 %>
+          </div>
+          <div class ="b-formfield-div">
+            <%= f.submit "Преобразовать" %>
+          </div>          
+        <% end -%>
