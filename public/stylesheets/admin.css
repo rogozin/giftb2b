@@ -133,6 +133,8 @@ table tr.alert td
   background-color:red;
 }
 
+td img {vertical-align:middle;}
+
 /* MISC
 ----------------------------------------------------------*/
 .clr {clear: both;}
