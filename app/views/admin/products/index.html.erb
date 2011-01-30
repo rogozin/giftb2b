@@ -12,13 +12,72 @@
 <%= raw tree_select(Category.cached_all_categories,  'category',nil,{:value=>"-1", :name => "<-Без категории->"} ,params[:category].to_i ) %>
  <%= select(nil ,'manufactor', options_for_select( Manufactor.all.collect{|i| [i.name, i.id] },params[:manufactor].to_i),{:prompt=>'<-Производитель->'}, {:name=>'manufactor'}) %>
   <%= select(nil ,'supplier', options_for_select( Supplier.all.collect{|i| [i.name, i.id] },params[:supplier].to_i),{:prompt=>'<-Поставщик->'}, {:name=>'supplier'}) %>
- артикул:&nbsp;&nbsp;&nbsp;    <%= text_field_tag :name, params[:name] %>    <%= submit_tag "Ok", :name=>nil %><br />
+ артикул: <%= text_field_tag :name, params[:name] %>
+ код: <%= text_field_tag :code, params[:code] %>
+ <%= submit_tag "Ok", :name=>nil %><br />
  <%= select(nil ,'active', options_for_select( [['Нет', '0'],['Да','1']],params[:active]),{:prompt=>'<-Опубликован->'},
  {:name=>'active'}) %> 
-<%= select(nil ,'store', options_for_select( [['Отсуствует', '0'],['В наличии','1']],params[:store]),{:prompt=>'<-Наличие на складе->'},
- {:name=>'store'}) %>
- код: <%= text_field_tag :code, params[:code] %> <%= submit_tag "Ok", :name => nil %>
+<%= select(nil ,'store', options_for_select( [['Отсуствует', '0'],['В наличии','1']],params[:store]),{:prompt=>'<-Наличие на складе->'}, {:name=>'store'}) %>
+<%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100']],params[:per_page]),{:prompt=>'<-Кол-во записей на странице->'}, {:name=>'per_page'}) %>
 <% end -%>
+<div class="spacer"></div>
+<div>
+<%= link_to_function 'Групповые опреации', "$('.group-ops').toggle()", :class=>"pseudo-link" %>
+<div class="group-ops g-hidden">
+<p>Что сделать с отмеченными товарами?</p>
+<%= form_tag 'products/group_ops' do -%>
+<%= hidden_field_tag :back_url, request.url %>
+<%= hidden_field_tag "product_ids", "" %>
+<%= select_tag :oper, options_for_select([["<-Выберите операцию->"],["Удалить", 'delete'],["Копировать", "copy"],["Изменить свойство",'change']]) %>
+<%= submit_tag "Выполнить", :id => "commit", :class=>"g-hidden" %>
+<% end -%>
+<script type="text/javascript">
+function clear_group_form() {
+  $('#commit').hide();
+  $('#category_id').remove();
+  $('#property_name').remove();
+  return false;
+}
+$('#oper').bind('change', function() {
+  switch(this.value) {
+    case 'delete':
+      clear_group_form();
+      $('#commit').show();
+      $(this).parent().append('');
+      break;
+    case 'copy':
+      clear_group_form();
+      $('#category').clone().attr('id','category_id').insertAfter('#oper');
+      $('#commit').show();
+      break;
+    case 'change':
+      clear_group_form();
+      $('#oper').after("<select id='property_name' name='property_name'>"+
+      "<option><-Выберите свойство-></option>"+
+      "<option value='color'>Цвет</option>"+
+      "<option value='factur'>Материал</option>"+
+      "<option value='box'>Упаковка</option>"+
+      "<option value='size'>Размер</option>"+
+      "</select>");
+      $('#commit').show();
+      break;      
+    default:
+      clear_group_form();
+  }
+});
+  
+$('.group-ops form').bind('submit', function() {
+  $('#product_ids').val($.map($("#products_list input:checked"), function(n){return n.value }).join(','));
+});
+
+$('#property_name').live('change', function() {
+  if (this.value == 'color' || this.value == 'factur' || this.value == 'box' || this.value == 'size') {
+    $(this).after("<input name='property_value' type='text'>");
+  }
+});
+</script>
+</div>
+</div>
 </fieldset>
 
 <div class="spacer"></div>

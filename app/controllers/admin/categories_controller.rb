@@ -8,19 +8,6 @@ class Admin::CategoriesController < Admin::BaseController
   def index
     
   end
-
-  def catalog
-       
-  end
- 
-  def thematic
-  end
-  
-  def analogs
-  end
-  
-  def virtuals
-  end
   
   def new
     @category = Category.new

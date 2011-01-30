@@ -80,9 +80,8 @@ Giftr3::Application.routes.draw do
       get :cbrf_tax, :on => :collection
     end
     resources :products do    
-      member do
-          put :activate
-        end
+      put :activate, :on => :member
+      post :group_ops, :on => :collection  
       resources :images do
         member do
           delete :remove
