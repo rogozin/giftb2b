@@ -36,6 +36,7 @@ function clear_group_form() {
   $('#commit').hide();
   $('#category_id').remove();
   $('#property_name').remove();
+  $('#property_value').remove();
   return false;
 }
 $('#oper').bind('change', function() {
@@ -71,8 +72,9 @@ $('.group-ops form').bind('submit', function() {
 });
 
 $('#property_name').live('change', function() {
+  $('#property_value').remove();
   if (this.value == 'color' || this.value == 'factur' || this.value == 'box' || this.value == 'size') {
-    $(this).after("<input name='property_value' type='text'>");
+    $(this).after("<input id='property_value' name='property_value' type='text'>");
   }
 });
 </script>
