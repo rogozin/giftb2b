@@ -338,7 +338,7 @@ form.filter   select
 
 form.filter input[type="text"]
 {
-  width:100px;
+  width:80px;
 }
 
 ul.treeview, ul.treeview li

@@ -62,17 +62,36 @@ class Admin::ProductsController < Admin::BaseController
     end
   end
 
- def activate
-    respond_to do |f|
-      f.js {
-            product = Product.find(params[:id])
-            product.toggle! :active
-            render :update do |page|
- page<< "$(\"#img_#{product.id}\").attr('src',\"#{image_path( product.active ? 'checked.gif' : 'unchecked.gif')}\");"
-              
-            end
-          }
-    end
+  def activate
+    @product = Product.find(params[:id])
+    @product.toggle! :active
   end
+  
+  def group_ops
+    cnt = 0
+    case params[:oper]
+      when 'delete'
+        params[:product_ids].split(',').each do |product_id|
+          p = Product.find(product_id)
+          cnt +=1 if p && p.destroy
+          flash[:notice] = "Операция выполнена! Удалено #{cnt} позиций."
+        end
+      when 'copy'
+         category  = Category.find(params[:category])
+         params[:product_ids].split(',').each do |product_id|
+          p = Product.find(product_id)
+          cnt +=1 if p && category && p.category_ids.exclude?(category.id) && p.categories << category
+          flash[:notice] = "Операция выполнена! Скопировано #{cnt} позиций в категорию \"#{category.name}\"."
+        end
+      when 'change'
+        params[:product_ids].split(',').each do |product_id|
+          p = Product.find(product_id)
+          cnt +=1 if p && p.update_attribute(params[:property_name], params[:property_value])
+          flash[:notice] = "Операция выполнена! Изменено #{cnt} позиций."
+        end
+    end
+      params[:back_url] ? redirect_to( params[:back_url]) : redirect_to( admin_products_path)    
+  end
+  
 end
 

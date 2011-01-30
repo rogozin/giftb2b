@@ -1,6 +1,8 @@
-<table class="products">
+<table id="products_list" class="products">
   <tr>
+    <%= content_tag(:th, "", :class => "group-ops g-hidden") %>
     <th></th>
+    <th>Изображение</th>
     <th>КОД</th>
     <th>Категория</th>
     <th>Производитель</th>
@@ -14,7 +16,9 @@
   </tr>
   <% @products.each do |item| -%>
     <tr>
+      <%= content_tag(:td, check_box_tag("product_ids[]", item.id), :class =>"group-ops g-hidden" ) %>
       <td><%= link_to image_tag('edit.png') ,edit_admin_product_path(item) %></td>    
+      <td><%= product_image(item, true) %></td>
       <td><%= item.unique_code%></td>
       <td><%=h item.categories.collect(&:name).join(', ')%> </td>
       <td><%=h item.manufactor_name %> </td>
