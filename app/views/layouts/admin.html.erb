@@ -39,13 +39,15 @@
 	<div class="clear"></div>  
   <div id="admin-menu" class="grid_16">
       <ul>
-        <%= tab :categories, :route => :catalog_admin_categories, :label=>'Категории' if current_user.has_role?(:Администратор) or current_user.has_role?(:Редактор) %>
-        <%= tab :products, :label=>'Товары' if current_user.has_role?(:Администратор) or current_user.has_role?(:Редактор)  %>      
-        <%= tab :properties, :label=>'Свойства' if current_user.has_role?(:Администратор) or current_user.has_role?(:Редактор)  %>              
-        <%= tab :url => all_admin_images_path, :label => 'Изображения', :match_path => "/images" if current_user.has_role?(:Администратор) or current_user.has_role?(:Редактор) %>
-        <%= tab :accounts, :label=>'Пользователи' if current_user.has_role?(:Администратор)  %>      
+      <% if current_user.has_role?(:Администратор) || current_user.has_role?("Редактор каталога")  %>
+        <%= tab :categories, :route => :catalog_admin_categories, :label=>'Категории' %>
+        <%= tab :products, :label=>'Товары'  %>      
+        <%= tab :properties, :label=>'Свойства' %>              
+        <%= tab :url => all_admin_images_path, :label => 'Изображения', :match_path => "/images" %>
+      <% end -%>
+        <%= tab :accounts, :label=>'Пользователи' if current_user.has_role?(:Администратор) || current_user.has_role?("Менеджер продаж")   %>      
         <%= tab :data_changes, :label=> 'Обмен данными' if current_user.has_role?(:Администратор)  %>
-        <%= tab :foreign_access_index, :label=> 'Доступ к каталогу',:css_class => 'last' if current_user.has_role?(:Администратор)  %>        
+        <%= tab :foreign_access_index, :label=> 'Доступ к каталогу',:css_class => 'last' if current_user.has_role?(:Администратор) || current_user.has_role?("Менеджер продаж")  %>        
       </ul>
       <br class="clr" />
     </div>

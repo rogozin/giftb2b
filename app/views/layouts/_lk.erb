@@ -1,5 +1,5 @@
   Вы вошли как   [<%=  current_user.username %>]
-      <%= link_to "Администрирование", admin_accounts_path if current_user.is_admin_user? %>
+      <%= link_to "Администрирование", admin_path if current_user.is_admin_user? %>
       <%= link_to "Личный кабинет", lk_index_path if current_user.is_lk_user? %>
       <%= link_to "Выход", logout_path  %>
 
