@@ -1,7 +1,7 @@
         <div class="search"> 
           <div class="s_left1"></div><div class="s_center">
-          <%= form_for :search, :url => {:controller=>"main", :action => "search"} do |f| -%>
-            <%= f.text_field :request %> <%= f.submit "Искать" %>
+          <%= form_tag search_path, :method=> :get do  -%>
+            <%= text_field_tag :request, params[:request] %> <%= submit_tag "Искать", :name => nil %>
           <% end -%>
           </div><div class="s_right1"></div> 
         </div> <!-- end search --> 

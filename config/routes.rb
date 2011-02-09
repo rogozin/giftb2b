@@ -4,7 +4,8 @@ Giftr3::Application.routes.draw do
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
   match 'admin' => 'admin/products#index', :as => :admin
-  resources :main
+  match 'search' => 'main#search', :as => :search
+  resources :main, :only => [:index]
   resource :user_session
   resources :users
   resources :products

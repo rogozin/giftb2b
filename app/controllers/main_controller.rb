@@ -5,7 +5,7 @@ class MainController < ApplicationController
 
   
   def search
-    @products = Product.search params[:search][:request]
+    @products = Product.search(params[:request]).paginate(:page => params[:page])
   end
 
 

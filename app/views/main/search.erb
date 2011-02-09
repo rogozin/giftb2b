@@ -1,11 +1,25 @@
-<div class="content left_block">
-<h3>Результаты поиска:</h3>
+<% if @products -%>          
+<div class="content"> 
+<div class="center_block"> 
 
-<h4>
-  <%= "Показаны первые 50 результатов:"  if @products.size==50 %> 
-</h4>
-<% @products.each do |item| -%>
-  <%= link_to item.short_name, product_path(item) %> <br />
-<% end -%>
+<%#= render :partial => 'shared/paginate', :object=> @products %>
+</div> <!-- end center_block --> 
+ 
+<div class="center_block" id="catalog_items"> 
+  <% for product  in @products do -%>
+    <%= render :partial => 'shared/product', :object=>product %>  
+  <% end -%>
+  	
+  <div class="clear"></div> 
+</div> <!-- end center_block --> 
+ 
+<div class="center_block"> 
 
+<%#= render :partial => 'shared/paginate', :object=> @products %>
+<%= will_paginate @products, :class=>"article_t_p" %>
+</div> <!-- end center_block --> 
 </div>
+<% else -%>
+<p>Ничего не найдено</p>
+ <% end -%>
+
