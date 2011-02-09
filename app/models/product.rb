@@ -13,11 +13,14 @@ class Product < ActiveRecord::Base
   has_many :image_properties,  :through => :product_properties, :source => :property_value, :select => "property_values.*, properties.name property_name", :conditions => "properties.active=1 and properties.property_type = 3"
   
 
-  scope :for_admin, :joins=>[:supplier,:manufactor], :select =>"distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name"
+  scope :for_admin, joins([:supplier,:manufactor]).select("distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name")
   
   scope :search, lambda { |search_text|
-  {:conditions => ["(products.short_name like ?) or (lpad(products.id,6,'0')=?)",  '%' + search_text + '%', search_text]} }
+  where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code)", { :search => '%' + search_text + '%',:code => search_text}) }
   
+  scope :search_with_article, lambda { |search_text|
+  where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code) or products.article like :search", 
+  {:search =>  '%' + search_text + '%', :code =>search_text}) } 
   
   validates_presence_of  :supplier_id, :article
   validates_uniqueness_of :permalink, :allow_nil => true
