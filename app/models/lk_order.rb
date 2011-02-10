@@ -6,12 +6,14 @@ class LkOrder < ActiveRecord::Base
   before_create :set_random_link
 
   def self.statuses
-    [["Новый",0],["В работе",1],["Закрыт", 2]]
+    [["заказ в обработке",0],["выставлен счет на оплату заказа",10],["макет на утверждении", 20],
+    ["заказ на производстве",30], ["заказ собран", 40], ["заказ отгружен",50]]
   end
   
     
   def status
-   LkOrder.statuses.find{|x| x.last == self.status_id}.first
+   st = LkOrder.statuses.find{|x| x.last == self.status_id}
+   st ? st.first : "-"
   end
   
   def sum
