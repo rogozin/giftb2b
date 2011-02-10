@@ -25,7 +25,7 @@ class Cart
     @items.sum { |item| item.quantity}
  end
 
-def optimize
+def optimize!
   @items.reject!{ |item| item.quantity==0}
 end
  

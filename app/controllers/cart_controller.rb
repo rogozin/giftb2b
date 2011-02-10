@@ -5,8 +5,8 @@ require 'attach_image'
 require 'image'
 
 class CartController < ApplicationController
+  before_filter :get_cart, :except => [:empty]
   def index
-    @cart = find_cart
     @lk_firms = LkFirm.find_all_by_firm_id(current_user.firm_id) if current_user.is_firm_user?
   end
   
@@ -16,9 +16,17 @@ class CartController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       logger.error("Попытка доступа к несуществующему товару #{params[:id]}")
     else
-      @cart=find_cart
       @current_item = @cart.add_product(product)
     end
+  end
+
+  def destroy
+    @cart.items.find{|i| i.product.id == params[:id].to_i }.quantity= 0
+    @cart.optimize!
+    respond_to do |format|
+      format.js {render 'cart_items.js'}
+      format.html {redirect_to cart_index_path}
+    end 
   end
 
   def empty
@@ -30,11 +38,10 @@ class CartController < ApplicationController
   end
   
   def calculate
-    @cart = find_cart
     params[:cart_items].each do |product_id, quantity| 
       @cart.items.find{|i| i.product.id == product_id.to_i }.quantity= quantity.to_i
     end
-    @cart.optimize
+    @cart.optimize!
     respond_to do |format|
       format.js {render 'cart_items.js'}
       format.html {redirect_to cart_index_path}
@@ -42,4 +49,9 @@ class CartController < ApplicationController
     
   end
  
+  private
+  
+  def get_cart
+    @cart = find_cart
+  end
 end
