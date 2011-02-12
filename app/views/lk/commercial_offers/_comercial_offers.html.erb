@@ -10,7 +10,7 @@
   <% @commercial_offers.each do |item| -%>
     <tr>
       <td><%= link_to image_tag('edit.png'), lk_commercial_offer_path(item), :title => "Редактировать коммерческое предложение"  %></td>
-      <td><%= link_to 'pdf', :action => :export, :id=>item, :format => :pdf %></td>
+      <td><%= link_to 'pdf', url_for(:action => :export, :id=>item, :format => :pdf), :target => "_blank" %></td>
       <td><%= item.lk_firm.name if item.lk_firm %></td>
       <td><%= Russian.l(item.created_at, :format => :long) %></td>
       <td><%= link_to image_tag('bin.png'), lk_commercial_offer_path(item), :method => :delete, :confirm => "Действительно хотите удалить коммерческое предложение?", :title => "Удалить коммерческое предложение"  %></td>
