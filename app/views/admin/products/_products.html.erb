@@ -10,9 +10,10 @@
     <th>Артикул</th>
     <th>Наименование</th>
     <th>Цена</th>
-    <th>П?</th>
-    <th>Скл</th>
-    <th></th>
+    <th class="main-cols">П?</th>
+    <th class="main-cols">Скл</th>
+    <th class="main-cols"></th>
+    <th class="property-column g-hidden"></th>
   </tr>
   <% @products.each do |item| -%>
     <tr>
@@ -20,17 +21,21 @@
       <td><%= link_to image_tag('edit.png') ,edit_admin_product_path(item) %></td>    
       <td><%= product_image(item, true) %></td>
       <td><%= item.unique_code%></td>
-      <td><%=h item.categories.collect(&:name).join(', ')%> </td>
-      <td><%=h item.manufactor_name %> </td>
-      <td><%=h item.supplier_name %> </td>      
-      <td><%=h item.article %> </td>
-      <td><%=h item.short_name %></td>
-      <td><%=h product_price(item) %></td>
+      <td><%= item.categories.collect(&:name).join(', ')%> </td>
+      <td><%= item.manufactor_name %> </td>
+      <td><%= item.supplier_name %> </td>      
+      <td><%= item.article %> </td>
+      <td><%= item.short_name %></td>
+      <td><%= product_price(item) %></td>
      
-      <td class="center"><%=link_to  image_tag(item.active ? 'checked.gif' : 'unchecked.gif', :id => "img_#{item.id}") ,   activate_admin_product_path(item.id), :remote => true, :method=>:put %>
+      <td class="center main-cols"><%=link_to  image_tag(item.active ? 'checked.gif' : 'unchecked.gif', :id => "img_#{item.id}") ,   activate_admin_product_path(item.id), :remote => true, :method=>:put %>
 </td>
-      <td><%= h item.store_count %></td>
-      <td><%= link_to image_tag('bin.png'), admin_product_path(item, :back_url=>request.url), :method=>:delete, :confirm => 'Вы уверены?'   %></td>
+      <td class="main-cols"><%= item.store_count %></td>
+      <td class="main-cols"><%= link_to image_tag('bin.png'), admin_product_path(item, :back_url=>request.url), :method=>:delete, :confirm => 'Вы уверены?' %></td>
+      <td class="color g-hidden"><%= item.color %></td>
+      <td class="factur g-hidden"><%= item.factur %></td>
+      <td class="box g-hidden"><%= item.box %></td>
+      <td class="size g-hidden"><%= item.size %></td>
     </tr>
   <% end -%>
 </table>
