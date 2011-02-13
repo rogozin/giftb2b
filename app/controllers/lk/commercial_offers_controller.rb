@@ -15,7 +15,7 @@ class Lk::CommercialOffersController < Lk::BaseController
   end
  
   def show
-    @lk_products = LkProduct.active.find_all_by_firm_id(current_user.firm.id)
+    
   end
   
   def export
@@ -41,10 +41,27 @@ class Lk::CommercialOffersController < Lk::BaseController
     redirect_to lk_commercial_offer_path(@commercial_offer)  
   end
   
+  def load_cart_products
+    @cart = find_cart
+  end
+  
+  def load_lk_products
+    params[:page] ||="1"
+    @lk_products =  params[:request] ?  LkProduct.active.search(params[:request]).find_all_by_firm_id(current_user.firm.id) : LkProduct.active.find_all_by_firm_id(current_user.firm.id)
+     @lk_products = @lk_products.paginate(:page => params[:page], :per_page => 5)
+  end
+  
   def add_product
      cnt = 0
+     params[:lk_product_ids] ||=[]
+     params[:cart_product_ids] ||=[]
      params[:lk_product_ids].each  do |lk_product_id|
       cnt +=1 if @commercial_offer.commercial_offer_items.create({:quantity => 1, :lk_product_id => lk_product_id})
+     end
+     params[:cart_product_ids].each do |cart_product_id|
+       product = Product.find(cart_product_id)
+       lk_product = copy_product_to_lk(product, @commercial_offer.firm_id)
+       @commercial_offer.commercial_offer_items.create({:lk_product=>lk_product, :quantity => 1})
      end
      flash[:notice] = "В коммерческое предложение #{Russian.p(cnt, "добавлен", "добавлено", "добавлены")} #{cnt} #{Russian.p(cnt, "товар", "товара", "товаров")}"
      redirect_to lk_commercial_offer_path(@commercial_offer) 
@@ -99,6 +116,6 @@ class Lk::CommercialOffersController < Lk::BaseController
   end
   
   def find_co
-    @commercial_offer = CommercialOffer.find(params[:id])
+    @commercial_offer = CommercialOffer.find(params[:commercial_offer_id] || params[:id])
   end
 end

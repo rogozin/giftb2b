@@ -1,5 +1,12 @@
 var ANIMATE_ELEMENT =  "<span class='loader_animate'>&nbsp;<img alt='Loading' src='/images/ajax-loader.gif'></span>"
 
+  $(function() {
+    $('.pagination-ajax a').live('click', function(e) {
+      $.getScript(this.href);
+      e.preventDefault();
+      });
+    });
+
 $(function() {
   $(".catalog_pages a").live("click", function() {
     $(ANIMATE_ELEMENT).insertAfter('.article_t_p');

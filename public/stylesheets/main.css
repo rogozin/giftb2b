@@ -247,7 +247,6 @@ a:hover.menu_left {
 	text-align:center;
 	background:#ffecec;
 }
-/*=================ADDED 18.05.10 by ILYA===========================*/
 
 .left_block p   {
   margin-top:5px;
@@ -393,6 +392,10 @@ a:hover.text_n_z {
 }
 
 .g-hidden {display:none;}
+.gray-block {
+  background:#cccccc;
+  padding: 10px 5px;
+}
 
 .li_no { list-style-type:none;}
 

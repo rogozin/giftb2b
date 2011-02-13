@@ -9,7 +9,12 @@
   </tr>
   <tr>
     <td><%= f.label :picture %></td>
-    <td><%= f.file_field :picture %></td>
+    <td>
+      <div>
+    <%= image_tag(@product.picture.url, :width=>"120")   unless @product.new_record? %>
+      </div>
+    <%= f.file_field :picture %>
+    </td>
   </tr>  
   <tr>
     <td><%= f.label :short_name %></td>

@@ -43,6 +43,8 @@ Giftr3::Application.routes.draw do
         post :add_product
         get :export
       end
+     get :load_lk_products
+     get :load_cart_products
     resources :products, :controller => "commercial_offer_items", :except => [:index] 
     end  
   end

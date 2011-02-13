@@ -1,9 +1,39 @@
-<% form_tag  url_for(:action => :add_product, :id => @commercial_offer) do -%>
-<ul>
+<h3>Мои товары:</h3>
+<div class="spacer"></div>
+<div class="gray-block">
+<%= form_tag commercial_offer_load_lk_products_path(@commercial_offer), :remote => true, :method => :get do %>
+Поиск:
+<%= text_field_tag :request, params[:request] %>
+<%= submit_tag "Найти" %>
+<% end %>
+</div>
+<%= form_tag add_product_lk_commercial_offer_path(@commercial_offer) do -%>
+<table>
+<tr>
+  <th></th>
+  <th>Изображение</th>
+  <th>Артикул</th>
+  <th>Название</th>
+  <th>Цена</th>
+  <th>Размер</th>
+  <th>Материал</th>
+  <th>Упаковка</th>
+</tr>
 <% @lk_products.each do |item| -%>
-<li><%= check_box_tag "lk_product_ids[]", item.id, false, :id => "lk_product_ids_#{item.id}" %> <%= label_tag "lk_product_ids_#{item.id}", item.article %></li>  
+<tr>
+  <td><%= check_box_tag "lk_product_ids[]", item.id, false, :id => "lk_product_ids_#{item.id}" %></td>
+  <td><%= image_tag(item.picture.url, :width=>"120") %></td>
+  <td><%= item.article %></td>
+  <td><%= item.short_name %></td>
+  <td><%= price_ru_label item.price %></td>
+  <td><%= item.size %></td>
+  <td><%= item.factur %></td>
+  <td><%= item.box %></td>
+</tr>
 <% end -%>
-</ul>
-<p><%= submit_tag "Добавить" %></p>
+</table>
+<div class="gray-block"><%= submit_tag "Добавить" if @lk_products.present? %></div>
 <% end -%>
+<div class="spacer"></div>
+<%= will_paginate @lk_products, :class => "pagination-ajax" %>
 

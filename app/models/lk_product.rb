@@ -6,6 +6,8 @@ class LkProduct < ActiveRecord::Base
    :url  => "/system/firms/:firm_id/:id/:style/:filename"
    
    scope :active, where(:active => true).order(:article)
+   scope :search, lambda { |search_text|
+  where("(short_name like :search) or (article like :search)", { :search => '%' + search_text + '%'}) }
    validates :article, :presence => true
    validates :price, :numericality => {:greater_than_or_equal_to => 0, :allow_nil => true}
    

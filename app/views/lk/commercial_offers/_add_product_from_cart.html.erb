@@ -1,0 +1,25 @@
+<% if @cart.items.present? -%>
+<%= form_tag add_product_lk_commercial_offer_path(@commercial_offer) do -%>
+<table width="100%">
+  <tr>
+    <th></th>
+    <th>Изображение</th>
+    <th>Артикул</th>
+    <th>Наименование</th>
+    <th>Цена за шт</th>
+  </tr>
+  <% @cart.items.each do |item| -%>
+    <tr>
+     <td><%= check_box_tag "cart_product_ids[]", item.product.id, false, :id => "cart_product_ids_#{item.product.id}" %></td>
+      <td><%= product_image item.product %></td>
+      <td><%= article item.product %></td>
+      <td><%= item.product.short_name %></td>
+      <td><%= product_price(item.product) %></td>
+    </tr>
+  <% end -%>
+</table>
+<div class="gray-block"><%= submit_tag "Добавить" if @cart.items.present? %></div>
+<% end -%>
+<% else -%>
+<div>Ваша корзина пуста</div>
+<% end -%>

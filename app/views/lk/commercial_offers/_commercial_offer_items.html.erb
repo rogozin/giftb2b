@@ -27,7 +27,7 @@
     <td colspan="2">
     <%= label_tag :sale,"Скидка, %:" %> <%= text_field_tag :sale, @commercial_offer.sale, :size => 3 %></td>
     <td>Итого:</td>
-    <td><%= @commercial_offer.commercial_offer_items.size %> шт.</td>
+    <td><%= @commercial_offer.commercial_offer_items.sum(:quantity) %> шт.</td>
     <td colspan="2"><%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
   </tr>
 </table>
