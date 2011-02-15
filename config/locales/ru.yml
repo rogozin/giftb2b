@@ -20,6 +20,8 @@ ru:
         password_confirmation: "Подтверждение пароля"
         phone: "Контактный телефон"
         fio: "Фамилия, Имя, Отчество"
+        appoint: "Должность"
+        cellphone: "Мобильный телефон"
       commercial_offer:
         lk_firm_id: "Фирма"
         email: "E-mail"

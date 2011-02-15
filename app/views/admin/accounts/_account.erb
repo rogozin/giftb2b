@@ -5,6 +5,10 @@
       <%= form.label :username, "Имя пользователя" %>
       <%= form.text_field :username %>
     </div>
+  <div class ="b-formfield-div">
+      <%= form.label :fio, "Фамилия, Имя, Отчество" %>
+      <%= form.text_field :fio %>
+    </div>    
     <div class ="b-formfield-div">
       <%= form.label :firm_id, "Фирма" %>
       <%= form.select :firm_id, @firms, {:include_blank => true} %>
@@ -16,19 +20,31 @@
     <div class ="b-formfield-div">
       <%= form.label :password, "Пароль" %>
       <%= form.password_field :password %>
-    </div>    
-    <div class="b-formfield-div">
-      <%= form.label :expire_date, "Срок действия" %>
-      <%= form.text_field :expire_date, :class => "datepicker" %>
-    </div>
+    </div>   
+    <div class ="b-formfield-div">
+      <%= form.label :appoint, "Должность" %>
+      <%= form.text_field :appoint %>
+    </div>       
     <div class ="b-formfield-div">
       <%= form.label :phone, "Телефон" %>
       <%= form.text_field :phone %>
     </div>
     <div class ="b-formfield-div">
-      <%= form.label :fio, "Фамилия, Имя, Отчество" %>
-      <%= form.text_field :fio %>
-    </div>
+      <%= form.label :skype, "Skype" %>
+      <%= form.text_field :skype %>
+    </div>      
+    <div class ="b-formfield-div">
+      <%= form.label :icq, "ICQ" %>
+      <%= form.text_field :icq %>
+    </div>      
+    <div class ="b-formfield-div">
+      <%= form.label :cellphone, "Моб. телефон" %>
+      <%= form.text_field :cellphone %>
+    </div>    
+    <div class="b-formfield-div">
+      <%= form.label :expire_date, "Срок действия" %>
+      <%= form.text_field :expire_date, :class => "datepicker" %>
+    </div>    
     <div class ="b-formfield-div">
       <%= form.label :active, "Активировать?" %>
       <%= form.check_box :active %>

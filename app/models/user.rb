@@ -2,6 +2,13 @@ class User < ActiveRecord::Base
   acts_as_authentic
   acts_as_authorization_subject :role_class_name => 'Role'
   belongs_to :firm
+ validates :username, :exclusion => { :in => %w(admin superuser) }
+  validates :appoint, :length => {:maximum => 100}
+  validates :skype, :length => {:maximum => 25}
+  validates :cellphone, :length => {:maximum => 25}
+  validates :icq, :length => {:maximum => 25},  :numericality => {:allow_blank => true}
+  
+  
   def is_admin?
     Rails.cache.fetch('is_admin?', :expires_in=>10) {has_role? 'Администратор'}
   end
