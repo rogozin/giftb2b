@@ -25,7 +25,7 @@
 <%= link_to_function 'Групповые опреации', "$('.group-ops').toggle()", :class=>"pseudo-link" %>
 <div class="group-ops g-hidden">
 <p>Что сделать с отмеченными товарами?</p>
-<%= form_tag 'admin/products/group_ops' do -%>
+<%= form_tag group_ops_admin_products_path do -%>
 <%= hidden_field_tag :back_url, request.url %>
 <%= hidden_field_tag "product_ids", "" %>
 <%= select_tag :oper, options_for_select([["<-Выберите операцию->"],["Удалить", 'delete'],["Копировать", "copy"],["Изменить свойство",'change']]) %>
