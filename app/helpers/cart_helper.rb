@@ -4,8 +4,7 @@ module CartHelper
    end
    
   def cart_items
-    cnt  =  session[:cart]  ? session[:cart].total_items : 0 
-    cnt.to_s + " " + Russian.p(cnt, "товара", "товара", "товаров")
+    I18n.t(:product, :count => session[:cart]  ? session[:cart].total_items : 0 )
   end
   
   def full_cart?

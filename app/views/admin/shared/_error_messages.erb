@@ -1,6 +1,6 @@
 <% if target.errors.any? %>  
 <div class="errorExplanation">  
-  <h2>Сохранение не удалось из-за <%= target.errors.count %> <%= Russian.p(target.errors.count, "ошибки", "ошибок", "ошибок") %>:</h2>  
+  <h2><%= I18n.t :errors_cnt, :count => target.errors.count %></h2>  
   <ul>  
   <% target.errors.full_messages.each do |msg| %>  
     <li><%= msg %></li>  

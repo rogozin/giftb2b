@@ -17,7 +17,7 @@
      <td><%= item.username %></td>
      <td><%= item.fio %></td>
      <td><%= item.email %></td>
-     <td><%= Russian.l(item.current_login_at, :format => :long)  if item.current_login_at %></td>
+     <td><%= I18n.l(item.current_login_at, :format => :long)  if item.current_login_at %></td>
      <td><%= link_to_unless current_user.id == item.id, image_tag('bin.png'), lk_account_path(item), :method => :delete, :confirm => "Вы действительно хотите удалить пользователя?" %></td>
    </tr> 
   <% end -%>

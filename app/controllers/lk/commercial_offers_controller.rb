@@ -63,7 +63,7 @@ class Lk::CommercialOffersController < Lk::BaseController
        lk_product = copy_product_to_lk(product, @commercial_offer.firm_id)
        @commercial_offer.commercial_offer_items.create({:lk_product=>lk_product, :quantity => 1})
      end
-     flash[:notice] = "В коммерческое предложение #{Russian.p(cnt, "добавлен", "добавлено", "добавлены")} #{cnt} #{Russian.p(cnt, "товар", "товара", "товаров")}"
+     flash[:notice] = I18n.t :co_added_products, :count => cnt
      redirect_to lk_commercial_offer_path(@commercial_offer) 
   end
 
