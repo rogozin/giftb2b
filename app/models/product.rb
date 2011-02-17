@@ -26,7 +26,7 @@ class Product < ActiveRecord::Base
   validates_uniqueness_of :permalink, :allow_nil => true
   
   before_save :set_permalink  
-  
+  default_scope order("sort_order, price")
 
   def self.filter_data_by_category(category=0, manufactor=0) 
      cond=[[],{}]
