@@ -6,7 +6,7 @@ gem 'rails', '3.0.3'
 
 #source 'http://gemcutter.org'
 gem 'mysql'
-#gem 'russian'
+gem 'russian'
 gem 'authlogic'
 gem 'jquery-rails'
 gem 'acl9', :require => 'acl9'
