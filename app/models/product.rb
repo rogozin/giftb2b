@@ -13,7 +13,7 @@ class Product < ActiveRecord::Base
   has_many :image_properties,  :through => :product_properties, :source => :property_value, :select => "property_values.*, properties.name property_name", :conditions => "properties.active=1 and properties.property_type = 3"
   
 
-  scope :for_admin, joins([:supplier,:manufactor]).select("distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name")
+  scope :for_admin, joins([:supplier,:manufactor, ", (select usd,eur from currency_values v order by id desc limit 1) c" ]).select("distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name,  case products.currency_type when 'USD' then c.usd * products.price when 'EUR' then c.eur * products.price else products.price end ruprice").order("sort_order, ruprice")
   
   scope :search, lambda { |search_text|
   where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code)", { :search => '%' + search_text + '%',:code => search_text}) }
@@ -26,7 +26,6 @@ class Product < ActiveRecord::Base
   validates_uniqueness_of :permalink, :allow_nil => true
   
   before_save :set_permalink  
-  default_scope order("sort_order, price")
 
   def self.filter_data_by_category(category=0, manufactor=0) 
      cond=[[],{}]
