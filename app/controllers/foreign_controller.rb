@@ -34,7 +34,8 @@ class ForeignController < ApplicationController
   end
   
   def search
-     @products = Product.find_all( {:search_text =>params[:request], :page => params[:page]  }) unless params[:request].blank?
+    params[:per_page] ||="20"
+     @products = Product.search(params[:request]).paginate(:page => params[:page], :per_page => params[:per_page]) unless params[:request].blank?
      render :layout => false
   end
   
