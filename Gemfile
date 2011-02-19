@@ -18,3 +18,4 @@ gem 'nokogiri'
 gem 'RedCloth'
 gem 'composite_primary_keys', '=3.1.0'
 gem 'pdfkit', "0.4.6"
+gem 'spreadsheet'
