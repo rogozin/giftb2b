@@ -1,15 +1,17 @@
+require "excel.rb"
 class Lk::CommercialOffersController < Lk::BaseController
   access_control do
      allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
   end
-  
+  include Gift::Export::Excel
   before_filter :find_co, :except => [:index, :create]
   
   def index
+    params[:page] ||=1
       if current_user.firm_id.present?
-      @commercial_offers = CommercialOffer.find_all_by_firm_id(current_user.firm.id)
+      @commercial_offers = CommercialOffer.find_all_by_firm_id(current_user.firm.id).paginate(:page => params[:page])
     else 
-      @commercial_offers  = []
+      #@commercial_offers  = []
        not_firm_assigned!
     end
   end
@@ -19,8 +21,12 @@ class Lk::CommercialOffersController < Lk::BaseController
   end
   
   def export
-    @commercial_offer = CommercialOffer.find(params[:id]) 
-    render :layout => 'pdf'
+    respond_to do |format|
+    format.html {render  :layout => 'pdf'}
+    format.xls { 
+       send_data(export_commercial_offer(@commercial_offer), :type => :xls, :filename => "commercial_offer_#{@commercial_offer.id}.xls")
+       }
+   end
   end
 
   def  destroy
