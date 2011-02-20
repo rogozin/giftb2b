@@ -1,6 +1,6 @@
 class MainController < ApplicationController
   def index 
-
+    @new_products = Product.cached_novelty
   end
 
   

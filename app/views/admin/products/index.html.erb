@@ -15,9 +15,9 @@
  артикул: <%= text_field_tag :name, params[:name] %>
  код: <%= text_field_tag :code, params[:code] %>
  <%= submit_tag "Ok", :name=>nil %><br />
- <%= select(nil ,'active', options_for_select( [['Нет', '0'],['Да','1']],params[:active]),{:prompt=>'<-Опубликован->'},
- {:name=>'active'}) %> 
+ <%= select(nil ,'active', options_for_select( [['Нет', '0'],['Да','1']],params[:active]),{:prompt=>'<-Опубликован->'}, {:name=>'active'}) %> 
 <%= select(nil ,'store', options_for_select( [['Отсуствует', '0'],['В наличии','1']],params[:store]),{:prompt=>'<-Наличие на складе->'}, {:name=>'store'}) %>
+ <%= select(nil ,'new', options_for_select( [['Нет', '0'],['Да','1']],params[:new]),{:prompt=>'<-Новинка->'}, {:name=>'new'}) %> 
 <%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100']],params[:per_page]),{:prompt=>'<-Кол-во записей на странице->'}, {:name=>'per_page'}) %>
 <% end -%>
 <div class="spacer"></div>
@@ -54,11 +54,12 @@ $('#oper').bind('change', function() {
     case 'change':
       clear_group_form();
       $('#oper').after("<select id='property_name' name='property_name'>"+
-      "<option><-Выберите свойство-></option>"+
+      "<option value='null'><-Выберите свойство-></option>"+
       "<option value='color'>Цвет</option>"+
       "<option value='factur'>Материал</option>"+
       "<option value='box'>Упаковка</option>"+
       "<option value='size'>Размер</option>"+
+      "<option value='is_new'>Новинка</option>"+
       "</select>");
       $('#commit').show();
       break;      
@@ -73,17 +74,25 @@ $('.group-ops form').bind('submit', function() {
 
 $('#property_name').live('change', function() {
   $('#property_value').remove();
-  if (this.value == 'color' || this.value == 'factur' || this.value == 'box' || this.value == 'size') {
-    $(this).after("<input id='property_value' name='property_value' type='text'>");
+  if (this.value != "null") {
+    if (this.value == 'color' || this.value == 'factur' || this.value == 'box' || this.value == 'size') {
+      $(this).after("<input id='property_value' name='property_value' type='text'>");
+    }
+    if (this.value == 'is_new') {
+      $(this).after("<select id='property_value' name='property_value'>" +
+      "<option value='0'>Нет</option>" +
+      "<option value='1'>Да</option>" +
+      "</select>");
+    }        
     $('.main-cols').hide();
-    $('td.color, td.box, td.size, td.factur').hide();
+    $('td.color, td.box, td.size, td.factur, td.is_new').hide();
     $('th.property-column').show().text(this[this.selectedIndex].innerHTML);
     $('td.'+this.value).show();
   }
   else {
     $('.main-cols').show();
     $('th.property-column').hide();
-    $('td.color, td.box, td.size, td.factur').hide();
+    $('td.color, td.box, td.size, td.factur, td.is_new').hide();
   }
 });
 </script>

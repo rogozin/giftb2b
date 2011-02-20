@@ -1,10 +1,27 @@
 <% content_for :meta_description, "giftb2b.ru" -%>
 <% content_for :meta_keywords, "gifts" -%>
+<script type="text/javascript">
+	$(function() {
+		$("div#scrollable").smoothDivScroll({ autoScroll: "onstart", autoScrollDirection: "backandforth", autoScrollStep: 1, autoScrollInterval: 15, startAtElementId: "startAtMe", visibleHotSpots: "always"});
+
+	});
+</script>
 <div class="content">
-<div class="banner_center"></div> 
-<div class="banner_center"></div> 
-<div class="banner_center"></div> 
-<div class="banner_center"></div>   
+  <div><h1>Новинки</h1></div>
+  <div id="scrollable">
+	  <div class="scrollingHotSpotLeft"></div>
+	  <div class="scrollingHotSpotRight"></div>
+	  <div class="scrollWrapper">
+	  	<div class="scrollableArea">
+	  	  <% @new_products.each do |item| -%>
+	  	    <%= link_to product_image(item), product_path(item), :target => "_blank" %>		 
+	  	  <% end -%>		  
+	  	</div>
+	  </div>
+  </div>
+<div class="spacer"></div>  
+<div class="spacer"></div>  
+<div class="spacer"></div>  
 <div class="center_block">
 <script type="text/javascript">
   $(document).ready(function()
