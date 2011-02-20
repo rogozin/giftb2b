@@ -40,4 +40,4 @@
 </div>
 
 <div class="spacer"></div>
-<%= link_to 'Назад к списку категоий', admin_categories_path %>
+<%= link_to 'Назад к списку категоий', send("#{@category.catalog_type}_admin_categories_path") %>

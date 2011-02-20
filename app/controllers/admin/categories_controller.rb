@@ -6,7 +6,7 @@ class Admin::CategoriesController < Admin::BaseController
   before_filter :find_catalog_items, :only => [:catalog, :thematic, :analogs, :virtuals]
   
   def index
-    
+
   end
   
   def new
@@ -43,6 +43,8 @@ class Admin::CategoriesController < Admin::BaseController
     if @category.update_attributes(params[:category])
        expire_main_cache    
       redirect_to edit_admin_category_path(@category)
+    else
+      render 'edit'  
     end
   end
   
