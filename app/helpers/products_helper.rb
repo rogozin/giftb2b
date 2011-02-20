@@ -4,7 +4,7 @@ module ProductsHelper
     end
     
     def price_ru_label val
-      number_to_currency(val, :unit => 'руб. ')
+      val==0 ?  "по запросу" :  number_to_currency(val, :unit => 'руб. ')
     end
     
     def product_image(product, thumb = true)
@@ -34,5 +34,9 @@ module ProductsHelper
     
     def supplier product
       content_tag(:p, content_tag(:span, "Поставщик: ", :class => "article_t") + product.supplier.name, :class => "article_name_2") if current_user and  (current_user.is_firm_user? or current_user.is_admin_user?) and product.supplier
+    end
+    
+    def store_count product
+      product.store_count == 0 || product.store_count.blank? ? "по запросу"  : product.store_count
     end
 end
