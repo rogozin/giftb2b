@@ -1,3 +1,4 @@
+require 'action_dispatch/middleware/session/dalli_store'
 Giftr3::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -13,7 +14,8 @@ Giftr3::Application.configure do
   config.consider_all_requests_local       = true
   config.action_view.debug_rjs             = true
   config.action_controller.perform_caching = false
-  config.cache_store = :dalli_store, '127.0.0.1',  { :namespace => :gift_dev, :expires_in => 5.minutes}
+  config.cache_store = :dalli_store, '127.0.0.1:11222',  { :namespace => :gift_dev, :expires_in => 5.minutes}
+  config.session_store :dalli_store, :memcache_server => '127.0.0.1:11222', :namespace => 'sessions', :key => '_giftr3_session', :expire_after => 180.minutes
   
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false

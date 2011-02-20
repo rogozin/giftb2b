@@ -19,7 +19,6 @@ class Admin::CategoriesController < Admin::BaseController
     @category = Category.new(params[:category])
     if @category.save      
       flash[:notice] = "Новая категория успешно создана" 
-      expire_main_cache
       redirect_to edit_admin_category_path(@category)
     else
       render 'new'
@@ -28,7 +27,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def destroy
     @category = Category.find(params[:id])    
-    expire_main_cache if @category.destroy
+    @category.destroy
     @cat = get_catalog_items(@category.catalog_type)
     flash[:notice] = "Категория удалена!"      
     redirect_to send("#{@category.catalog_type}_admin_categories_path")
@@ -41,7 +40,6 @@ class Admin::CategoriesController < Admin::BaseController
   def update
     @category = Category.find_by_permalink(params[:id])
     if @category.update_attributes(params[:category])
-       expire_main_cache    
       redirect_to edit_admin_category_path(@category)
     else
       render 'edit'  

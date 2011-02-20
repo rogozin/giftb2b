@@ -68,10 +68,6 @@ class ApplicationController < ActionController::Base
     session[:return_to] = nil
   end
 
-  def expire_main_cache
-    expire_fragment(:controller => "main", :action => "index")
-  end
-
   def find_cart    
     session[:cart] ||= Cart.new          
   end

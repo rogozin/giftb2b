@@ -21,7 +21,7 @@ class Product < ActiveRecord::Base
   scope :search_with_article, lambda { |search_text|
   where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code) or products.article like :search", 
   {:search =>  '%' + search_text + '%', :code =>search_text}) } 
-  scope :novelty, where({:is_new => true}).order("updated_at desc")
+  scope :novelty, where({:is_new => true})
   validates_presence_of  :supplier_id, :article
   validates_uniqueness_of :permalink, :allow_nil => true
   
