@@ -21,11 +21,17 @@ class Product < ActiveRecord::Base
   scope :search_with_article, lambda { |search_text|
   where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code) or products.article like :search", 
   {:search =>  '%' + search_text + '%', :code =>search_text}) } 
-  
+  scope :novelty, where({:is_new => true}).order("updated_at desc")
   validates_presence_of  :supplier_id, :article
   validates_uniqueness_of :permalink, :allow_nil => true
   
   before_save :set_permalink  
+  after_save :clear_cache
+
+  def self.cached_novelty
+    Rails.cache.fetch('novelty', :expires_in =>1.hours) { novelty}
+  end
+  
 
   def self.filter_data_by_category(category=0, manufactor=0) 
      cond=[[],{}]
@@ -78,6 +84,10 @@ class Product < ActiveRecord::Base
       cond[0]<< "lpad(products.id,6,'0') = :code"
       cond[1][:code]= options[:code]
     end 
+    unless options[:new].blank?
+      cond[0]<< "products.is_new = :new " 
+      cond[1][:new] = options[:new]
+    end
     cond[0]<< "products.price =0"    if options[:price] && options[:price]=="0"
     cond[0]<< "products.price >0"    if options[:price] && options[:price]=="1"
     cond[0]<< "products.store_count=0"    if options[:store] && options[:store]=="0"
@@ -142,6 +152,7 @@ class Product < ActiveRecord::Base
     main_image.picture if main_image
   end
   
+  
   private
   def set_permalink
     if self.permalink.blank? 
@@ -154,6 +165,10 @@ class Product < ActiveRecord::Base
    def prepare_permalink
      Product.exists?(:permalink =>self.short_name.parameterize) ? "#{self.unique_code}-#{self.short_name.parameterize}" : self.short_name.parameterize
    end
+   
+  def clear_cache
+    Rails.cache.delete('novelty')
+  end  
    
 end
 

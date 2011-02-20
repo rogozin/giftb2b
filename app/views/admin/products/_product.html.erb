@@ -71,6 +71,10 @@
       <%= form.check_box :from_remote_store%>
     </div>    
      <div class ="b-formfield-div">
+      <%= form.label :is_new, "Новинка" %>
+      <%= form.check_box :is_new %>
+    </div>       
+     <div class ="b-formfield-div">
       <%= form.label :meta_description, "META Description" %>
       <%= form.text_area :meta_description, :rows => 5, :cols => 30 %>
     </div>      
