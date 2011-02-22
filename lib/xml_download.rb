@@ -37,21 +37,34 @@ module XmlDownload
 
             end
             
-            if product.text_properties and options.key? :additional_properties
+            if (product.text_properties.present? || product.image_properties.present?) && options.key?(:additional_properties)
             xml.additional_properties {
               product.text_properties.group_by(&:property_name).each do |property_name, property_values|
                 xml.property {
                   xml.type_ 0
                   xml.name {xml.cdata property_name}
-                  property_values.each do |pv|
                   xml.values{
-                    xml.value {xml.cdata pv.value}
-                  }                  
-                  end
+                    property_values.each do |pv|
+                      xml.value {xml.cdata pv.value}
+                    end
+                  }
+                }
+              end
+              
+              product.image_properties.group_by(&:property_name).each do |property_name, property_values|
+                xml.property {
+                  xml.type_ 3
+                  xml.name {xml.cdata property_name}
+                  xml.values{ 
+                    property_values.each do |pv|
+                     xml.value {xml.cdata pv.value}           
+                    end
+                  }
                 }
               end
             }
-            end
+            end  
+            
         }
         end
       }
@@ -69,6 +82,10 @@ module XmlDownload
     @categories ||= Category.all
     product.categories.map{|c| c.kind.to_s + "/" + Category.tree_nesting_by_name(@categories, c).reverse.join("/")}.join('|')
   end
+  
+  private
+  
+  
   
  end
  
