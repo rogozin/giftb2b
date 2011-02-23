@@ -40,5 +40,19 @@ class Admin::FirmsController < Admin::BaseController
     flash[:notice] = "Фирма удалена!" if @firm.destroy
     redirect_to admin_firms_path
   end
+  
+  def add_image
+    @firm = Firm.find(params[:id])
+    @firm.images.delete_all
+    image = @firm.images.new(params[:image])
+    @firm.save
+    redirect_to edit_admin_firm_path(@firm)
+  end
+  
+  def remove_image
+     @firm = Firm.find(params[:id])   
+     @firm.images.delete_all
+     redirect_to edit_admin_firm_path(@category)
+  end
 
 end

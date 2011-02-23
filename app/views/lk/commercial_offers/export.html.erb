@@ -1,6 +1,6 @@
 <table> 
 	<tr> 
-	 <td><img src="logo.png" alt="logo" /></td> 
+	 <td><%= image_tag @commercial_offer.firm.images.first.picture.url if @commercial_offer.firm && @commercial_offer.firm.images.present? %></td> 
 	 <td> 
 	 <p><%= @commercial_offer.firm.short_name %></p> 
 	<p><%= @commercial_offer.firm.addr_f %></p> 

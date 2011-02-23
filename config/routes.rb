@@ -51,7 +51,12 @@ Giftr3::Application.routes.draw do
   
   
   namespace :admin do
-    resources :firms
+    resources :firms do
+      member do
+        post :add_image
+        delete :remove_image
+      end 
+    end   
     resources :accounts do   
       member do
           put :activate

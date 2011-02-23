@@ -42,6 +42,8 @@
 
 <div id="left_content">
  <%= link_to image_tag("/images/logo_giftb2b.gif", :width => "208", :height => "86", :alt => "giftb2b.ru", :style => "margin-top:13px;margin-left:0px;" ), root_path  %>
+ <%= image_tag current_user.firm.logo if firm_logo_present? %>
+ 
     <div style="width:100%;text-align:center;padding-top:20px;"><p class="text_11pt_ff66cc">узнать больше...</p></div> 
     
 	<div class="lk" id="lk"> 
