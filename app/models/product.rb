@@ -122,7 +122,9 @@ class Product < ActiveRecord::Base
    end
    
    def analogs(limit=0)
-     Product.find(:all, :joins=>:categories, :conditions => ["categories.id in (?) and products.id <> ?",self.analog_category_ids,self.id],:limit=>(limit == 0 ? nil : limit))
+    analogs = Product.joins(:categories).where("categories.id in (:category_ids) and product_id <> :product_id", {:category_ids => analog_categories.map(&:id), :product_id => id})
+    analogs = analogs.limit(limit) if limit >0
+    analogs
    end
    
    def to_param
