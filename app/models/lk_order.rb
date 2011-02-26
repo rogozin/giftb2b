@@ -1,9 +1,11 @@
 class LkOrder < ActiveRecord::Base
   has_many :lk_order_items, :dependent => :delete_all
+  has_many :lk_order_logs
   belongs_to :firm
   belongs_to :lk_firm
   belongs_to :user
   before_create :set_random_link
+  after_save :set_log
 
   def self.statuses
     [["заказ в обработке",0],["выставлен счет на оплату заказа",10],["макет на утверждении", 20],
@@ -30,5 +32,10 @@ class LkOrder < ActiveRecord::Base
     self.random_link = gen_random_link
   end
   
+  def set_log
+    if lk_order_logs.blank? || self.status_id != lk_order_logs.last.status_id || self.user_id != lk_order_logs.last.user_id
+      lk_order_logs.create({:status_id => self.status_id, :user_id => self.user_id})
+    end
+  end
  
 end
