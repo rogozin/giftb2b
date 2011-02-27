@@ -5,6 +5,8 @@ Giftr3::Application.routes.draw do
   match 'logout' => 'user_sessions#destroy', :as => :logout
   match 'admin' => 'admin/products#index', :as => :admin
   match 'search' => 'main#search', :as => :search
+  match 'profile' => "profile#edit", :as => :profile
+  match 'change_profile' => 'profile#update', :as => :change_profile
   resources :main, :only => [:index]
   resource :user_session
   resources :users
@@ -29,7 +31,7 @@ Giftr3::Application.routes.draw do
   end
   resources :lk, :only =>[:index]
   namespace :lk do
-    resources :accounts 
+    resources :accounts
     resources :firms
     resources :products
     resources :orders do

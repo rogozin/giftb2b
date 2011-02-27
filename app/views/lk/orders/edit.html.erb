@@ -15,8 +15,23 @@
 
 <div class="spacer"></div>
 <%= render :partial => 'order_items' %>
-
 <div class="spacer"></div>
+
+<h1>История изменения заказа:</h1>
+<table>
+<tr>
+  <th>Дата</th>
+  <th>Автор</th>
+  <th>Статус</th>
+</tr>
+<% @order.lk_order_logs.order("id desc").each do |log| -%>
+  <tr>
+    <td><%= I18n.l(log.created_at, :format => :long) %></td>
+    <td><%= log.user.username %></td>
+    <td><%= log.status %></td>
+  </tr>
+<% end -%>
+</table>
 <div>
   <%= link_to 'Наза к заказам', lk_orders_path %>
 </div>
