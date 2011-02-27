@@ -53,5 +53,5 @@ class Lk::AccountsController < Lk::BaseController
     @account = User.find(params[:id])
     @account.toggle! :active
   end
-
+  
 end
