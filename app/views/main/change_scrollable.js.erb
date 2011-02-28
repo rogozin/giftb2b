@@ -1,0 +1,5 @@
+$('#scrollable').html("<%= escape_javascript render(:partial => "scrollable") %>");
+run_scrollable();
+$('.scrollable-control a').removeClass('selected');
+ ('<%=params[:sale] %>'=='1') ? $('#sale_link').addClass('selected') : $('#novelty_link').addClass('selected');    
+ 

@@ -22,6 +22,7 @@ class Product < ActiveRecord::Base
   where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code) or products.article like :search", 
   {:search =>  '%' + search_text + '%', :code =>search_text}) } 
   scope :novelty, where({:is_new => true})
+  scope :sale, where({:is_sale => true})
   validates_presence_of  :supplier_id, :article
   validates_uniqueness_of :permalink, :allow_nil => true
   
@@ -88,6 +89,10 @@ class Product < ActiveRecord::Base
       cond[0]<< "products.is_new = :new " 
       cond[1][:new] = options[:new]
     end
+    unless options[:sale].blank?
+      cond[0]<< "products.is_sale = :sale " 
+      cond[1][:sale] = options[:sale]
+    end    
     cond[0]<< "products.price =0"    if options[:price] && options[:price]=="0"
     cond[0]<< "products.price >0"    if options[:price] && options[:price]=="1"
     cond[0]<< "products.store_count=0"    if options[:store] && options[:store]=="0"

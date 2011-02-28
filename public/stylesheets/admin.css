@@ -335,7 +335,7 @@ span#msg
 
 form.filter   select
 {
-  width:200px;
+  width:150px;
 }
 
 form.filter input[type="text"]

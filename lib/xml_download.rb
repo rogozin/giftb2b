@@ -18,6 +18,7 @@ module XmlDownload
             xml.category_path {xml.cdata decode_categories(product)}
             xml.product_name { xml.cdata product.short_name }
             xml.is_new  product.is_new? ? 1:0 
+            xml.is_sale  product.is_sale? ? 1:0 
             xml.product_desc { xml.cdata product.description } if options.key? :description
             xml.product_material { xml.cdata product.factur } if options.key? :factur
             xml.product_size { xml.cdata product.size } if options.key? :size
