@@ -1,24 +1,14 @@
 <% content_for :meta_description, "giftb2b.ru" -%>
 <% content_for :meta_keywords, "gifts" -%>
-<script type="text/javascript">
-	$(function() {
-		$("div#scrollable").smoothDivScroll({ autoScroll: "onstart", autoScrollDirection: "backandforth", autoScrollStep: 1, autoScrollInterval: 15, startAtElementId: "startAtMe", visibleHotSpots: "always"});
-
-	});
-</script>
+<% content_for :document_ready, "run_scrollable();" -%>
 <div class="content">
-  <div><h1>Новинки</h1></div>
-  <div id="scrollable">
-	  <div class="scrollingHotSpotLeft"></div>
-	  <div class="scrollingHotSpotRight"></div>
-	  <div class="scrollWrapper">
-	  	<div class="scrollableArea">
-	  	  <% @new_products.each do |item| -%>
-	  	    <%= link_to product_image(item), product_path(item), :target => "_blank" %>		 
-	  	  <% end -%>		  
-	  	</div>
-	  </div>
-  </div>
+  <div class="scrollable-control"><%= link_to 'Новинки', change_scrollable_main_index_path, :remote => true, :id => "novelty_link", :class => "selected"  %>
+   <%= link_to "Распродажа", change_scrollable_main_index_path(:sale => 1), :remote => true, :id => "sale_link" %> </div>
+ <div id="novice_animation">
+	      <img alt='Loading' src='/images/loading.gif' widht="16px">
+	      </div>   
+	<%= render :partial => "scrollable" %>
+     
 <div class="spacer"></div>  
 <div class="spacer"></div>  
 <div class="spacer"></div>  

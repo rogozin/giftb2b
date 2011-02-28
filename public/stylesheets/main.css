@@ -555,3 +555,21 @@ div.spacer {height:10px;}
 .content a {
     color:#999999;
 }
+
+.scrollable-control a:link {
+    font-size:16pt;
+    border-bottom:dotted 1px;
+    cursor:pointer;
+    text-decoration:none;
+    color:#034AF3;    
+}
+.scrollable-control a:hover {color:#4477EE;}
+.scrollable-control a.selected {color:#936;}
+
+#novice_animation {
+    width:100%;
+    text-align:center;
+    min-height:16px;
+}
+
+#novice_animation img {display:none;}

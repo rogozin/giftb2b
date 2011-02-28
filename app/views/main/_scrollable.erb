@@ -1,0 +1,11 @@
+  <div id="scrollable">
+  <div class="scrollingHotSpotLeft"></div>
+	  <div class="scrollingHotSpotRight"></div>
+	  <div class="scrollWrapper">
+	  	<div class="scrollableArea">
+	  	  <% @scrollable_products.each do |item| -%>
+	  	    <%= link_to product_image(item), product_path(item), :target => "_blank" %>		 
+	  	  <% end -%>		  
+	  	</div>
+	  </div>
+  </div>

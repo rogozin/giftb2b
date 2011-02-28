@@ -38,11 +38,6 @@ function remove_animate() {
 }
 
 
-
-function get_data(target,animation_cont,animation_cont_replace, container, on_complete) {
-jQuery.ajax({beforeSend:function(request){add_animate(animation_cont,animation_cont_replace);}, complete:function(request){remove_animate();try{ if (on_complete) {return on_complete();}}catch(e){alert(e.description);}},success:function(data){$('#'+container).html(data);}, data:{}, dataType:'script', type:'get', url:target});
-}
-
 function changeImage(img_nr) {	    
    small_img_link= $('#small_img_'+img_nr).attr('src')	    
    big_img_link = $('#big_img img').attr('src');
@@ -56,6 +51,11 @@ function changeImage(img_nr) {
    return false;
 }	 
 
-function catalog_load_complete(){}
-function product_load_complete(){}
-
+function run_scrollable() {
+$("div#scrollable").smoothDivScroll({ autoScroll: "onstart", autoScrollDirection: "backandforth", autoScrollStep: 1, autoScrollInterval: 15, startAtElementId: "startAtMe", visibleHotSpots: "always"});
+ $("div#scrollable").bind({
+      ajaxStart: function() { $(this).empty(); $('#novice_animation img').show(); },
+      ajaxStop: function() { $('#novice_animation img').hide(); }
+    });
+return false;
+}
