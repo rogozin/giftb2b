@@ -30,6 +30,7 @@ module XmlDownload
             xml.product_in_stock product.store_count  if options.key? :store
             xml.meta_description { xml.cdata product.meta_description } if options.key? :meta
             xml.meta_keywords { xml.cdata product.meta_keywords }    if options.key? :meta
+            xml.link product.permalink  if options.key? :permalink
             if product.images and options.key? :images
                xml.product_full_image {
                  product.images.each do |image|

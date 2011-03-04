@@ -1,7 +1,9 @@
 	<%= will_paginate @products, :class=>"article_t_p" %>
+	<% location =  action_name == "search" ? "if(this.value){window.location='#{url_for(:request => params[:request])}&per_page='+this.value;}" : 
+	"if(this.value){window.location='?per_page='+this.value;}" %>
 	<div class="pagenav"> 
 		<p class="article_t"><span class="article_s">по </span>
   	<%= select_tag :per_page, options_for_select([20,50,100],params[:per_page].to_i||20),
-  	 :onchange => "if(this.value){window.location='#{url_for(:request => params[:request])}&per_page='+this.value;}",  :id=>nil, :name => nil %>
+  	 :onchange => location,  :id=>nil, :name => nil %>
 		<span class="article_s"> товаров на странице </span></p> 
 	</div> 
