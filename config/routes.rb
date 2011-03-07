@@ -7,11 +7,13 @@ Giftr3::Application.routes.draw do
   match 'search' => 'main#search', :as => :search
   match 'profile' => "profile#edit", :as => :profile
   match 'change_profile' => 'profile#update', :as => :change_profile
+  match 'register' => "users#new", :as => :register_user
+  match 'activate/:activation_code' => "users#activate", :as => :activate_user
   resources :main, :only => [:index] do
     get :change_scrollable, :on => :collection
   end
   resource :user_session
-  resources :users
+  resources :users, :only => [:create, :edit, :update]
   resources :products
   resources :categories
   resources :foreign do
