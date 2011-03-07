@@ -37,7 +37,7 @@
 	<div class="pict_block">
 		<div class="pict_float">
 		<% @product.attach_images.each do |attachable| -%>
-		 <% unless attachable.main_img -%>
+		 <% unless attachable.image == @product.main_image -%>
 		  <div class="article_img_1_float">
 		    <div class="article_img_2">
     		  <div class="article_img_3" >

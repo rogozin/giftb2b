@@ -1,6 +1,6 @@
 <% content_for :meta_description, @category.meta_description -%>
 <% content_for :meta_keywords, @category.meta_keywords -%>
-<% page_title(Category.tree_nesting_by_name(Category.cached_active_categories, @category).join(' | ')) -%>
+<% page_title(Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join(' | ')) -%>
 <div class="content"> 
 <div class="center_block"> 
 <p class="product_h"><strong>Рубрика: <a class="menu_left" href="#"><%= Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join('/') %></a></strong></p> 

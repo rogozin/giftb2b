@@ -1,0 +1,7 @@
+Фильтр по поставщику: <%= select_tag :supplier_id, options_for_select([["< Все поставщики >", "0"]] +  Supplier.all.map{|x| [x.name, x.id]}, session[:flt_supplier_id] ) %>
+<input id="set_filter" value="Ok" type="submit" />
+<script type="text/javascript">
+$('#set_filter').bind('click', function() {
+$.get("<%= category_path(@category) %>", {supplier_id: $('#supplier_id').val()}, null, "script");
+});
+</script>

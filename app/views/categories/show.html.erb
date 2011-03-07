@@ -1,6 +1,6 @@
 <% content_for :meta_description, @category.meta_description -%>
 <% content_for :meta_keywords, @category.meta_keywords -%>
-<% page_title(Category.tree_nesting_by_name(Category.cached_active_categories, @category).join(' | ')) -%>
+<% page_title(Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join(' | ')) -%>
 <div class="content"> 
 <span class="article_s">Ссылка на текущую страницу: <%= link_to(@ltp, @ltp) %> </span>
 <div class="text_center"> 
@@ -12,8 +12,11 @@
  
 <div class="center_block"> 
 <%= render :partial => 'shared/paginate' %>
-
 </div> <!-- end center_block --> 
+
+<div class="center_block filter">
+<%= render :partial => 'shared/filter' if is_firm_user? || is_admin_user?  %>
+</div>
  
 <div class="center_block" id="catalog_items"> 
   <% for product  in @products do -%>
