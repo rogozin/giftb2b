@@ -38,6 +38,14 @@ module Admin::BaseHelper
   def is_admin?
    current_user && current_user.is_admin?
   end
+  
+  def is_admin_user?
+   current_user && current_user.is_admin_user?
+  end
+  
+  def is_firm_user?
+   current_user && current_user.is_firm_user?   
+  end
 
   def tree_ul(acts_as_tree_set, child = nil, init=true, &block)
     if init 
