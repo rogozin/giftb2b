@@ -116,6 +116,7 @@ Giftr3::Application.routes.draw do
     resources :export_data do
       collection do
         post :export
+        get :permalinks
       end        
     end
     resources :foreign_access
