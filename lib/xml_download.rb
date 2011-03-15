@@ -76,6 +76,17 @@ module XmlDownload
     builder.to_xml
   end
   
+  def get_permalinks(products)
+    builder = Nokogiri::XML::Builder.new do |xml|
+      xml.channel {
+        products.each do |product|
+        xml.item { xml.permalink product.permalink }
+          end
+        }
+   end
+   builder.to_xml
+  end
+  
   def save_to_file
     f=File.new(File.join(Rails.root,'xml_download.xml'),'w')
     f<< get_xml

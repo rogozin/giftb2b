@@ -1,6 +1,7 @@
 <%= render 'admin/shared/sub_menu_data_changes' %>
 <% title "Экспорт данных" -%>
 
+<div class="grid_9 alpha">
 <%= form_for :export_data, :url=> export_admin_export_data_path, :html => {:class=>'filter'}  do |f| -%>
   <%= tree_select(Category.cached_all_categories,  'category',nil,{:value=>"-1", :name => "<-Без категории->"} ,params[:category].to_i ) %>
  <%= select(nil ,'manufactor', options_for_select( Manufactor.all.collect{|i| [i.name, i.id] },params[:manufactor].to_i),{:prompt=>'<-Производитель->'}, {:name=>'manufactor'}) %>
@@ -25,5 +26,10 @@
   <div class="clear"></div>
  <%=  f.submit "Экспорт в XML" %>
 <% end -%>
+</div>
+<div class="grid_7 omega">
+<p>Выгрузка ссылок на товар в xml файл. Выгружаются все опубликованные товары, принадлежащие хотя бы одной опубликованной категории.</p>
+<%= link_to 'Выгрузить  пермалинки', permalinks_admin_export_data_path  %>
+</div>
 
 
