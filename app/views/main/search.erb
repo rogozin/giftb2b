@@ -16,7 +16,18 @@
 <div class="center_block"> 
 
 <%#= render :partial => 'shared/paginate', :object=> @products %>
+<div>
 <%= will_paginate @products, :class=>"article_t_p" %>
+</div>
+<div class="spacer"></div>
+<p class="products-per-page">
+<span class="article_s">
+По <%= link_to_unless (params[:per_page] ||"20") == "20", '20', url_for(params.merge({:per_page => 20})) %>
+<%= link_to_unless params[:per_page] == "50", '50', url_for(params.merge({:per_page => 50})) %>
+ <%= link_to_unless params[:per_page] == "100", '100', url_for(params.merge({:per_page => 100})) %>
+ товаров на странице
+</span>
+</p>
 </div> <!-- end center_block --> 
 </div>
 <% else -%>
