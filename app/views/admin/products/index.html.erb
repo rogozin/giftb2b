@@ -12,8 +12,8 @@
 <%= raw tree_select(Category.cached_all_categories,  'category',nil,{:value=>"-1", :name => "<-Без категории->"} ,params[:category].to_i ) %>
  <%= select(nil ,'manufactor', options_for_select( Manufactor.all.collect{|i| [i.name, i.id] },params[:manufactor].to_i),{:prompt=>'<-Производитель->'}, {:name=>'manufactor'}) %>
   <%= select(nil ,'supplier', options_for_select( Supplier.all.collect{|i| [i.name, i.id] },params[:supplier].to_i),{:prompt=>'<-Поставщик->'}, {:name=>'supplier'}) %>
-<%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100']],params[:per_page]),{:prompt=>'<-Кол-во записей на странице->'}, {:name=>'per_page'}) %>
- артикул: <%= text_field_tag :name, params[:name] %>
+<%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100'],['500','500']],params[:per_page]),{:prompt=>'<-Кол-во записей на странице->'}, {:name=>'per_page'}) %>
+ арт: <%= text_field_tag :name, params[:name] %>
  код: <%= text_field_tag :code, params[:code] %>
  <%= submit_tag "Ok", :name=>nil %><br />
  <%= select(nil ,'active', options_for_select( [['Нет', '0'],['Да','1']],params[:active]),{:prompt=>'<-Опубликован->'}, {:name=>'active'}) %> 
