@@ -16,13 +16,14 @@ class Product < ActiveRecord::Base
   scope :for_admin, joins([:supplier,:manufactor, ", (select usd,eur from currency_values v order by id desc limit 1) c" ]).select("distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name,  case products.currency_type when 'USD' then c.usd * products.price when 'EUR' then c.eur * products.price else products.price end ruprice").order("sort_order, ruprice")
   
   scope :search, lambda { |search_text|
-  where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code)", { :search => '%' + search_text + '%',:code => search_text}) }
+  active.where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code)", { :search => '%' + search_text + '%',:code => search_text}) }
   
   scope :search_with_article, lambda { |search_text|
-  where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code) or products.article like :search", 
+  active.where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code) or products.article like :search", 
   {:search =>  '%' + search_text + '%', :code =>search_text}) } 
   scope :novelty, where({:is_new => true})
   scope :sale, where({:is_sale => true})
+  scope :active, where({:active => true})
   validates_presence_of  :supplier_id, :article
   validates_uniqueness_of :permalink, :allow_nil => true
   
