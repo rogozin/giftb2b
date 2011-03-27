@@ -27,5 +27,6 @@ gem 'spreadsheet'
    gem 'autotest'
    gem 'webrat'
    gem 'factory_girl_rails'
-   gem 'spork', '~> 0.9.0.rc'   
+   gem 'spork', '~> 0.9.0.rc'
+   gem 'launchy'
  end
