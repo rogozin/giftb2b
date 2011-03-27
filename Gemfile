@@ -19,3 +19,14 @@ gem 'RedCloth'
 gem 'composite_primary_keys', '=3.1.0'
 gem 'pdfkit', "0.4.6"
 gem 'spreadsheet'
+
+ group :development, :test do
+   gem "rspec-rails", "~> 2.4"
+   gem 'cucumber-rails'
+   gem 'database_cleaner'
+   gem 'autotest'
+   gem 'webrat'
+   gem 'factory_girl_rails'
+   gem 'spork', '~> 0.9.0.rc'
+   gem 'launchy'
+ end

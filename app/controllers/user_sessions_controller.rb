@@ -15,7 +15,7 @@ class UserSessionsController < ApplicationController
 
   def destroy
     @user_session = UserSession.find
-    @user_session.destroy
+    @user_session.destroy if @user_session
     flash[:notice] = "Выход из системы успешно произведен"
     redirect_to root_path
   end
