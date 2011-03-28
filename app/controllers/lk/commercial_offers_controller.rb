@@ -81,7 +81,7 @@ class Lk::CommercialOffersController < Lk::BaseController
     if @co.save
      flash[:notice] = "Коммерческое предложенеие сгенерировано на основе набора товаров Вашей корзины." 
      @cart.items.each do |item|
-       lk_product = copy_product_to_lk(item.product, @co.firm_id, item.price)
+       lk_product = copy_product_to_lk(item.product, @co.firm_id, item.start_price)
        @co.commercial_offer_items.create({:lk_product=>lk_product, :quantity => item.quantity})
       end
       redirect_to lk_commercial_offer_path(@co)

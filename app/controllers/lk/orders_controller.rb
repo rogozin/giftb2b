@@ -21,7 +21,7 @@ class Lk::OrdersController < Lk::BaseController
     flash[:notice] = "Заказ создан!" if @order.save
     @cart = find_cart
     @cart.items.each do |cart_item|
-      @order.lk_order_items.create({:product => cart_item.product, :quantity => cart_item.quantity, :price => cart_item.product.price_in_rub})
+      @order.lk_order_items.create({:product => cart_item.product, :quantity => cart_item.quantity, :price => cart_item.start_price})
     end
     redirect_to lk_orders_path
   end
