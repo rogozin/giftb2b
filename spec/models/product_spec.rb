@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Product do
+  before(:each) do
+    CurrencyValue.create({:dt => Date.today, :usd => 30, :eur => 40})
+  end
+  
   subject { Product.new}
   it { should_not be_valid}
   it { should have(1).error_on(:article)}
@@ -20,4 +24,17 @@ describe Product do
       Product.search_with_article("art12345").should be_empty
     end
   end
+  
+  context "sorting" do
+    it "products without cost should be at the end of the list" do
+      p1 = Factory(:product, :article => "B001", :price => 100, :sort_order => 10)      
+      p3 = Factory(:product, :article => "A001", :price => 0, :sort_order => 20)
+      c = Factory(:category, :name => "cat1")
+      c.products << [p1, p3]
+     search_result = Product.find_all({:page=>1, :per_page=>30, :category=> c.id})
+     search_result.last.should == p3
+    end
+  end
+  
 end
+

@@ -34,24 +34,6 @@ class Product < ActiveRecord::Base
     Rails.cache.fetch('novelty', :expires_in =>1.hours) { novelty}
   end
   
-
-  def self.filter_data_by_category(category=0, manufactor=0) 
-     cond=[[],{}]
-     if category>0
-       cat = Category.cached_all_categories.select{|c| c.id==category.to_i}
-       cats_arr = Category.tree_childs(Category.cached_all_categories,cat) 
-       cond[0]<<  "category_id in ( :category)"
-       cond[1][:category]=cats_arr || category
-    end
-    if manufactor>0
-       cond[0]<<  "manufactor_id = ( :manufactor)"
-       cond[1][:manufactor]=manufactor
-    end
-     total_conditions = cond[0] && cond[0].size>0 ? [cond[0].join(" AND "), cond[1]]  : []
-     find(:all, :joins=>[:category, :manufactor], :select=>"category_id, categories.name category_name, manufactor_id, manufactors.name manufactor_name", :conditions=>total_conditions) 
-  end
-
-
   def self.find_all(options={}, place= "admin")
     options[:per_page] ||=20
     cond=[[],{}]

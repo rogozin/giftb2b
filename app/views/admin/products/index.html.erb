@@ -20,6 +20,7 @@
 <%= select(nil ,'store', options_for_select( [['Отсуствует', '0'],['В наличии','1']],params[:store]),{:prompt=>'<-Наличие на складе->'}, {:name=>'store'}) %>
  <%= select(nil ,'new', options_for_select( [['Нет', '0'],['Да','1']],params[:new]),{:prompt=>'<-Новинка->'}, {:name=>'new'}) %> 
  <%= select(nil ,'sale', options_for_select( [['Нет', '0'],['Да','1']],params[:sale]),{:prompt=>'<-Распродажа->'}, {:name=>'sale'}) %> 
+ <%= select(nil ,'price', options_for_select( [['Равна 0', '0'],['Больше 0','1']],params[:price]),{:prompt=>'<-Цена товара->'}, {:name=>'price'}) %> 
 <% end -%>
 <div class="spacer"></div>
 <div>
@@ -33,6 +34,11 @@
 <%= submit_tag "Выполнить", :id => "commit", :class=>"g-hidden" %>
 <% end -%>
 <script type="text/javascript">
+$(document).ready(function() {
+$('#select_all_chb').bind('click', function() {$("input[type='checkbox']").attr('checked', 'checked') });
+$('#select_all_chb').bind('dblclick', function() {$("input[type='checkbox']").removeAttr('checked') });
+})
+
 function clear_group_form() {
   $('#commit').hide();
   $('#category_id').remove();
@@ -40,6 +46,8 @@ function clear_group_form() {
   $('#property_value').remove();
   return false;
 }
+
+
 $('#oper').bind('change', function() {
   switch(this.value) {
     case 'delete':
@@ -62,6 +70,7 @@ $('#oper').bind('change', function() {
       "<option value='size'>Размер</option>"+
       "<option value='is_new'>Новинка</option>"+
       "<option value='is_sale'>Распродажа</option>"+
+      "<option value='sort_order'>Сортировка</option>"+
       "</select>");
       $('#commit').show();
       break;      
@@ -77,7 +86,7 @@ $('.group-ops form').bind('submit', function() {
 $('#property_name').live('change', function() {
   $('#property_value').remove();
   if (this.value != "null") {
-    if (this.value == 'color' || this.value == 'factur' || this.value == 'box' || this.value == 'size') {
+    if (this.value == 'color' || this.value == 'factur' || this.value == 'box' || this.value == 'size' || this.value == 'sort_order') {
       $(this).after("<input id='property_value' name='property_value' type='text'>");
     }
     if ((this.value == 'is_new') || (this.value == 'is_sale')) {
@@ -87,14 +96,14 @@ $('#property_name').live('change', function() {
       "</select>");
     }        
     $('.main-cols').hide();
-    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale').hide();
+    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale, td.sort_order').hide();
     $('th.property-column').show().text(this[this.selectedIndex].innerHTML);
     $('td.'+this.value).show();
   }
   else {
     $('.main-cols').show();
     $('th.property-column').hide();
-    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale').hide();
+    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale, td.sort_order').hide();
   }
 });
 </script>

@@ -20,6 +20,6 @@ end
 Factory.define :category do |f|
   f.name "Подарки"
   f.kind 1
-  f.permalink "podarki"
+  #f.permalink "podarki"
   f.active true
 end

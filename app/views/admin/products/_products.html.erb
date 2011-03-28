@@ -1,6 +1,6 @@
 <table id="products_list" class="products">
   <tr>
-    <%= content_tag(:th, "", :class => "group-ops g-hidden") %>
+    <%= content_tag(:th, raw("<a id='select_all_chb' href='#' class='pseudo-link'>Все</a>"), :class => "group-ops g-hidden") %>
     <th></th>
     <th>Изображение</th>
     <th>КОД</th>
@@ -38,6 +38,7 @@
       <td class="size g-hidden"><%= item.size %></td>
       <td class="is_new g-hidden"><%= checked_box_image item.is_new %></td>
       <td class="is_sale g-hidden"><%= checked_box_image item.is_sale %></td>
+      <td class="sort_order g-hidden"><%= item.sort_order %></td>
     </tr>
   <% end -%>
 </table>
