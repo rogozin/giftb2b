@@ -1,3 +1,5 @@
+<html>
+<head>
 <style>
 .table_header {
 	width:800px;
@@ -28,6 +30,7 @@
 	padding:0px;
 	line-height:1.2;
 	font-style:italic;
+	page-break-inside: avoid;
 	}
 .t10b {
 	font-size:10pt;
@@ -36,10 +39,12 @@
 	padding:0px;
 	line-height:1.2;
 	font-weight:bold;
+	page-break-inside: avoid;
 	}	
 .td_descr {
 	width:400px;
 	vertical-align:top;
+	page-break-inside: avoid;
 }
 div.article_img_1 {
     background: none repeat scroll 0 0 white;
@@ -48,6 +53,7 @@ div.article_img_1 {
     height: 120px;
     overflow: hidden;
     width: 120px;
+	page-break-inside: avoid;
 }
 div.article_img_2 {
     display: table-cell;
@@ -56,18 +62,20 @@ div.article_img_2 {
 }
 div.article_img_3 {
 }
-.table_t {
-page-break-after;
+#table_t {
+margin:auto;
+page-break-inside: avoid;
 width:800px;
-padding-bottom:10px;
-padding-top:10px;
+padding-bottom:5px;
+padding-top:5px;
 }
+
 </style>
-
-
+</head>
+<body>
 <table class="table_header"> 
 	<tr> 
-	 <td class="td_logo"><%= image_tag @commercial_offer.firm.images.first.picture.url if @commercial_offer.firm && @commercial_offer.firm.images.present? %></td> 
+	 <td class="td_logo"><img src="/images/logo_dishouse.gif" width="150" height="86"></td> 
 	 <td class="td_header"> 
 	 <p class="t11"><%= @commercial_offer.firm.short_name %></p> 
 	<p class="t11"><%= @commercial_offer.firm.addr_f %></p> 
@@ -79,7 +87,7 @@ padding-top:10px;
 <!-- Вывод товара --> 
 
 <% @commercial_offer.commercial_offer_items.each do |item| -%>
-<table class="table_t"> 
+<table id="table_t"> 
 <tr> 
 <td width="90"><div class="article_img_1"><div class="article_img_2"> <div class="article_img_3">  
    <%= image_tag(image_path("#{controller.request.protocol}#{controller.request.host}:#{controller.request.port}"+item.lk_product.picture.url) )%>
@@ -103,3 +111,5 @@ padding-top:10px;
 
 </table>
 <% end -%>
+</body>
+</html>
