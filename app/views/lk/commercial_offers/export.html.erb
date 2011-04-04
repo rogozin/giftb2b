@@ -101,6 +101,7 @@ padding-top:5px;
 		<p class="t9"><strong>Цвет: </strong><%= item.lk_product.color %></p> 
 		<p class="t9"><strong>Размер: </strong><%= item.lk_product.size %></p> 
 		<p class="t9"><strong>Нанесение: </strong><%= item.lk_product.infliction %></p>
+		<p class="t9"><strong>Количество на складе: </strong><%= item.lk_product.store_count %></p>
 		<p class="t9"><strong>Цена: </strong><%= price_ru_label item.lk_product.price %></p> 
 		<p class="t10b">Общая сумма: <%= price_ru_label item.quantity * item.lk_product.price %> за <%= item.quantity %> шт.</p> 
 </td> 
