@@ -5,6 +5,20 @@ module XmlUpload
 
  class << self
 
+  def process_files(directory)
+    directory ||= File.join(Rails.root, "tmp/xmlupload")
+    Dir.foreach(directory) do |x| 
+      xmlfile = File.join(directory, x)
+      if File.file?(xmlfile) && File.extname(x) == ".xml"
+        supplier = Supplier.where({:name => File.basename(xmlfile, ".xml"), :allow_upload => true }).first
+        if supplier.present?
+          bw = BackgroundWorker.create({:task_name => File.basename(xmlfile), :supplier_id => supplier.id })
+          process_file(xmlfile, bw.id)
+        end
+      end
+    end
+  end
+
   def process_file(path, bw_id, import_images = true, reset_images = false)
     @process_images = import_images
     @reset_images = reset_images
@@ -57,11 +71,11 @@ module XmlUpload
   
      
   def  upload_file(url)
-     io = open(URI.parse(url))
-     def io.original_filename; base_uri.path.split('/').last; end
-     io.original_filename.blank? ? nil : io
-     @log_download_images +=1 if io
-     io
+    io = open(URI.parse(url))
+    def io.original_filename; base_uri.path.split('/').last; end
+    io.original_filename.blank? ? nil : io
+    @log_download_images +=1 if io
+    io
   end
 
   
