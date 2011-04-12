@@ -7,13 +7,16 @@ module XmlUpload
 
   def process_files(directory)
     directory ||= File.join(Rails.root, "tmp/xmlupload")
+    Dir.mkdir(directory) unless File.exists?(directory)
     Dir.foreach(directory) do |x| 
       xmlfile = File.join(directory, x)
       if File.file?(xmlfile) && File.extname(x) == ".xml"
         supplier = Supplier.where({:name => File.basename(xmlfile, ".xml"), :allow_upload => true }).first
+        bw = BackgroundWorker.create({:task_name => File.basename(xmlfile), :supplier_id => supplier ? supplier.id : -1 })
         if supplier.present?
-          bw = BackgroundWorker.create({:task_name => File.basename(xmlfile), :supplier_id => supplier.id })
           process_file(xmlfile, bw.id)
+        else   
+          bw.failed("Поставщик не найден")
         end
       end
     end
