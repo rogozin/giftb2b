@@ -18,7 +18,10 @@ module XmlUpload
           process_file(xmlfile, bw.id)
         else   
           bw.failed("Поставщик не найден")
+<<<<<<< HEAD
           FileUtils.mv(xmlfile, File.join(directory, bw.current_status, File.basename(xmlfile, ".xml"), Time.now.to_s,".xml" ))
+=======
+>>>>>>> 1fa700bb41f8fe77dcaa6019f44b230c43ce5684
         end
       end
     end
