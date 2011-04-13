@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require 'fileutils'
 
 module XmlUpload
 
@@ -17,6 +18,7 @@ module XmlUpload
           process_file(xmlfile, bw.id)
         else   
           bw.failed("Поставщик не найден")
+          FileUtils.mv(xmlfile, File.join(directory, bw.current_status, File.basename(xmlfile, ".xml"), Time.now.to_s,".xml" ))
         end
       end
     end

@@ -1,5 +1,5 @@
 class BackgroundWorker < ActiveRecord::Base
-validates :current_status, :inclusion => {:in => %w( preparation start finish failed ) }
+validates :current_status, :inclusion => {:in => %w( preparation working finish failed ) }
 before_validation :init
   
   def failed(message)
