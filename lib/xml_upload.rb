@@ -5,10 +5,26 @@ require 'fileutils'
 module XmlUpload
 
  class << self
+   cattr_accessor :time_format, :directories, :base_dir
+   self.time_format = "%d-%m-%Y_%H-%M"
+   self.base_dir = File.join(Rails.root,"tmp/xmlupload")
+   self.directories = {:upload => self.base_dir, :finish => File.join(self.base_dir,"finish"), :failed => File.join(self.base_dir,"failed")}
 
+  def create_dirs
+    self.directories.each_value do |dir|
+      Dir.mkdir(dir) unless File.exists?(dir)
+    end
+  end  
+    
+  def cleanup_dir xmlfile, status
+    FileUtils.mv(xmlfile, File.join(self.directories[status], [File.basename(xmlfile, ".xml"), "_", Time.now.strftime(self.time_format),".xml"].join )) 
+  end
+  
+  private :create_dirs, :cleanup_dir
+  
   def process_files(directory)
-    directory ||= File.join(Rails.root, "tmp/xmlupload")
-    Dir.mkdir(directory) unless File.exists?(directory)
+    create_dirs
+    directory ||= self.directories[:upload]
     Dir.foreach(directory) do |x| 
       xmlfile = File.join(directory, x)
       if File.file?(xmlfile) && File.extname(x) == ".xml"
@@ -16,9 +32,10 @@ module XmlUpload
         bw = BackgroundWorker.create({:task_name => File.basename(xmlfile), :supplier_id => supplier ? supplier.id : -1 })
         if supplier.present?
           process_file(xmlfile, bw.id)
+          cleanup_dir xmlfile, :finish
         else   
           bw.failed("Поставщик не найден")
-          FileUtils.mv(xmlfile, File.join(directory, bw.current_status, File.basename(xmlfile, ".xml"), Time.now.to_s,".xml" ))
+          cleanup_dir xmlfile, :failed
         end
       end
     end

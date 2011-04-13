@@ -24,7 +24,7 @@ describe XmlUpload do
     end
   end
 
-  context "test mass xml upload from folder" do
+  context "Проверка массовой обработки файлов в директории" do
     
     def find_bw
       BackgroundWorker.first
@@ -32,31 +32,38 @@ describe XmlUpload do
 
     before(:each) do
       @product = Factory.build(:product)
-      @directory ||= File.join(Rails.root, "tmp/xmlupload")
+      @directory ||= XmlUpload.directories[:upload]
+      @supplier_name = @product.supplier.name
       Dir.mkdir(@directory) unless File.exists?(@directory)
       File.open(File.join(@directory, "#{@product.supplier.name}.xml"), "w+") do |file|
         file << XmlDownload.get_xml([@product], {})
       end
+      @creation_time = Time.now
     end
 
-    it 'xml files should be processed from tmp/xmlupload folder' do
+    it 'все xml файлы должны быть обработаны' do
       XmlUpload.process_files nil
       Product.should have(1).record  
       bw=find_bw
       bw.supplier_id.should == Supplier.first.id    
       bw.current_status.should == "finish"    
+      File.should be_exists(File.join(XmlUpload.directories[:finish],"#{@supplier_name}_#{@creation_time.strftime(XmlUpload.time_format)}.xml"))                  
     end
     
-    it "Action if supplier not found" do
+    it "если обработка завершилась ошибкой" do
       @product.supplier.update_attribute(:name, "xxx")
       XmlUpload.process_files nil
       bw = find_bw
       bw.current_status.should == "failed"
       bw.log_errors.should == "Поставщик не найден"
       bw.supplier_id.should == -1
-      File.should be_exists(File.join(@directory,"failed","#{@product.supplier.name}_#{Time.now.to_s}.xml"))                  
+      File.should be_exists(File.join(XmlUpload.directories[:failed],"#{@supplier_name}_#{@creation_time.strftime(XmlUpload.time_format)}.xml"))                  
     end
-    it "move file into ok folder when success"
+    
+    it "Очистка всех директорий"
+    
+    it "Перед загрузкой все товары этого поставщика должны быть деактивированы"
+
   end
 
 end
