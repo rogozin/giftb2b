@@ -4,11 +4,11 @@ describe Product do
   before(:each) do
     CurrencyValue.create({:dt => Date.today, :usd => 30, :eur => 40})
   end
-  
+   
   subject { Product.new}
   it { should_not be_valid}
-  it { should have(1).error_on(:article)}
-  it { should have(1).error_on(:supplier_id)}
+#  it { should have(1).error_on(:article)}
+#  it { should have(1).error_on(:supplier_id)}
 
   context "filtering and searching" do
     before do
@@ -28,7 +28,7 @@ describe Product do
   context "sorting" do
     it "products without cost should be at the end of the list" do
       p1 = Factory(:product, :article => "B001", :price => 100, :sort_order => 10)      
-      p3 = Factory(:product, :article => "A001", :price => 0, :sort_order => 20)
+      p3 = Factory(:product, :article => "A001", :supplier_id => p1.supplier_id, :price => 0, :sort_order =>20)
       c = Factory(:category, :name => "cat1")
       c.products << [p1, p3]
      search_result = Product.find_all({:page=>1, :per_page=>30, :category=> c.id})

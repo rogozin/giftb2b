@@ -24,7 +24,8 @@ class Product < ActiveRecord::Base
   scope :novelty, where({:is_new => true})
   scope :sale, where({:is_sale => true})
   scope :active, where({:active => true})
-  validates_presence_of  :supplier_id, :article
+  validates :supplier_id, :presence => true
+  validates :article, :presence => true
   validates_uniqueness_of :permalink, :allow_nil => true
   
   before_save :set_permalink  

@@ -1,6 +1,10 @@
+Factory.sequence :article_seq do |n|
+   "000#{n}"
+end
+
 Factory.define :product do |f|
-  f.article '000001'
-  f.short_name "product"
+  f.article { Factory.next :article_seq }
+  f.short_name { "product_" + Factory.next(:article_seq)}
   f.price 100 
   f.active true
   f.store_count 100

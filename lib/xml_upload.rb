@@ -16,11 +16,17 @@ module XmlUpload
     end
   end  
     
-  def cleanup_dir xmlfile, status
+  def move_file xmlfile, status
     FileUtils.mv(xmlfile, File.join(self.directories[status], [File.basename(xmlfile, ".xml"), "_", Time.now.strftime(self.time_format),".xml"].join )) 
   end
   
-  private :create_dirs, :cleanup_dir
+  def clear_dirs
+    self.directories.each_value do |dir|
+      FileUtils.rm_r Dir.glob("#{dir}/*.xml")
+    end
+  end
+  
+  private :create_dirs, :move_file
   
   def process_files(directory)
     create_dirs
@@ -31,11 +37,12 @@ module XmlUpload
         supplier = Supplier.where({:name => File.basename(xmlfile, ".xml"), :allow_upload => true }).first
         bw = BackgroundWorker.create({:task_name => File.basename(xmlfile), :supplier_id => supplier ? supplier.id : -1 })
         if supplier.present?
+          supplier.deactivate_all_products
           process_file(xmlfile, bw.id)
-          cleanup_dir xmlfile, :finish
+          move_file xmlfile, :finish
         else   
           bw.failed("Поставщик не найден")
-          cleanup_dir xmlfile, :failed
+          move_file xmlfile, :failed
         end
       end
     end

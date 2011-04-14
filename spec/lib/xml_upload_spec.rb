@@ -60,9 +60,12 @@ describe XmlUpload do
       File.should be_exists(File.join(XmlUpload.directories[:failed],"#{@supplier_name}_#{@creation_time.strftime(XmlUpload.time_format)}.xml"))                  
     end
     
-    it "Очистка всех директорий"
-    
-    it "Перед загрузкой все товары этого поставщика должны быть деактивированы"
+    it "Очистка всех директорий" do
+      XmlUpload.clear_dirs
+      XmlUpload.directories.each_value do |dir|
+      Dir.glob("#{dir}/*.xml").should be_empty
+    end
+    end
 
   end
 
