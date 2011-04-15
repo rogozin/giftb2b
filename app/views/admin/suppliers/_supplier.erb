@@ -9,6 +9,10 @@
   <%= f.text_area :address, :cols=>22, :rows=>5 %>
 </div>
 <div class="b-formfield-div">
+  <%= f.label :allow_upload, 'Разрешить обработку xml' %>
+  <%= f.check_box :allow_upload  %>
+</div>
+<div class="b-formfield-div">
   <%= f.submit "Сохранить" %>
 </div>
 <%  end %>

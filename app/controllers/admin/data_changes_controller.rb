@@ -6,7 +6,7 @@ after_filter :wrap_ajax_file_upload_responce, :only => [:create]
 respond_to :html, :js
   
   def index
-    @workers = BackgroundWorker.all(:limit=>5, :order => "id desc")
+    @workers = BackgroundWorker.all(:limit=>30, :order => "id desc")
     @suppliers = Supplier.all
     @last_bw = find_bw
     @can_upload = @last_bw.blank? || !@last_bw.task_end.blank? 
