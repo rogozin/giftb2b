@@ -1,4 +1,4 @@
-	<div class="article"> 
+<% content_tag(:div, :id => "product_#{product.id}", :class => "article") do -%>
 		<div class="article_img_1"><div class="article_img_2"><div class="article_img_3">
  		  <%= link_to product_image(product), product_path(product), :class => "article_a", :target => "_blank" %>		   
  </div></div></div> 
@@ -12,8 +12,9 @@
     <p class="article_t">Кол-во на складе: <span class="article_s"><%= store_count product %></span></p>
 		<% end -%>
 		<p class="article_t">Цена: <span class="article_name"><%= product_price(product) %></span>
-		<span><%= link_to '+', add_cart_path(product.id), :remote => true, :method => :post if current_user %></span>	</p> 
+		<span id="add_to_cart"><%= link_to '+', add_cart_path(product.id), :remote => true, :method => :post if current_user %></span>		
+			</p> 
 		<div class="article_t">
 		  <%= link_to 'Подробнее о товаре', product_path(product), :target => "_blank", :class => "article_a"  %>		  
 		</div> 
-	</div> 
+<% end -%>

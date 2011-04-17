@@ -398,7 +398,7 @@ a:hover.text_n_z {
 }
 
 .li_no { list-style-type:none;}
-
+span.message {color:#C36;}
 
 
 #flash_error, #flash_notice

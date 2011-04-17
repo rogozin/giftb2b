@@ -1,2 +1,7 @@
 $('#cart').html("<%= escape_javascript render(:partial => 'cart/cart') %>");
 $('#cart_items').html('Ваша корзина пуста');
+<% if @current_item -%>
+  msg=$('<span class="message g-hidden"> ok</span>');
+  $('div#product_<%= @current_item.product.id %> #add_to_cart').append(msg);
+  msg.show().fadeOut(2000, function() {$(this).remove()});
+<% end -%>
