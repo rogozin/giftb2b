@@ -12,5 +12,10 @@ class Firm < ActiveRecord::Base
  def logo
    images.first.picture.url if images.present?
  end
+ 
+ #Return Paperclip::Geometry instance
+ def logo_geometry
+   Paperclip::Geometry.from_file(images.first.picture.path) if images.present?
+ end
   
 end
