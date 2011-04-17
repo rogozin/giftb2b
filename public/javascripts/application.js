@@ -1,5 +1,12 @@
 var ANIMATE_ELEMENT =  "<span class='loader_animate'>&nbsp;<img alt='Loading' src='/images/ajax-loader.gif'></span>"
 
+$(function() {
+$(".ajax_animation").bind({
+      ajaxStart: function() { $(this).show(); },
+      ajaxStop: function() { $(this).hide(); }
+    });
+});
+
   $(function() {
     $('.pagination-ajax a').live('click', function(e) {
       $.getScript(this.href);

@@ -4,7 +4,7 @@
 <div class="content">
 <span class="article_s">Ссылка на текущую страницу: <%= link_to_this_page(controller_name, action_name, @product.permalink) %> </span>
 <%= render :partial => (controller_name == "foreign" ? "/shared/product_rubrika" : "product_rubrika") %>
-<div class="center_block">
+<% content_tag(:div, :id => "product_#{@product.id}", :class=>"center_block") do -%>
 	<div class="big_pict">
 		<div class="pict_2"><div class="pict_3" id="big_img">
 		<%= product_image(@product,false) %>
@@ -29,7 +29,7 @@
 			<br />
 			<p class="article_t">Цена: <span class="article_name"><%= product_price(@product) %></span></p>
 			
-			<p><%= link_to 'Добавить в корзину', add_cart_path(@product.id), :remote => true, :method => :post if current_user %></p>
+			<p id="add_to_cart"><%= link_to 'Добавить в корзину', add_cart_path(@product.id), :remote => true, :method => :post if current_user %></p>
 			</div>
 		</div>
 	</div>
@@ -58,5 +58,5 @@
     <%= render :partial => "products/analog_products" %>
 	</div>
 
-</div> <!-- end center_block -->
+<% end -%> <!-- end center_block -->
 </div> <!-- end content -->
