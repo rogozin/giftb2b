@@ -75,7 +75,9 @@ padding-top:5px;
 <body>
 <table class="table_header"> 
 	<tr> 
-	 <td class="td_logo"><img src="/images/logo_dishouse.gif" width="150" height="86"></td> 
+	 <td class="td_logo">
+   <%= image_tag current_user.firm.logo, :width => current_user.firm.logo_geometry.width.to_i/3, :height => current_user.firm.logo_geometry.height.to_i/3 if firm_logo_present? %>	 
+	 </td> 
 	 <td class="td_header"> 
 	 <p class="t11"><%= @commercial_offer.firm.short_name %></p> 
 	<p class="t11"><%= @commercial_offer.firm.addr_f %></p> 
