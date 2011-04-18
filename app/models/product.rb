@@ -48,11 +48,11 @@ class Product < ActiveRecord::Base
         cond[0]<<  "not exists (select null from product_categories ps where ps.product_id = products.id)"
       end
     end 
-    if !options[:manufactor].blank? && options[:manufactor].to_i >0
+    if options[:manufactor].present? && options[:manufactor].to_i >0
       cond[0]<<  "manufactor_id=:manufactor"
       cond[1][:manufactor]=options[:manufactor]
     end  
-    if !options[:supplier].blank? && options[:supplier].to_i >0
+    if options[:supplier].present? && options[:supplier].to_i
       cond[0]<<  "supplier_id=:supplier"
       cond[1][:supplier]=options[:supplier]
     end      

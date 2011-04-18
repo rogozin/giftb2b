@@ -105,6 +105,11 @@ class Admin::CategoriesController < Admin::BaseController
   
   def show_products_list    
     @category= Category.find(params[:id])
+    @products = if current_user.has_role?("Редактор каталога")
+      current_user.supplier ?  @category.products.where(:supplier_id => current_user.supplier_id) : []        
+    else
+      @category.products
+    end
   end
      
   def change_category_products

@@ -3,7 +3,7 @@
       <div style="padding-top:3px;padding-left:5px;" ><p class="text_10pt_999999_bold">Личный кабинет:</p> 
         <p style="font-weight:normal;font-size:9pt;padding-top:3px;color:#999999">имя:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= form.text_field :username, :style=>"width:130px" %>
         <p style="font-weight:normal;font-size:9pt;padding-top:3px;color:#999999">пароль:<%= form.password_field :password, :style=>"width:130px" %>
-        <%= form.submit nil, :style=>"visibility:hidden; width:0px;" %>
+        <%= form.submit ">>", :style=>"visibility:hidden; width:0px;" %>
         <span style="color:white;font-weight:bold;cursor:pointer;margin-left:-15px;" onclick="login_form.submit();" >>></span></p> 
         <span style="color:#ff66cc;font-size:10pt"><%= flash[:login_error] %></span>
         <a style="padding-left:102px;font-weight:normal;font-size:9pt;padding-top:3px;color:#999999" href="/register">pегистрация</a> 

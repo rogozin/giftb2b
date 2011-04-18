@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110409201404) do
+ActiveRecord::Schema.define(:version => 20110417191949) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -304,6 +304,7 @@ ActiveRecord::Schema.define(:version => 20110409201404) do
     t.string   "icq"
     t.string   "cellphone"
     t.string   "perishable_token",                :default => "",    :null => false
+    t.integer  "supplier_id"
   end
 
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token"

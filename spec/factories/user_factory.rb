@@ -7,6 +7,15 @@ Factory.define :admin, :class => User do |record|
   record.role_objects {|role|  [role.association(:role_admin)]}
 end
 
+Factory.define :catalog_editor, :class => User do |record|    
+  record.username "editor"
+  record.email "editor@whatever.com"
+  record.password "editor"
+  record.password_confirmation {|p| p.password }
+  record.active true
+  record.role_objects {|role|  [role.association(:role_catalog_editor)]}
+end
+
 Factory.define :firm_manager, :class => User do |record|    
   record.username "firm_manager"
   record.email "firm_manager@whatever.com"
@@ -27,6 +36,11 @@ end
 
 Factory.define :role_admin, :class => Role do |f|
   f.name "Администратор"
+  f.group 0
+end
+
+Factory.define :role_catalog_editor, :class => Role do |f|
+  f.name "Редактор каталога"
   f.group 0
 end
 

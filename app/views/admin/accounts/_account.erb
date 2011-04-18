@@ -14,6 +14,10 @@
       <%= form.select :firm_id, @firms, {:include_blank => true} %>
     </div>    
     <div class ="b-formfield-div">
+      <%= form.label :supplier_id, "Поставщик" %>
+      <%= form.select :supplier_id, @suppliers, {:include_blank => true} %>
+    </div>      
+    <div class ="b-formfield-div">
       <%= form.label :email, "Email" %>
       <%= form.text_field :email %>
     </div>

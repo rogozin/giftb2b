@@ -4,9 +4,9 @@
 <%= link_to_function 'Выбрать все', "$(\"ul li input[type='checkbox']\").each(function(){$(this).attr('checked', 'checked')})", :class => "pseudo-link" %>, 
 <%= link_to_function 'ни одного', "$(\"ul li input[type='checkbox']\").each(function(){$(this).removeAttr('checked')})", :class => "pseudo-link" %>
 </div>
-  <% form_for :category_products, :url=> {:action => "change_category_products", :id => @category.id} do |f| -%>
-  <ul>
-    <% @category.products.each do |product| -%>
+  <%= form_for :category_products, :url=> {:action => "change_category_products", :id => @category.id} do |f| -%>
+  <ul id="products">
+    <% @products.each do |product| -%>
     <li><%= check_box_tag "category_products[product_ids][]", product.id, true %> <%= link_to image_tag('edit.png') ,edit_admin_product_path(product) %> <%= product.short_name %></li>
     <% end -%>
   </ul>    

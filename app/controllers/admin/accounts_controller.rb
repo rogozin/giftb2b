@@ -10,6 +10,7 @@ class AccountsController < BaseController
   def new
     @account = User.new(:password=>friendly_pass)
     select_firms
+    select_suppliers
   end
 
   def create
@@ -20,6 +21,7 @@ class AccountsController < BaseController
       render :show
     else 
        select_firms
+       select_suppliers
       render :new
     end
 
@@ -29,6 +31,7 @@ class AccountsController < BaseController
     @account = User.find(params[:id])
     @roles = Role.all
     select_firms    
+    select_suppliers
   end
 
   def update
@@ -39,6 +42,7 @@ class AccountsController < BaseController
       succ_updated
     else
       select_firms
+      select_suppliers
       render :edit
     end
   end
@@ -65,6 +69,10 @@ class AccountsController < BaseController
 
   def select_firms
     @firms = Firm.all.collect{|f| [f.name, f.id]}
+  end
+  
+  def select_suppliers
+    @suppliers  = Supplier.order(:name).collect{ |s| [s.name, s.id]}
   end
 
   def succ_updated

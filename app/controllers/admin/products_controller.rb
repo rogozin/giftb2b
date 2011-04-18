@@ -6,14 +6,16 @@ class Admin::ProductsController < Admin::BaseController
   end
   
   def index 
-    params[:page] || 1 
-        
-        respond_to do |format|
-          format.html { @products  = Product.find_all(params) }
-          format.xml {
-                 @products  = Product.find_all(params) 
-                render :xml => XmlDownload.get_xml(@products)                  
-                }
+    params[:page] || 1    
+    if current_user.has_role?("Редактор каталога")  
+      params[:supplier] = current_user.supplier ? current_user.supplier.id : -1
+    end
+    respond_to do |format|
+      format.html { @products  = Product.find_all(params) }
+      format.xml {
+        @products  = Product.find_all(params) 
+        render :xml => XmlDownload.get_xml(@products)                  
+      }
         end
   end  
   

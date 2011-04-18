@@ -1,9 +1,9 @@
 <% title "Авторизация" %>
 
-<div class="grid_16">
-
+<div id="login" class="content">
+<h3>Авторизация</h3>
 <%= form_for @user_session, :html => { :class => 'one_line_form'} do |form| %>
-  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @user_session %>    
+  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @user_session} %>    
 
     <div class="b-formfield-div">
       <%= form.label :username, "Имя пользователя" %>

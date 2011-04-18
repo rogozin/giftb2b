@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   acts_as_authentic
   acts_as_authorization_subject :role_class_name => 'Role'
   belongs_to :firm
+  belongs_to :supplier
  validates :username, :exclusion => { :in => %w(admin superuser) }
   validates :appoint, :length => {:maximum => 100}
   validates :skype, :length => {:maximum => 25}

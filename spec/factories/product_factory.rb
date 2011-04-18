@@ -13,12 +13,21 @@ Factory.define :product do |f|
   f.categories {|params| [params.association(:category)] }
 end
 
+
+Factory.sequence :manufactor_seq do |n| 
+  "Manufactor #{n}"
+end
 Factory.define :manufactor do |f|
-  f.name "Manufactor"
+  f.name {Factory.next :manufactor_seq }
+end
+
+
+Factory.sequence :supplier_seq do |n| 
+  "Supplier #{n}"
 end
 
 Factory.define :supplier do |f|
-  f.name "Supplier"
+  f.name { Factory.next :supplier_seq  }
 end
 
 Factory.define :category do |f|
