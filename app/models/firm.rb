@@ -10,7 +10,7 @@ class Firm < ActiveRecord::Base
   :length => {:maximum => 40, :allow_nil => true}
   
  def logo
-   images.first.picture.url if images.present?
+   images.first.picture if images.present?
  end
  
  #Return Paperclip::Geometry instance

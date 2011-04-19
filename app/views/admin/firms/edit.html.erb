@@ -7,7 +7,7 @@
 <div class="grid_8 omega">
   <h3>Логотип фирмы</h3>
   <div>
-    <%= image_tag(@firm.images.first.picture.url) if @firm.images.present? %>
+    <%= image_tag(@firm.logo.url(:thumb)) if @firm.images.present? %>
   </div>
   <div>
     <%= link_to "Удалить", remove_image_admin_firm_path(@firm), :method => :delete, :confirm => "Вы уверены?"  if @firm.images.present? %>

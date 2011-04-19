@@ -60,7 +60,6 @@ describe "ограничения  редактора каталога" do
     it 'на странице категории  видит только товары своего поставщика', :js => true do
       visit edit_admin_category_path(@product.categories.first)
       click_link "Показать список товаров"
-      save_and_open_page      
       page.should have_selector("ul#products li", :count => 1)
     end
     
