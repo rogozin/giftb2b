@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110417191949) do
+ActiveRecord::Schema.define(:version => 20110419182744) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(:version => 20110417191949) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "active",                                              :default => true
+    t.integer  "store_count",                                         :default => 0
   end
 
   create_table "manufactors", :force => true do |t|

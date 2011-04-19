@@ -82,7 +82,6 @@ class Product < ActiveRecord::Base
     cond[0]<< "products.store_count=0"    if options[:store] && options[:store]=="0"
     cond[0]<< "products.store_count >0"    if options[:store] && options[:store]=="1"        
     total_conditions = cond[0] && cond[0].size>0 ? [cond[0].join(" AND "), cond[1]]  : []
-    puts total_conditions
     res= if place=="xml"
       for_admin.all(:conditions=>total_conditions)
     else

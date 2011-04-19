@@ -106,6 +106,7 @@ class Lk::CommercialOffersController < Lk::BaseController
       :factur => product.factur,
       :box => product.box,
       :active => active,
+      :store_count => product.store_count,
       :infliction => product.property_values.select{|p| p.property.name=="Нанесение"}.map(&:value).join(' ,') })
     img = product.main_image
     begin
