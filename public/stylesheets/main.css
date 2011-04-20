@@ -604,7 +604,7 @@ div.spacer {height:10px;}
 .article_t > option, .article_t > select {
 	color:#999999;
 }
-.fl {
+.fl, .fl > option, .fl > select{
 	font-size:10pt;
 	color:#999999;
 }
