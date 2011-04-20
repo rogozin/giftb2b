@@ -221,8 +221,12 @@ a:hover.menu_left {
 	height:110px;
 	background:#993366;
 	text-align:center;
-
 }
+
+.s_center form {
+	vertical-align:center;
+}
+
 .s_right {
 	width:10px;
 	height:110px;
