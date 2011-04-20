@@ -600,3 +600,7 @@ div.spacer {height:10px;}
 	float:left;
 	margin-right:20px;
 }
+
+.article_s option {
+	color:#999999;
+}
