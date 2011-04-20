@@ -220,11 +220,11 @@ a:hover.menu_left {
 	width:100%;
 	height:110px;
 	background:#993366;
-	text-align:center;
+	text-align:left;
 }
 
 .s_center input {
-	vertical-align:center;
+	margin-top:30px;
 }
 
 .s_right {
