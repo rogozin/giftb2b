@@ -214,7 +214,11 @@ a:hover.menu_left {
 	display:block;
 	width:100%;
 	height:110px;
-	border-radius: 10px 10px 10px 10px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	behavior: url(public/javascripts/PIE.htc);
 	background:#993366;
 	text-align:left;
 }
@@ -223,11 +227,10 @@ a:hover.menu_left {
 	display:block;
 	position:relative;
 	padding-top:20px;
-	padding-left:40px;
+	padding-left:5%;
+	padding-right:5%;
 	line-height:1.6;
 }
-
-
 
 .clear{
 	clear:both;
@@ -625,4 +628,10 @@ p.s_text {
     height: 26px;
     width: 68px;
 	margin-left:15px;
+}
+
+.article_t_p em {
+	color:#CC3366;
+	font-style:normal;
+	font-weight:900;
 }
