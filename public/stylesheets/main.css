@@ -1,4 +1,4 @@
-﻿ * {
+ * {
 /*	padding:0px;*/
 	margin:0px;
 }
@@ -596,8 +596,6 @@ div.spacer {height:10px;}
 .article_t_p {
 	font-size:10pt;
 	color:#999999;
-	float:left;
-	margin-right:20px;
 }
 
 .article_t > option, .article_t > select {
