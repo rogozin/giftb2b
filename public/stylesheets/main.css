@@ -213,14 +213,17 @@ a:hover.menu_left {
 	width:10px;
 	height:110px;
 	background:url(/image/left_p.png) no-repeat;
+	float:left;
 }
 
 .s_center {
 	display:block;
 	width:100%;
+	
 	height:110px;
 	background:#993366;
 	text-align:left;
+	float:left;
 }
 
 .s_form {

@@ -1,9 +1,9 @@
         <div class="search"> 
-          <div class="s_left1"></div><div class="s_center">
+          <div class="s_left"></div><div class="s_center">
 		  <div class="s_form">
           <%= form_tag search_path, :method=> :get do  -%>
             <%= text_field_tag :request, params[:request] %> <%= submit_tag "Искать", :name => nil %>
           <% end -%>
 		  </div>
-          </div><div class="s_right1"></div> 
+          </div><div class="s_right"></div> 
         </div> <!-- end search --> 
