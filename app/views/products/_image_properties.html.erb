@@ -1,5 +1,5 @@
 <%  @product.image_properties.group_by(&:property_name).each do |property_name, property_values|  -%>
-  <p class="article_name_2"><%= property_name %></p><br /><hr />
+  <hr /><p class="article_name_2"><%= property_name %></p>
   <div class="pict_float_2">
 	  <% property_values.each do |article_value| -%>
     <div class="article_img_2_float">

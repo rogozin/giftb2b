@@ -276,13 +276,18 @@ div.big_pict { float:left; display: table; height: 300px; width:300px; #position
 div.pict_2 {#position: absolute; #top: 50%; #left:50%; display: table-cell; vertical-align: middle; text-align:center;}
 div.pict_3 {#position: relative; #top: -50%; #left:-50%}
 
+.big_pict {
+	margin-right:5px;
+}
+
 .text_block {
-	min-height:300px;
+	min-height:302px;
+	margin-left:305px;
 }
 
 .text_bg {
 	background:#ffeeee;
-	min-height:300px;
+	min-height:305px;
 	margin-left:10px;
 	font-size:8pt;
 }
@@ -295,6 +300,7 @@ div.pict_3 {#position: relative; #top: -50%; #left:-50%}
 
 .margin_text {
 	margin:10px;
+	padding-top:10px;
 }
 
 .pict_float {
@@ -560,7 +566,6 @@ div.spacer {height:10px;}
 .article_date {
     color:#999999;
     margin-top:3px;
-    font-size:7pt;
 }
 
 .article_date span.article_s {
