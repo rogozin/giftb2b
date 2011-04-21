@@ -615,3 +615,7 @@ div.spacer {height:10px;}
 	font-size:10pt;
 	color:#999999;
 }
+
+input.request {
+	width:60%;
+}
