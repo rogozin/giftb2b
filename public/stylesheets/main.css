@@ -616,3 +616,11 @@ p.s_text {
 	color:white;
 	font-weight:600;
 }
+
+.s_button {
+	background: url("../images/button_search.png") no-repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 26px;
+    width: 64px;
+}
