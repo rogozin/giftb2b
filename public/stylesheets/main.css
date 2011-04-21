@@ -226,10 +226,7 @@ a:hover.menu_left {
 	line-height:1.6;
 }
 
-.s_text {
-	color:white;
-	font-weight:600;
-}
+
 
 .clear{
 	clear:both;
@@ -612,5 +609,10 @@ div.spacer {height:10px;}
 }
 
 input#request {
-	width:60%;
+	width:80%;
+}
+
+p.s_text {
+	color:white;
+	font-weight:600;
 }
