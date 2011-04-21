@@ -1,6 +1,7 @@
         <div class="search"> 
           <div class="s_left1"></div><div class="s_center">
 		  <div class="s_form">
+		  <p>Поиск сувениров:</p>
           <%= form_tag search_path, :method=> :get do  -%>
             <%= text_field_tag :request, params[:request] %> <%= submit_tag "Искать", :name => nil %>
           <% end -%>

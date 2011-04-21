@@ -209,13 +209,6 @@ a:hover.menu_left {
 	margin-bottom:15px;
 }
 
-.s_left {
-	width:10px;
-	height:110px;
-	background:url(/image/left_p.png) no-repeat;
-	float:left;
-}
-
 .s_center {
 	display:block;
 	width:100%;
@@ -223,22 +216,16 @@ a:hover.menu_left {
 	border-radius: 10px 10px 10px 10px;
 	background:#993366;
 	text-align:left;
-	float:left;
 }
 
 .s_form {
 	display:block;
 	position:relative;
 	padding-top:40px;
-	padding-left:30px;
+	padding-left:40px;
 }
 
-.s_right {
-	width:10px;
-	height:110px;
-	background:url(/image/right_p.png) no-repeat;
-	border:1px black solid;
-}
+
 .clear{
 	clear:both;
 }
