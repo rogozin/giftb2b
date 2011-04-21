@@ -1,5 +1,0 @@
-$('ul.treeview span').removeClass('selected');
-$('#main_content').html("<%= escape_javascript render(:template => "categories/show.html") %>");
-$("<%= escape_javascript  "#tree_item_#{@category.id}" %>").addClass('selected');
-$('title').html('<%= escape_javascript @page_title %>');
-remove_animate();
