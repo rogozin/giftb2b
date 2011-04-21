@@ -172,6 +172,7 @@ a:hover.menu_left {
 
 .pagenav {
 	font-size:9pt;
+	margin-bottom:15px;
 }
 
 .banner_left {
@@ -598,7 +599,9 @@ div.spacer {height:10px;}
 	color:#999999;
 }
 
-.article_t > option, .article_t > select {
+.article_t_p a:hover, p.r_text {color:#CC3366;}
+
+.article_t > option, .article_t > select, .r_text a {
 	color:#999999;
 }
 .fl, .fl > option, .fl > select{

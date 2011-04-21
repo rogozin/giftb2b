@@ -7,7 +7,7 @@
 Краткое описание проекта + справа потом будет стоять модуль с ссылками
 </div> 
 <div class="center_block"> 
-<p style="margin-bottom:10px;margin-left:0px;"><span style="color:#ff66cc;font-size:10pt"><strong>Рубрика: <a class="menu_left" href="#"><%= Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join('/') %></a></strong></span></p> 
+<p class="r_text"><strong>Рубрика: <a class="menu_left" href="#"><%= Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join('/') %></a></strong></p> 
 </div> <!-- end center_block --> 
  
 <div class="center_block"> 
