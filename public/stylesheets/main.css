@@ -219,9 +219,8 @@ a:hover.menu_left {
 .s_center {
 	display:block;
 	width:100%;
-	margin-left:10px;
-	margin-right:10px;
 	height:110px;
+	border-radius: 10px 10px 10px 10px;
 	background:#993366;
 	text-align:left;
 	float:left;
