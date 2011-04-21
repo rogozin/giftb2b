@@ -12,7 +12,6 @@
    $(document).ready(function()
   {
     $('.treeview').treeview({collapsed: true,persist: "cookie"});  
-    $('.tree-animate').bind("ajax:loading",  function(et, e){add_animate($(this).parent().attr('id') )}); 
     <%= yield :document_ready %>   
   })
  </script>

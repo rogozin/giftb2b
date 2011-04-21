@@ -57,7 +57,7 @@ module Admin::BaseHelper
       ret = "<ul#{" class='treeview'" if init}> \n"
       roots.each do |item|
         #next if item.parent_id && init
-        ret += '<li>'
+        ret += "<li id='item_#{item.id}'>"
         ret += yield item
         children=acts_as_tree_set.select {|set_item| set_item.parent_id==item.id}
         ret += tree_ul(acts_as_tree_set,children, false, &block) if children.size > 0

@@ -1,6 +1,7 @@
 <p class="b-header"><span><strong>Каталог сувениров</strong></span></p> 
 <div style="margin-left:15px;">
   <%= tree_ul(Category.cached_active_categories.select{|cat| cat.kind==1}) do |item|
-  content_tag(:span, link_to(item.name, category_path(item), :remote => true, :class => "tree-animate", :title => item.name), :id =>  "tree_item_#{item.id}" )
+  content_tag(:span, link_to(item.name, category_path(item), :title => item.name), :id =>  "tree_item_#{item.id}",
+   :class=> treeview_selected(item.permalink))
    end %>   
 </div>

@@ -2,7 +2,6 @@
 <% content_for :meta_keywords, @product.meta_keywords -%>
 <% page_title(@product.short_name) -%>
 <div class="content">
-<span class="article_s">Ссылка на текущую страницу: <%= link_to_this_page(controller_name, action_name, @product.permalink) %> </span>
 <%= render :partial => (controller_name == "foreign" ? "/shared/product_rubrika" : "product_rubrika") %>
 <% content_tag(:div, :id => "product_#{@product.id}", :class=>"center_block") do -%>
 	<div class="big_pict">
