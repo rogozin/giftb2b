@@ -226,8 +226,9 @@ a:hover.menu_left {
 	line-height:1.6;
 }
 
-.s_form p {
+.s_text {
 	color:white;
+	font-weight:600;
 }
 
 .clear{
