@@ -221,10 +221,14 @@ a:hover.menu_left {
 .s_form {
 	display:block;
 	position:relative;
-	padding-top:40px;
+	padding-top:20px;
 	padding-left:40px;
+	line-height:1.6;
 }
 
+.s_form p {
+	color:white;
+}
 
 .clear{
 	clear:both;
