@@ -616,6 +616,6 @@ div.spacer {height:10px;}
 	color:#999999;
 }
 
-input.request {
+input#request {
 	width:60%;
 }
