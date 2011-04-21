@@ -3,9 +3,11 @@
 <% page_title(Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join(' | ')) -%>
 <div class="content"> 
 <span class="article_s">Ссылка на текущую страницу: <%= link_to(@ltp, @ltp) %> </span>
+<!--
 <div class="text_center"> 
 Краткое описание проекта + справа потом будет стоять модуль с ссылками
-</div> 
+</div>
+-->
 <div class="center_block"> 
 <p class="r_text"><strong>Рубрика: <a class="menu_left" href="#"><%= Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join('/') %></a></strong></p> 
 </div> <!-- end center_block --> 

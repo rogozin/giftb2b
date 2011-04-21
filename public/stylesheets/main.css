@@ -603,6 +603,10 @@ div.spacer {height:10px;}
 
 .article_t_p a:hover, p.r_text {color:#CC3366;}
 
+.r_text {
+	margin-top:15px;
+}
+
 .article_t > option, .article_t > select, .r_text a {
 	color:#999999;
 }
