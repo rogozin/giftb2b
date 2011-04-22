@@ -74,14 +74,10 @@ body {
 	color:#999999;
 	font-weight:bold;
 }
-
-.lk {
-	margin-top:20px;
-	margin-left:15px;
-	width:230px;
-	height:90px;
-	background:#cccccc;
-	text-align:left;
+.text_9pt_999999_normal {
+	font-weight:normal;
+	font-size:9pt;
+	color:#999999;
 }
 .line {
 	width:240px;
@@ -642,4 +638,41 @@ p.s_text {
 	color:#CC3366;
 	font-style:normal;
 	font-weight:900;
+}
+
+/* Личный кабинет */
+.lk {
+	margin-top:20px;
+	margin-left:15px;
+	width:230px;
+	height:100px;
+	background:#cccccc;
+	text-align:left;
+}
+.lk a {
+	color:#999999;
+}
+.lk a:hover {
+	color:#CC3366;
+}
+.lk_form {
+	padding-top:3px;
+	padding-left:5px;
+
+}
+
+.lk_reg {
+	padding-left:102px;
+	font-weight:normal;
+	font-size:9pt;
+	padding-top:3px;
+	color:#999999
+}
+.lk_form p.text_9pt_999999_normal{
+ line-height:2.4;
+}
+.lk_form input {
+	position:absolute;
+	margin-top:2px;
+	left:70px;
 }
