@@ -7,7 +7,8 @@
   <%= form_for :category_products, :url=> {:action => "change_category_products", :id => @category.id} do |f| -%>
   <ul id="products">
     <% @products.each do |product| -%>
-    <li><%= check_box_tag "category_products[product_ids][]", product.id, true %> <%= link_to image_tag('edit.png') ,edit_admin_product_path(product) %> <%= product.short_name %></li>
+    <li><%= check_box_tag "category_products[product_ids][]", product.id, true %> <%= link_to image_tag('edit.png') ,edit_admin_product_path(product) %>
+     (<%= product.id %>) <%= product.short_name %></li>
     <% end -%>
   </ul>    
   <%= submit_tag "Изменить"%> или скопировать отмеченные товары в категорию <%= tree_select  Category.cached_all_categories.select { |c| c.kind !=0 } , nil, :remote_category_id  %>
