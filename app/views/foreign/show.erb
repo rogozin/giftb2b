@@ -3,7 +3,11 @@
 <% page_title(Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join(' | ')) -%>
 <div class="content"> 
 <div class="center_block"> 
-<p class="product_h"><strong>Рубрика: <a class="menu_left" href="#"><%= Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join('/') %></a></strong></p> 
+<p class="r_text">
+<strong>Рубрика: <%= link_to Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join('/'), category_path(@category), :class => "menu_left" %>
+</strong>
+<%= catalog_children @category %>
+</p> 
 </div> <!-- end center_block --> 
  
 <div class="center_block"> 
