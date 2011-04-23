@@ -396,6 +396,24 @@ a:hover.text_n_z {
 	margin-right:20px;
 }
 
+.ul_r {
+	list-style-type:none;
+	width:100%;
+	margin:0;
+	padding:0;
+}
+
+.li_r {
+	font-size:8pt;
+	width:200px;
+	display:-moz-inline-box;
+	display:inline-block;
+	vertical-align:top;
+    margin-bottom:20px;
+	margin-right:20px;
+}
+
+
 .li_c  p.article_name, .li_c  p.article_t, .li_c  p.article_s, .li_c a.article_a{
 	font-size:0.8em;
 }
