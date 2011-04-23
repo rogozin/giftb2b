@@ -105,7 +105,13 @@ padding-top:5px;
 		<p class="t9"><strong>Нанесение: </strong><%= item.lk_product.infliction %></p>
 		<p class="t9"><strong>Количество на складе: </strong><%= item.lk_product.store_count  %></p>
 		<p class="t9"><strong>Цена: </strong><%= price_ru_label item.lk_product.price %></p> 
+		<% unless @commercial_offer.sale.zero? -%>
+		<p class="t9"><strong>Цена со скидкой: </strong><%= price_ru_label price_with_sale(item.lk_product.price, @commercial_offer.sale) %></p> 
+		<% end -%>
 		<p class="t10b">Общая сумма: <%= price_ru_label item.quantity * item.lk_product.price %> за <%= item.quantity %> шт.</p> 
+		<% unless @commercial_offer.sale.zero? -%>
+		<p class="t10b">Общая сумма со скидкой: <%= price_ru_label item.quantity * price_with_sale(item.lk_product.price, @commercial_offer.sale) %> за <%= item.quantity %> шт.</p> 
+		<% end -%>
 </td> 
 <td class="td_descr"> 
 		<p class="t9i"><%= item.lk_product.description %></p> 
