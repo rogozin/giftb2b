@@ -12,7 +12,7 @@ def show
         session[:flt_supplier_id] = params[:supplier_id] || nil
       end
     end
-    @products = Product.find_all({:page=>params[:page], :per_page=>params[:per_page], :category=> @category.id, :supplier => session[:flt_supplier_id] })
+    @products = Product.find_all({:page=>params[:page], :per_page=>params[:per_page], :category=> @category.id, :active => true, :supplier => session[:flt_supplier_id] })
     #render :template =>'categories/show', :layout => false if request.xhr?    
 end
 
