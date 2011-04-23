@@ -15,7 +15,7 @@
 </div> <!-- end header --> 
   
 <div id="all_content"> 
-<div class="content"><p>Личный кабинет</p></div>
+<div class="content"><h1>Личный кабинет</h1></div>
 <div class="clear"></div>   
 <div class="content">
  <%- flash.each do |name, msg| -%>
@@ -60,7 +60,7 @@
 	<div class="line"></div> 
     <div class="left_block">
 	<p class="b-header"><span><strong>Управление в личном кабинете</strong></span></p> 
-	<p><%= link_to 'Заказы', lk_orders_path, :class => "menu_left"  %></p>	
+	<p><%= link_to 'Список заказов', lk_orders_path, :class => "menu_left"  %></p>	
 	<p><%= link_to 'Коммерческие предложения', lk_commercial_offers_path, :class => "menu_left"  %></p>	
 	<p><%= link_to 'Мои фирмы', lk_firms_path, :class => "menu_left"  %></p>	
 	<p><%= link_to 'Мои товары', lk_products_path, :class => "menu_left"  %></p>	
