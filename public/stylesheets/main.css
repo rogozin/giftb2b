@@ -1,5 +1,6 @@
  * {
 	margin:0px;
+	font-family: Helvetica, Arial;
 }
 
 html {
@@ -21,7 +22,7 @@ img {
 }
 
 body {
-	font-family: Helvetica;
+	
 	text-align:center;
 	min-height: 100%;
 	height: auto !important;
