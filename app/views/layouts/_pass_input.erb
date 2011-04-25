@@ -5,7 +5,8 @@
         <p class="text_9pt_999999_normal">имя: <%= form.text_field :username, :style=>"width:130px" %>
         <p class="text_9pt_999999_normal">пароль: <%= form.password_field :password, :style=>"width:130px" %>
         <%= form.submit ">>", :style=>"visibility:hidden; width:0px;" %>
-        <span style="color:white;font-weight:bold;cursor:pointer;margin-left:145px;" onclick="login_form.submit();" >>></span></p> 
+        
+		<a class="lk_login" onclick="login_form.submit();" >.</a></p> 
         <span style="color:#ff66cc;font-size:10pt"><%= flash[:login_error] %></span>
         <span class="lk_reg"><a href="/register">pегистрация</a></span> 
       </div> 

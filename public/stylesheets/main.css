@@ -686,7 +686,7 @@ p.s_text {
 }
 
 .lk_reg {
-	padding-left:102px;
+	padding-left:111px;
 	font-weight:normal;
 	font-size:9pt;
 	padding-top:3px;
@@ -706,4 +706,33 @@ p.s_text {
 	font-size:10pt;
 	padding-left:10px;
 	padding-top:4px;
+}
+
+.lk_login {
+	background: url("../images/lock.png") no-repeat scroll 0 0 transparent;
+	cursor:pointer;
+	margin-left:145px;
+	width:24px;
+	height:24px;
+	position:absolute;
+}
+
+a:hover.lk_login {
+	background: url("../images/lock_hover.png") no-repeat scroll 0 0 transparent;
+}
+
+.lk_logout  {
+	background: url("../images/unlock.png") no-repeat scroll 0 0 transparent;
+	width:24px;
+	height:24px;
+	cursor:pointer;
+	display:block;
+}
+
+a:hover.lk_logout {
+	background: url("../images/unlock_hover.png") no-repeat scroll 0 0 transparent;
+		width:24px;
+	height:24px;
+	cursor:pointer;
+	display:block;
 }
