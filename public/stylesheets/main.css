@@ -736,3 +736,7 @@ a:hover.lk_logout {
 	cursor:pointer;
 	display:block;
 }
+
+#order {
+	font-size:9pt;
+}
