@@ -8,7 +8,7 @@ class ForeignController < ApplicationController
   def show
     @category = Category.find_by_permalink(params[:id])
     params[:page] ||=1
-    @products = Product.find_all({:page=>params[:page], :per_page=>params[:per_page], :category=> @category.id})
+    @products = Product.find_all({:page=>params[:page], :per_page=>params[:per_page], :category=> @category.id, :active => true})
     render 'foreign/show', :layout => "foreign"
   end
 
