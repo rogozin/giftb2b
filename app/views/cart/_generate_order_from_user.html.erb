@@ -1,0 +1,14 @@
+ <h3>Оформление нового заказа:</h3>
+        <% form_for [LkOrder.new],  :html => {:class => :one_line_form } do |f| -%>
+           <div class ="b-formfield-div">
+            <%= f.label :firm_id %>
+            <%= f.select :firm_id, options_for_select(@firms) %>
+          </div>
+          <div class ="b-formfield-div">
+            <%= f.label :user_comment %>
+            <%= f.text_area :user_comment,  :rows => 5 %>
+          </div>
+          <div class ="b-formfield-div">
+            <%= f.submit "Оформить" %>
+          </div>          
+        <% end -%>          

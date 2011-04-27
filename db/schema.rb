@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110419182744) do
+ActiveRecord::Schema.define(:version => 20110427192651) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -160,11 +160,12 @@ ActiveRecord::Schema.define(:version => 20110419182744) do
   create_table "lk_orders", :force => true do |t|
     t.integer  "firm_id"
     t.integer  "lk_firm_id"
-    t.integer  "status_id",   :default => 0
+    t.integer  "status_id",    :default => 0
     t.string   "random_link"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "user_comment"
   end
 
   create_table "lk_products", :force => true do |t|

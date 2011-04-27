@@ -70,6 +70,7 @@ RSpec.configure do |config|
 
 config.before(:suite) do  
   DatabaseCleaner.strategy = :truncation  
+  CurrencyValue.create({:dt => Date.today, :usd => 30, :eur => 40})
 end  
   
 config.before(:each) do  
@@ -80,3 +81,17 @@ config.after(:each) do
   DatabaseCleaner.clean  
 end 
 end
+
+#Capybara.register_driver :selenium do |app|
+#      Capybara::Selenium::Driver.new(app, :browser => :chrome)
+#    end
+
+def login_as user_role
+    @user = Factory(user_role)
+    visit login_path
+    within "#login" do
+      fill_in "user_session[username]", :with => @user.username
+      fill_in "user_session[password]", :with => @user.password
+      click_button "Войти"
+    end
+  end

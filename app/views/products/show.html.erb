@@ -3,7 +3,7 @@
 <% page_title(@product.short_name) -%>
 <div class="content">
 <%= render :partial => (controller_name == "foreign" ? "/shared/product_rubrika" : "product_rubrika") %>
-<% content_tag(:div, :id => "product_#{@product.id}", :class=>"center_block") do -%>
+<%= content_tag(:div, :id => "product_#{@product.id}", :class=>"center_block") do -%>
 	<div class="big_pict">
 		<div class="pict_2"><div class="pict_3" id="big_img">
 		<%= product_image(@product,false) %>
@@ -17,7 +17,7 @@
 			<p class="article_name_2"><span class="article_t">Артикул: </span><%= article @product %></p>						
 	  	<%= supplier @product %>				
 		  <div class="article_t">
-  			<p>Описание:</p><div class="article_s"><%=raw RedCloth.new(@product.description).to_html %></div>
+  			<p>Описание:</p><div class="article_s"><%=raw RedCloth.new(@product.description).to_html if @product.description %></div>
 			</div>
 			<p class="article_t">Материал: <span class="article_s"><%= @product.factur %></span></p>
 			<p class="article_t">Цвет: <span class="article_s"><%= @product.color %></span></p>

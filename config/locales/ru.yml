@@ -39,7 +39,7 @@ ru:
         appoint: "Должность"
         cellphone: "Мобильный телефон"
       commercial_offer:
-        lk_firm_id: "Фирма"
+        lk_firm_id: "Фирма"        
         email: "E-mail"
         sale: "Скидка, %"
         signature: "Подпись"
@@ -71,6 +71,8 @@ ru:
       lk_order:
         status_id: "Статус"
         lk_firm_id: "Фирма"
+        firm_id: "Фирма"   
+        user_comment: "Комментарий"     
   authlogic:
     error_messages:
       login_blank: "не может быть пустым"

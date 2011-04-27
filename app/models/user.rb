@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :lk_orders
   acts_as_authentic
   acts_as_authorization_subject :role_class_name => 'Role'
   belongs_to :firm
@@ -20,6 +21,10 @@ class User < ActiveRecord::Base
   
   def is_admin_user?
      Rails.cache.fetch('is_admin_user?', :expires_in=>10) {role_objects.exists?(["roles.group=0"])}
+  end
+  
+  def is_simple_user?
+     Rails.cache.fetch('is_simple_user?', :expires_in=>10) {role_objects.exists?(["roles.group=1"])}
   end
   
   def is_firm_user?

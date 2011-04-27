@@ -54,3 +54,9 @@ Factory.define :role_firm_manager, :class => Role do |f|
   f.group 2
 end
 
+
+Factory.define :firm do |f|
+  f.name "ООО Рога и копыта"
+  f.short_name "Рога и копыта"
+end
+

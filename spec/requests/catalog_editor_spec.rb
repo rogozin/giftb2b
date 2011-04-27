@@ -1,19 +1,10 @@
 require 'spec_helper'
 
-  def login_as user_role
-    @user = Factory(user_role)
-    visit login_path
-    within "#login" do
-      fill_in "user_session[username]", :with => @user.username
-      fill_in "user_session[password]", :with => @user.password
-      click_button "Войти"
-    end
-  end
+  
 
 describe "ограничения  редактора каталога" do
   before(:each) do
     login_as :catalog_editor
-    CurrencyValue.create({:dt => Date.today, :usd => 30, :eur => 40})
     @product = Factory :product
     @product2 = Factory :product, :categories =>@product.categories
     @user.update_attribute(:supplier_id,  @product.supplier_id)    

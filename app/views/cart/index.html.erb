@@ -1,14 +1,16 @@
 <div class="content"> 
 <h1>Ваша корзина:</h1>
 
-<% form_tag "cart/calculate", :remote => true  do -%>
+<%= form_tag "cart/calculate", :remote => true  do -%>
 <div id="cart_items">
   <%= render :partial => "cart_items"  if @cart.total_items >0%>
 </div>
 
 <% end -%>
 
-     <% if current_user && session[:cart] && session[:cart].total_items >0 && current_user.is_firm_user?  -%>
+     <% if current_user && session[:cart] && session[:cart].total_items >0  -%>
+        <% if current_user.is_firm_user? -%>
+          
         <p><%= link_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  
         <div id="order" class="g-hidden">
           <div class="spacer"></div>
@@ -20,5 +22,13 @@
         <div id="commercial_offer" class = "g-hidden">
          <%= render :partial => "generate_co" %>
         </div>
+        <% end -%>
+        <% if current_user.is_simple_user? -%>
+        <p><%= link_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  
+        <div id="order" class="g-hidden">
+          <div class="spacer"></div>
+         <%= render :partial => "generate_order_from_user" %>
+        </div>          
+        <% end -%>
       <% end -%>
 </div>

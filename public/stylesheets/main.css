@@ -531,7 +531,7 @@ table tr.alert td
 div.spacer {height:10px;}
 
 .one_line_form {float: left;}
-.one_line_form input[type="text"], .one_line_form input[type="email"], .one_line_form input[type="url"], .one_line_form  input[type="password"], .one_line_form  select
+.one_line_form input[type="text"],[type="email"],[type="url"],[type="password"], .one_line_form  select, .one_line_form textarea
 {
     width: 200px;
     border: 1px solid #CCC;
