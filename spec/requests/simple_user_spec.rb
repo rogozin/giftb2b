@@ -46,7 +46,6 @@ describe "Работа обычного пользователя" do
       within "#cart" do
         page.should have_content "пусто"
       end
-      save_and_open_page
   end
   
 #  
@@ -54,13 +53,17 @@ describe "Работа обычного пользователя" do
     @lk_order = Factory(:lk_order, :user => @user)
     visit lk_index_path
     click_link "Мои заказы" 
+    page.should have_content "Список заказов"
   end
 
   it 'я не могу посмотреть заказы, созданные другим пользователем' do
-    
+    user_vasya= Factory(:user, :username => 'vasya', :email => "vasya@example.com")
+    order2= Factory(:lk_order, :user => user_vasya)
+    visit lk_user_orders(order2)
+    save_and_open_page
   end
 
   it 'После отправки заказа я должен получить письмо' do
-    
+    pending
   end
 end

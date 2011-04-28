@@ -15,12 +15,18 @@ class Lk::UserOrdersController < Lk::BaseController
     def create
     @order = LkOrder.new(params[:lk_order])
     @order.user = current_user
-    flash[:notice] = "Заказ оформлен!" if @order.save
-    @cart = find_cart
-    @cart.items.each do |cart_item|
-      @order.lk_order_items.create({:product => cart_item.product, :quantity => cart_item.quantity, :price => cart_item.start_price})
+    if @order.save
+      flash[:notice] = "Заказ оформлен!" 
+      @cart = find_cart
+      @cart.items.each do |cart_item|
+        @order.lk_order_items.create({:product => cart_item.product, :quantity => cart_item.quantity, :price => cart_item.start_price})
+      end
+      @cart.items.clear
+      UserMailer.new_order_notification(current_user, @order)
+      FirmMailer.new_user_order_notification(@order.firm, current_user, @order)
+    else  
+      flash[:error] = "Заказ не удалось оформить"
     end
-    @cart.items.clear
     #sending message to user and company
     redirect_to lk_user_orders_path
   end

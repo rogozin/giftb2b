@@ -11,4 +11,10 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "giftb2b.ru - активация завершена")
   end
   
+  def new_order_notification(user, order)
+    @user = user
+    @order = order
+    mail(:to => user.email, :subject => "giftb2b.ru - новый заказ (#{order.id})")
+  end
+  
 end
