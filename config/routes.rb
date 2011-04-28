@@ -1,5 +1,7 @@
 Giftr3::Application.routes.draw do
 
+  get "user_orders/index"
+
   root :to => 'main#index'
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
@@ -43,6 +45,7 @@ Giftr3::Application.routes.draw do
         post :calculate
       end
     end
+    resources :user_orders, :only => [:create, :index, :show]
     resources :commercial_offers do
       member do 
         post :calculate

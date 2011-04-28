@@ -1,5 +1,5 @@
  <h3>Оформление нового заказа:</h3>
-        <% form_for [LkOrder.new],  :html => {:class => :one_line_form } do |f| -%>
+        <%= form_for :lk_order, lk_user_order_path,  :html => {:class => :one_line_form } do |f| -%>
            <div class ="b-formfield-div">
             <%= f.label :firm_id %>
             <%= f.select :firm_id, options_for_select(@firms) %>
