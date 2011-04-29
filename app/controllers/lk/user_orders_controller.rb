@@ -9,7 +9,11 @@ class Lk::UserOrdersController < Lk::BaseController
   
   def show
     #юзер не должен увидеть чужой заказ, просто поменяв id
-    @order = LkOrder.find(params[:id])
+    if current_user.lk_orders.exists?(params[:id])
+      @order = LkOrder.find(params[:id])
+    else
+      not_found("Заказ не найден!")
+    end
   end
   
     def create
@@ -22,8 +26,10 @@ class Lk::UserOrdersController < Lk::BaseController
         @order.lk_order_items.create({:product => cart_item.product, :quantity => cart_item.quantity, :price => cart_item.start_price})
       end
       @cart.items.clear
-      UserMailer.new_order_notification(current_user, @order).deliver
-      FirmMailer.new_user_order_notification(@order.firm, current_user, @order).deliver
+      unless Rails.env == 'test'
+        UserMailer.new_order_notification(current_user, @order).deliver
+        FirmMailer.new_user_order_notification(@order.firm, current_user, @order).deliver
+      end
     else  
       flash[:error] = "Заказ не удалось оформить"
     end

@@ -30,6 +30,11 @@ class User < ActiveRecord::Base
   def is_firm_user?
      Rails.cache.fetch('is_firm_user?', :expires_in=>10) {role_objects.exists?(["roles.group=2"])}
   end
+  
+  def is_firm_manager?
+    has_role?("Менеджер фирмы")
+  end
+  
   def activate!
     self.update_attribute :active, true
   end

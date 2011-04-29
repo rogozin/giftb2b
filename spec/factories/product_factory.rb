@@ -30,8 +30,12 @@ Factory.define :supplier do |f|
   f.name { Factory.next :supplier_seq  }
 end
 
+Factory.sequence :category_seq do |n| 
+  "Подарки #{n}"
+end
+
 Factory.define :category do |f|
-  f.name "Подарки"
+  f.name { Factory.next :category_seq }
   f.kind 1
   #f.permalink "podarki"
   f.active true

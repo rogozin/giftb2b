@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base  
 
   rescue_from  'Acl9::AccessDenied',  :with => :access_denied
+  rescue_from  'ActiveRecord::RecordNotFound',  :with => :not_found
   helper :all # include all helpers, all the time
   
   # See ActionController::RequestForgeryProtection for details
@@ -29,6 +30,11 @@ class ApplicationController < ActionController::Base
      redirect_to login_path
     end
   end
+
+  def not_found(message=nil)    
+    flash[:error] = message if message
+    render :template => 'not_found'
+  end  
 
   def current_user_session
     return @current_user_session if defined?(@current_user_session)

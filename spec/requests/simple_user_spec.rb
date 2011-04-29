@@ -24,7 +24,7 @@ describe "Работа обычного пользователя" do
   it 'я могу добавить товар в корзину', :js => true do
     visit "/"
     within "ul.treeview" do
-      click_link "Подарки"
+      click_link @product.categories.first.name
     end
     within "#product_#{@product.id}" do
       click_link "+"
@@ -57,13 +57,12 @@ describe "Работа обычного пользователя" do
   end
 
   it 'я не могу посмотреть заказы, созданные другим пользователем' do
-    user_vasya= Factory(:user, :username => 'vasya', :email => "vasya@example.com")
-    order2= Factory(:lk_order, :user => user_vasya)
-    visit lk_user_orders(order2)
-    save_and_open_page
+    order2= Factory(:lk_order, :user_id => @user.id + 1)
+    visit lk_user_order_path(order2)
+    page.should have_content "Заказ не найден!"
   end
 
-  it 'После отправки заказа я должен получить письмо' do
-    pending
-  end
+#  it 'После отправки заказа я должен получить письмо' do
+#    pending
+#  end
 end

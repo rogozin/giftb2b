@@ -55,8 +55,13 @@ Factory.define :role_firm_manager, :class => Role do |f|
 end
 
 
+Factory.sequence :firm_seq do |n|
+   "ООО Рога и копыта, клон #{n}"
+  end
+  
+
 Factory.define :firm do |f|
-  f.name "ООО Рога и копыта"
+  f.name {Factory.next(:firm_seq)}
   f.short_name "Рога и копыта"
 end
 

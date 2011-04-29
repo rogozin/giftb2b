@@ -70,11 +70,11 @@ RSpec.configure do |config|
 
 config.before(:suite) do  
   DatabaseCleaner.strategy = :truncation  
-  CurrencyValue.create({:dt => Date.today, :usd => 30, :eur => 40})
 end  
   
 config.before(:each) do  
   DatabaseCleaner.start  
+  CurrencyValue.create({:dt => Date.today, :usd => 30, :eur => 40})
 end  
   
 config.after(:each) do  
