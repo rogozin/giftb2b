@@ -17,7 +17,11 @@ Giftr3::Application.routes.draw do
   resource :user_session
   resources :users, :only => [:create, :edit, :update]
   resources :products
-  resources :categories
+  resources :categories do
+    collection do 
+      get :on_sale
+    end 
+  end
   resources :foreign do
     collection do
       get :search

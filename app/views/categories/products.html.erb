@@ -1,0 +1,24 @@
+<% page_title "Ликвидация остатков" -%>
+<div class="content"> 
+<div class="center_block"> 
+<p class="r_text"><strong>Ликвидация остатков</strong></p> 
+</div> <!-- end center_block --> 
+ 
+<div class="center_block"> 
+<%= render :partial => 'shared/paginate2' %>
+</div> <!-- end center_block --> 
+ 
+<div class="center_block" id="catalog_items"> 
+<ul class="ul_c"> 
+  <% for product  in @products do -%>
+    <%= render :partial => 'shared/product', :object=>product %>  
+  <% end -%>
+ </ul>
+ <div class="clear"></div> 
+</div> <!-- end center_block --> 
+ 
+<div class="center_block"> 
+<%= render :partial => 'shared/paginate2' %>
+</div> <!-- end center_block --> 
+ 
+</div> <!-- end content --> 

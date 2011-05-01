@@ -20,18 +20,7 @@
 <%= will_paginate @products, :class=>"article_t_p" %>
 </div>
 <div class="spacer"></div>
-<p class="products-per-page">
-<span class="article_s">
-<% if @products.total_entries >20 -%>
- 
-По <%= link_to_unless (params[:per_page] ||"20") == "20", '20', url_for(params.merge({:per_page => 20})) %>
-<%= link_to_unless params[:per_page] == "50", '50', url_for(params.merge({:per_page => 50})) %>
- <%= link_to_unless params[:per_page] == "100", '100', url_for(params.merge({:per_page => 100})) if @products.total_entries > 50 %>
- товаров на странице
- <% end -%>
-</span>
-</p>
-</div> <!-- end center_block --> 
+<%= render :partial => "shared/paginate2" %></div> <!-- end center_block --> 
 </div>
 <% else -%>
 <p>Ничего не найдено</p>
