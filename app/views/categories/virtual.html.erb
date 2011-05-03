@@ -1,24 +1,26 @@
 <% page_title @category.name -%>
 <div class="content"> 
+
 <div class="center_block"> 
 <p class="r_text"><strong><%= @category.name %></strong></p> 
 </div> <!-- end center_block --> 
  
  
 <div class="center_block" id="catalog_items"> 
-<ul class="ul_c"> 
+  <div id="virtual_image">
+    <%= image_tag(@category.images.first.picture.url) if @category.images.present? %>  
+  </div>
+  <ul class="ul_c"> 
     <% Category.cached_active_categories.select{|c| c.virtual_id == @category.id}.each do |item| -%>
-      <li><%= item.name %></li>
+      <li><%= link_to item.name, category_path(item) %></li>
     <% end -%>
-    <li></li>
- </ul>
+  </ul>
  <div class="clear"></div> 
+<div class="spacer"></div>
  <% if @category.show_description? && @category.description -%>
-<div class="center_block"> 
-<div class="descript_category"><%= @category.description %></div>
-</div> <!-- end center_block -->  
+  <div class="center_block"> 
+    <div class="descript_category"><%= @category.description %></div>
+  </div> <!-- end center_block -->  
  <% end -%>
 </div> <!-- end center_block --> 
- 
- 
 </div> <!-- end content --> 
