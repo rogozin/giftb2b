@@ -95,6 +95,10 @@ class Category < ActiveRecord::Base
     end
   end
  
+  def is_virtual?
+    self.kind == 0
+  end
+ 
   def self.clearcache
     unless @@disable_cache
       Rails.cache.delete('active_categories')

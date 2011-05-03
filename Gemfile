@@ -25,7 +25,7 @@ gem 'spreadsheet'
    gem 'cucumber-rails'
    gem 'database_cleaner'
    gem 'autotest'
-   gem 'capybara', '1.0.0.beta1'
+   gem 'capybara', :git => "https://github.com/jnicklas/capybara.git"
    gem 'factory_girl_rails'
    gem 'spork', '~> 0.9.0.rc'
    gem 'launchy'

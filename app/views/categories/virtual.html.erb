@@ -1,0 +1,24 @@
+<% page_title @category.name -%>
+<div class="content"> 
+<div class="center_block"> 
+<p class="r_text"><strong><%= @category.name %></strong></p> 
+</div> <!-- end center_block --> 
+ 
+ 
+<div class="center_block" id="catalog_items"> 
+<ul class="ul_c"> 
+    <% Category.cached_active_categories.select{|c| c.virtual_id == @category.id}.each do |item| -%>
+      <li><%= item.name %></li>
+    <% end -%>
+    <li></li>
+ </ul>
+ <div class="clear"></div> 
+ <% if @category.show_description? && @category.description -%>
+<div class="center_block"> 
+<div class="descript_category"><%= @category.description %></div>
+</div> <!-- end center_block -->  
+ <% end -%>
+</div> <!-- end center_block --> 
+ 
+ 
+</div> <!-- end content --> 
