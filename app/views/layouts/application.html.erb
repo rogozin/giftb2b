@@ -44,7 +44,13 @@
   </div> <!-- end all_content --> 
   <div id="right_content"> 
     <div id="cart" class="basket_right">
-    <%= render :partial => "cart/cart"  if current_user %>
+    <% if current_user -%>
+    <%= render :partial => "cart/cart"   %>
+    <% else -%>      
+    <div>
+      <%= link_to "Регистрация", register_user_path %>
+    </div>
+    <% end -%>
     </div>
       <!-- <div class="line_right"></div> --> 
     <div class="line"></div> 
