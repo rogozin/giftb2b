@@ -20,6 +20,7 @@ Giftr3::Application.routes.draw do
   resources :categories do
     collection do 
       get :on_sale
+      get :best_price
     end 
   end
   resources :foreign do

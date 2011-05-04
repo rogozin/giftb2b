@@ -12,15 +12,16 @@
 <%= raw tree_select(Category.cached_all_categories,  'category',nil,{:value=>"-1", :name => "<-Без категории->"} ,params[:category].to_i ) %>
  <%= select(nil ,'manufactor', options_for_select( Manufactor.all.collect{|i| [i.name, i.id] },params[:manufactor].to_i),{:prompt=>'<-Производитель->'}, {:name=>'manufactor'}) %>
   <%= select(nil ,'supplier', options_for_select( Supplier.all.collect{|i| [i.name, i.id] },params[:supplier].to_i),{:prompt=>'<-Поставщик->'}, {:name=>'supplier'}) unless current_user.has_role?("Редактор каталога") %>
-<%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100'],['500','500']],params[:per_page]),{:prompt=>'<-Кол-во записей на странице->'}, {:name=>'per_page'}) %>
+<%= select(nil ,'store', options_for_select( [['Отсуствует', '0'],['В наличии','1']],params[:store]),{:prompt=>'<-Наличие на складе->'}, {:name=>'store'}) %>
  арт: <%= text_field_tag :name, params[:name] %>
  код: <%= text_field_tag :code, params[:code] %>
  <%= submit_tag "Ok", :name=>nil %><br />
  <%= select(nil ,'active', options_for_select( [['Нет', '0'],['Да','1']],params[:active]),{:prompt=>'<-Опубликован->'}, {:name=>'active'}) %> 
-<%= select(nil ,'store', options_for_select( [['Отсуствует', '0'],['В наличии','1']],params[:store]),{:prompt=>'<-Наличие на складе->'}, {:name=>'store'}) %>
  <%= select(nil ,'new', options_for_select( [['Нет', '0'],['Да','1']],params[:new]),{:prompt=>'<-Новинка->'}, {:name=>'new'}) %> 
  <%= select(nil ,'sale', options_for_select( [['Нет', '0'],['Да','1']],params[:sale]),{:prompt=>'<-Распродажа->'}, {:name=>'sale'}) %> 
+ <%= select(nil ,'best_price', options_for_select( [['Нет', '0'],['Да','1']],params[:best_price]),{:prompt=>'<-Лучшая цена->'}, {:name=>'best_price'}) %> 
  <%= select(nil ,'price', options_for_select( [['Равна 0', '0'],['Больше 0','1']],params[:price]),{:prompt=>'<-Цена товара->'}, {:name=>'price'}) %> 
+<%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100'],['500','500']],params[:per_page]),{:prompt=>'<-Кол-во->'}, {:name=>'per_page'}) %>
 <% end -%>
 <div class="spacer"></div>
 <div>
@@ -70,6 +71,7 @@ $('#oper').bind('change', function() {
       "<option value='size'>Размер</option>"+
       "<option value='is_new'>Новинка</option>"+
       "<option value='is_sale'>Распродажа</option>"+
+      "<option value='best_price'>Отличная цена</option>"+
       "<option value='sort_order'>Сортировка</option>"+
       "</select>");
       $('#commit').show();
@@ -89,21 +91,21 @@ $('#property_name').live('change', function() {
     if (this.value == 'color' || this.value == 'factur' || this.value == 'box' || this.value == 'size' || this.value == 'sort_order') {
       $(this).after("<input id='property_value' name='property_value' type='text'>");
     }
-    if ((this.value == 'is_new') || (this.value == 'is_sale')) {
+    if ((this.value == 'is_new') || (this.value == 'is_sale') || (this.value == 'best_price')) {
       $(this).after("<select id='property_value' name='property_value'>" +
       "<option value='0'>Нет</option>" +
       "<option value='1'>Да</option>" +
       "</select>");
     }        
     $('.main-cols').hide();
-    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale, td.sort_order').hide();
+    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale, td.sort_order, td.best_price').hide();
     $('th.property-column').show().text(this[this.selectedIndex].innerHTML);
     $('td.'+this.value).show();
   }
   else {
     $('.main-cols').show();
     $('th.property-column').hide();
-    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale, td.sort_order').hide();
+    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale, td.sort_order, td.best_price').hide();
   }
 });
 </script>

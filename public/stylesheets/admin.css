@@ -148,6 +148,7 @@ a img {border:0 none;}
     width: 200px;
     border: 1px solid #CCC;
 }
+
 .one_line_form  select {background-color: white;}
 .one_line_form .b-date input[type="text"]  {width: 94px;}
 .one_line_form .b-big-text input[type="text"], .one_line_form .b-big-select select {width: 300px !important;}
@@ -342,6 +343,8 @@ form.filter input[type="text"]
 {
   width:80px;
 }
+
+form.filter select[name="per_page"] { width:45px}
 
 ul.treeview, ul.treeview li
 {

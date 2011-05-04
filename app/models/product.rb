@@ -77,6 +77,10 @@ class Product < ActiveRecord::Base
       cond[0]<< "products.is_sale = :sale " 
       cond[1][:sale] = options[:sale]
     end    
+    unless options[:best_price].blank?
+      cond[0]<< "products.best_price = :best_price " 
+      cond[1][:best_price] = options[:best_price]
+    end    
     cond[0]<< "products.price =0"    if options[:price] && options[:price]=="0"
     cond[0]<< "products.price >0"    if options[:price] && options[:price]=="1"
     cond[0]<< "products.store_count=0"    if options[:store] && options[:store]=="0"
