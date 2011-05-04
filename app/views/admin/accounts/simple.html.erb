@@ -1,0 +1,10 @@
+<%= render :partial => 'admin/shared/sub_menu_users' %>
+<% title 'Список зарегистрированных пользователей'  %>
+
+<div class="clr"></div>
+<% if @users.present? %>
+<%= render :partial => "users_list", :object => @users %>
+<%  else %>
+Зарегистрированных пользователей в системе нет!
+<% end %>
+

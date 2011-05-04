@@ -1,0 +1,16 @@
+<% title @firm.short_name -%>
+<%= render :partial => 'admin/shared/sub_menu_users' %>
+<div class="grid_16">
+<h3>Список пользователей:</h3>
+<div class="b-command-menu">
+ <%= link_to "Новый пользователь", new_admin_account_path(:firm_id => @firm.id) %>
+</div>
+<% if @firm.users.present? %>
+<%= render :partial => "admin/accounts/users_list", :object => @firm.users %>
+<%  else %>
+  Для этой фирмы пользователи не созданы.
+<% end %>
+<div class="clear"></div>
+<div class="spacer"></div>
+<%= link_to 'Назад к списку фирм', admin_firms_path  %>
+</div>
