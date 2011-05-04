@@ -3,12 +3,20 @@ class AccountsController < BaseController
   access_control do
     allow :Администратор
   end
+
   def index
-    @users = User.find(:all)
+    params[:group] ||="0"
+    @users = User.joins(:role_objects).where("roles.group" => params[:group])
+    if params[:group] == "1"
+      render 'simple'
+    else
+      render 'index'
+    end
   end
 
+
   def new
-    @account = User.new(:password=>friendly_pass)
+    @account = User.new(:password=>friendly_pass, :firm_id => params[:firm_id])
     select_firms
     select_suppliers
   end
@@ -54,8 +62,10 @@ class AccountsController < BaseController
   end
 
   def activate
-    @admin_user = User.find(params[:id])
-    succ_updated if @admin_user.update_attribute :active, !@admin_user.active?
+    @account = User.find(params[:id])
+    @account.toggle! :active
+    succ_updated 
+    
   end
 
   private
@@ -77,7 +87,13 @@ class AccountsController < BaseController
 
   def succ_updated
     flash[:notice] = "Учетная запись обновлена!"
-    redirect_to admin_accounts_path
+    if @account.firm_id
+      redirect_to admin_firm_path(@account.firm_id)
+    elsif @account.is_simple_user?
+      redirect_to(admin_accounts_path(:group => 1))       
+    else
+      redirect_to(admin_accounts_path(:group=>0)) 
+    end
   end
 
 end

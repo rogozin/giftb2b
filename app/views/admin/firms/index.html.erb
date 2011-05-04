@@ -18,7 +18,7 @@
 <% @firms.each do |firm| -%>
   <tr>
     <td><%= link_to image_tag('edit.png'), edit_admin_firm_path(firm) %></td>
-    <td><%= firm.name %></td>
+    <td><%= link_to firm.name, admin_firm_path(firm) %></td>
     <td><%= firm.short_name %></td>
     <td><%= firm.phone %></td>
     <td><%= mail_to firm.email %></td>

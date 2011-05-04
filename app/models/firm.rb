@@ -1,6 +1,7 @@
 class Firm < ActiveRecord::Base
   has_many :attach_images, :as => :attachable, :dependent => :destroy, :foreign_key => :attachable_id
   has_many :images, :through => :attach_images
+  has_many :users
   validates :name, :presence => true, :uniqueness => true
   validates :email,
   :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :allow_blank => true},

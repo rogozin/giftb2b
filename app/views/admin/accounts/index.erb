@@ -1,35 +1,12 @@
 <%= render :partial => 'admin/shared/sub_menu_users' %>
-<% title 'Список пользователей'  %>
+<% title 'Список администраторов'  %>
 
 <div class="b-command-menu">
   <%= link_to "Новый пользователь", new_admin_account_path %>
 </div>
 <div class="clr"></div>
-<% if @users.size >0 %>
-<table>
-  <tr>
-    <th>Пользователь</th>
-    <th>Роль</th>
-    <th>ФИО</th>
-    <th>E-Mail</th>
-    <th>Фирма</th>
-    <th>Последний вход</th>
-    <th>Кол-во входов</th>
-    <th></th>
-  </tr>
-<% for user in @users do %>
-  <tr>
-    <td><%= link_to  user.username, edit_admin_account_path(user.id) %></td>
-    <td><%= user.role_objects.map(&:name).join(', ') %></td>    
-    <td><%= user.fio %></td>
-    <td><%= user.email %></td>
-    <td><%= user.firm.name if user.firm %></td>
-    <td><%= I18n.l(user.current_login_at, :format => :long)  if user.current_login_at %></td>
-    <td><%= user.login_count %></td>
-    <td><%=  link_to(user.active? ? "Закрыть доступ":"Активировать" , activate_admin_account_path(user.id), :method => :put )  %></td>
-  </tr>
-<% end %>
-</table>
+<% if @users.present? %>
+<%= render :partial => "users_list", :object => @users %>
 <%  else %>
 Пользователей в системе нет!
 <% end %>

@@ -7,6 +7,10 @@ class Admin::FirmsController < Admin::BaseController
     @firms = Firm.all
   end
 
+  def show
+    @firm = Firm.find(params[:id])
+  end
+
   def new
     @firm = Firm.new
   end

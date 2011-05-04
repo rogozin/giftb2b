@@ -1,6 +1,7 @@
 <% content_for :sub_menu do %>
   <ul id="sub_nav">
-    <%= tab :accounts, :route => :admin_accounts, :label => 'Пользователи' %>
+    <%= tab :accounts, :url => admin_accounts_path(:group =>0), :label => 'Администраторы', :match_path => "/accounts?group=0" %>
     <%= tab :firms, :route => :admin_firms, :label => 'Фирмы', :css_class => 'last' %>        
+    <%= tab :accounts, :url => admin_accounts_path(:group =>1), :label => 'Пользователи', :match_path => "/accounts?group=1" %>
   </ul>
 <% end %>
