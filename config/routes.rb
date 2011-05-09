@@ -1,5 +1,11 @@
 Giftr3::Application.routes.draw do
 
+  get "content/index"
+
+  get "content/new"
+
+  get "content/edit"
+
   get "user_orders/index"
 
   root :to => 'main#index'
