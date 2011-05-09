@@ -1,0 +1,27 @@
+<%= render :partial => 'admin/shared/sub_menu_content' %>
+<% title "Управление контентом" -%>
+
+<div class="b-command-menu">
+<%= link_to 'Новая страница', new_admin_content_path  %>
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th></th>
+  <th>Заголовок</th>
+  <th>Категория</th>
+  <th>Дата создания</th>
+  <th></th>
+</tr>
+<% @content.each do |content| -%>
+  <tr>
+    <td><%= link_to image_tag('edit.png'), edit_admin_content_path(content) %></td>
+    <td><%= link_to image_tag('doc_page.png'), admin_content_path(content) %></td>
+    <td><%= content.title %></td>
+    <td><%= content.content_category.name if content.content_category %></td>
+    <td><%= I18n.l(content.created_at, :format =>:long) %></td>
+  </tr>  
+<% end -%>
+</table>
+
