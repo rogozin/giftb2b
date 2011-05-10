@@ -5,13 +5,13 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%=@content_for_title || "" %> - Администрирование </title>
-  <%= stylesheet_link_tag  'reset','960', 'admin', 'jquery-ui-1.7.2.custom.css' %>
-  <%= javascript_include_tag :defaults %>
+  <%= stylesheet_link_tag  'reset','960', 'admin', 'jquery-ui.css' %>
+  <%= javascript_include_tag :defaults, 'ui.datepicker-ru.js' %>
   <%= csrf_meta_tag %>  
 <script>
   $(document).ready(function()
   {
-    //$(".datepicker").datepicker($.datepicker.regional['ru']);
+    $(".datepicker").datepicker($.datepicker.regional['ru']);
     <%= yield :document_ready %>
   })
 </script>

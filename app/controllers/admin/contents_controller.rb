@@ -1,5 +1,4 @@
 class Admin::ContentsController < Admin::BaseController
-  uses_tiny_mce(:options => AppConfig.default_mce_options, :only => [:new, :edit])
   access_control do
      allow :Администратор, "Редактор контента"
   end

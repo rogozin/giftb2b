@@ -8,5 +8,17 @@ describe 'Контент' do
       page.shoul have_content "Управление контентом"
     end
   end
+
+  it 'Добавление контента' do
+    
+  end
+
+  it 'Предпросмотр контента' do
+    
+  end
+
+  it 'добавление картинок к контенту' do
+    
+  end
   
 end

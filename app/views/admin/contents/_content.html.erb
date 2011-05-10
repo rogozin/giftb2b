@@ -14,11 +14,11 @@
   </div>    
   <div class="b-formfield-div">
     <%= f.label :start, 'Начало публикации' %>
-    <%= f.text_field :start %>
+    <%= f.text_field :start, :class => "datepicker" %>
   </div>  
   <div class="b-formfield-div">
     <%= f.label :stop, 'Окончание публикации' %>
-    <%= f.text_field :stop %>
+    <%= f.text_field :stop, :class => "datepicker" %>
   </div>    
   <div class="b-formfield-div">
     <%= f.submit "Сохранить" %>
