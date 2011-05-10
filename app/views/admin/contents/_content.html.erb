@@ -1,17 +1,20 @@
 <%= form_for [:admin, @content], :html => {:class=> "one_line_form"} do |f| %>
    <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @content} %>
+  <div class="grid_8 alpha">
   <div class="b-formfield-div">
     <%= f.label :title, 'Заголовок*' %>
     <%= f.text_field :title %>
   </div>
   <div class="b-formfield-div">
+    <%= f.label :permalink, 'Permalink' %>
+    <%= f.text_field :permalink %>
+  </div>
+  <div class="b-formfield-div">
     <%= f.label :content_category_id, 'Категория контента' %>
     <%= f.select :content_category_id, options_for_select(["Категория контента"] + @content_categories.map{|x| [x.id,x.name]}) %>
   </div>
-  <div class="b-formfield-div">
-    <%= f.label :draft, 'Черновик' %>
-    <%= f.check_box :draft %>
-  </div>    
+</div>
+<div class="grid_7 omega">
   <div class="b-formfield-div">
     <%= f.label :start, 'Начало публикации' %>
     <%= f.text_field :start, :class => "datepicker" %>
@@ -21,10 +24,33 @@
     <%= f.text_field :stop, :class => "datepicker" %>
   </div>    
   <div class="b-formfield-div">
+    <%= f.label :draft, 'Черновик' %>
+    <%= f.check_box :draft %>
+  </div>    
+  
+  <div class="b-formfield-div">
     <%= f.submit "Сохранить" %>
   </div>
+</div>
+<div class="clear"></div>
   <div class="b-formfield-div">
-    <%= f.textile_editor :body, :cols=>110, :rows=>50%>
+    <%= f.textile_editor :body, :cols=>110, :rows=>25%>
     <%= raw textile_editor_initialize(:framework => :jquery) %>
   </div>  
+  <div class="clear"></div>
+  <div class="grid_8">
+  <%= link_to_function 'META tags', "$('#meta').toggle()", :class => "pseudo-link"  %>
+  </div>
+  <div class="clear"></div>
+  <div id="meta" class="b-big-text grid_8 g-hidden">
+    <div class="b-formfield-div">
+    <%= f.label :meta_keywords %>
+    <%= f.text_field :meta_keywords %>
+  </div>  
+  <div class="b-formfield-div">
+    <%= f.label :meta_description %>
+    <%= f.text_area :meta_description, :cols=>35, :rows=>5%>
+  </div>  
+  </div>
+  <div class="clear"></div>
 <% end %>

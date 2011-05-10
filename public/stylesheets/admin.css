@@ -149,6 +149,8 @@ a img {border:0 none;}
     border: 1px solid #CCC;
 }
 
+.one_line_form textarea {    border: 1px solid #CCC;}
+
 .one_line_form  select {background-color: white;}
 .one_line_form .b-date input[type="text"]  {width: 94px;}
 .one_line_form .b-big-text input[type="text"], .one_line_form .b-big-select select {width: 300px !important;}

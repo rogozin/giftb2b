@@ -28,6 +28,7 @@ ru:
       lk_firm: "Фирма"
       lk_product: "Товар"
       lk_order: "Заказ"
+      content: "Контент"		
     attributes:
       user:
         email: "E-mail"
@@ -73,6 +74,11 @@ ru:
         lk_firm_id: "Фирма"
         firm_id: "Фирма"   
         user_comment: "Комментарий"     
+      content:
+        title: "Заголовок"
+        start: "Начало публикации"			
+        stop: "Окончание публикации"
+        draft: "Черновик"
   authlogic:
     error_messages:
       login_blank: "не может быть пустым"

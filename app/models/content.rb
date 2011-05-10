@@ -20,7 +20,7 @@ class Content < ActiveRecord::Base
 
   def check_dates 
     if stop && start && stop < start
-      errors.add(:stop, "Неверная дата окончания публикации") 
+      errors.add(:stop, "Неверное значение") 
       false
     end
   end
