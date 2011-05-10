@@ -29,13 +29,14 @@
   </div>    
   
   <div class="b-formfield-div">
-    <%= f.submit "Сохранить" %>
+    <%= f.submit "Сохранить", :class => "wymupdate" %>
   </div>
 </div>
 <div class="clear"></div>
-  <div class="b-formfield-div">
-    <%= f.textile_editor :body, :cols=>110, :rows=>25%>
-    <%= raw textile_editor_initialize(:framework => :jquery) %>
+  <div class="">
+    <%#= f.textile_editor :body, :cols=>110, :rows=>25%>
+    <%= f.text_area :body, :cols=>110, :rows=>25, :class => "wymeditor" %>
+    <%#= raw textile_editor_initialize(:framework => :jquery) %>
   </div>  
   <div class="clear"></div>
   <div class="grid_8">
