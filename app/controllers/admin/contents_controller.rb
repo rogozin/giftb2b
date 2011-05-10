@@ -1,4 +1,5 @@
 class Admin::ContentsController < Admin::BaseController
+  uses_tiny_mce(:options => AppConfig.default_mce_options, :only => [:new, :edit])
   access_control do
      allow :Администратор, "Редактор контента"
   end
@@ -25,12 +26,12 @@ class Admin::ContentsController < Admin::BaseController
   end
 
   def edit
-    @content = Content.find(params[:id])
+    @content = Content.find_by_permalink(params[:id])
     content_category
   end
 
   def update
-    @content = Content.find(params[:id])
+    @content = Content.find_by_permalink(params[:id])
     if @content.update_attributes(params[:content])
       flash[:notice] = "Страница изменена"  
       redirect_to edit_admin_content_path(@content)

@@ -1,0 +1,30 @@
+<%= form_for [:admin, @content], :html => {:class=> "one_line_form"} do |f| %>
+   <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @content} %>
+  <div class="b-formfield-div">
+    <%= f.label :title, 'Заголовок*' %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :content_category_id, 'Категория контента' %>
+    <%= f.select :content_category_id, options_for_select(["Категория контента"] + @content_categories.map{|x| [x.id,x.name]}) %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :draft, 'Черновик' %>
+    <%= f.check_box :draft %>
+  </div>    
+  <div class="b-formfield-div">
+    <%= f.label :start, 'Начало публикации' %>
+    <%= f.text_field :start %>
+  </div>  
+  <div class="b-formfield-div">
+    <%= f.label :stop, 'Окончание публикации' %>
+    <%= f.text_field :stop %>
+  </div>    
+  <div class="b-formfield-div">
+    <%= f.submit "Сохранить" %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.textile_editor :body, :cols=>110, :rows=>50%>
+    <%= raw textile_editor_initialize(:framework => :jquery) %>
+  </div>  
+<% end %>

@@ -1,22 +1,5 @@
 <% title "Новая страница" -%>
 <div class="grid_16">
-<%= form_for [:admin, @content], :html => {:class=> "one_line_form"} do |f| %>
-   <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @content} %>
-  <div class="b-formfield-div">
-    <%= f.label :title, 'Заголовок*' %>
-    <%= f.text_field :title %>
-  </div>
-  <div class="b-formfield-div">
-    <%= f.label :content_category_id, 'Категория контента' %>
-    <%= f.select :content_category_id, options_for_select(["Категория контента"] + @content_categories.map{|x| [x.id,x.name]}) %>
-  </div>
-  <div class="b-formfield-div">
-    <%= f.label :body, 'Контент' %>
-    <%= f.text_area :body %>
-  </div>
-  <div class="b-formfield-div">
-    <%= f.submit "Сохранить" %>
-  </div>
-<% end %>
+<%= render :partial => "content" %>
 </div>
 
