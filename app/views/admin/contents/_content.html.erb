@@ -11,7 +11,7 @@
   </div>
   <div class="b-formfield-div">
     <%= f.label :content_category_id, 'Категория контента' %>
-    <%= f.select :content_category_id, options_for_select(["Категория контента"] + @content_categories.map{|x| [x.id,x.name]}) %>
+    <%= f.select :content_category_id, options_for_select(["без категории"] + @content_categories.map{|x| [x.name, x.id]}) %>
   </div>
 </div>
 <div class="grid_7 omega">

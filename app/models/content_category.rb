@@ -12,4 +12,8 @@ class ContentCategory < ActiveRecord::Base
     end
   end
 
+  def to_param
+    self.permalink
+  end
+
 end

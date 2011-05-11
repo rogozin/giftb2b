@@ -1,4 +1,5 @@
 Giftr3::Application.routes.draw do
+
   root :to => 'main#index'
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout

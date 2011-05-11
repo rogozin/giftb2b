@@ -2,7 +2,6 @@ class Admin::ContentsController < Admin::BaseController
   access_control do
      allow :Администратор, "Редактор контента"
   end
-    
 
   def index
     @content = Content.order("created_at desc")

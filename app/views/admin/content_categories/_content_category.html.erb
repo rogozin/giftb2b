@@ -1,0 +1,15 @@
+<%= form_for [:admin, @content_category], :html => {:class=> "one_line_form"} do |f| %>
+   <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @content_category} %>
+  <div class="b-formfield-div">
+    <%= f.label :name, 'Название категории*' %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :permalink, 'Permalink' %>
+    <%= f.text_field :permalink %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.submit "Сохранить" %>
+  </div>  
+  <% end -%>
+
