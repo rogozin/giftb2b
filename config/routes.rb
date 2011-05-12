@@ -9,6 +9,8 @@ Giftr3::Application.routes.draw do
   match 'change_profile' => 'profile#update', :as => :change_profile
   match 'register' => "users#new", :as => :register_user
   match 'activate/:activation_code' => "users#activate", :as => :activate_user
+  match 'p/:id' => "content#show", :as => :content
+  match 'c/:id' => "content_category#show", :as => :content_category
   resources :main, :only => [:index] do
     get :change_scrollable, :on => :collection
   end
