@@ -3,6 +3,8 @@
 
 <%= content_tag :div, :class => "page_content #{@content.permalink}" do %>
 
+<%= content_tag :h1, @content.title, :class => "page_title" %>
+
 <%= raw @content.body %>
 
 <% end -%>

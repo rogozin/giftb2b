@@ -36,12 +36,21 @@ describe Content do
   context 'associations' do
     
     it 'active' do
-     Factory(:content)
-     Factory(:content, :draft => true)
-     Factory(:content, :stop => Date.yesterday)
-     Factory(:content, :start => Date.tomorrow)
-     Content.active.should have(1).records 
+     @cc = Factory(:content_category)
+     @c1 = Factory(:content, :content_category => @cc)
+     @c2 = Factory(:content, :content_category => @cc, :draft => true)
+     @c3 = Factory(:content, :content_category => @cc, :stop => Date.yesterday)
+     @c4 = Factory(:content, :content_category => @cc, :start => Date.tomorrow)
+     Content.active.should have(1).records  
+     @cc.contents.should have(4).records
+     @cc.active_pages.should have(1).records
+     @c1.should be_active
+     @c2.should_not be_active 
+     @c3.should_not be_active 
+     @c3.should_not be_active 
     end
+
+        
 
   end
 

@@ -1,7 +1,7 @@
 <%= content_tag :div, :class => "content_category #{@content_category.permalink}" do %> 
 <h1><%= @content_category.name %></h1>
 
-<% @content_category.contents.each do |item| -%>
+<% @content_category.active_pages.each do |item| -%>
 <div>
   <%= link_to item.title, content_path(item)  %>
 </div>  

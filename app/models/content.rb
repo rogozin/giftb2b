@@ -8,6 +8,11 @@ class Content < ActiveRecord::Base
   belongs_to :content_category
 
   scope :active, where("draft = 0 and (stop is null or stop > now()) and (start is null or start < now())")
+  
+  def active?
+    !draft && (start || Time.now-1.day) <= Time.now && (stop || Time.now + 1.day)  >= Time.now
+  end  
+
   def to_param
     self.permalink
   end
