@@ -1,10 +1,14 @@
 <%= content_tag :div, :class => "content_category #{@content_category.permalink}" do %> 
 <h1><%= @content_category.name %></h1>
 
-<% @content_category.active_pages.each do |item| -%>
-<div>
+<% @pages.each do |item| -%>
+<div class="content_title">
   <%= link_to item.title, content_path(item)  %>
 </div>  
 <% end -%>
 
 <% end -%>
+
+<div>
+<%= will_paginate(@pages) %>
+</div>

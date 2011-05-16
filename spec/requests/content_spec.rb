@@ -73,6 +73,19 @@ describe 'Контент' do
         page.should have_no_content @content.title  
       end
     end
+
+    it 'постраничная навигация по 10 элементов в категории' do
+      20.times do
+        Factory(:content, :content_category => @content_category)
+      end      
+      visit content_category_path(@content_category)
+       
+      within "#main_content" do
+        page.should have_css(".content_title", :count => 10)
+        click_link "Вперед"
+        page.should have_css(".content_title", :count => 10)
+      end
+    end
   end
   
 end
