@@ -1,7 +1,7 @@
 <fieldset>
 <legend>Загрузить изображение из файла</legend>
  <%= form_for :image,  :url => upload_image, :html => { :multipart => true } do |form| %>
-    <%= form.file_field :picture %>
+    <%= form.file_field defined?(paperclip_name) ? paperclip_name : :picture %>
     <%= form.submit "Ок" %>
   <% end %>
 </fieldset>

@@ -1,5 +1,6 @@
 Giftr3::Application.routes.draw do
 
+
   root :to => 'main#index'
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
@@ -93,6 +94,7 @@ Giftr3::Application.routes.draw do
     end
     resources :contents
     resources :content_categories
+    resources :content_images, :only => [:index, :create, :destroy]
     resources :manufactors
     resources :suppliers
     resources :images do

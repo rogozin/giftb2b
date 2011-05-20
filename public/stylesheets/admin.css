@@ -348,9 +348,12 @@ form.filter input[type="text"]
 
 form.filter select[name="per_page"] { width:45px}
 
+ul li {
+ list-style: none;
+}
+
 ul.treeview, ul.treeview li
 {
-  	list-style: none;
   	padding:0;
 }
 ul.treeview li

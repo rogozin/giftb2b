@@ -1,0 +1,31 @@
+<%= render :partial => 'admin/shared/sub_menu_content' %>
+<% title "Галерея изображений" -%>
+
+<style type="text/css">
+ul.image-gallery li {
+  float: left;
+  margin-left:10px;
+}
+
+.image-gallery span, .image-gallery a  {
+  vertical-align:top;
+}
+
+</style>
+
+<div class="b-command-menu">
+  <%= render :partial => 'admin/images/upload_image', :object => admin_content_images_path, :locals => {:paperclip_name => "gallery_item"} %>
+</div>
+
+<ul class="image-gallery">
+  
+<% @content_images.each do |image| -%>
+  <li><%= link_to image_tag(image.gallery_item.url(:thumb)), image.gallery_item.url, :title => "#{image.gallery_item_file_name}, создан #{image.created_at.to_s(:short)}" %> 
+  <span>
+     [<%= link_to 'x', admin_content_image_path(image), :method => :delete, :confirm => "Удалить изображение?", :title => "Удаление"  %>]
+  </span>
+  </li>
+<% end -%>
+</ul>
+<div class="clear"></div>
+<%= will_paginate @content_images %>

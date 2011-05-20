@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110507114811) do
+ActiveRecord::Schema.define(:version => 20110520180346) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -78,6 +78,14 @@ ActiveRecord::Schema.define(:version => 20110507114811) do
   end
 
   add_index "content_categories", ["permalink"], :name => "index_content_categories_on_permalink", :unique => true
+
+  create_table "content_images", :force => true do |t|
+    t.string   "gallery_item_file_name"
+    t.string   "gallery_item_content_type"
+    t.integer  "gallery_item_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "contents", :force => true do |t|
     t.integer  "content_category_id"

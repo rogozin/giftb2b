@@ -63,9 +63,9 @@
 <!-----------------CONTENT-------------------------------------->
 <div class="container_16 content">
   <div class="grid_16">
-    <%- flash.each do |name, msg| -%>
-    <%= content_tag :div, raw(msg), :id => "flash_#{name}" if name.to_s.index("notice") or name.to_s.index("error") %>
-    <%- end -%>
+    <% flash.each do |name, msg| %>
+    <%= content_tag :div, raw(msg), :id => "flash_#{name}"  %>
+    <% end %>
   </div>
   <div class="grid_16">
   <%- if show_title? -%>
