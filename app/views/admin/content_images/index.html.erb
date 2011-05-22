@@ -1,18 +1,6 @@
 <%= render :partial => 'admin/shared/sub_menu_content' %>
 <% title "Галерея изображений" -%>
 
-<style type="text/css">
-ul.image-gallery li {
-  float: left;
-  margin-left:10px;
-}
-
-.image-gallery span, .image-gallery a  {
-  vertical-align:top;
-}
-
-</style>
-
 <div class="b-command-menu">
   <%= render :partial => 'admin/images/upload_image', :object => admin_content_images_path, :locals => {:paperclip_name => "gallery_item"} %>
 </div>

@@ -22,5 +22,10 @@ class Admin::ContentImagesController < Admin::BaseController
     flash[:notice] = "Изображение удалено" if @content_image.destroy
     redirect_to admin_content_images_path
   end
+  
+  def galery
+    @content_images = ContentImage.paginate(:page => params[:page] || "1", :per_page => 20, :order => "created_at desc")
+    render :layout => false
+  end
 
 end

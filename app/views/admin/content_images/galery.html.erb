@@ -1,0 +1,15 @@
+<% title "Галерея изображений" -%>
+
+<%= stylesheet_link_tag 'admin.css' %>
+
+<h3>Последние 20 изображений из галереи:</h3>
+
+<ul class="image-gallery">
+  
+<% @content_images.each do |image| -%>
+  <li><%= link_to image_tag(image.gallery_item.url(:thumb)), image.gallery_item.url, :title => "#{image.gallery_item_file_name}, создан #{image.created_at.to_s(:short)}" %> 
+  </li>
+<% end -%>
+</ul>
+<div class="clear"></div>
+<%= will_paginate @content_images %>

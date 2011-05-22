@@ -380,3 +380,12 @@ fieldset
   padding:0 3px;
 }
 
+ul.image-gallery li {
+  float: left;
+  margin-left:10px;
+}
+
+.image-gallery span, .image-gallery a  {
+  vertical-align:top;
+}
+

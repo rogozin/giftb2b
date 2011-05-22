@@ -94,7 +94,11 @@ Giftr3::Application.routes.draw do
     end
     resources :contents
     resources :content_categories
-    resources :content_images, :only => [:index, :create, :destroy]
+    resources :content_images, :only => [:index, :create, :destroy] do
+      collection do 
+        get :galery
+      end
+    end
     resources :manufactors
     resources :suppliers
     resources :images do
