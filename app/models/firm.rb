@@ -10,6 +10,9 @@ class Firm < ActiveRecord::Base
   :format => { :with => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :allow_blank => true},
   :length => {:maximum => 40, :allow_nil => true}
   
+  scope :clients, where(:is_supplier => false)
+  scope :default_city, clients.where("upper(city) = 'МОСКВА'")
+  
  def logo
    images.first.picture if images.present?
  end

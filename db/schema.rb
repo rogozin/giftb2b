@@ -142,6 +142,8 @@ ActiveRecord::Schema.define(:version => 20110523122202) do
     t.string   "subway",      :limit => 100
   end
 
+  add_index "firms", ["city"], :name => "index_firms_on_city"
+
   create_table "foreign_access", :force => true do |t|
     t.string   "name"
     t.string   "ip_addr"
@@ -319,22 +321,6 @@ ActiveRecord::Schema.define(:version => 20110523122202) do
     t.string  "name",         :limit => 80
     t.string  "address"
     t.boolean "allow_upload",               :default => true
-  end
-
-  create_table "tiny_prints", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_file_size"
-    t.string   "image_content_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "tiny_videos", :force => true do |t|
-    t.string   "original_file_name"
-    t.string   "original_file_size"
-    t.string   "original_content_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

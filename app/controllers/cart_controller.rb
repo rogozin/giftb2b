@@ -8,7 +8,7 @@ class CartController < ApplicationController
   before_filter :get_cart, :except => [:empty]
   def index
     @lk_firms = LkFirm.find_all_by_firm_id(current_user.firm_id) if current_user.is_firm_user?
-    @firms = Firm.all.map{|x| [x.short_name, x.id]} if current_user.is_simple_user?
+    @firms = Firm.default_city if current_user.is_simple_user?
   end
   
  def add

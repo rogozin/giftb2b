@@ -1,6 +1,7 @@
 Giftr3::Application.routes.draw do
 
 
+
   root :to => 'main#index'
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
@@ -23,6 +24,15 @@ Giftr3::Application.routes.draw do
       get :on_sale
       get :best_price
     end 
+  end
+  
+  resources :firms, :only => [:index, :show] do
+    member do 
+      get :city
+    end
+    collection do
+      get :select_town
+    end
   end
   resources :foreign do
     collection do

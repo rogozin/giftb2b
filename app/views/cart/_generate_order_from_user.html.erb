@@ -1,14 +1,17 @@
  <h3>Оформление нового заказа:</h3>
-        <%= form_for [LkOrder.new], :url => lk_user_orders_path,  :html => {:class => :one_line_form } do |f| -%>
-           <div class ="b-formfield-div">
-            <%= f.label :firm_id %>
-            <%= f.select :firm_id, options_for_select(@firms) %>
-          </div>
-          <div class ="b-formfield-div">
-            <%= f.label :user_comment %>
-            <%= f.text_area :user_comment,  :rows => 5 %>
-          </div>
-          <div class ="b-formfield-div">
-            <%= f.submit "Оформить" %>
-          </div>          
+ 
+        
+        <%= form_for [LkOrder.new], :url => lk_user_orders_path do |f| -%>          
+        <div class="order-comment">
+            <p>
+              <%= f.label :user_comment, "Комментарий к заказу:" %> 
+            </p>
+            <%= f.text_area :user_comment,  :rows => 5, :cols => "100%" %>
+        </div>
+        <div class="spacer"></div>
+        <h3>Выбор фирмы:</h3>
+        <div class="firm-list">
+        <%= render :partial => 'firms/city_filter' %>
+        <%= render :partial => 'firms/firms', :locals => {:send_order => true} %>
+        </div>
         <% end -%>          

@@ -18,6 +18,7 @@ class Lk::UserOrdersController < Lk::BaseController
   
     def create
     @order = LkOrder.new(params[:lk_order])
+    @order.firm_id = params.invert["Отправить заказ"].to_i
     @order.user = current_user
     if @order.save
       flash[:notice] = "Заказ оформлен!" 
@@ -27,11 +28,11 @@ class Lk::UserOrdersController < Lk::BaseController
       end
       @cart.items.clear
       unless Rails.env == 'test'
-        UserMailer.new_order_notification(current_user, @order).deliver
-        FirmMailer.new_user_order_notification(@order.firm, current_user, @order).deliver
+        UserMailer.new_order_notification(current_user, @order).deliver if @current_user.email.present?
+        FirmMailer.new_user_order_notification(@order.firm, current_user, @order).deliver if @order.firm && @order.firm.email.present?
       end
     else  
-      flash[:error] = "Заказ не удалось оформить"
+      flash[:error] = "Ошибка при оформлении заказа"
     end
     #sending message to user and company
     redirect_to lk_user_orders_path

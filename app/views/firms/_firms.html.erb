@@ -1,0 +1,19 @@
+  <div id="firms">
+  <table width="100%">
+   <tr>
+     <th>Станция метро</th>
+     <th>Фирма</th>
+     <th>Адрес</th>
+      <%= content_tag :th if defined?(send_order) %>
+   </tr>
+  <% @firms.each do |item| -%>
+      <tr>
+        <td><%= item.subway %></td>
+        <td><%= item.short_name %></td>
+        <td><%= item.addr_f %></td>
+        <%=content_tag :td,  submit_tag("Отправить заказ", :name => item.id) if defined?(send_order)  %></td>
+      </tr>
+  <% end -%>
+  </table>
+  </div>
+

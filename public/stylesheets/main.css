@@ -740,3 +740,13 @@ a:hover.lk_logout {
 #order {
 	font-size:9pt;
 }
+
+a.pseudo-link
+{
+  border-bottom:dotted 1px;
+  cursor:pointer;
+  text-decoration:none;
+/*  color:#034AF3;*/
+}
+
+.city-filter { margin-bottom:10px;}
