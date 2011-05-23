@@ -9,6 +9,14 @@
     <%= f.text_field :short_name %>
   </div>
   <div class="b-formfield-div">
+    <%= f.label :city, 'Город' %>
+    <%= f.text_field :city %>
+  </div>  
+  <div class="b-formfield-div">
+    <%= f.label :subway, 'ст. метро' %>
+    <%= f.text_field :subway %>
+  </div>    
+  <div class="b-formfield-div">
     <%= f.label :addr_u, 'Юр. адрес' %>
     <%= f.text_area :addr_u, :cols=>22, :rows => 3 %>
   </div>

@@ -41,6 +41,7 @@ describe "Работа обычного пользователя" do
       click_link "Оформить заказ"
       select @firm.short_name, :from => "lk_order_firm_id"
       fill_in "Комментарий", :with => "Примечание к заказу"
+      save_and_open_page
       click_button "Оформить"
       page.should have_content "Заказ оформлен!"  
       within "#cart" do
@@ -62,6 +63,10 @@ describe "Работа обычного пользователя" do
     page.should have_content "Заказ не найден!"
   end
 
+
+  context 'выбор где заказать' do
+    
+  end
 #  it 'После отправки заказа я должен получить письмо' do
 #    pending
 #  end

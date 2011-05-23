@@ -19,6 +19,7 @@ gem 'RedCloth'
 gem 'composite_primary_keys', '=3.1.0'
 gem 'pdfkit', "0.4.6"
 gem 'spreadsheet'
+gem 'rake', '~> 0.8.7'
 
  group :development, :test do
    gem "rspec-rails", "~> 2.4"
