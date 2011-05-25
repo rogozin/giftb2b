@@ -1,6 +1,7 @@
 class Admin::CategoriesController < Admin::BaseController
   access_control do
-     allow :Администратор, "Редактор каталога"
+     allow :Администратор
+     allow "Редактор каталога", :except => [:new, :create, :destroy]
   end
   respond_to :html, :js
   before_filter :find_catalog_items, :only => [:catalog, :thematic, :analogs, :virtuals]
