@@ -2,10 +2,12 @@
 
 <%title 'Разделы каталога'  %>
 
+<% if current_user.is_admin? -%>
 <div class="b-command-menu">
 [<%= link_to 'Создать новую категорию', new_admin_category_path(:kind => 1) %>]
 
 </div>
+<% end -%>
 
 <%= hidden_field_tag :current_action_name, action_name -%>
 
