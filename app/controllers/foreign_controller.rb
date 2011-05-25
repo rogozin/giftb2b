@@ -1,15 +1,21 @@
 class ForeignController < ApplicationController
- before_filter :check_acccess
+ #before_filter :check_acccess
  before_filter :find_category, :except => [:thematic_tree, :analog_tree, :search, :virtual]
+ 
+ 
   def index
    render "index" , :layout => "foreign"
   end
-
+protect_from_forgery :except => [:show]
+skip_before_filter :verify_authenticity_token
   def show
     @category = Category.find_by_permalink(params[:id])
     params[:page] ||=1
     @products = Product.find_all({:page=>params[:page], :per_page=>params[:per_page], :category=> @category.id, :active => true})
-    render 'foreign/show', :layout => "foreign"
+    respond_to do |format|
+      format.html { render 'foreign/show', :layout => "foreign" }
+      format.json { render :json => {:name => "category"}}
+    end
   end
 
   def product
