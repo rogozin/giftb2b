@@ -122,6 +122,10 @@ class Product < ActiveRecord::Base
    def to_param
      self.permalink
    end
+   
+   def as_json(options={})
+     super options.merge(:methods => [:price_in_rub], :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count])
+   end
 
    def update_permalink
      self.permalink = prepare_permalink

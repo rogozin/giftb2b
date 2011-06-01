@@ -5,6 +5,7 @@ log/
 *.log
 tmp/**/*
 tmp/*
+my_engine/*
 config/database.yml
 Gemfile.lock
 public/system

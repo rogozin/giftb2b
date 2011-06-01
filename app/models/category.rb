@@ -113,6 +113,10 @@ class Category < ActiveRecord::Base
   def to_param  
     self.permalink 
   end  
+  
+  def as_json options={}  
+    super(options.merge({:only => [:id, :name, :permalink]}))
+  end
     
 private 
  

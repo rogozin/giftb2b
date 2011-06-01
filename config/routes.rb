@@ -26,6 +26,19 @@ Giftr3::Application.routes.draw do
     end 
   end
   
+  namespace :api do
+    resources :categories, :only => [:index, :show] do
+      collection do 
+        get :thematic
+        get :analogs
+        get :virtuals        
+      end
+    end
+    resources :products, :only => [:index, :show]
+    resources :search, :only => [:show]
+    
+  end
+  
   resources :firms, :only => [:index, :show] do
     member do 
       get :city
