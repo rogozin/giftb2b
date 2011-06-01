@@ -115,7 +115,7 @@ class Category < ActiveRecord::Base
   end  
   
   def as_json options={}  
-    super(options.merge({:only => [:id, :name, :permalink]}))
+    super(options.merge({:only => [:id, :name, :permalink, :parent_id]}))
   end
     
 private 
