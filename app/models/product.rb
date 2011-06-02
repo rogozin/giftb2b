@@ -124,7 +124,7 @@ class Product < ActiveRecord::Base
    end
    
    def as_json(options={})
-     super options.merge(:methods => [:price_in_rub], :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count])
+     super options.merge(:methods => [:price_in_rub], :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count], :methods=>[:unique_code, :image_thumb, :image_orig, :price_in_rub]) 
    end
 
    def update_permalink
@@ -150,6 +150,14 @@ class Product < ActiveRecord::Base
     main_image.picture if main_image
   end
   
+  
+  def image_thumb
+    picture ? picture.url(:thumb) : ""
+  end
+  
+  def image_orig
+    picture ? picture.url : ""
+  end
   
   private
   def set_permalink
