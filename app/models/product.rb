@@ -14,13 +14,14 @@ class Product < ActiveRecord::Base
   
 
   scope :for_admin, joins([:supplier,:manufactor, ", (select usd,eur from currency_values v order by id desc limit 1) c" ]).select("distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name,  case products.currency_type when 'USD' then c.usd * products.price when 'EUR' then c.eur * products.price else products.price end ruprice").order("sort_order, ruprice")
-  
+ 
   scope :search, lambda { |search_text|
   active.where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code)", { :search => '%' + search_text + '%',:code => search_text}) }
   
   scope :search_with_article, lambda { |search_text|
   active.where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code) or products.article like :search", 
   {:search =>  '%' + search_text + '%', :code =>search_text}) } 
+
   scope :novelty, where({:is_new => true})
   scope :sale, where({:is_sale => true})
   scope :active, where({:active => true})
@@ -86,11 +87,14 @@ class Product < ActiveRecord::Base
     cond[0]<< "products.store_count=0"    if options[:store] && options[:store]=="0"
     cond[0]<< "products.store_count >0"    if options[:store] && options[:store]=="1"        
     total_conditions = cond[0] && cond[0].size>0 ? [cond[0].join(" AND "), cond[1]]  : []
-    res= if place=="xml"
-      for_admin.all(:conditions=>total_conditions)
-    else
-      for_admin.paginate(:all,:page=>options[:page], :per_page=>options[:per_page], :conditions=>total_conditions)
-    end
+    res= case place
+      when "xml"
+        for_admin.all(:conditions=>total_conditions)
+      when "json"
+        active.where(total_conditions)
+      else
+        for_admin.paginate(:all,:page=>options[:page], :per_page=>options[:per_page], :conditions=>total_conditions)
+      end
 
   end
   

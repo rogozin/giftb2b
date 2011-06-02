@@ -2,8 +2,8 @@ class Api::ProductsController < Api::BaseController
   
   def index
     params[:page] ||=1
-    @products = if params[:category]
-      Product.active.joins(:product_categories).where("product_categories.category_id =?", params[:category]).paginate(:page => params[:page])
+    @products = if params[:category].to_i > 0
+      Product.find_all({:category=> params[:category], :active => true }).paginate(:page => params[:page])
     else
       Product.active
     end
