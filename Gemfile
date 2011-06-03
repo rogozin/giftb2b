@@ -26,7 +26,7 @@ gem 'rake', '~> 0.8.7'
    gem 'cucumber-rails'
    gem 'database_cleaner'
    gem 'autotest'
-   gem 'capybara', :git => "https://github.com/jnicklas/capybara.git"
+   gem 'capybara', :git => "http://github.com/jnicklas/capybara.git"
    gem 'factory_girl_rails'
    gem 'spork', '~> 0.9.0.rc'
    gem 'launchy'
