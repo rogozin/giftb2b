@@ -44,7 +44,7 @@ class Category < ActiveRecord::Base
     Category.all(:conditions=>"virtual_id=#{id}")
   end
   
-  
+    
   def self.tree_nesting(categories, start, res=[])
     res.push start.id.to_i if start
     if start  && start.parent_id     
@@ -62,6 +62,7 @@ class Category < ActiveRecord::Base
     end
     res
   end
+  
   
   def self.tree_childs(categories, start, res=[],init = true)
     if init
@@ -115,9 +116,20 @@ class Category < ActiveRecord::Base
   end  
   
   def as_json options={}  
-    super(options.merge({:only => [:id, :name, :permalink, :parent_id]}))
+    default_options = {:only => [:id, :name, :permalink, :parent_id], :methods => [:products_size]}
+    super options.present? ?  options.merge(default_options) : default_options
   end
     
+  #####################
+  ### methods below used for api
+  def ancestors_and_i
+    ancestors.map(&:id) << self[:id]
+  end
+ 
+  def products_size
+    Product.joins(:product_categories).where( "product_categories.category_id" => self.ancestors_and_i).size
+  end
+  ######################
 private 
  
   def set_category_kind

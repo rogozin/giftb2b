@@ -128,7 +128,9 @@ class Product < ActiveRecord::Base
    end
    
    def as_json(options={})
-     super options.merge(:methods => [:price_in_rub], :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count], :methods=>[:unique_code, :image_thumb, :image_orig, :price_in_rub]) 
+     default_options = {:only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count], 
+     :methods=>[:unique_code, :image_thumb, :image_orig, :price_in_rub]}
+     super options.present? ? options.merge(default_options) : default_options
    end
 
    def update_permalink
@@ -156,7 +158,7 @@ class Product < ActiveRecord::Base
   
   
   def image_thumb
-    picture ? picture.url(:thumb) : ""
+    picture ? picture.url(:thumb) : "images/default_image.jpg"
   end
   
   def image_orig
