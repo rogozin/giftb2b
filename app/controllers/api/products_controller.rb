@@ -5,7 +5,7 @@ class Api::ProductsController < Api::BaseController
     params[:per_page] ||=30
     params[:per_page] = 100 if params[:per_page].to_i > 100
     @products = if params[:category].to_i > 0
-      Product.find_all({:category=> params[:category] }, "json")
+      Product.active.all_by_category [params[:category]]
     else
       Product.active
     end

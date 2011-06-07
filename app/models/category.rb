@@ -127,7 +127,7 @@ class Category < ActiveRecord::Base
   end
  
   def products_size
-    Product.joins(:product_categories).where( "product_categories.category_id" => self.ancestors_and_i).size
+    Rails.cache.fetch('category_#{self.id}.products_size', :expires_in =>1.hour){ Product.all_by_category(ancestors_and_i).size }
   end
   ######################
 private 
