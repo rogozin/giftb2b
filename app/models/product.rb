@@ -25,6 +25,9 @@ class Product < ActiveRecord::Base
   scope :novelty, where({:is_new => true})
   scope :sale, where({:is_sale => true})
   scope :active, where({:active => true})
+  scope :all_by_category, lambda { |category_ids|
+    joins(:product_categories).where("product_categories.category_id" => category_ids)
+  }
   validates :supplier_id, :presence => true
   validates :article, :presence => true
   validates_uniqueness_of :permalink, :allow_nil => true
@@ -117,6 +120,8 @@ class Product < ActiveRecord::Base
      0
    end
    
+
+
    def analogs(limit=0)
     analogs = Product.joins(:categories).where("categories.id in (:category_ids) and product_id <> :product_id", {:category_ids => analog_categories.map(&:id), :product_id => id})
     analogs = analogs.limit(limit) if limit >0
@@ -132,6 +137,19 @@ class Product < ActiveRecord::Base
      :methods=>[:unique_code, :image_thumb, :image_orig, :price_in_rub]}
      super options.present? ? options.merge(default_options) : default_options
    end
+   
+   #########################
+   ##API 
+   
+  def image_thumb
+    picture ? picture.url(:thumb) : "images/default_image.jpg"
+  end
+  
+  def image_orig
+    picture ? picture.url : ""
+  end
+   
+   ########################
 
    def update_permalink
      self.permalink = prepare_permalink
@@ -148,8 +166,8 @@ class Product < ActiveRecord::Base
 
    
    def main_image
-      main_img = attach_images.find_by_main_img(true)
-      main_img ? main_img.image : images.first
+      main_img = cached_attached_images.select{|x|x.main_img}.first
+      main_img ? main_img.image : cached_images.first
    end
   
   def picture
@@ -157,15 +175,17 @@ class Product < ActiveRecord::Base
   end
   
   
-  def image_thumb
-    picture ? picture.url(:thumb) : "images/default_image.jpg"
-  end
-  
-  def image_orig
-    picture ? picture.url : ""
-  end
   
   private
+  
+  def cached_attached_images
+    Rails.cache.fetch('product_#{self.id}.attached_images', :expires_in =>1.hour){ attach_images }
+  end
+  
+  def cached_images
+    Rails.cache.fetch('product_#{self.id}.images', :expires_in =>1.hour){ images }
+  end
+  
   def set_permalink
     if self.permalink.blank? 
       self.permalink = prepare_permalink

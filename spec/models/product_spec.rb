@@ -10,6 +10,10 @@ describe Product do
 #  it { should have(1).error_on(:article)}
 #  it { should have(1).error_on(:supplier_id)}
 
+  it 'all_by_category' do
+    
+  end
+
   context "filtering and searching" do
     before do
       Factory(:product, :short_name => "art12345", :active => false)      
