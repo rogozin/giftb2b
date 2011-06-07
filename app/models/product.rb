@@ -179,11 +179,11 @@ class Product < ActiveRecord::Base
   private
   
   def cached_attached_images
-    Rails.cache.fetch('product_#{self.id}.attached_images', :expires_in =>1.hour){ attach_images }
+    Rails.cache.fetch("product_#{self.id}.attached_images", :expires_in =>1.hour){ attach_images }
   end
   
   def cached_images
-    Rails.cache.fetch('product_#{self.id}.images', :expires_in =>1.hour){ images }
+    Rails.cache.fetch("product_#{self.id}.images", :expires_in =>1.hour){ images }
   end
   
   def set_permalink
