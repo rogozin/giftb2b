@@ -16,4 +16,9 @@ class Api::ProductsController < Api::BaseController
     @product = Product.find_by_permalink(params[:id])
     respond_with(@product)
   end
+  
+  def by_id
+    @product = Product.find(params[:id])
+    respond_with(@product)
+  end
 end
