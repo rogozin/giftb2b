@@ -1,7 +1,7 @@
-class Api::OrdersController << Api::BaseController
+class Api::OrdersController < Api::BaseController
   
   def create
-    order = LkOrder.new(:user_comment => params[:user])
+    order = LkOrder.new(:user_comment => params[:email])
     if order.save
       render :json  => {:success => true}
     else
