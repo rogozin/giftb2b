@@ -71,8 +71,8 @@ class Category < ActiveRecord::Base
       return tree_childs(categories,children,res,false) if children && children.size>0
     else
       start.each  do |cat_item| 
-         res<< cat_item.id 
-        children = categories.select{|cat| cat.parent_id==cat_item.id }
+         res<< cat_item[:id]
+        children = categories.select{|cat| cat.parent_id==cat_item[:id] }
         tree_childs(categories,children,res,false) if children && children.size>0
       end
     end  
@@ -120,16 +120,16 @@ class Category < ActiveRecord::Base
     super options.present? ?  options.merge(default_options) : default_options
   end
     
-  #####################
+  ##############################################################################################
   ### methods below used for api
-  def ancestors_and_i
-    ancestors.map(&:id) << self[:id]
+  def children_ids
+    Category.tree_childs(Category.all, self)
   end
  
   def products_size
-    Product.joins(:product_categories).where( "product_categories.category_id" => self.ancestors_and_i).size
+    Product.joins(:product_categories).where( "product_categories.category_id" => children_ids).size
   end
-  ######################
+  ###############################################################################################
 private 
  
   def set_category_kind
