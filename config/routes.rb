@@ -29,7 +29,7 @@ Giftr3::Application.routes.draw do
   namespace :api do
     resources :categories, :only => [:index, :show] do
       collection do 
-        get :thematic
+        get :thematics
         get :analogs
         get :virtuals        
       end
