@@ -1,6 +1,6 @@
 class Api::CategoriesController < Api::BaseController
   def index
-    @categories = Category.catalog    
+    @categories = Category.cached_active_categories.select{|cat| cat.kind==1}
     respond_with(@categories)
   end
   
