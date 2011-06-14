@@ -66,8 +66,9 @@ class Category < ActiveRecord::Base
   
   def self.tree_childs(categories, start, res=[],init = true)
     if init
-      res<< start.id
-      children = categories.select{|cat| cat.parent_id == start.id }
+      start_id = start.is_a?(self) ? start.id : start
+      res<< start_id
+      children = categories.select{|cat| cat.parent_id == start_id }
       return tree_childs(categories,children,res,false) if children && children.size>0
     else
       start.each  do |cat_item| 
@@ -127,7 +128,7 @@ class Category < ActiveRecord::Base
   end
  
   def products_size
-    Rails.cache.fetch('category_#{self.id}.products_size', :expires_in =>1.hour){ Product.all_by_category(ancestors_and_i).size }
+    Rails.cache.fetch("category_#{self.id}.products_size", :expires_in =>1.hour){ Product.all_by_category(children_ids).size }
   end
   ###############################################################################################
 private 

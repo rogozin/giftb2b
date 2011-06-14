@@ -133,21 +133,22 @@ class Product < ActiveRecord::Base
    end
    
    def as_json(options={})
-     default_options = {:only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count], 
-     :methods=>[:unique_code, :image_thumb, :image_orig, :price_in_rub]}
+     default_options = { :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count, :updated_at], 
+     :methods=>[ :pictures, :unique_code, :price_in_rub ] }
      super options.present? ? options.merge(default_options) : default_options
    end
    
    #########################
    ##API 
    
-  def image_thumb
-    picture ? picture.url(:thumb) : "images/default_image.jpg"
+  def pictures 
+     res =  cached_attached_images.map do |attached_image|
+       {:orig => attached_image.image.picture.url, :thumb => attached_image.image.picture.url(:thumb)}
+     end
+     res = [{:orig => Image.default_image, :thumb => Image.default_image}] if res.empty?
+     res
   end
-  
-  def image_orig
-    picture ? picture.url : ""
-  end
+   
    
    ########################
 

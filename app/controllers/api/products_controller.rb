@@ -5,7 +5,8 @@ class Api::ProductsController < Api::BaseController
     params[:per_page] ||=30
     params[:per_page] = 100 if params[:per_page].to_i > 100
     @products = if params[:category].to_i > 0
-      Product.active.all_by_category [params[:category]]
+
+      Product.active.all_by_category Category.tree_childs(Category.cached_active_categories, params[:category].to_i)
     else
       Product.active
     end
