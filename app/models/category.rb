@@ -21,6 +21,8 @@ class Category < ActiveRecord::Base
   before_update :virtual_category_rules
   after_save :clear_cache
     
+###########*CACHE*############################################
+
   @@disable_cache = false
 
   def self.disable_cache
@@ -32,13 +34,31 @@ class Category < ActiveRecord::Base
     Category.clearcache
   end  
   
-  def self.cached_active_categories 
-    Rails.cache.fetch('active_categories', :expires_in =>24.hours) { active.all}
+  def self.cached_all_categories 
+    Rails.cache.fetch('all_categories', :expires_in =>1.hours) { all }
   end
 
-  def self.cached_all_categories 
-    Rails.cache.fetch('all_categories', :expires_in =>1.hours) { all}
+  def self.cached_active_categories
+    Rails.cache.fetch('active_categories', :expires_in =>24.hours) { active.all }
   end
+
+  def self.cached_virtual_categories 
+    Rails.cache.fetch('active_virtual_categories', :expires_in =>24.hours) { active.virtual.all }
+  end
+
+  def self.cached_analog_categories 
+    Rails.cache.fetch('active_analog_categories', :expires_in =>24.hours) { active.analog.all }
+  end
+
+  def self.cached_thematic_categories 
+    Rails.cache.fetch('active_thematic_categories', :expires_in =>24.hours) { active.thematic.all }
+  end
+
+  def self.cached_catalog_categories
+    Rails.cache.fetch('active_catalog_categories', :expires_in =>24.hours) { active.catalog.all }
+  end
+
+######################################################################
 
   def child_for_virtual
     Category.all(:conditions=>"virtual_id=#{id}")
@@ -117,9 +137,10 @@ class Category < ActiveRecord::Base
   end  
   
   def as_json options={}  
-    default_options = {:only => [:id, :name, :permalink, :parent_id], :methods => [:products_size]}
+    default_options = {:only => [:id, :name, :permalink, :parent_id], :methods => [:products_size, :cat_description]}
     super options.present? ?  options.merge(default_options) : default_options
   end
+
     
   ##############################################################################################
   ### methods below used for api
@@ -129,6 +150,10 @@ class Category < ActiveRecord::Base
  
   def products_size
     Rails.cache.fetch("category_#{self.id}.products_size", :expires_in =>1.hour){ Product.all_by_category(children_ids).size }
+  end
+
+  def cat_description
+    show_description? ? description : ""
   end
   ###############################################################################################
 private 
@@ -157,6 +182,10 @@ private
  def clear_cache
     unless @@disable_cache
       Rails.cache.delete('active_categories')
+      Rails.cache.delete('active_analog_categories')
+      Rails.cache.delete('active_thematic_categories')
+      Rails.cache.delete('active_virtual_categories')
+      Rails.cache.delete('active_catalog_categories')
       Rails.cache.delete('all_categories')    
     end
  end

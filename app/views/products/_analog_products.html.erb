@@ -1,6 +1,6 @@
 		<hr><p class="article_name_2">Аналогичные товары</p>
 		<div class="pict_float_2">
-		<% @product.analogs(3).each do |analog| -%>
+		<% @product.cached_analogs(3).each do |analog| -%>
 		<div class="article_img_2_float">
 		  <div class="article_img_2">
 		    <div class="article_img_3">

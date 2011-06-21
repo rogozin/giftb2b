@@ -25,13 +25,13 @@ class ForeignController < ApplicationController
   
   def thematic_tree
     @permalink = params[:selected]
-    @categories = Category.cached_active_categories.select{|cat| cat.kind==2}
+    @categories = Category.cached_thematic_categories
     render :layout => "single"
   end
   
   def analog_tree
     @permalink = params[:selected]  
-    @categories = Category.cached_active_categories.select{|cat| cat.kind==3}    
+    @categories = Category.cached_analog_categories
     render :layout => "single"
   end
   
@@ -51,6 +51,6 @@ private
   end
 
   def find_categories
-    @categories = Category.cached_active_categories.select{|cat| cat.kind==1} 
+    @categories = Category.cached_catalog_categories
   end
 end

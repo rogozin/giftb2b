@@ -22,4 +22,5 @@ class Api::ProductsController < Api::BaseController
     @product = Product.find(params[:id])
     respond_with(@product)
   end
+
 end

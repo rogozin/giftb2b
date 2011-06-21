@@ -1,12 +1,11 @@
-<%  @product.image_properties.group_by(&:property_name).each do |property_name, property_values|  -%>
+<%  @product.cached_color_variants.each do |property_name, products|  -%>
   <hr /><p class="article_name_2"><%= property_name %></p>
   <div class="pict_float_2">
-	  <% property_values.each do |article_value| -%>
+	  <% products.each do |p| -%>
     <div class="article_img_2_float">
        <div class="article_img_2">
           <div class="article_img_3">
-            <% p= Product.find_by_article(article_value.value) -%>
-            <%= link_to product_image(p), product_path(p), :title => p.short_name if p %>
+            <%= link_to product_image(p), product_path(p), :title => p.short_name  %>
           </div>
        </div>
     </div>

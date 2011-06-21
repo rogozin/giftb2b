@@ -1,6 +1,6 @@
 class Api::CategoriesController < Api::BaseController
   def index
-    @categories = Category.cached_active_categories.select{|cat| cat.kind==1}
+    @categories = Category.cached_catalog_categories
     respond_with(@categories)
   end
   
@@ -10,26 +10,17 @@ class Api::CategoriesController < Api::BaseController
   end
   
   def analogs
-    find_categories 3
+    @categories = Category.cached_analog_categories
     respond_with(@categories)        
   end
   
   def thematics
-    find_categories 2
+    @categories = Category.cached_thematic_categories
     respond_with(@categories)        
   end
   
   def virtuals
-     find_categories 0
+    @categories = Category.cached_virtual_categories
     respond_with(@categories)          
   end
-
-
-
-  private 
-  
-  def find_categories(kind)
-    @categories = Category.cached_active_categories.select{|cat| cat.kind == kind}     
-  end
-
 end
