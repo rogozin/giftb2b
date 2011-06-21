@@ -39,6 +39,21 @@ describe Product do
      search_result.last.should == p3
     end
   end
+
+  it 'Цветовые варинанты' do
+    pending
+  end
+
+  it 'color_variants never retun nil product' do
+    
+  end
+
+
+  it 'Аналогичные товары' do
+    pending
+  end  
+
+end
   
 end
 

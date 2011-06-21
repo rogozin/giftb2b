@@ -213,7 +213,7 @@ class Product < ActiveRecord::Base
   def color_variants
     res = {}
     image_properties.group_by(&:property_name).each do |property_name, property_values| 
-       res.merge!( property_name =>   property_values.map{|val| Product.find_by_article(val.value)} )
+       res.merge!( property_name =>   property_values.map{|val| Product.find_by_article(val.value)}.delete_if{|item| item.nil?} )
     end 
     res
   end
