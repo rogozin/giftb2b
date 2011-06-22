@@ -137,7 +137,7 @@ class Category < ActiveRecord::Base
   end  
   
   def as_json options={}  
-    default_options = {:only => [:id, :name, :permalink, :parent_id], :methods => [:products_size, :cat_description]}
+    default_options = {:only => [:id, :name, :permalink, :parent_id], :methods => ["products_size", "cat_description"]}
     super options.present? ?  options.merge(default_options) : default_options
   end
 

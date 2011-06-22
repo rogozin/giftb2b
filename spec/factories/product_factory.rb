@@ -40,3 +40,8 @@ Factory.define :category do |f|
   #f.permalink "podarki"
   f.active true
 end
+
+Factory.define :color_property, :class => Property do |f|
+  f.name "Цветовые варианты" 
+  f.property_type 3
+end

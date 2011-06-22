@@ -119,26 +119,14 @@ class Product < ActiveRecord::Base
    rescue
      0
    end
-   
-
-   def analogs(limit=0)
-    analogs = Product.joins(:categories).where("categories.id in (:category_ids) and product_id <> :product_id",
-                                               {:category_ids => Category.cached_analog_categories.map(&:id), :product_id => id})
-    analogs = analogs.limit(limit) if limit >0
-    analogs
-   end
-
-   def cached_analogs(limit=0)
-     Rails.cache.fetch("product_#{self.id}.analogs_#{limit}", :expires_in =>1.hour){ analogs(limit).all }
-   end
-   
+     
    def to_param
      self.permalink
    end
    
    def as_json(options={})
      default_options = { :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count, :updated_at], 
-     :methods=>[ :pictures, :similar, :colors, :unique_code, :price_in_rub ] }
+     :methods=>[ "pictures", "similar", "colors", "unique_code", "price_in_rub" ] }
      super options.present? ? options.merge(default_options) : default_options
    end
    
@@ -171,6 +159,10 @@ class Product < ActiveRecord::Base
          } 
     end
   end
+
+   def cached_analogs(limit=0)
+     Rails.cache.fetch("product_#{self.id}.analogs_#{limit}", :expires_in =>1.hour){ analogs(limit).all }
+   end
    
   def cached_attached_images
     Rails.cache.fetch("product_#{self.id}.attached_images", :expires_in =>1.hour){ attach_images.all }
@@ -209,6 +201,14 @@ class Product < ActiveRecord::Base
   def picture
     main_image.picture if main_image
   end
+
+
+   def analogs(limit=0)
+    analogs = Product.joins(:categories).where("categories.id in (:category_ids) and product_id <> :product_id",
+                                               {:category_ids => Category.cached_analog_categories.map(&:id), :product_id => id})
+    analogs = analogs.limit(limit) if limit >0
+    analogs
+   end
   
   def color_variants
     res = {}

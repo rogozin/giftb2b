@@ -1,6 +1,8 @@
 class Api::CategoriesController < Api::BaseController
   def index
     @categories = Category.cached_catalog_categories
+    
+    #puts request.headers
     respond_with(@categories)
   end
   
