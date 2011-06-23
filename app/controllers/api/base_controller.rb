@@ -15,7 +15,7 @@ class Api::BaseController < ActionController::Base
    #request.headers.each {|k,v| puts "#{k} = #{v}"}
    authenticate_or_request_with_http_token do |t,o|
       access = ForeignAccess.accepted_clients.select{|x| x.param_key == t}
-      @firm = access.first if access.present?
+      @firm = access.first.firm if access.present?
       access.present?
     end
    end
