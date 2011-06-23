@@ -73,6 +73,15 @@ describe 'api testing' do
       ActiveSupport::JSON.decode(response.body).first.last["short_name"].should == @product.short_name
     end
   end
+  
+  context 'order' do
+    it 'создание новго заказа' do
+      post 'api/orders', {:order => {:email => "demo@demo.ru", :comment => "Комментарий", :products => [:product => {:id => @product.id, :quantity => 1, :price => @product.price_in_rub }]}}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+      response.code.should eq("200")
+      LkOrder.all.should have(1).item
+      LkOrder.first.lk_order_items.should have(1).item
+    end
+  end
 
 
 
