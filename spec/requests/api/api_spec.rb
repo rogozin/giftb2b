@@ -12,11 +12,17 @@ describe 'api testing' do
       get 'api/categories', {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       response.code.should eq("200")
     end    
+
+    it 'С кривым токеном - 401 ошибка ' do    
+      get 'api/categories', {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=krivoy_token"}
+      response.code.should eq("401")
+    end    
     
     it 'Без токена - 401 ошибка' do
       get 'api/categories', {:format => :json}
       response.code.should eq("401")      
     end
+    
   end
 
   context 'categories_controller' do
@@ -64,7 +70,7 @@ describe 'api testing' do
 
     it 'show' do
       get "api/products/#{@product.permalink}", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
-      puts ActiveSupport::JSON.decode(response.body).first.last["short_name"].should == @product.short_name
+      ActiveSupport::JSON.decode(response.body).first.last["short_name"].should == @product.short_name
     end
   end
 

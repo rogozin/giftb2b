@@ -27,7 +27,7 @@
 <% @order.lk_order_logs.order("id desc").each do |log| -%>
   <tr>
     <td><%= I18n.l(log.created_at, :format => :long) %></td>
-    <td><%= log.user.username %></td>
+    <td><%= log.user.username if log.user  %></td>
     <td><%= log.status %></td>
   </tr>
 <% end -%>

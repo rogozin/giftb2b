@@ -1,7 +1,15 @@
-
+<div>
   <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @access_item} %>    
+</div>
+
 <div class="b-formfield-div">
-  <%= f.label :name, 'Название клиента' %>
+  <%= f.label :firm_id, 'Фирма' %>
+  <%= f.select :firm_id, options_from_collection_for_select(@firms, :id, :short_name, @access_item.firm_id), { :include_blank => true } %>
+</div>
+
+
+<div class="b-formfield-div">
+  <%= f.label :name, 'Название доступа' %>
   <%= f.text_field :name %>
 </div>
 <div class="b-formfield-div">

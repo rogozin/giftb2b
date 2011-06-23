@@ -16,7 +16,7 @@
     <td><%= item.lk_firm.name  if item.lk_firm %></td>
     <td><%= item.status %></td>
     <td><%= price_ru_label item.sum %></td>
-    <td><%= link_to image_tag('bin.png'), lk_orders_path(item), :method => :delete, :confirm => "Удалить заказ?" %></td>
+    <td><%= link_to image_tag('bin.png'), lk_order_path(item), :method => :delete, :confirm => "Удалить заказ?" %></td>
   </tr>
 <% end -%>
 </table>

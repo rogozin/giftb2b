@@ -1,11 +1,15 @@
 class Api::OrdersController < Api::BaseController
   
   def create
-    order = LkOrder.new(:user_comment => params[:email])
-    if order.save
-      render :json  => {:success => true}
+    order = LkOrder.new(:user_email => params[:order][:email], :user_comment => params[:order][:comments], :firm_id => @firm.id)            
+    if @firm && order.save
+      params[:order][:products].each do |item|
+        p = Product.find(item[:product][:id])
+        order.lk_order_items << LkOrderItem.create(:product => p,:quantity => item[:product][:quantity], :price => item[:product][:price])
+      end    
+      render :json  => { :success => true }
     else
-      remder :json => {:success => false}
+      render :json => { :success => false }
     end  
   end
   

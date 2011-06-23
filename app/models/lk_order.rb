@@ -1,5 +1,5 @@
 class LkOrder < ActiveRecord::Base
-  has_many :lk_order_items, :dependent => :delete_all
+  has_many :lk_order_items, :dependent => :destroy
   has_many :lk_order_logs
   belongs_to :firm
   belongs_to :lk_firm
