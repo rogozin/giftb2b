@@ -60,10 +60,15 @@ class Category < ActiveRecord::Base
 
 ######################################################################
 
+
   def child_for_virtual
     Category.all(:conditions=>"virtual_id=#{id}")
   end
-  
+
+  def self.catalog_tree(items=nil)
+    arr = items ||= Category.catalog.roots
+    arr.map{|x| {:id => x.id, :name => x.name, :permalink => x.permalink, :children => Category.tree(x.children)} }
+  end  
     
   def self.tree_nesting(categories, start, res=[])
     res.push start.id.to_i if start
