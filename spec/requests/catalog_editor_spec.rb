@@ -33,12 +33,20 @@ describe "ограничения  редактора каталога" do
     end
   
     it 'Редактор должен видеть только товары назначенного ему поставщика' do
-     page.should have_css('div.article', :count => 1)
+     page.should have_css("#product_#{@product.id}", :count => 1)
     end
   
     it 'Редактор не должен иметь возможность устанавливать фильтр по поставщику' do
       page.should have_no_content("Фильтр по поставщику")      
     end
+    
+    it 'Поиск выводит только товары назначенного поставщика' do
+      fill_in "request", :with => "product"
+      click_button "."
+      save_and_open_page
+      page.should have_no_selector "#product_#{@product2.id}"
+    end
+    
   end
   
   context 'В админке редактор каталога' do

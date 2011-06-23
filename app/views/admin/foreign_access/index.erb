@@ -8,6 +8,7 @@
     <table>
     <tr>
       <th></th>
+      <th>Фирма</th>
       <th>Название</th>
       <th>IP</th>
       <th>Ключ</th>      
@@ -18,6 +19,7 @@
     <% @catalog_clients.each do |cl| -%>
       <tr>
         <td><%= link_to image_tag("edit.png"), edit_admin_foreign_access_path(cl) %></td>
+        <td><%= cl.firm.short_name if cl.firm %></td>
         <td><%= cl.name %></td>
         <td><%= cl.ip_addr %></td>
         <td><%= cl.param_key %></td>

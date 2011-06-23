@@ -10,6 +10,7 @@ describe Product do
 #  it { should have(1).error_on(:article)}
 #  it { should have(1).error_on(:supplier_id)}
 
+
   context "filtering and searching" do
     before do
       Factory(:product, :short_name => "art12345", :active => false)      
@@ -35,6 +36,42 @@ describe Product do
      search_result.last.should == p3
     end
   end
+
+
+  context 'Цветовые варианты' do
+    before(:each) do
+      @property = Factory(:color_property)
+      @product = Factory(:product)
+      @product1= Factory(:product)
+      @property.property_values.create(:value => @product1.article )
+      @product.property_values << @property.property_values.first
+    end
+    
+    it 'Цветовые варинанты - это хэш' do
+      @product.color_variants.should be_a_kind_of(Hash)
+      @product.color_variants.should have_key(@property.name)
+      @product.color_variants[@property.name].first.should == @product1
+    end
+
+    it 'color_variants never retrun unknown article' do
+      @property.property_values.create(:value => "not_existed_article" )
+      @product.color_variants[@property.name].should have(1).item
+    end
+  end
+
+
+  context 'Аналогичные товары' do
+    before(:each) do
+      5.times { Factory(:product)}
+      @analog_category = Factory(:category, :name => "Аналоги", :kind => 3)
+      Product.all.each {|p| p.categories << @analog_category}
+    end
+    
+    it 'Аналогичные товары' do
+      Product.first.analogs.should have(4).items
+      Product.first.analogs.first.should be_a_kind_of(Product)
+    end  
   
+  end
 end
 

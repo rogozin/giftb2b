@@ -5,7 +5,7 @@ class Product < ActiveRecord::Base
   has_many :main_categories, :through => :product_categories, :source => :category, :conditions => "categories.kind=1"  
   belongs_to :manufactor
   belongs_to :supplier
-  has_many :attach_images, :as => :attachable, :dependent => :delete_all, :foreign_key => :attachable_id
+  has_many :attach_images, :as => :attachable, :dependent => :delete_all, :foreign_key => :attachable_id, :order => "main_img desc"
   has_many :images, :through => :attach_images
   has_many :product_properties, :class_name=>"ProductProperty", :dependent => :delete_all
   has_many :property_values, :through => :product_properties, :select => "property_values.*, properties.name property_name"
@@ -25,6 +25,9 @@ class Product < ActiveRecord::Base
   scope :novelty, where({:is_new => true})
   scope :sale, where({:is_sale => true})
   scope :active, where({:active => true})
+  scope :all_by_category, lambda { |category_ids|
+    joins(:product_categories).where("product_categories.category_id" => category_ids)
+  }
   validates :supplier_id, :presence => true
   validates :article, :presence => true
   validates_uniqueness_of :permalink, :allow_nil => true
@@ -116,22 +119,65 @@ class Product < ActiveRecord::Base
    rescue
      0
    end
-   
-   def analogs(limit=0)
-    analogs = Product.joins(:categories).where("categories.id in (:category_ids) and product_id <> :product_id", {:category_ids => analog_categories.map(&:id), :product_id => id})
-    analogs = analogs.limit(limit) if limit >0
-    analogs
-   end
-   
+     
    def to_param
      self.permalink
    end
    
    def as_json(options={})
-     default_options = {:only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count], 
-     :methods=>[:unique_code, :image_thumb, :image_orig, :price_in_rub]}
+     default_options = { :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count, :updated_at], 
+     :methods=>[ "pictures", "similar", "colors", "unique_code", "price_in_rub" ] }
      super options.present? ? options.merge(default_options) : default_options
    end
+   
+   #########################
+   ##API 
+   
+  def pictures 
+     res =  cached_attached_images.map do |attached_image|
+       {:orig => attached_image.image.picture.url, :thumb => attached_image.image.picture.url(:thumb)}
+     end
+     res = [{:orig => Image.default_image, :thumb => Image.default_image}] if res.empty?
+     res
+  end
+
+  def similar
+    cached_analogs(3).map do |analog|
+      { :permalink => analog.permalink, 
+        :thumb => 
+          analog.cached_attached_images.present? ? analog.cached_attached_images.first.image.picture.url(:thumb) : Image.default_image,
+        :short_name => analog.short_name
+      }
+    end                    
+  end
+
+  def colors
+    cached_color_variants.map do |property_name, products|
+         { :property_name =>property_name, :products => products.map{|p| {:permalink => p.permalink, 
+           :thumb => p.cached_attached_images.present? ? p.cached_attached_images.first.image.picture.url(:thumb) : Image.default_image,
+           :short_name =>  p.short_name } } 
+         } 
+    end
+  end
+
+   def cached_analogs(limit=0)
+     Rails.cache.fetch("product_#{self.id}.analogs_#{limit}", :expires_in =>1.hour){ analogs(limit).all }
+   end
+   
+  def cached_attached_images
+    Rails.cache.fetch("product_#{self.id}.attached_images", :expires_in =>1.hour){ attach_images.all }
+  end
+  
+  def cached_images
+    Rails.cache.fetch("product_#{self.id}.images", :expires_in =>1.hour){ images.all }
+  end
+
+  def cached_color_variants
+    Rails.cache.fetch("product_#{self.id}.color_variants", :expires_in =>1.hour){ color_variants }    
+  end
+
+   
+   ########################
 
    def update_permalink
      self.permalink = prepare_permalink
@@ -148,24 +194,34 @@ class Product < ActiveRecord::Base
 
    
    def main_image
-      main_img = attach_images.find_by_main_img(true)
-      main_img ? main_img.image : images.first
+      main_img = cached_attached_images.select{|x|x.main_img}.first
+      main_img ? main_img.image : cached_images.first
    end
   
   def picture
     main_image.picture if main_image
   end
+
+
+   def analogs(limit=0)
+    analogs = Product.joins(:categories).where("categories.id in (:category_ids) and product_id <> :product_id",
+                                               {:category_ids => Category.cached_analog_categories.map(&:id), :product_id => id})
+    analogs = analogs.limit(limit) if limit >0
+    analogs
+   end
   
-  
-  def image_thumb
-    picture ? picture.url(:thumb) : "images/default_image.jpg"
+  def color_variants
+    res = {}
+    image_properties.group_by(&:property_name).each do |property_name, property_values| 
+       res.merge!( property_name =>   property_values.map{|val| Product.find_by_article(val.value)}.delete_if{|item| item.nil?} )
+    end 
+    res
   end
-  
-  def image_orig
-    picture ? picture.url : ""
-  end
+
+
   
   private
+    
   def set_permalink
     if self.permalink.blank? 
       self.permalink = prepare_permalink

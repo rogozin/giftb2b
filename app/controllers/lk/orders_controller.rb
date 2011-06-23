@@ -46,6 +46,11 @@ class Lk::OrdersController < Lk::BaseController
     redirect_to edit_lk_order_path(@order)
   end
   
+  def destroy
+    flash[:notice] = "Заказ удален" if @order.destroy
+    redirect_to lk_orders_path
+  end
+  
   private
   
   def find_order

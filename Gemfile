@@ -5,7 +5,8 @@ source 'http://rubygems.org'
 gem 'rails', '=3.0.7'
 
 #source 'http://gemcutter.org'
-gem 'mysql'
+#gem 'mysql'
+gem "mysql2", "~> 0.2.7"
 gem 'russian'
 gem 'authlogic'
 gem 'jquery-rails', "~> 1.0"

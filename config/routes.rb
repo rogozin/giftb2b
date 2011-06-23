@@ -1,7 +1,5 @@
 Giftr3::Application.routes.draw do
 
-
-
   root :to => 'main#index'
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
@@ -36,6 +34,7 @@ Giftr3::Application.routes.draw do
     end
     resources :products, :only => [:index, :show]
     resources :search, :only => [:show]
+    resources :orders, :only => [:create]
     
   end
   
@@ -143,7 +142,7 @@ Giftr3::Application.routes.draw do
       end
     end
     resources :properties do  
-      resources :values
+      resources :values, :controller => "property_values"
     end
     resources :data_changes do
       collection do
