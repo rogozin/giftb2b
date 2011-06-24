@@ -1,6 +1,10 @@
 <p class="b-header"><span><strong>Каталог сувениров</strong></span></p> 
 <div style="margin-left:15px;">
-  <%= tree_ul(Category.cached_catalog_categories) do |item|
+   <%= tree_ul_from_hash(Category.cached_catalog_categories) do |item|  %>   
+   <% content_tag(:span, link_to(item[:name], category_path(item[:permalink]), :title => item[:name]), :id =>  "tree_item_#{item[:id]}",
+   :class=> treeview_selected(item[:permalink])) %>
+   <% end -%>
+  <%#= tree_ul(Category.cached_catalog_categories) do |item|
   content_tag(:span, link_to(item.name, category_path(item), :title => item.name), :id =>  "tree_item_#{item.id}",
    :class=> treeview_selected(item.permalink))
    end %>   

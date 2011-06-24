@@ -55,7 +55,7 @@ class Category < ActiveRecord::Base
   end
 
   def self.cached_catalog_categories
-    Rails.cache.fetch('active_catalog_categories', :expires_in =>24.hours) { active.catalog.all }
+    Rails.cache.fetch('active_catalog_categories', :expires_in =>24.hours) { Category.catalog_tree }
   end
 
 ######################################################################
@@ -67,7 +67,7 @@ class Category < ActiveRecord::Base
 
   def self.catalog_tree(items=nil)
     arr = items ||= Category.catalog.roots
-    arr.map{|x| {:id => x.id, :name => x.name, :permalink => x.permalink, :children => Category.tree(x.children)} }
+    arr.map{|x| {:id => x.id, :name => x.name, :permalink => x.permalink, :children => Category.catalog_tree(x.children)} }
   end  
     
   def self.tree_nesting(categories, start, res=[])

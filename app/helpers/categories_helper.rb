@@ -16,4 +16,15 @@ module CategoriesHelper
     raw res
   end
   
+  def tree_ul_from_hash(categories_hash, init=true, &block)
+    res = init ? "<ul class='treeview'>\n" : "<ul>\n"
+      categories_hash.each do |category|
+       res << "<li>"
+       res += block_given? ? yield(category) : category[:name]
+       res << tree_ul_from_hash(category[:children],false, &block) if category[:children].present?
+       res << "</li>\n"
+      end
+    res << "</ul>\n"
+    raw res  
+  end  
 end
