@@ -15,7 +15,6 @@
   })
 </script>
 
-
 <ul class="ul_v">
 <% Category.virtual.all.each do |cat| -%>
 <li class="li_v">
@@ -32,11 +31,9 @@
     <% end -%>
 	</ul>
 <%= content_tag(:span, "+", :class => "text_n_z") + link_to( "весь список", "#", :class=>"all-list") if Category.cached_active_categories.select{|c| c.virtual_id == cat.id}.size >5 %>
-
 	
 </div>  
 </li>
 <% end -%>
 </ul>
 <div class="clear"></div>
-

@@ -1,3 +1,4 @@
+<% cache('virtual_categories_output') do -%>
 <% Category.virtual.each do |cat| -%>
 <li class="li_v">
 <div class="article_z">
@@ -17,5 +18,4 @@
 </div>  
 </li>
 <% end -%>
-
-
+<% end -%>

@@ -5,7 +5,7 @@ class Admin::CategoriesController < Admin::BaseController
   end
   respond_to :html, :js
   before_filter :find_catalog_items, :only => [:catalog, :thematic, :analogs, :virtuals]
-  
+   cache_sweeper :categories_sweeper  
   def index
 
   end

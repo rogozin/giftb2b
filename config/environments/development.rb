@@ -6,14 +6,13 @@ Giftr3::Application.configure do
   # every request.  This slows down response time but is perfect for development
   # since you don't have to restart the webserver when you make code changes.
   config.cache_classes = false
-
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
   config.action_view.debug_rjs             = true
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
   config.cache_store = :dalli_store, '127.0.0.1:11222',  { :namespace => :gift_dev, :expires_in => 5.minutes}
   config.session_store :dalli_store, :memcache_server => '127.0.0.1:11222', :namespace => 'sessions', :key => '_giftr3_session', :expire_after => 180.minutes
   
