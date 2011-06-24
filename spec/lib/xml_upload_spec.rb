@@ -1,11 +1,12 @@
+#encoding: utf-8;
 require 'spec_helper'
 
 describe XmlUpload do
   context "Spec xml upload func" do
    before(:each) do
       @product = Factory.build(:product) 
-      @xmlfile=Tempfile.new("test_xml.xml") 
-      @xmlfile <<  XmlDownload.get_xml([@product], {})
+      @xmlfile=Tempfile.new("test_xml.xml",  :encoding => 'us-ascii') 
+      @xmlfile.write  XmlDownload.get_xml([@product], {})
       @xmlfile.close
     end
 
@@ -35,7 +36,7 @@ describe XmlUpload do
       @directory ||= XmlUpload.directories[:upload]
       @supplier_name = @product.supplier.name
       Dir.mkdir(@directory) unless File.exists?(@directory)
-      File.open(File.join(@directory, "#{@product.supplier.name}.xml"), "w+") do |file|
+      File.open(File.join(@directory, "#{@product.supplier.name}.xml"), "w+",  :encoding => 'us-ascii') do |file|
         file << XmlDownload.get_xml([@product], {})
       end
       @creation_time = Time.now

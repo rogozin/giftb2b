@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class LkOrderItem < ActiveRecord::Base
 
   belongs_to :lk_order

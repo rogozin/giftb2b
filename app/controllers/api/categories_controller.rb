@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Api::CategoriesController < Api::BaseController
   def index
     @categories = Category.cached_catalog_categories

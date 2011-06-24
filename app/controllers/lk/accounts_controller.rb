@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Lk::AccountsController < Lk::BaseController
   access_control do
      allow :Администратор, "Менеджер фирмы"

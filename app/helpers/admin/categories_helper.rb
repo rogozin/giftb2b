@@ -1,3 +1,4 @@
+#encoding: utf-8;
 module Admin::CategoriesHelper
  def category_tree_table(acts_as_tree_set, init=true,level=0, &block)
    @cached_categories = Category.cached_all_categories

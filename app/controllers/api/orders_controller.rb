@@ -1,7 +1,8 @@
+#encoding: utf-8;
 class Api::OrdersController < Api::BaseController
   
   def create
-    order = LkOrder.new(:user_email => params[:order][:email], :user_comment => params[:order][:comments], :firm_id => @firm.id)            
+    order = LkOrder.new(:user_email => params[:order][:email], :user_comment => params[:order][:comments], :firm_id => @firm[:id])            
     if @firm && order.save
       params[:order][:products].each do |item|
         p = Product.find(item[:product][:id])

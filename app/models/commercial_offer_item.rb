@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class CommercialOfferItem < ActiveRecord::Base
   belongs_to :commercial_offer
   belongs_to :lk_product

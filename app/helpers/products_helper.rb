@@ -1,3 +1,4 @@
+#encoding: utf-8;
 module ProductsHelper
     def product_price(product)
       price_ru_label(product.price_in_rub)

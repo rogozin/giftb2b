@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class ForeignAccess < ActiveRecord::Base
   belongs_to :firm
   before_save :clear_cache

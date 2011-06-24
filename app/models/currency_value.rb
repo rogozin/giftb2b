@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class CurrencyValue < ActiveRecord::Base
   validates_uniqueness_of :dt
   after_save  :clear_cache

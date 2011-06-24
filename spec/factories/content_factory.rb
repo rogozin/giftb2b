@@ -1,3 +1,4 @@
+#encoding: utf-8;
 Factory.sequence :content_seq do |n|
     n.to_s 
   end

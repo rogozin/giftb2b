@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class LkFirm < ActiveRecord::Base
   has_many :commercial_offers, :dependent => :restrict
   default_scope :order => "name"

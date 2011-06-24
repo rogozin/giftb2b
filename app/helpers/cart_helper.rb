@@ -1,3 +1,4 @@
+#encoding: utf-8;
 module CartHelper
    def my_cart
     session[:cart]

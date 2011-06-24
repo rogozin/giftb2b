@@ -1,3 +1,4 @@
+#encoding: utf-8;
 Factory.define :admin, :class => User do |record|    
   record.username "administrator"
   record.email "admin@whatever.com"

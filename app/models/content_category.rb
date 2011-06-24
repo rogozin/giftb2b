@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class ContentCategory < ActiveRecord::Base
   validates :name, :presence => true,  :length => { :maximum => 255 }  
   validates :permalink,  :length => { :maximum => 255 }, :uniqueness => true

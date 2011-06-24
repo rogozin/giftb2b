@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Firm < ActiveRecord::Base
   has_many :attach_images, :as => :attachable, :dependent => :destroy, :foreign_key => :attachable_id
   has_many :images, :through => :attach_images

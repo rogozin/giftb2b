@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Admin::ImagesController < Admin::BaseController
 
   access_control do

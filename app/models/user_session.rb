@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class UserSession < Authlogic::Session::Base
   #before_validation :check_if_expired
 
@@ -11,6 +12,6 @@ class UserSession < Authlogic::Session::Base
 
   def to_key
     res = []
-    res<< self.id
+    res<< id
   end
 end

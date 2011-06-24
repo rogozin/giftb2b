@@ -1,3 +1,4 @@
+#encoding: utf-8;
 module LkHelper
   def render_lk_menu
     res = ""

@@ -1,3 +1,4 @@
+#encoding: utf-8;
 Giftr3::Application.routes.draw do
 
   root :to => 'main#index'

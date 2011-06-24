@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class FirmMailer < ActionMailer::Base
   default :from => "notification@giftb2b.ru"
   

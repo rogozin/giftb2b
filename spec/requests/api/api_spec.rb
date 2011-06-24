@@ -1,9 +1,11 @@
+#encoding: utf-8;
 require 'spec_helper'
 
 describe 'api testing' do
   before(:each) do    
     @product = Factory(:product)
-    @token = Factory(:foreign_access).param_key
+    @foreign_access = Factory(:foreign_access, :firm => Factory(:firm))    
+    @token = @foreign_access.param_key
   end  
 
 

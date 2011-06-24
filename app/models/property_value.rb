@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class PropertyValue < ActiveRecord::Base
   belongs_to :property
   has_many :product_properties

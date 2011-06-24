@@ -1,3 +1,4 @@
+#encoding: utf-8;
 Factory.sequence :token_seq do |n|
   "token #{n}"
 end

@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Product < ActiveRecord::Base
   has_many :product_categories, :dependent => :delete_all
   has_many :categories, :through => :product_categories
@@ -161,19 +162,19 @@ class Product < ActiveRecord::Base
   end
 
    def cached_analogs(limit=0)
-     Rails.cache.fetch("product_#{self.id}.analogs_#{limit}", :expires_in =>1.hour){ analogs(limit).all }
+     Rails.cache.fetch("product_#{self[:id]}.analogs_#{limit}", :expires_in =>1.hour){ analogs(limit).all }
    end
    
   def cached_attached_images
-    Rails.cache.fetch("product_#{self.id}.attached_images", :expires_in =>1.hour){ attach_images.all }
+    Rails.cache.fetch("product_#{self[:id]}.attached_images", :expires_in =>1.hour){ attach_images.all }
   end
   
   def cached_images
-    Rails.cache.fetch("product_#{self.id}.images", :expires_in =>1.hour){ images.all }
+    Rails.cache.fetch("product_#{self[:id]}.images", :expires_in =>1.hour){ images.all }
   end
 
   def cached_color_variants
-    Rails.cache.fetch("product_#{self.id}.color_variants", :expires_in =>1.hour){ color_variants }    
+    Rails.cache.fetch("product_#{self[:id]}.color_variants", :expires_in =>1.hour){ color_variants }    
   end
 
    
@@ -188,7 +189,7 @@ class Product < ActiveRecord::Base
    end
    
    def unique_code
-    ind = self.id.blank? ? Product.maximum(:id)+1 : self.id
+    ind = self.id.blank? ? Product.maximum(:id)+1 : id
     ind.to_s.rjust(6,'0')
    end
 
@@ -205,7 +206,7 @@ class Product < ActiveRecord::Base
 
    def analogs(limit=0)
     analogs = Product.joins(:categories).where("categories.id in (:category_ids) and product_id <> :product_id",
-                                               {:category_ids => Category.cached_analog_categories.map(&:id), :product_id => id})
+                                               {:category_ids => Category.cached_analog_categories.map{|x| x[:id]}, :product_id => self[:id]})
     analogs = analogs.limit(limit) if limit >0
     analogs
    end

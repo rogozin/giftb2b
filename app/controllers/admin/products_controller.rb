@@ -1,3 +1,4 @@
+#encoding: utf-8;
 require 'xml_download'
 
 class Admin::ProductsController < Admin::BaseController

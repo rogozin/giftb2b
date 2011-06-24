@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class User < ActiveRecord::Base
   has_many :lk_orders
   acts_as_authentic

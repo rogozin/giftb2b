@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class LkOrderLog < ActiveRecord::Base
   belongs_to :user
   belongs_to :lk_order

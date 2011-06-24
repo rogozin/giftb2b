@@ -1,3 +1,4 @@
+#encoding: utf-8;
 require 'cart'
 require 'cart_item'
 require 'product'

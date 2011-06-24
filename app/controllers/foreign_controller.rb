@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class ForeignController < ApplicationController
  before_filter :check_acccess
  before_filter :find_categories, :except => [:thematic_tree, :analog_tree, :search, :virtual]

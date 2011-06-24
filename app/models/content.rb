@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Content < ActiveRecord::Base
   validates :title, :presence => true,  :length => { :maximum => 255 }  
   validates :permalink,  :length => { :maximum => 255 }, :uniqueness => true

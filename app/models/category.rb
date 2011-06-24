@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Category < ActiveRecord::Base
   acts_as_tree :order => "sort_order,name"
   has_many :products, :through => :product_category
@@ -154,7 +155,7 @@ class Category < ActiveRecord::Base
   end
  
   def products_size
-    Rails.cache.fetch("category_#{self.id}.products_size", :expires_in =>1.hour){ Product.all_by_category(children_ids).size }
+    Rails.cache.fetch("category_#{id}.products_size", :expires_in =>1.hour){ Product.all_by_category(children_ids).size }
   end
 
   def cat_description

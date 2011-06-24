@@ -1,4 +1,4 @@
-#require 'nokogiri'
+#encoding: utf-8;
 require 'open-uri'
 
 module XmlDownload
@@ -88,7 +88,7 @@ module XmlDownload
   end
   
   def save_to_file
-    f=File.new(File.join(Rails.root,'xml_download.xml'),'w')
+    f=File.new(File.join(Rails.root,'xml_download.xml'),'w',  :encoding => 'us-ascii')
     f<< get_xml
     f.close
   end

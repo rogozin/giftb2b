@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Lk::UserOrdersController < Lk::BaseController
   access_control do
      allow "Пользователь"

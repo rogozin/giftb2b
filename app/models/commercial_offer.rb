@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class CommercialOffer < ActiveRecord::Base
   has_many :commercial_offer_items, :dependent => :destroy
   has_many :lk_products, :through => :commercial_offer_items

@@ -1,3 +1,4 @@
+#encoding: utf-8;
 require "excel.rb"
 class Lk::CommercialOffersController < Lk::BaseController
   access_control do

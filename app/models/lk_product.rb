@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class LkProduct < ActiveRecord::Base
   has_many :commercial_offer_items
   belongs_to :product

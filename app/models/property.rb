@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Property < ActiveRecord::Base
   has_many :property_values, :dependent => :delete_all
   has_many :property_category, :dependent => :delete_all

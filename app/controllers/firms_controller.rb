@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class FirmsController < ApplicationController
 
   def index

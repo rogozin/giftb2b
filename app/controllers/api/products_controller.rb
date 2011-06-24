@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Api::ProductsController < Api::BaseController
   
   def index

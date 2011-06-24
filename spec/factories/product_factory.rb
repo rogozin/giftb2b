@@ -1,3 +1,4 @@
+#encoding: utf-8;
 Factory.sequence :article_seq do |n|
    "000#{n}"
 end

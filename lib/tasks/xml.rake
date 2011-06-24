@@ -1,3 +1,4 @@
+#encoding: utf-8;
 namespace :xml do
   desc "Upload all xml files in tmp/xmlupload directory. The name of file should be like supplier name in DB"  
   task :upload => :environment do

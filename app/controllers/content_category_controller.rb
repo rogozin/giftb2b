@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class ContentCategoryController < ApplicationController
 
   def show

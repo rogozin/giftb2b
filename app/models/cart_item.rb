@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class CartItem
   attr_reader :product, :quantity,:sale,:start_price
   

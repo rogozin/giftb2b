@@ -1,3 +1,4 @@
+#encoding: utf-8;
 module Admin::BaseHelper
 
    # Make an admin tab that coveres one or more resources supplied by symbols

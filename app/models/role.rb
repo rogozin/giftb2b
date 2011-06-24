@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Role < ActiveRecord::Base
   validates_uniqueness_of :name, :allow_nil => false, :allow_blank => false
   validates_presence_of :name

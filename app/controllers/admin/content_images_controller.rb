@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class Admin::ContentImagesController < Admin::BaseController
   access_control do
      allow :Администратор, "Редактор контента"

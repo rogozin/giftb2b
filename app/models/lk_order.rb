@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class LkOrder < ActiveRecord::Base
   has_many :lk_order_items, :dependent => :destroy
   has_many :lk_order_logs

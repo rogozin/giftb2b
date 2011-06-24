@@ -1,3 +1,4 @@
+#encoding: utf-8;
 module Admin::ProductsHelper
   def color_stroe_count(cnt)
   if cnt > 0 

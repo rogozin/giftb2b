@@ -1,3 +1,4 @@
+#encoding: utf-8;
 class BackgroundWorker < ActiveRecord::Base
 validates :current_status, :inclusion => {:in => %w( preparation working finish failed ) }
 before_validation :init

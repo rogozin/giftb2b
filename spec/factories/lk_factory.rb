@@ -1,3 +1,4 @@
+#encoding: utf-8;
 Factory.define :lk_order do |f|
   f.association :firm
   f.after_build { |order| order.lk_order_items << Factory(:lk_order_item) }

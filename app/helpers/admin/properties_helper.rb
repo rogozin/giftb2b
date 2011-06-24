@@ -1,3 +1,4 @@
+#encoding: utf-8;
 module Admin::PropertiesHelper
 
 def prop_list_for_categories(category_ids)

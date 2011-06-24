@@ -1,3 +1,4 @@
+#encoding: utf-8;
 require 'spec_helper'
 
 describe "Работа обычного пользователя" do 
@@ -23,7 +24,7 @@ describe "Работа обычного пользователя" do
     
   it 'я могу добавить товар в корзину', :js => true do
     visit "/"
-    within "ul.treeview" do
+    within "ul.treeview span" do
       click_link @product.categories.first.name
     end
     within "#product_#{@product.id}" do
@@ -39,9 +40,9 @@ describe "Работа обычного пользователя" do
       click_link "Добавить в корзину"
       visit cart_index_path
       click_link "Оформить заказ"
+      save_and_open_page
       select @firm.short_name, :from => "lk_order_firm_id"
       fill_in "Комментарий", :with => "Примечание к заказу"
-      save_and_open_page
       click_button "Оформить"
       page.should have_content "Заказ оформлен!"  
       within "#cart" do
