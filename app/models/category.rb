@@ -43,19 +43,19 @@ class Category < ActiveRecord::Base
   end
 
   def self.cached_virtual_categories 
-    Rails.cache.fetch('active_virtual_categories', :expires_in =>24.hours) { active.virtual.all }
+    Rails.cache.fetch('active_virtual_categories', :expires_in =>24.hours) { catalog_tree( active.virtual ) }
   end
 
   def self.cached_analog_categories 
-    Rails.cache.fetch('active_analog_categories', :expires_in =>24.hours) { active.analog.all }
+    Rails.cache.fetch('active_analog_categories', :expires_in =>24.hours) { catalog_tree( active.analog ) }
   end
 
   def self.cached_thematic_categories 
-    Rails.cache.fetch('active_thematic_categories', :expires_in =>24.hours) { active.thematic.all }
+    Rails.cache.fetch('active_thematic_categories', :expires_in =>24.hours) {catalog_tree( active.thematic ) }
   end
 
   def self.cached_catalog_categories
-    Rails.cache.fetch('active_catalog_categories', :expires_in =>24.hours) { Category.catalog_tree }
+    Rails.cache.fetch('active_catalog_categories', :expires_in =>24.hours) { catalog_tree( active.catalog ) }
   end
 
 ######################################################################
@@ -65,9 +65,9 @@ class Category < ActiveRecord::Base
     Category.all(:conditions=>"virtual_id=#{id}")
   end
 
-  def self.catalog_tree(items=nil)
-    arr = items ||= Category.catalog.roots
-    arr.map{|x| {:id => x.id, :name => x.name, :permalink => x.permalink, :children => Category.catalog_tree(x.children)} }
+  def self.catalog_tree(act_as_tree_set,init=true)
+    arr = init ? act_as_tree_set.roots : act_as_tree_set
+    arr.map{|x| {:id => x.id, :name => x.name, :permalink => x.permalink, :children => Category.catalog_tree(x.children,false)} }
   end  
     
   def self.tree_nesting(categories, start, res=[])

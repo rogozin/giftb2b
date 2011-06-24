@@ -1,6 +1,9 @@
 <p class="b-header"><span><strong>Тематические сувениры</strong></span></p> 
         <div style="margin-left:15px;">
-  <%= tree_ul(@categories) do|item|
-   content_tag(:span,link_to(item.name,   foreign_path(item)+ '.html'), :id => "tree_item_#{item.id}", :class => (defined?(@permalink) and @permalink==item.permalink) ? "selected"  : nil )
-   end %>   
+  <%= tree_ul_from_hash(@categories) do |item|  %>   
+    <% content_tag(:span, link_to(item[:name], foreign_path(item[:permalink])+ '.html',
+                                 :title => item[:name],
+                                 :id => "tree_item_#{item[:id]}"), 
+                                 :class => (defined?(@permalink) and @permalink==item[:permalink]) ? "selected"  : nil ) %>
+   <% end -%>           
         </div>
