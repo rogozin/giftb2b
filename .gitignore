@@ -7,5 +7,6 @@ tmp/**/*
 tmp/*
 my_engine/*
 config/database.yml
+config/unicorn.rb
 Gemfile.lock
 public/system
