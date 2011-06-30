@@ -48,7 +48,7 @@ class ForeignController < ApplicationController
 
 private
   def check_acccess 
-    render :text=>"", :layout => "access_denied" unless ForeignAccess.accepted_clients.map(&:ip_addr).include? request.remote_addr
+    render :text=>"", :layout => "access_denied" unless ForeignAccess.accepted_clients.map(&:ip_addr).include? request.remote_ip
   end
 
   def find_categories
