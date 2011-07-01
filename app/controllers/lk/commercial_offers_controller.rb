@@ -25,7 +25,7 @@ class Lk::CommercialOffersController < Lk::BaseController
     respond_to do |format|
     format.html {render  :layout => 'pdf'}
     format.xls { 
-       send_data(export_commercial_offer(@commercial_offer), :type => :xls, :filename => "commercial_offer_#{@commercial_offer.id}.xls")
+       send_data(export_commercial_offer_with_pictures(@commercial_offer), :type => :xls, :filename => "commercial_offer_#{@commercial_offer.id}.xls")
        }
    end
   end
