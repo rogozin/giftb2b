@@ -7,6 +7,10 @@ before_validation :init
     self.update_attributes({:current_status => "failed", :log_errors => message})
   end
   
+  def self.clear
+    where(:current_status => [:preparation, :working]).delete_all
+  end
+  
   private
   
   def init
