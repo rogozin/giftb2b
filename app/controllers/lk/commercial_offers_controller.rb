@@ -1,5 +1,5 @@
 #encoding: utf-8;
-require "excel.rb"
+require "excel"
 class Lk::CommercialOffersController < Lk::BaseController
   access_control do
      allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
