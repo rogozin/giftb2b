@@ -53,7 +53,7 @@ Factory.define :role_content_editor, :class => Role do |f|
 end
 
 Factory.define :role_samples, :class => Role do |f|
-  f.name "Образцы"
+  f.name "Учет образцов"
   f.group 0
 end
 

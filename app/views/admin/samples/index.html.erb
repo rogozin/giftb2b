@@ -1,0 +1,35 @@
+<% title "Учет образцов" -%>
+
+<div class="b-command-menu">
+  <%= link_to "Новая запись", new_admin_sample_path %>
+</div>
+
+<div id="samples_list">
+<table>
+<tr>
+  <th>Название</th>
+  <th>Поставщик</th>
+  <th>Цена</th>
+  <th>Дата покупки</th>
+  <th>Срок до</th>
+  <th>Клиент</th>
+  <th>Сумма</th>
+  <th>Дата продажи</th>
+  <th>Срок до</th>
+</tr>
+<% @samples.each do |item| -%>
+  <tr>
+    <td><%= item.name %></td>
+    <td><%= item.supplier.name %></td>
+    <td><%= item.buy_price %></td>
+    <td><%= item.buy_date %></td>
+    <td><%= item.supplier_return_date %></td>
+    <td><%= item.firm.short_name %></td>
+    <td><%= item.sale_price %></td>
+    <td><%= item.sale_date %></td>
+    <td><%= item.client_return_date %></td>
+  </tr>
+<% end -%>
+</table>
+
+</div>
