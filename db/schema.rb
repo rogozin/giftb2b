@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110623034419) do
+ActiveRecord::Schema.define(:version => 20110706033330) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -317,6 +317,21 @@ ActiveRecord::Schema.define(:version => 20110623034419) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "user_id"
     t.integer "role_id"
+  end
+
+  create_table "samples", :force => true do |t|
+    t.string   "name"
+    t.integer  "supplier_id"
+    t.decimal  "buy_price",            :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "sale_price",           :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "firm_id"
+    t.date     "buy_date"
+    t.date     "sale_date"
+    t.date     "supplier_return_date"
+    t.date     "client_return_date"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "suppliers", :force => true do |t|

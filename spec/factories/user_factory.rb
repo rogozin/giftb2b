@@ -1,31 +1,4 @@
 #encoding: utf-8;
-Factory.define :admin, :class => User do |record|    
-  record.username "administrator"
-  record.email "admin@whatever.com"
-  record.password "admin"
-  record.password_confirmation {|p| p.password }
-  record.active true
-  record.role_objects {|role|  [role.association(:role_admin)]}
-end
-
-Factory.define :catalog_editor, :class => User do |record|    
-  record.username "editor"
-  record.email "editor@whatever.com"
-  record.password "editor"
-  record.password_confirmation {|p| p.password }
-  record.active true
-  record.role_objects {|role|  [role.association(:role_catalog_editor)]}
-end
-
-Factory.define :firm_manager, :class => User do |record|    
-  record.username "firm_manager"
-  record.email "firm_manager@whatever.com"
-  record.password "firm_manager"
-  record.password_confirmation {|p| p.password }
-  record.active true
-  record.role_objects {|role|  [role.association(:role_firm_manager)]}
-end
-
 Factory.define :user, :class => User do |record|    
   record.username "user"
   record.email "user@whatever.com"
@@ -33,6 +6,30 @@ Factory.define :user, :class => User do |record|
   record.password_confirmation {|p| p.password }
   record.active true
   record.role_objects {|role|  [role.association(:role_user)]}
+end
+
+Factory.define :admin, :class => User, :parent => :user do |record|    
+  record.username "administrator"
+  record.email "admin@whatever.com"
+  record.role_objects {|role|  [role.association(:role_admin)]}
+end
+
+Factory.define :catalog_editor, :class => User, :parent => :user do |record|    
+  record.username "editor"
+  record.email "editor@whatever.com"
+  record.role_objects {|role|  [role.association(:role_catalog_editor)]}
+end
+
+Factory.define :firm_manager, :class => User, :parent => :user do |record|    
+  record.username "firm_manager"
+  record.email "firm_manager@whatever.com"
+  record.role_objects {|role|  [role.association(:role_firm_manager)]}
+end
+
+Factory.define :sample_manager, :class => User, :parent => :user do |record|    
+  record.username "sampler"
+  record.email "user@whatever.com"
+  record.role_objects {|role|  [role.association(:role_samples)]}
 end
 
 Factory.define :content_editor, :parent => :catalog_editor, :class => User do |record|    
@@ -52,6 +49,11 @@ end
 
 Factory.define :role_content_editor, :class => Role do |f|
   f.name "Редактор контента"
+  f.group 0
+end
+
+Factory.define :role_samples, :class => Role do |f|
+  f.name "Образцы"
   f.group 0
 end
 
