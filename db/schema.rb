@@ -283,6 +283,7 @@ ActiveRecord::Schema.define(:version => 20110706033330) do
 
   add_index "products", ["best_price"], :name => "index_products_on_best_price"
   add_index "products", ["permalink"], :name => "index_products_on_permalink", :unique => true
+  add_index "products", ["supplier_id", "manufactor_id", "article", "short_name", "active", "is_new", "is_sale", "currency_type", "sort_order"], :name => "index_product_on_suppliers", :unique => true
 
   create_table "properties", :force => true do |t|
     t.string   "name",          :limit => 40
