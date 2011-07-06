@@ -48,7 +48,7 @@ Giftr3::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
   
-  config.cache_store = :dalli_store, '127.0.0.1',  { :namespace => Giftr3, :expires_in => 1.day}
-  config.session_store :dalli_store, :namespace => 'sessions', :key => '_giftr3_session', :expire_after => 180.minutes
+  #config.cache_store = :dalli_store, '127.0.0.1',  { :namespace => :proba, :expires_in => 1.day}
+  #config.session_store :dalli_store, :namespace => 'sessions', :key => '_proba_session', :expire_after => 180.minutes
   Paperclip.options[:command_path] = '/usr/bin/'
 end
