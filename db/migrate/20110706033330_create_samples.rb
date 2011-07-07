@@ -15,7 +15,8 @@ class CreateSamples < ActiveRecord::Migration
       t.timestamps
     end
     
-    Factory(:role_samples) unless Role.where(:name => "Учет образцов").exists?
+   # Factory(:role_samples) unless Role.where(:name => "Учет образцов").exists?
+    Role.create(:name => "Учет образцов", :group => 0)
   end
 
   def self.down
