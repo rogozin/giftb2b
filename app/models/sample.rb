@@ -15,10 +15,10 @@ class Sample < ActiveRecord::Base
   private
   
   def sale_date_validation
-    errors.add(:sale_date, "Не может быть меньше даты покупки") if sale_date && buy_date && sale_date < buy_date
+    errors.add(:sale_date, "не может быть меньше даты покупки") if sale_date && buy_date && sale_date < buy_date
   end
   
   def client_return_date_validation
-    errors.add(:client_return_date, "Не может быть больше даты возврата поставщику") if client_return_date && supplier_return_date && client_return_date > supplier_return_date
+    errors.add(:client_return_date, "не может быть больше даты возврата поставщику") if client_return_date && supplier_return_date && client_return_date > supplier_return_date
   end
 end

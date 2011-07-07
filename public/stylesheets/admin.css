@@ -202,8 +202,9 @@ a img {border:0 none;}
     margin-bottom: 10px;
 }
 
-.fieldWithErrors
+.fieldWithErrors, .field_with_errors
 {
+    display:inline;
     background-color:  #fedada;
     padding: 1px 1px 4px 1px;
 }

@@ -32,8 +32,16 @@
   <h3>Информация о клиенте:</h3>
     <div class="one_line_form">
   <div class="b-formfield-div">
-    <%= f.label :firm_id, "Клиент" %>
-    <%= f.select :firm_id, options_from_collection_for_select(@firms, 'id', 'name') %>
+    <%= f.label :firm_id, "Клиент" %>   
+    <%= link_to image_tag("add.png"), new_admin_firm_path(:back_url => request.path), :id => "add_firm_link", :title => "Добвить нового клиента" %> 
+    <%= link_to image_tag("edit.png"), edit_admin_firm_path(@firms.first.id, :back_url => request.path), :id => "edit_firm_link", :title => "Редактировать информацию о клиенте" if @firms.present? %>    
+    <%= f.select :firm_id, options_from_collection_for_select(@firms, 'id', 'short_name') %>
+    <script type="text/javascript">
+    $('#sample_firm_id').change(
+      function(){
+        $('#edit_firm_link').attr('href','/admin/firms/'+this.value + "/edit?back_url=<%= request.path %>");
+      });
+    </script>      
   </div>
   <div class="b-formfield-div">
     <%= f.label :sale_date, "Дата продажи" %>

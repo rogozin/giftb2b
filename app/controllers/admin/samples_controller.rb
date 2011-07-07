@@ -1,14 +1,20 @@
 #encoding: utf-8;
 class Admin::SamplesController < Admin::BaseController
   before_filter :find_sample, :only => [:edit, :update, :destroy]
-  before_filter :prepare_collections, :only => [:new,:edit, :create, :update]
+  before_filter :prepare_collections, :only => [:index,:new,:edit, :create, :update]
   
   access_control do
      allow :Администратор, "Учет образцов"
   end
   
   def index
-    @samples = Sample.order("id desc")
+    params[:page] ||=1
+    #@samples = Sample.order("id desc").paginate(:page => params[:page])
+    @samples = Sample.scoped
+    @samples = @samples.where(:supplier_id => params[:supplier]) if params[:supplier].present?
+    @samples = @samples.where(:firm_id => params[:client]) if params[:client].present?
+    @samples = @samples.where("name like :name", :name  => "%"+params[:name]+"%") if params[:name].present?    
+    @samples = @samples.order("id desc").paginate(:page => params[:page])
   end
 
   def new

@@ -1,11 +1,16 @@
 #encoding: utf-8;
+Factory.sequence :user_seq do |n|
+  "User_#{n}"
+end
+
 Factory.define :user, :class => User do |record|    
-  record.username "user"
-  record.email "user@whatever.com"
+  record.username { Factory.next(:user_seq) }
+  record.email {"#{Factory.next(:user_seq)}@email.com"}
   record.password "user"
   record.password_confirmation {|p| p.password }
   record.active true
-  record.role_objects {|role|  [role.association(:role_user)]}
+  #record.role_objects {|role|  [role.association(:role_user)]}
+  record.after_create { |user| add_role(user,:role_user) }  
 end
 
 Factory.define :admin, :class => User, :parent => :user do |record|    
@@ -15,27 +20,26 @@ Factory.define :admin, :class => User, :parent => :user do |record|
 end
 
 Factory.define :catalog_editor, :class => User, :parent => :user do |record|    
-  record.username "editor"
-  record.email "editor@whatever.com"
   record.role_objects {|role|  [role.association(:role_catalog_editor)]}
 end
 
 Factory.define :firm_manager, :class => User, :parent => :user do |record|    
-  record.username "firm_manager"
-  record.email "firm_manager@whatever.com"
   record.role_objects {|role|  [role.association(:role_firm_manager)]}
 end
 
 Factory.define :sample_manager, :class => User, :parent => :user do |record|    
-  record.username "sampler"
-  record.email "user@whatever.com"
-  record.role_objects {|role|  [role.association(:role_samples)]}
+  record.after_create { |user| add_role(user,:role_samples) }
 end
 
 Factory.define :content_editor, :parent => :catalog_editor, :class => User do |record|    
   record.role_objects {|role|  [role.association(:role_content_editor)]}
 end
 
+def add_role(user, factory_name)
+ r = Factory.build(factory_name)
+ #Factory(factory_name) unless Role.where(:name => r.name).exists?
+ user.has_role!(r.name)
+end
 
 Factory.define :role_admin, :class => Role do |f|
   f.name "Администратор"
