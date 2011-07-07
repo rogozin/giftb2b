@@ -44,13 +44,12 @@
       <% if current_user.has_role?(:Администратор) || current_user.has_role?("Редактор каталога")  %>
         <%= tab :categories, :route => :catalog_admin_categories, :label=>'Категории' %>
         <%= tab :products, :label=>'Товары'  %>      
-        <%= tab :properties, :label=>'Свойства' %>              
         <%= tab :url => all_admin_images_path, :label => 'Изображения', :match_path => "/images" %>
       <% end -%>
         <%= tab :accounts, :label=>'Пользователи' if current_user.has_role?(:Администратор) || current_user.has_role?("Менеджер продаж")   %>      
         <%= tab :contents, :label=>'Контент' if current_user.has_role?(:Администратор) || current_user.has_role?("Редактор контента")   %>      
-        <%= tab :data_changes, :label=> 'Обмен данными' if current_user.has_role?(:Администратор)  %>
-        <%= tab :foreign_access_index, :label=> 'Доступ к каталогу',:css_class => 'last' if current_user.has_role?(:Администратор) || current_user.has_role?("Менеджер продаж")  %>        
+        <%= tab :data_changes, :label=> 'Обмен данными' if current_user.has_role?(:Администратор)  %>        
+        <%= tab :samples, :label=> 'Образцы' if current_user.has_role?(:Администратор) || current_user.has_role?("Учет образцов")  %>        
       </ul>
       <br class="clr" />
     </div>

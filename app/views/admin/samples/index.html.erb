@@ -1,0 +1,52 @@
+<% title "Учет образцов" -%>
+
+<div id="filter">
+<%= form_tag "/admin/samples", :method => :get do -%>
+<%= text_field_tag :name, params[:name], :placeholder => "Название" %>
+<%= select_tag :supplier, options_from_collection_for_select(@suppliers, 'id', 'name', params[:supplier]), :include_blank => "<= Поставщик =>" %>
+<%= select_tag :client, options_from_collection_for_select(@firms, 'id', 'short_name', params[:client]), :include_blank => "<= Клиент =>" %>
+<%= submit_tag "Применить", :name => nil %>
+<% end -%>
+</div>
+
+<div class="b-command-menu">
+  <%= link_to "Новая запись", new_admin_sample_path %>
+</div>
+
+<div id="samples_list">
+<table>
+<tr>
+  <th></th>
+  <th>#</th>
+  <th>Название</th>
+  <th>Поставщик</th>
+  <th>Цена</th>
+  <th>Дата покупки</th>
+  <th>Срок до</th>
+  <th>Клиент</th>
+  <th>Сумма</th>
+  <th>Дата продажи</th>
+  <th>Срок до</th>
+  <th></th>
+</tr>
+<% @samples.each do |item| -%>
+  <tr>
+    <td><%= link_to image_tag('edit.png'), edit_admin_sample_path(item) %></td>
+    <td><%= item.id %></td>
+    <td><%= item.name %></td>
+    <td><%= item.supplier.name %></td>
+    <td><%= item.buy_price %></td>
+    <td><%= I18n.l(item.buy_date, :format => :long) %></td>
+    <td><%= I18n.l(item.supplier_return_date, :format => :long) %></td>    
+    <td><%= item.firm.short_name %></td>
+    <td><%= item.sale_price %></td>
+    <td><%= I18n.l(item.sale_date, :format => :long) %></td>    
+    <td><%= I18n.l(item.client_return_date, :format => :long) %></td>        
+    <td><%= link_to image_tag('bin.png'), admin_sample_path(item), :method => :delete, :confirm => "Удалить?" %></td>    
+  </tr>
+<% end -%>
+</table>
+
+<%= will_paginate @samples %>
+
+</div>

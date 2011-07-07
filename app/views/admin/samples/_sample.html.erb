@@ -1,0 +1,67 @@
+<%= form_for [:admin,@sample] do |f| %>
+  <%= f.hidden_field :user_id %>
+ <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @sample} %>
+<div class="one_line_form b-formfield-div">
+<%= f.label :name, "Название образца" %>
+<%= f.text_field :name %>
+</div>
+<div class="spacer"></div>
+<div class="clear"></div>
+<div class="grid_8 alpha">
+  <h3>Информация о поставщике:</h3>
+  <div class="one_line_form">
+  <div class="b-formfield-div">
+    <%= f.label :supplier_id, "Поставщик" %>
+    <%= f.select :supplier_id, options_from_collection_for_select(@suppliers, 'id', 'name') %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :buy_date, "Дата покупки" %>
+    <%= f.text_field :buy_date, :class => "datepicker" %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :buy_price, "Сумма" %>
+    <%= f.text_field :buy_price %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :supplier_return_date, "Дата возврата" %>
+    <%= f.text_field :supplier_return_date, :class => "datepicker" %>
+  </div>
+  </div>    
+</div>
+<div class="grid_8 omega">
+  <h3>Информация о клиенте:</h3>
+    <div class="one_line_form">
+  <div class="b-formfield-div">
+    <%= f.label :firm_id, "Клиент" %>   
+    <%= link_to image_tag("add.png"), new_admin_firm_path(:back_url => request.path), :id => "add_firm_link", :title => "Добвить нового клиента" %> 
+    <%= link_to image_tag("edit.png"), edit_admin_firm_path(@firms.first.id, :back_url => request.path), :id => "edit_firm_link", :title => "Редактировать информацию о клиенте" if @firms.present? %>    
+    <%= f.select :firm_id, options_from_collection_for_select(@firms, 'id', 'short_name') %>
+    <script type="text/javascript">
+    $('#sample_firm_id').change(
+      function(){
+        $('#edit_firm_link').attr('href','/admin/firms/'+this.value + "/edit?back_url=<%= request.path %>");
+      });
+    </script>      
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :sale_date, "Дата продажи" %>
+    <%= f.text_field :sale_date, :class => "datepicker" %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :sale_price, "Сумма" %>
+    <%= f.text_field :sale_price %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :client_return_date, "Дата возврата" %>
+    <%= f.text_field :client_return_date, :class => "datepicker" %>
+  </div>
+  </div>    
+<div class="spacer clear"></div>
+</div>
+  <div>
+  <%= f.submit "Сохранить" %>
+  </div>
+<% end -%>
+<div class="clear spacer"></div>
+
+`

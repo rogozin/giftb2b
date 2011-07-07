@@ -28,7 +28,8 @@ ru:
       lk_firm: "Фирма"
       lk_product: "Товар"
       lk_order: "Заказ"
-      content: "Контент"		
+      content: "Контент"
+      sample: "Образец"		
     attributes:
       user:
         email: "E-mail"
@@ -79,6 +80,17 @@ ru:
         start: "Начало публикации"			
         stop: "Окончание публикации"
         draft: "Черновик"
+      sample:
+        name: "Название"
+        buy_price: "Сумма покупки"
+        sale_price: "Сумма продажи"
+        buy_date: "Дата покупки"
+        sale_date: "Дата продажи"
+        supplier_return_date: "Дата возврата поставщику"
+        client_return_date: "Дата возврата от клиента"
+        firm_id: "Клиент"
+        supplier_id: "Поставщик"
+        user_id: "Автор"
   authlogic:
     error_messages:
       login_blank: "не может быть пустым"

@@ -1,6 +1,14 @@
 #encoding: utf-8;
 Giftr3::Application.routes.draw do
 
+  get "samples/index"
+
+  get "samples/new"
+
+  get "samples/edit"
+
+  get "samples/_sample"
+
   root :to => 'main#index'
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
@@ -159,6 +167,7 @@ Giftr3::Application.routes.draw do
       end        
     end
     resources :foreign_access
+    resources :samples
   end
 
   match '/:controller(/:action(/:id))'
