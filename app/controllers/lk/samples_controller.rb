@@ -58,7 +58,7 @@ class Lk::SamplesController < Lk::BaseController
   def prepare_collections
     @suppliers = Supplier.order(:name)
     @firms =  current_user && current_user.firm  ? LkFirm.where(:firm_id => current_user.firm.id) : []
-    @responsibles = current_user.firm && current_user.firm.users.present? ? current_user.firm.users : []
+    @responsibles = current_user.firm && current_user.firm.users.present? ? current_user.firm.users.order(:fio) : []
   end
 
 end
