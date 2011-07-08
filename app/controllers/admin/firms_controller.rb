@@ -2,7 +2,6 @@
 class Admin::FirmsController < Admin::BaseController
   access_control do
      allow :Администратор, "Менеджер продаж"
-     allow "Учет образцов", :to => [:new, :create, :edit, :update]
   end
   
   def index

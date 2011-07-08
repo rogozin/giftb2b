@@ -1,5 +1,5 @@
 #encoding: utf-8;
-class Admin::SamplesController < Admin::BaseController
+class Lk::SamplesController < Lk::BaseController
   before_filter :find_sample, :only => [:edit, :update, :destroy]
   before_filter :prepare_collections, :only => [:index,:new,:edit, :create, :update]
   
@@ -9,10 +9,10 @@ class Admin::SamplesController < Admin::BaseController
   
   def index
     params[:page] ||=1
-    #@samples = Sample.order("id desc").paginate(:page => params[:page])
     @samples = Sample.scoped
     @samples = @samples.where(:supplier_id => params[:supplier]) if params[:supplier].present?
     @samples = @samples.where(:firm_id => params[:client]) if params[:client].present?
+    @samples = @samples.where(:responsible_id => params[:responsible]) if params[:responsible].present?    
     @samples = @samples.where("name like :name", :name  => "%"+params[:name]+"%") if params[:name].present?    
     @samples = @samples.order("id desc").paginate(:page => params[:page])
   end
@@ -25,7 +25,7 @@ class Admin::SamplesController < Admin::BaseController
     @sample = Sample.new(params[:sample])
     if @sample.save
       flash[:notice] = "Образец создан."
-      redirect_to edit_admin_sample_path(@sample)
+      redirect_to edit_lk_sample_path(@sample)
     else
       render :new
     end
@@ -38,7 +38,7 @@ class Admin::SamplesController < Admin::BaseController
   def update
     if @sample.update_attributes( params[:sample] )
       flash[:notice] = "Образец изменен!"
-      redirect_to edit_admin_sample_path(@sample)
+      redirect_to edit_lk_sample_path(@sample)
     else
       render :edit
     end    
@@ -46,7 +46,7 @@ class Admin::SamplesController < Admin::BaseController
 
   def destroy
     flash[:notice] = "Образец удален!" if @sample.destroy
-    redirect_to admin_samples_path
+    redirect_to lk_samples_path
   end
   
   private
@@ -56,8 +56,9 @@ class Admin::SamplesController < Admin::BaseController
   end
   
   def prepare_collections
-    @suppliers = Supplier.all
-    @firms = Firm.clients
+    @suppliers = Supplier.order(:name)
+    @firms =  current_user && current_user.firm  ? LkFirm.where(:firm_id => current_user.firm.id) : []
+    @responsibles = current_user.firm && current_user.firm.users.present? ? current_user.firm.users : []
   end
 
 end

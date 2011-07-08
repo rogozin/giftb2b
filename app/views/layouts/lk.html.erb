@@ -4,9 +4,17 @@
   <title><%= @page_title || page_title %></title>
   <meta name="description" content="<%= yield :meta_description%>" /> 
   <meta name="keywords" content="<%= yield :meta_keywords %>" />
-  <%= stylesheet_link_tag  'main','jquery-ui-1.7.2.custom.css','jquery.treeview' %>
-  <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie' %>
+  <%= stylesheet_link_tag  'main','lk','jquery-ui.css','jquery.treeview' %>
+  <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie', 'ui.datepicker-ru' %>
   <%= csrf_meta_tag %>
+  <script>
+  $(document).ready(function()
+  {
+    $(".datepicker").datepicker($.datepicker.regional['ru']);
+   
+    <%= yield :document_ready %>
+  })
+</script>
 </head> 
 <body> 
 <div id="header_title"> 
@@ -23,6 +31,11 @@
     <%- end -%>
 </div>
  <div id="main_content" class="content">
+   <%- if show_title? -%>
+   <div id="title" >
+          <h1><%=  @content_for_title %></h1>
+          </div>
+    <%end%>
   <div class="center_block">   
     <%= yield :layout  %>
   </div>

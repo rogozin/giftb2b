@@ -2,6 +2,7 @@
 class Lk::FirmsController < Lk::BaseController
   access_control do
      allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
+     allow "Учет образцов", :to => [:new, :create, :edit, :update]     
   end
   
   before_filter :find_firm, :only =>[:edit, :update, :destroy]
@@ -26,7 +27,7 @@ class Lk::FirmsController < Lk::BaseController
   def update
     if @firm.update_attributes(params[:lk_firm])
       flash[:notice] = "Фирма изменена!"
-      redirect_to edit_lk_firm_path(@firm)
+      redirect_to (params[:back_url] ? params[:back_url] : edit_lk_firm_path(@firm))      
     else
       render :edit
     end
@@ -49,7 +50,7 @@ class Lk::FirmsController < Lk::BaseController
     @firm = LkFirm.new(params[:lk_firm])
     if @firm.save
       flash[:notice] = "Фирма создана!"
-      redirect_to lk_firms_path
+      redirect_to (params[:back_url] ? params[:back_url] : lk_firms_path)
     else
       render :new  
     end

@@ -1,16 +1,17 @@
 <% title "Учет образцов" -%>
 
 <div id="filter">
-<%= form_tag "/admin/samples", :method => :get do -%>
+<%= form_tag "/lk/samples", :method => :get do -%>
 <%= text_field_tag :name, params[:name], :placeholder => "Название" %>
 <%= select_tag :supplier, options_from_collection_for_select(@suppliers, 'id', 'name', params[:supplier]), :include_blank => "<= Поставщик =>" %>
-<%= select_tag :client, options_from_collection_for_select(@firms, 'id', 'short_name', params[:client]), :include_blank => "<= Клиент =>" %>
+<%= select_tag :client, options_from_collection_for_select(@firms, 'id', 'name', params[:client]), :include_blank => "<= Фирма =>" %>
+<%= select_tag :responsible, options_from_collection_for_select(@responsibles, 'id', 'fio', params[:responsible]), :include_blank => "<= Ответственный =>" %>
 <%= submit_tag "Применить", :name => nil %>
 <% end -%>
 </div>
 
 <div class="b-command-menu">
-  <%= link_to "Новая запись", new_admin_sample_path %>
+  <%= link_to "Новая запись", new_lk_sample_path %>
 </div>
 
 <div id="samples_list">
@@ -19,6 +20,7 @@
   <th></th>
   <th>#</th>
   <th>Название</th>
+  <th>Ответсвенный</th>  
   <th>Поставщик</th>
   <th>Сумма покупки</th>
   <th>Дата покупки</th>
@@ -31,9 +33,10 @@
 </tr>
 <% @samples.each do |item| -%>
   <tr>
-    <td><%= link_to image_tag('edit.png'), edit_admin_sample_path(item) %></td>
+    <td><%= link_to image_tag('edit.png'), edit_lk_sample_path(item) %></td>
     <td><%= item.id %></td>
     <td><%= item.name %></td>
+    <td><%= item.responsible.fio if item.responsible %></td>
     <td><%= item.supplier.name %></td>
     <td><%= price_ru_label item.buy_price %></td>
     <td><%= I18n.l(item.buy_date, :format => :long) if item.buy_date %></td>
@@ -42,7 +45,7 @@
     <td><%= price_ru_label item.sale_price %></td>
     <td><%= I18n.l(item.sale_date, :format => :long)  if item.sale_date %></td>    
     <td><%= I18n.l(item.client_return_date, :format => :long) if item.client_return_date %></td>        
-    <td><%= link_to image_tag('bin.png'), admin_sample_path(item), :method => :delete, :confirm => "Удалить?" %></td>    
+    <td><%= link_to image_tag('bin.png'), lk_sample_path(item), :method => :delete, :confirm => "Удалить?" %></td>    
   </tr>
 <% end -%>
 </table>

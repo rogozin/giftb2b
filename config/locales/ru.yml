@@ -88,9 +88,10 @@ ru:
         sale_date: "Дата продажи"
         supplier_return_date: "Дата возврата поставщику"
         client_return_date: "Дата возврата от клиента"
-        firm_id: "Клиент"
+        firm_id: "Фирма"
         supplier_id: "Поставщик"
         user_id: "Автор"
+        responsible_id: "Ответственный"
   authlogic:
     error_messages:
       login_blank: "не может быть пустым"

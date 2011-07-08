@@ -4,28 +4,31 @@ require 'spec_helper'
 describe 'i am sample_manager' do
   before(:each) do
     login_as :sample_manager
+    @firm = Factory(:firm)
+    @user.update_attributes(:firm => @firm, :fio => "Петя")    
   end
   
   it "я вижу ссылку Образцы" do
-      visit "/admin"
-      within "#admin-menu" do
+      visit "/lk"
+      within "#user_menu" do
         page.should have_content("Образцы")
       end
-      visit '/admin/samples'
+      visit '/lk/samples'
       page.should have_content "Учет образцов"
   end
   
   it 'я могу добавить образец' do
-    @firm = Factory(:firm)
+    @lk_firm = Factory(:lk_firm, :firm_id => @firm.id)
     Factory(:supplier)
-    visit '/admin/samples'
+    visit '/lk/samples'
     click_link "Новая запись"
     fill_in "sample_name", :with => "Мой первый образец"
+    select @user.fio, :from => "sample_responsible_id"
     select "Supplier 1", :from => "sample_supplier_id"
     fill_in "sample_buy_date", :with => Date.today
     fill_in "sample_buy_price", :with => 100
     fill_in "sample_supplier_return_date", :with => Date.today + 3.days
-    select @firm.short_name, :from => "sample_firm_id"
+    select @lk_firm.name, :from => "sample_firm_id"
     fill_in "sample_sale_date", :with => Date.tomorrow
     fill_in "sample_sale_price", :with => 200
     fill_in "sample_client_return_date", :with => Date.today + 2.days
@@ -53,7 +56,7 @@ describe 'i am sample_manager' do
   
   it 'will_paginate' do
     40.times { Factory(:sample)}
-    visit "/admin/samples"
+    visit "/lk/samples"
     page.should have_selector "table tr", :count => 31
     within ".pagination" do 
       click_link "2"
@@ -64,7 +67,7 @@ describe 'i am sample_manager' do
   it 'фильтр' do
     @sample = Factory(:sample, :name => "Карандаш")
     @sample2 = Factory(:sample, :name => "ручка")
-    visit "/admin/samples"
+    visit "/lk/samples"
     fill_in "name", :with => "Руч"
     click_button "Применить"  
     page.should have_selector "table tr", :count => 2    
@@ -72,28 +75,29 @@ describe 'i am sample_manager' do
   
   it 'если не указаны даты, то все рабоатет' do    
     @sample = Factory(:sample, :buy_date => nil, :client_return_date => nil, :supplier_return_date => nil, :sale_date => nil)
-    visit admin_samples_path
+    visit lk_samples_path
     page.should have_content @sample.name
   end
   
   context 'работа с фирмами' do
     before(:each) do
        @sample = Factory(:sample)
-      visit edit_admin_sample_path(@sample)
+      visit edit_lk_sample_path(@sample)
     end
 
     it 'я могу добавить фирму' do
       click_link "add_firm_link"
-      fill_in "firm_name", :with => "OOO Firma"
-      fill_in "firm_short_name", :with => "FirmA"
+      save_and_open_page
+      fill_in "lk_firm_name", :with => "OOO Firma"
+      fill_in "lk_firm_contact", :with => "Вася"
       click_button "Сохранить"
-      page.should have_content "Новая фирма успешно создана"
-      page.should have_select "sample_firm_id", :options => [@sample.firm.short_name, "FirmA"]    
+      page.should have_content "Фирма создана"
+      page.should have_select "sample_firm_id", :options => [@sample.firm.short_name, "OOO Firma"]    
     end
   
     it 'я могу отредактировать фирму' do
       click_link "edit_firm_link"
-      fill_in "firm_short_name", :with => "Рога без копыт"
+      fill_in "firm_name", :with => "Рога без копыт"
       click_button "Сохранить"                
       page.should have_content "Атрибуты фирмы изменены"
       page.should have_select "sample_firm_id", :options => ["Рога без копыт"]          

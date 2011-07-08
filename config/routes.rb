@@ -81,7 +81,7 @@ Giftr3::Application.routes.draw do
       member do
         post :calculate
       end
-    end
+    end    
     resources :user_orders, :only => [:create, :index, :show]
     resources :commercial_offers do
       member do 
@@ -93,6 +93,7 @@ Giftr3::Application.routes.draw do
      get :load_cart_products
     resources :products, :controller => "commercial_offer_items", :except => [:index] 
     end  
+    resources :samples    
   end
   
   
@@ -167,7 +168,6 @@ Giftr3::Application.routes.draw do
       end        
     end
     resources :foreign_access
-    resources :samples
   end
 
   match '/:controller(/:action(/:id))'

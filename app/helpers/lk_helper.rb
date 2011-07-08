@@ -8,6 +8,7 @@ module LkHelper
     	res << content_tag(:p, link_to('Коммерческие предложения', lk_commercial_offers_path, :class => "menu_left"))
       res << content_tag(:p, link_to('Мои фирмы', lk_firms_path, :class => "menu_left"))
       res << content_tag(:p, link_to('Мои товары', lk_products_path, :class => "menu_left"))
+      res << content_tag(:p, link_to('Образцы', lk_samples_path, :class => "menu_left"))  if current_user.has_role?(:Администратор) || current_user.has_role?("Учет образцов")
     end
     res << content_tag(:p, link_to('Пользователи', lk_accounts_path, :class => "menu_left")) if current_user.is_admin_user? || current_user.is_firm_manager?
     res << content_tag(:p, link_to('Мой профиль', profile_path, :class => "menu_left"))

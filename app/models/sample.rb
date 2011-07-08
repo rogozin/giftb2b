@@ -3,6 +3,7 @@ class Sample < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :firm
   belongs_to :user
+  belongs_to :responsible, :foreign_key => :responsible_id, :class_name => "User"
   validates :name, :presence => true
   validates :supplier_id, :presence => true
   validates :firm_id, :presence => true

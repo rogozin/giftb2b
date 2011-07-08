@@ -11,6 +11,7 @@ html {
 }
 
 body{
+        font-size: .75em;
 	margin:0px;
 	padding:0px;
 	width:100%;
@@ -420,7 +421,7 @@ a:hover.text_n_z {
 }
 
 .li_c  p.article_name, .li_c  p.article_t, .li_c  p.article_s, .li_c a.article_a{
-	font-size:0.8em;
+	font-size:1 em;
 }
 
 .treeview li span.selected a {color:#cc3366;}
@@ -451,7 +452,6 @@ span.message {color:#C36;}
 
 #flash_error, #flash_notice
 {
-    font-size: 1 em;
     margin: 10px 0;
     letter-spacing: 0.12em;  
     padding: 10px;
@@ -490,9 +490,9 @@ h1, h2, h3 {
     margin-bottom:5px;
 }
 
-h1{font-size:13pt;}
-h2{font-size:12pt;}
-h3{font-size:11pt;}
+h1{font-size:1.3em;}
+h2{font-size:1.2em;}
+h3{font-size:1.1em;}
 
 
 table
@@ -507,13 +507,13 @@ table td
 {
   padding: 5px;
   border: solid 1px #e8eef4;
-  font-size:0.8em;
 }
 
 
 table th
 {
-  font-size:0.8em;
+  font-size:1em;
+  font-weight:bold;
   padding: 6px 5px;
   text-align: left;
   color:#EAF7E6;

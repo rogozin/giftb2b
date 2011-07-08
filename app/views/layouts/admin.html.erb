@@ -49,7 +49,6 @@
         <%= tab :accounts, :label=>'Пользователи' if current_user.has_role?(:Администратор) || current_user.has_role?("Менеджер продаж")   %>      
         <%= tab :contents, :label=>'Контент' if current_user.has_role?(:Администратор) || current_user.has_role?("Редактор контента")   %>      
         <%= tab :data_changes, :label=> 'Обмен данными' if current_user.has_role?(:Администратор)  %>        
-        <%= tab :samples, :label=> 'Образцы' if current_user.has_role?(:Администратор) || current_user.has_role?("Учет образцов")  %>        
       </ul>
       <br class="clr" />
     </div>
