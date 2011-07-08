@@ -13,7 +13,7 @@
    <div class="one_line_form">
     <div class="b-formfield-div">
       <%= f.label :responsible_id  %>
-      <%= f.select :responsible_id, options_from_collection_for_select(@responsibles, 'id', 'fio' ), :include_blank => true %>
+      <%= f.select :responsible_id, options_from_collection_for_select(@responsibles, 'id', 'fio', @sample.responsible_id ), { :include_blank => true } %>
     </div>
    </div>
   </div>  
@@ -23,7 +23,7 @@
   <div class="one_line_form">
   <div class="b-formfield-div">
     <%= f.label :supplier_id, "Поставщик" %>
-    <%= f.select :supplier_id, options_from_collection_for_select(@suppliers, 'id', 'name') %>
+    <%= f.select :supplier_id, options_from_collection_for_select(@suppliers, 'id', 'name', @sample.supplier_id) %>
   </div>
   <div class="b-formfield-div">
     <%= f.label :buy_date, "Дата покупки" %>
@@ -46,7 +46,7 @@
     <%= f.label :firm_id %>   
     <%= link_to image_tag("add.png"), new_lk_firm_path(:back_url => request.path), :id => "add_firm_link", :title => "Добвить новую фирму" %> 
     <%= link_to image_tag("edit.png"), edit_lk_firm_path(@firms.first.id, :back_url => request.path), :id => "edit_firm_link", :title => "Редактировать информацию о фирме" if @firms.present? %>    
-    <%= f.select :firm_id, options_from_collection_for_select(@firms, 'id', 'name') %>
+    <%= f.select :firm_id, options_from_collection_for_select(@firms, 'id', 'name', @sample.firm_id) %>
     <script type="text/javascript">
     $('#sample_firm_id').change(
       function(){
