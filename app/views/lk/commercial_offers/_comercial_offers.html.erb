@@ -1,7 +1,8 @@
 <table width="100%">
   <tr>
-    <th></th>
+    <th></th>   
     <th>Кому</th>
+    <th>Автор</th>
     <th>Создано</th>
     <th></th>
   </tr>
@@ -9,10 +10,10 @@
     <tr>
       <td><%= link_to image_tag('edit.png'), lk_commercial_offer_path(item), :title => "Редактировать коммерческое предложение"  %>
       <%= link_to image_tag('pdf.png'), url_for(:action => :export, :id=>item, :format => :pdf), :target => "_blank", :title => "Выгрузить в формате PDF" %>
-      <%= link_to image_tag('xls.png'), url_for(:action => :export, :id=>item, :format => :xls), :title => "Выгрузить в формате Excel" %>
-      
+      <%= link_to image_tag('xls.png'), url_for(:action => :export, :id=>item, :format => :xls), :title => "Выгрузить в формате Excel" %>      
       </td>
       <td><%= item.lk_firm.name if item.lk_firm %></td>
+      <td><%= who(item.user) %></td>
       <td><%= I18n.l(item.created_at, :format => :long) %></td>
       <td><%= link_to image_tag('bin.png'), lk_commercial_offer_path(item), :method => :delete, :confirm => "Действительно хотите удалить коммерческое предложение?", :title => "Удалить коммерческое предложение"  %></td>
     </tr>

@@ -9,5 +9,9 @@ module ApplicationHelper
   def mark_required(object, attribute)  
     "*" if object.class.validators_on(attribute).map(&:class).include? ActiveModel::Validations::PresenceValidator  
   end  
+  
+  def who(user)    
+    user ? (user.fio.present? ? user.fio : user.username) : "неизв?"
+  end
 end
 
