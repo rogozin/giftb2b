@@ -70,6 +70,12 @@ describe 'i am sample_manager' do
     page.should have_selector "table tr", :count => 2    
   end
   
+  it 'если не указаны даты, то все рабоатет' do    
+    @sample = Factory(:sample, :buy_date => nil, :client_return_date => nil, :supplier_return_date => nil, :sale_date => nil)
+    visit admin_samples_path
+    page.should have_content @sample.name
+  end
+  
   context 'работа с фирмами' do
     before(:each) do
        @sample = Factory(:sample)
