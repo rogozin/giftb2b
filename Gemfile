@@ -23,14 +23,15 @@ gem 'pdfkit', "0.4.6"
 gem 'writeexcel'
 gem 'rake', '~> 0.8.7'
 gem 'unicorn'
-
+#gem 'whenever', :require => false
+gem 'clockwork'
 
  group :development, :test do
    gem "rspec-rails", "~> 2.4"
    gem 'cucumber-rails'
    gem 'database_cleaner'
    gem 'autotest'
-   gem 'capybara', :git => "http://github.com/jnicklas/capybara.git"
+   gem 'capybara'#, :git => "http://github.com/jnicklas/capybara.git"
    gem 'factory_girl_rails'
    gem 'spork', '~> 0.9.0.rc'
    gem 'launchy'
