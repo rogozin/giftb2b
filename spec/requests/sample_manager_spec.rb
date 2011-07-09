@@ -6,6 +6,7 @@ describe 'i am sample_manager' do
     login_as :sample_manager
     @firm = Factory(:firm)
     @user.update_attributes(:firm => @firm, :fio => "Петя")    
+    @lk_firm = Factory(:lk_firm, :firm_id => @firm.id)    
   end
   
   it "я вижу ссылку Образцы" do
@@ -18,7 +19,6 @@ describe 'i am sample_manager' do
   end
   
   it 'я могу добавить образец' do
-    @lk_firm = Factory(:lk_firm, :firm_id => @firm.id)
     Factory(:supplier)
     visit '/lk/samples'
     click_link "Новая запись"
@@ -87,19 +87,18 @@ describe 'i am sample_manager' do
 
     it 'я могу добавить фирму' do
       click_link "add_firm_link"
-      save_and_open_page
       fill_in "lk_firm_name", :with => "OOO Firma"
       fill_in "lk_firm_contact", :with => "Вася"
       click_button "Сохранить"
       page.should have_content "Фирма создана"
-      page.should have_select "sample_firm_id", :options => [@sample.firm.short_name, "OOO Firma"]    
+      page.should have_select "sample_firm_id", :options => [@sample.lk_firm.name, "OOO Firma"]    
     end
   
     it 'я могу отредактировать фирму' do
       click_link "edit_firm_link"
-      fill_in "firm_name", :with => "Рога без копыт"
+      fill_in "lk_firm_name", :with => "Рога без копыт"
       click_button "Сохранить"                
-      page.should have_content "Атрибуты фирмы изменены"
+      page.should have_content "Фирма изменена"
       page.should have_select "sample_firm_id", :options => ["Рога без копыт"]          
     end
   end

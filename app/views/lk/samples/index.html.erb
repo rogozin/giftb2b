@@ -41,7 +41,7 @@
     <td><%= price_ru_label item.buy_price %></td>
     <td><%= I18n.l(item.buy_date, :format => :long) if item.buy_date %></td>
     <td><%= I18n.l(item.supplier_return_date, :format => :long) if item.supplier_return_date %></td>    
-    <td><%= item.firm.short_name %></td>
+    <td><%= item.lk_firm.name if item.lk_firm %></td>
     <td><%= price_ru_label item.sale_price %></td>
     <td><%= I18n.l(item.sale_date, :format => :long)  if item.sale_date %></td>    
     <td><%= I18n.l(item.client_return_date, :format => :long) if item.client_return_date %></td>        

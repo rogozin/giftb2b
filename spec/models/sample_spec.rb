@@ -13,13 +13,13 @@ describe Sample do
   
   
   it 'дата покупки у поставщика не м.б. больше даты продажи клиенту' do
-    s = Factory.build(:sample, :sale_date => Date.today - 2.days)
+    s = Factory.build(:sample, :sale_date => Date.today - 2)
     s.should_not be_valid
     s.should have(1).error_on(:sale_date)
   end
   
   it 'дата возврата поставщику не может быть меньше даты возврата от клиента' do
-    s = Factory.build(:sample, :client_return_date => Date.today + 4.days)
+    s = Factory.build(:sample, :client_return_date => Date.today + 4)
     s.should_not be_valid
     s.should have(1).error_on(:client_return_date)    
   end
@@ -30,5 +30,24 @@ describe Sample do
     s.should have(1).error_on(:buy_price)
     s.should have(1).error_on(:sale_price)
   end
+  
+  
+  it 'Образцы, срок возврата поставщику через 2 дня' do
+    #4 образца, возврат поставщику сегодня, завтра, послезавтра и через 3 дня
+     Factory(:sample, :supplier_return_date => Date.today, :client_return_date => Date.yesterday)
+     Factory(:sample, :supplier_return_date => Date.tomorrow)
+     Factory(:sample, :supplier_return_date => Date.today + 2)
+     Factory(:sample, :supplier_return_date => Date.today + 3)
+     Sample.return_to_supplier_in_two_days.should have(1).records
+  end
+  
+  it 'Образцы, возврат от клиента через 2 дня' do
+    #4 образца, возврат от клиента вчера, сегодня, завтра, послезавтра
+     Factory(:sample, :client_return_date => Date.yesterday)
+     Factory(:sample, :client_return_date => Date.today)
+     Factory(:sample, :client_return_date => Date.tomorrow)
+     Factory(:sample, :client_return_date => Date.today + 2)
+     Sample.return_from_client_in_two_days.should have(1).records
+  end  
   
 end

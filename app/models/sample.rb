@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Sample < ActiveRecord::Base
   belongs_to :supplier
-  belongs_to :firm
+  belongs_to :lk_firm, :foreign_key => :firm_id
   belongs_to :user
   belongs_to :responsible, :foreign_key => :responsible_id, :class_name => "User"
   validates :name, :presence => true
@@ -11,6 +11,9 @@ class Sample < ActiveRecord::Base
   validates :sale_price, :buy_price, :numericality => {:allow_nil => true, :greater_than_or_equal_to => 0}
   validate :sale_date_validation
   validate :client_return_date_validation
+  scope :return_to_supplier_in_two_days, where(:supplier_return_date => Date.today + 2)
+  scope :return_from_client_in_two_days, where(:client_return_date => Date.today + 2)  
+  
   
   
   private
