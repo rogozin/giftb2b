@@ -9,3 +9,5 @@
    float:left;
    padding: 0 10px;
 }
+
+#filter select {max-width:160px}

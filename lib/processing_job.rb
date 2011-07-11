@@ -5,3 +5,4 @@ class ProcessingJob < Struct.new(:path,:filename,:user_id,:process_images, :rese
     XmlUpload.process_file(path, bw.id, process_images, reset_images)
   end  
 end  
+
