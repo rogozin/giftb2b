@@ -14,6 +14,7 @@ ru:
   date:
     formats:
       default: "%d.%m.%Y"
+      short_year: "%d.%m.%y"
       short: "%d %b"
       long: "%d %B %Y"
 

@@ -6,6 +6,5 @@ require 'processing_job'
 #require 'config/boot'
 #require 'config/environment'
 
-every(1.minute, 'test') { puts Product.all.size }
 
-every(1.minute, 'SampleNotification.job') { Delayed::Job.enqueue(SampleNotificationJob.new)}
+every(1.day, 'SampleNotification.job', :at => '07:00') { Delayed::Job.enqueue(SampleNotificationJob.new)}

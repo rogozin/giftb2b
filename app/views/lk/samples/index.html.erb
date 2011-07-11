@@ -18,7 +18,6 @@
 <table>
 <tr>
   <th></th>
-  <th>#</th>
   <th>Название</th>
   <th>Ответственный</th>  
   <th>Поставщик</th>
@@ -34,17 +33,16 @@
 <% @samples.each do |item| -%>
   <tr>
     <td><%= link_to image_tag('edit.png'), edit_lk_sample_path(item) %></td>
-    <td><%= item.id %></td>
     <td><%= item.name %></td>
     <td><%= item.responsible.fio if item.responsible %></td>
     <td><%= item.supplier.name %></td>
     <td><%= price_ru_label item.buy_price %></td>
-    <td><%= I18n.l(item.buy_date, :format => :long) if item.buy_date %></td>
-    <td><%= I18n.l(item.supplier_return_date, :format => :long) if item.supplier_return_date %></td>    
+    <td><%= I18n.l(item.buy_date, :format => :short_year) if item.buy_date %></td>
+    <td><%= I18n.l(item.supplier_return_date, :format => :short_year) if item.supplier_return_date %></td>    
     <td><%= item.lk_firm.name if item.lk_firm %></td>
     <td><%= price_ru_label item.sale_price %></td>
-    <td><%= I18n.l(item.sale_date, :format => :long)  if item.sale_date %></td>    
-    <td><%= I18n.l(item.client_return_date, :format => :long) if item.client_return_date %></td>        
+    <td><%= I18n.l(item.sale_date, :format => :short_year)  if item.sale_date %></td>    
+    <td><%= I18n.l(item.client_return_date, :format => :short_year) if item.client_return_date %></td>        
     <td><%= link_to image_tag('bin.png'), lk_sample_path(item), :method => :delete, :confirm => "Удалить?" %></td>    
   </tr>
 <% end -%>
