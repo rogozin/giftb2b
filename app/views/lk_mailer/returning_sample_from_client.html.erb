@@ -1,4 +1,4 @@
-<h1>Возврат образца <%= @sample.lk_firm.name %></h1>
+<h1>Возврат образца от клиента "<%= @sample.lk_firm.name if @sample.lk_firm %>"</h1>
 
 <p>
 Внимание! Осталось 2 дня до истечения срока возврата образца "<%= @sample.name %>". 
@@ -6,6 +6,6 @@
 </p>
 <hr />
 <p>
-<p>Поставщик: <%= @sample.supplier.name %></p>
-<p>Дата возврата поставзщику: <%= @sample.supplier_return_date %></p>
+<p>Поставщик: <%= @sample.supplier.name if @sample.supplier %></p>
+<p>Дата возврата поставщику: <%= @sample.supplier_return_date %></p>
 </p>
