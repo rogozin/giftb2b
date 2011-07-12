@@ -23,8 +23,7 @@ gem 'pdfkit', "0.4.6"
 gem 'writeexcel'
 gem 'rake', '~> 0.8.7'
 gem 'unicorn'
-#gem 'whenever', :require => false
-gem 'clockwork'
+gem 'scheduler_daemon', :git => 'git://github.com/ssoroka/scheduler_daemon.git'
 
  group :development, :test do
    gem "rspec-rails", "~> 2.4"
