@@ -3,7 +3,8 @@ class SampleNotificationTaskTask < Scheduler::SchedulerTask
   # environments :staging, :production
   
   #every '1d', :first_at => '11:28'
-  cron '30 11 * * *'  
+  cron '00 7 * * *'
+  #every '10s'
   # other examples:
   # every '24h', :first_at => Chronic.parse('next midnight')
   # cron '* 4 * * *'  # cron style
