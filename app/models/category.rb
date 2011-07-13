@@ -69,6 +69,24 @@ class Category < ActiveRecord::Base
   def self.catalog_tree(act_as_tree_set,init=true)
     arr = init ? act_as_tree_set.roots : act_as_tree_set
     arr.map{|x| {:id => x.id, :name => x.name, :permalink => x.permalink, :logo => x.logo, :children => Category.catalog_tree(x.is_virtual? ? x.child_for_virtual : x.children,false)} }
+  end
+  
+  def self.hash_parents(hashed_catalog, search, res=[], init=true)
+      hashed_catalog.each_with_index do |cat,index|      
+       puts index.to_s if init 
+       puts "process cat=#{cat[:permalink]} \n"
+       res = [] if init
+       res << cat
+       if cat[:permalink] == search
+         puts "==========yes, i found it!"
+         puts res.map{|x| x[:permalink]}.join(", ")
+         #raise "ok"        
+       else
+         res << Category.hash_parents(cat[:children], search, res,false) if cat[:children].present?      
+       end   
+       return false 
+       res   
+    end
   end  
     
   def self.tree_nesting(categories, start, res=[])
