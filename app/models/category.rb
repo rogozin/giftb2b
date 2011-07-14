@@ -70,34 +70,7 @@ class Category < ActiveRecord::Base
     arr = init ? act_as_tree_set.roots : act_as_tree_set
     arr.map{|x| {:id => x.id, :name => x.name, :permalink => x.permalink, :logo => x.logo, :children => Category.catalog_tree(x.is_virtual? ? x.child_for_virtual : x.children,false)} }
   end
-  
-  
-  
-  def Category.get_chain(root_item, res=[])
-    def self.process_item(hash_item)
-      hash_item.reject{|k,v| k == :children}
-    end
-    res << process_item(root_item) if res.empty?
-    return res unless root_item[:children].present?
-    root_item[:children].each do |item|
-      res << process_item(item)
-      res << Category.get_chain(item, res) if item[:children].present?    
-    end
-    res.flatten
-  end
-    
-  
-  def self.hash_parents(hashed_catalog, search)
-    res = nil
-    hashed_catalog.each do |cat|      
-      puts "process cat=#{cat[:permalink]} \n"
-      chain =  Category.get_chain(cat)       
-      if chain.select{|chitem| chitem[:permalink] == search}.present?        
-       break res = chain
-      end         
-    end
-    res
-  end  
+      
     
   def self.tree_nesting(categories, start, res=[])
     res.push start.id.to_i if start
