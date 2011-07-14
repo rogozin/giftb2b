@@ -42,6 +42,7 @@ class Admin::CategoriesController < Admin::BaseController
   def update
     @category = Category.find_by_permalink(params[:id])
     if @category.update_attributes(params[:category])
+      flash[:notice] = "Категория изменена!"
       redirect_to edit_admin_category_path(@category)
     else
       render 'edit'  
