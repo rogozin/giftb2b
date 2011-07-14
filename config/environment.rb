@@ -6,4 +6,4 @@ require File.expand_path('../application', __FILE__)
 Giftr3::Application.initialize!
 WillPaginate::ViewHelpers.pagination_options[:previous_label] = '&laquo; Назад'
 WillPaginate::ViewHelpers.pagination_options[:next_label] = 'Вперед &raquo;'
-
+Date::DATE_FORMATS[:default] = '%d.%m.%Y'

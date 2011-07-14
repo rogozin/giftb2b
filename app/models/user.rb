@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   end
   
   def is_firm_manager?
-    has_role?("Менеджер фирмы")
+    Rails.cache.fetch('is_firm_manager?', :expires_in=>10) { has_role?("Менеджер фирмы")}    
   end
   
   def activate!

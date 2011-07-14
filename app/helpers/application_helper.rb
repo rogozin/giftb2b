@@ -13,5 +13,6 @@ module ApplicationHelper
   def who(user)    
     user ? (user.fio.present? ? user.fio : user.username) : "неизв?"
   end
+  
 end
 

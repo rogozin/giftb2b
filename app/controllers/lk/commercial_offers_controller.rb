@@ -37,7 +37,7 @@ class Lk::CommercialOffersController < Lk::BaseController
   
   def calculate 
     @commercial_offer.sale = params[:sale]
-    flash[:error] = "Ошибка при пересчете!" unless @commercial_offer.save
+    flash[:alert] = "Ошибка при пересчете!" unless @commercial_offer.save
     params[:co_items].each do |lk_product_id, quantity|
       if quantity.to_i >0
         @commercial_offer.commercial_offer_items.find_by_lk_product_id(lk_product_id).update_attribute :quantity, quantity
@@ -87,7 +87,7 @@ class Lk::CommercialOffersController < Lk::BaseController
       end
       redirect_to lk_commercial_offer_path(@co)
     else 
-      flash[:error] = "Коммерческое предложение не может быть сгенерировано!" 
+      flash[:alert] = "Коммерческое предложение не может быть сгенерировано!" 
       redirect_to cart_index_path
     end      
   end

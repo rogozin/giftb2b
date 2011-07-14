@@ -173,7 +173,7 @@ a img {border:0 none;}
   color: #9f9a9a !important;
 }
 
-#flash_error, #flash_notice,#flash_public_notice,#flash_public_error
+#flash_alert, #flash_notice,#flash_public_notice,#flash_public_alert
 {
     font-size: 1.2em;
     margin: 10px 0;
@@ -183,7 +183,7 @@ a img {border:0 none;}
    -webkit-border-radius: 5px;    
 }
 
-#flash_error, #flash_public_error
+#flash_alert, #flash_public_alert
 {
     color: red;
     background: #c0ce9b;

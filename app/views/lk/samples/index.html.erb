@@ -31,8 +31,8 @@
   <th></th>
 </tr>
 <% @samples.each do |item| -%>
-  <tr>
-    <td><%= link_to image_tag('edit.png'), edit_lk_sample_path(item) %></td>
+  <%= content_tag :tr, :class => can_edit_sample?(item) ? nil : "disabled-row" do %>
+    <td><%= link_to image_tag('edit.png'), edit_lk_sample_path(item) if can_edit_sample?(item) %></td>
     <td><%= item.name %></td>
     <td><%= item.responsible.fio if item.responsible %></td>
     <td><%= item.supplier.name %></td>
@@ -43,8 +43,8 @@
     <td><%= price_ru_label item.sale_price %></td>
     <td><%= I18n.l(item.sale_date, :format => :short_year)  if item.sale_date %></td>    
     <td><%= I18n.l(item.client_return_date, :format => :short_year) if item.client_return_date %></td>        
-    <td><%= link_to image_tag('bin.png'), lk_sample_path(item), :method => :delete, :confirm => "Удалить?" %></td>    
-  </tr>
+    <td><%= link_to image_tag('bin.png'), lk_sample_path(item), :method => :delete, :confirm => "Удалить?" if can_edit_sample?(item) %></td>    
+  <% end -%>
 <% end -%>
 </table>
 

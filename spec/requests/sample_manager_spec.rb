@@ -1,7 +1,7 @@
 #encoding: utf-8;
 require 'spec_helper'
 
-describe 'i am sample_manager' do
+describe 'Роль учет образцов' do
   before(:each) do
     login_as :sample_manager
     @firm = Factory(:firm)
@@ -27,11 +27,11 @@ describe 'i am sample_manager' do
     select "Supplier 1", :from => "sample_supplier_id"
     fill_in "sample_buy_date", :with => Date.today
     fill_in "sample_buy_price", :with => 100
-    fill_in "sample_supplier_return_date", :with => Date.today + 3.days
+    fill_in "sample_supplier_return_date", :with => Date.today + 3
     select @lk_firm.name, :from => "sample_firm_id"
     fill_in "sample_sale_date", :with => Date.tomorrow
     fill_in "sample_sale_price", :with => 200
-    fill_in "sample_client_return_date", :with => Date.today + 2.days
+    fill_in "sample_client_return_date", :with => Date.today + 2
     click_button "Сохранить"
     
     page.should have_content "Образец создан"
@@ -43,6 +43,8 @@ describe 'i am sample_manager' do
       click_link 'Edit'
     end  
     page.should have_content "Редактирование записи"  
+    #обычный пользователь не видит галку закрывающую образец"
+    page.should have_no_selector "#sample_closed"
     fill_in "sample_name", :with => "Мой второй образец"
     click_button "Сохранить"    
     click_link "Назад к списку образцов"
@@ -77,6 +79,26 @@ describe 'i am sample_manager' do
     @sample = Factory(:sample, :buy_date => nil, :client_return_date => nil, :supplier_return_date => nil, :sale_date => nil)
     visit lk_samples_path
     page.should have_content @sample.name
+  end
+  
+  context 'Признак возврата денег(закрытый образец)' do
+    before(:each) do
+      @sample = Factory(:sample, :closed => true)
+    end
+    
+    it 'роль учет образцов не может отредактировать закрытый образец' do
+      visit lk_samples_path
+      page.should have_content @sample.name
+      within "#samples_list" do
+        page.should have_no_link "Edit"
+        page.should have_no_link "Bin"
+        page.should have_css "table tr.disabled-row"
+      end
+      visit edit_lk_sample_path(@sample)
+      page.current_path.should == lk_samples_path
+      page.should have_content "Нет доступа. Образец закрыт."
+    end
+    
   end
   
   context 'работа с фирмами' do

@@ -29,7 +29,7 @@ class Admin::CurrencyValuesController < Admin::BaseController
     flash[:notice] = "Курс на дату #{params[:currency][:dt]} установлен!"
     redirect_to admin_currency_values_path    
   else 
-    flash[:error] = "Курс на дату #{params[:currency][:dt]} не может быть установлен!"
+    flash[:alert] = "Курс на дату #{params[:currency][:dt]} не может быть установлен!"
     redirect_to :action => :index
   end  
   end

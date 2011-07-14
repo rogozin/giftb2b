@@ -16,7 +16,7 @@ respond_to :html, :js
   def create
     f=params[:import_data][:xml_file]
     if f.blank?
-      flash[:error] = "Файл не выбран"
+      flash[:alert] = "Файл не выбран"
       redirect_to admin_data_changes_path
       return true
     end  

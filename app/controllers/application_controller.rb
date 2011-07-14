@@ -27,13 +27,13 @@ class ApplicationController < ActionController::Base
        render :template => 'access_denied'
      else
        ## In this case user has not even logged in. Might be OK after login.
-     flash[:error] = 'Доступ запрещен. Попробуйте выполнить вход в систему'
+     flash[:alert] = 'Доступ запрещен. Попробуйте выполнить вход в систему'
      redirect_to login_path
     end
   end
 
   def not_found(message=nil)    
-    flash[:error] = message if message
+    flash[:alert] = message if message
     render :template => 'not_found'
   end  
 
@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
   def require_user
     unless current_user
       store_location
-      flash[:error] = "Для доступа к этой странице необходимы права администратора!"
+      flash[:alert] = "Для доступа к этой странице необходимы права администратора!"
       redirect_to new_user_session_url
       return false
     end

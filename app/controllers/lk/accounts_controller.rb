@@ -25,7 +25,7 @@ class Lk::AccountsController < Lk::BaseController
       flash[:notice] = "Пользователь успешно создан!"
       redirect_to lk_accounts_path 
     else
-      flash[:error] = "Ошибка при создании пользователя!"
+      flash[:alert] = "Ошибка при создании пользователя!"
       render 'new'
     end
   end

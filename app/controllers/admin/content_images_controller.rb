@@ -13,7 +13,7 @@ class Admin::ContentImagesController < Admin::BaseController
     if @content_image.save      
       redirect_to admin_content_images_path, :notice => "Изображение добавлено!"
     else
-      flash[:error] = "Ошибка добавления изображения"
+      flash[:alert] = "Ошибка добавления изображения"
       render 'index'
     end
   end

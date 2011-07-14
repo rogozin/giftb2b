@@ -6,7 +6,7 @@ class Lk::BaseController < ApplicationController
  
   
   def not_firm_assigned!
-    flash[:error] = "Вам не назначена фирма!"
+    flash[:alert] = "Вам не назначена фирма!"
   end
   private :not_firm_assigned!
 end

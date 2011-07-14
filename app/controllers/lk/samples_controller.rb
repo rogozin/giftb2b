@@ -2,7 +2,7 @@
 class Lk::SamplesController < Lk::BaseController
   before_filter :find_sample, :only => [:edit, :update, :destroy]
   before_filter :prepare_collections, :only => [:index,:new,:edit, :create, :update]
-  
+  helper_method :can_edit_sample?
   access_control do
      allow :Администратор, "Учет образцов"
   end
@@ -32,7 +32,7 @@ class Lk::SamplesController < Lk::BaseController
   end
 
   def edit
-    
+
   end
   
   def update
@@ -48,11 +48,16 @@ class Lk::SamplesController < Lk::BaseController
     flash[:notice] = "Образец удален!" if @sample.destroy
     redirect_to lk_samples_path
   end
-  
+
   private
-  
+
+  def can_edit_sample?(sample)
+    !sample.closed? || (current_user.is_admin? || current_user.is_firm_manager?)
+  end
+
   def find_sample
     @sample = Sample.find(params[:id])
+    redirect_to lk_samples_path, :alert => "Нет доступа. Образец закрыт." unless can_edit_sample?(@sample)    
   end
   
   def prepare_collections
@@ -60,5 +65,6 @@ class Lk::SamplesController < Lk::BaseController
     @firms =  current_user && current_user.firm  ? LkFirm.where(:firm_id => current_user.firm.id) : []
     @responsibles = current_user.firm && current_user.firm.users.present? ? current_user.firm.users.order(:fio) : []
   end
+  
 
 end
