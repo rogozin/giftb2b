@@ -7,6 +7,12 @@
       <%= f.label :name, "Название образца" %>
       <%= f.text_field :name %>
     </div>
+    <% if current_user.is_firm_manager? || current_user.is_admin? -%>      
+    <div class="b-formfield-div">
+      <%= f.label :closed, "Деньги возвращены" %>
+      <%= f.check_box :closed %>
+    </div>    
+    <% end -%>
    </div>
   </div>
   <div class="b-float-left">

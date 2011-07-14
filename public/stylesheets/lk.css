@@ -11,3 +11,7 @@
 }
 
 #filter select {max-width:160px}
+
+tr.disabled-row {
+ color:#999;
+}

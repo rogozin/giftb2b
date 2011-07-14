@@ -43,7 +43,7 @@ class Admin::ContentCategoriesController < Admin::BaseController
       @content_category.destroy
       flash[:notice] = "Категория удалена"
     else
-      flash[:error] = "Не могу удалить категорию. Имеются записи."
+      flash[:alert] = "Не могу удалить категорию. Имеются записи."
     end
     redirect_to admin_content_categories_path
   end  

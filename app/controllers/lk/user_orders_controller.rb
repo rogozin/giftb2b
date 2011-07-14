@@ -33,7 +33,7 @@ class Lk::UserOrdersController < Lk::BaseController
         FirmMailer.new_user_order_notification(@order.firm, current_user, @order).deliver if @order.firm && @order.firm.email.present?
       end
     else  
-      flash[:error] = "Ошибка при оформлении заказа"
+      flash[:alert] = "Ошибка при оформлении заказа"
     end
     #sending message to user and company
     redirect_to lk_user_orders_path

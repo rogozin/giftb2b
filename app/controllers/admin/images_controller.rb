@@ -22,7 +22,7 @@ class Admin::ImagesController < Admin::BaseController
     if product.save
       flash[:notice] = "Изображение успешно сохранено"
     else
-      flash[:error] = "Ошибка добавленя изображения!"
+      flash[:alert] = "Ошибка добавленя изображения!"
     end
     redirect_to admin_product_images_path(params[:product_id])
   end

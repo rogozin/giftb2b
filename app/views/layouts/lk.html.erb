@@ -27,7 +27,7 @@
 <div class="clear"></div>   
 <div class="content">
  <%- flash.each do |name, msg| -%>
-    <%= content_tag :div, raw(msg), :id => "flash_#{name}" if name.to_s.index("notice") or name.to_s.index("error") %>
+    <%= content_tag :div, raw(msg), :id => "flash_#{name}" if name.to_s.index("notice") or name.to_s.index("alert") %>
     <%- end -%>
 </div>
  <div id="main_content" class="content">

@@ -37,11 +37,11 @@ class Lk::FirmsController < Lk::BaseController
     if @firm.destroy
       flash[:notice] = "Фирма удалена!"  
     else
-      flash[:error] = "Невозможно удалить фирму! " + @firm.errors.full_messages.join(' <br />')  
+      flash[:alert] = "Невозможно удалить фирму! " + @firm.errors.full_messages.join(' <br />')  
     end  
     rescue => err
-      flash[:error] = "Невозможно удалить фирму! " 
-      flash[:error] += "Имеются коммерческие предложения!" if err.message.index('commercial_offers')
+      flash[:alert] = "Невозможно удалить фирму! " 
+      flash[:alert] += "Имеются коммерческие предложения!" if err.message.index('commercial_offers')
     ensure
       redirect_to lk_firms_path 
   end

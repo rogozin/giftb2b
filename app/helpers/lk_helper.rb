@@ -15,5 +15,6 @@ module LkHelper
     res << content_tag(:p, link_to("Подписки", "",:class => "menu_left"))
     raw res
   end
+
   
 end

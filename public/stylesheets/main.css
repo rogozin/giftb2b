@@ -450,7 +450,7 @@ a:hover.text_n_z {
 span.message {color:#C36;}
 
 
-#flash_error, #flash_notice
+#flash_alert, #flash_notice
 {
     margin: 10px 0;
     letter-spacing: 0.12em;  
@@ -459,7 +459,7 @@ span.message {color:#C36;}
    -webkit-border-radius: 5px;    
 }
 
-#flash_error
+#flash_alert
 {
     color: #C36;
     background: #FFECEC;
