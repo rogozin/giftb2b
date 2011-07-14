@@ -68,7 +68,7 @@ class Category < ActiveRecord::Base
 
   def self.catalog_tree(act_as_tree_set,init=true)
     arr = init ? act_as_tree_set.roots : act_as_tree_set
-    arr.map{|x| {:id => x.id, :name => x.name, :permalink => x.permalink, :children => Category.catalog_tree(x.children,false)} }
+    arr.map{|x| {:id => x.id, :name => x.name, :permalink => x.permalink, :logo => x.logo, :children => Category.catalog_tree(x.is_virtual? ? x.child_for_virtual : x.children,false)} }
   end  
     
   def self.tree_nesting(categories, start, res=[])
@@ -143,7 +143,7 @@ class Category < ActiveRecord::Base
   end  
   
   def as_json options={}  
-    default_options = {:only => [:id, :name, :permalink, :parent_id], :methods => ["products_size", "cat_description"]}
+    default_options = {:only => [:id, :name, :permalink, :parent_id], :methods => ["products_size", "cat_description", "logo"]}
     super options.present? ?  options.merge(default_options) : default_options
   end
 
@@ -160,6 +160,11 @@ class Category < ActiveRecord::Base
 
   def cat_description
     show_description? ? description : ""
+  end
+  
+  def logo
+    #logo only on virual category
+    is_virtual? && images.present? ? images.first.picture.url :  Image.default_image
   end
   ###############################################################################################
 private 
