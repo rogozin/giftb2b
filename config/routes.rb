@@ -1,14 +1,5 @@
 #encoding: utf-8;
 Giftr3::Application.routes.draw do
-
-  get "samples/index"
-
-  get "samples/new"
-
-  get "samples/edit"
-
-  get "samples/_sample"
-
   root :to => 'main#index'
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
@@ -20,6 +11,7 @@ Giftr3::Application.routes.draw do
   match 'activate/:activation_code' => "users#activate", :as => :activate_user
   match 'p/:id' => "content#show", :as => :content
   match 'c/:id' => "content_category#show", :as => :content_category
+  match 's/:id' => "suppliers#show", :as => :supplier
   resources :main, :only => [:index] do
     get :change_scrollable, :on => :collection
   end
@@ -132,7 +124,11 @@ Giftr3::Application.routes.draw do
       end
     end
     resources :manufactors
-    resources :suppliers
+    resources :suppliers do 
+      member do 
+        get :truncate_products
+      end
+    end
     resources :images do
       collection do
         get :all

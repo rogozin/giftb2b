@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110714085538) do
+ActiveRecord::Schema.define(:version => 20110715090942) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -340,6 +340,7 @@ ActiveRecord::Schema.define(:version => 20110714085538) do
     t.string  "name",         :limit => 80
     t.string  "address"
     t.boolean "allow_upload",               :default => true
+    t.text    "terms"
   end
 
   create_table "users", :force => true do |t|

@@ -1,0 +1,14 @@
+<div class="content">
+<div class="center_block">
+
+<h1><%= @supplier.name %></h1>
+
+<% if @supplier.terms -%>
+<div><%=raw RedCloth.new(@supplier.terms).to_html  %></div>  
+<% else -%>
+<div>Страница на редактировании...</div>
+<% end -%>
+
+</div>
+</div>
+

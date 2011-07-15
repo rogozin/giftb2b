@@ -34,7 +34,7 @@ module ProductsHelper
     end
     
     def supplier product
-      content_tag(:p, content_tag(:span, "Поставщик: ", :class => "article_t") + product.supplier.name, :class => "article_name_2") if current_user and  (current_user.is_firm_user? or current_user.is_admin_user?) and product.supplier
+      content_tag(:p, content_tag(:span, "Поставщик: ", :class => "article_t") + link_to(product.supplier.name, supplier_path(product.supplier)), :class => "article_name_2") if current_user and  (current_user.is_firm_user? or current_user.is_admin_user?) and product.supplier
     end
     
     def store_count product

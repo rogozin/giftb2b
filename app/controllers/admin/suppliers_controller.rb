@@ -42,6 +42,12 @@ def destroy
     flash[:notice] = "Поставщик удален" if @supplier.destroy
     redirect_to admin_suppliers_path
   end
+  
+  def truncate_products
+    @supplier = Supplier.find(params[:id])
+    res = Product.where(:supplier_id => params[:id]).each{|p| p.destroy}
+    redirect_to edit_admin_supplier_path(@supplier), :notice => "Уделено #{res.size} товаров данного поставщика"
+  end
 
 end
 
