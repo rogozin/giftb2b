@@ -31,23 +31,26 @@ describe Sample do
     s.should have(1).error_on(:sale_price)
   end
   
+  it 'закрытый образец не оторбажается в активных' do
+     Factory(:sample, :closed => false)
+     Factory(:sample, :closed => true)
+     Sample.active.should have(1).records
+  end
   
   it 'Образцы, срок возврата поставщику через 2 дня' do
     #4 образца, возврат поставщику сегодня, завтра, послезавтра и через 3 дня
      Factory(:sample, :supplier_return_date => Date.today, :client_return_date => Date.yesterday)
-     Factory(:sample, :supplier_return_date => Date.tomorrow)
      Factory(:sample, :supplier_return_date => Date.today + 2)
-     Factory(:sample, :supplier_return_date => Date.today + 3)
      Sample.return_to_supplier_in_two_days.should have(1).records
+     Sample.return_to_supplier_today.should have(1).records
   end
   
   it 'Образцы, возврат от клиента через 2 дня' do
     #4 образца, возврат от клиента вчера, сегодня, завтра, послезавтра
-     Factory(:sample, :client_return_date => Date.yesterday)
      Factory(:sample, :client_return_date => Date.today)
-     Factory(:sample, :client_return_date => Date.tomorrow)
      Factory(:sample, :client_return_date => Date.today + 2)
      Sample.return_from_client_in_two_days.should have(1).records
+     Sample.return_from_client_today.should have(1).records
   end  
   
 end
