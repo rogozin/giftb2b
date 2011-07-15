@@ -11,10 +11,11 @@ class Sample < ActiveRecord::Base
   validates :sale_price, :buy_price, :numericality => {:allow_nil => true, :greater_than_or_equal_to => 0}
   validate :sale_date_validation
   validate :client_return_date_validation
-  scope :return_to_supplier_today, where(:supplier_return_date => Date.today)
-  scope :return_to_supplier_in_two_days, where(:supplier_return_date => Date.today + 2)
-  scope :return_from_client_today, where(:client_return_date => Date.today)  
-  scope :return_from_client_in_two_days, where(:client_return_date => Date.today + 2)  
+  scope :with_responsible, where("responsible_id > 0")
+  scope :return_to_supplier_today, with_responsible.where(:supplier_return_date => Date.today)
+  scope :return_to_supplier_in_two_days, with_responsible.where(:supplier_return_date => Date.today + 2)
+  scope :return_from_client_today, with_responsible.where(:client_return_date => Date.today)
+  scope :return_from_client_in_two_days, with_responsible.where(:client_return_date => Date.today + 2)  
   
   
   
