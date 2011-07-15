@@ -8,6 +8,7 @@ tmp/*
 my_engine/*
 config/database.yml
 config/initializers/session_store.rb
+config/initializers/mailer.rb
 config/unicorn.rb
 Gemfile.lock
 public/system
