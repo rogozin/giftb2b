@@ -127,7 +127,7 @@ class Product < ActiveRecord::Base
    
    def as_json(options={})
      default_options = { :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count, :updated_at], 
-     :methods=>[ "pictures", "similar", "colors", "unique_code", "price_in_rub" ] }
+     :methods=>[ "pictures", "similar", "colors","properties", "unique_code", "price_in_rub" ] }
      super options.present? ? options.merge(default_options) : default_options
    end
    
@@ -160,6 +160,10 @@ class Product < ActiveRecord::Base
          } 
     end
   end
+  
+  def properties
+     cached_properties
+  end
 
    def cached_analogs(limit=0)
      Rails.cache.fetch("product_#{self[:id]}.analogs_#{limit}", :expires_in =>1.hour){ analogs(limit).all }
@@ -176,6 +180,10 @@ class Product < ActiveRecord::Base
   def cached_color_variants
     Rails.cache.fetch("product_#{self[:id]}.color_variants", :expires_in =>1.hour){ color_variants }    
   end
+  
+  def cached_properties
+    Rails.cache.fetch("product_#{self[:id]}.properties", :expires_in =>1.hour){ additional_properties }    
+  end  
 
    
    ########################
@@ -210,6 +218,14 @@ class Product < ActiveRecord::Base
     analogs = analogs.limit(limit) if limit >0
     analogs
    end
+  
+  def additional_properties
+    res = []
+    text_properties.group_by(&:property_name).each do |property_name, property_values|
+      res << {:name => property_name, :values =>  property_values.map{|x| x.value}}
+    end
+    res
+  end
   
   def color_variants
     res = {}
