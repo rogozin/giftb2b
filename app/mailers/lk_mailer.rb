@@ -10,7 +10,7 @@ class LkMailer < ActionMailer::Base
 
   def returning_sample_from_client(sample)
     @sample  = sample
-    mail(:to => sample.responsible.email, :subject => "Образцы: возврат от клиента (#{sample.id}")
+    mail(:to => sample.responsible.email, :subject => "Образцы: возврат от клиента (#{sample.id})")
   end
   
 end
