@@ -6,7 +6,9 @@
 <%= select_tag :supplier, options_from_collection_for_select(@suppliers, 'id', 'name', params[:supplier]), :include_blank => "<= Поставщик =>" %>
 <%= select_tag :client, options_from_collection_for_select(@firms, 'id', 'name', params[:client]), :include_blank => "<= Фирма =>" %>
 <%= select_tag :responsible, options_from_collection_for_select(@responsibles, 'id', 'fio', params[:responsible]), :include_blank => "<= Ответственный =>" %>
-<%= submit_tag "Применить", :name => nil %>
+<%= submit_tag "Применить", :name => nil %> <br />
+<%= check_box_tag :only_my, "1", params[:only_my].blank? || params[:only_my] == "1" %> <%= label_tag :only_my, "Только мои", :title => "Показывать только те образцы, которые я создал или назначен ответственным." %> 
+<%= check_box_tag :hide_closed, "1", params[:hide_closed].blank? || params[:hide_closed] == "1" %> <%= label_tag :hide_closed, "Спрятать закрытые", :title => "Скрывать образцы, отмеченные менеджером как закрытые" %> 
 <% end -%>
 </div>
 

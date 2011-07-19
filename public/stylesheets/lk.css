@@ -10,6 +10,10 @@
    padding: 0 10px;
 }
 
+#filter {
+line-height:2em; 
+}
+
 #filter select {max-width:160px}
 
 tr.disabled-row {

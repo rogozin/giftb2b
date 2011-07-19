@@ -57,7 +57,7 @@ describe 'Роль учет образцов' do
   end
   
   it 'will_paginate' do
-    40.times { Factory(:sample)}
+    40.times { Factory(:sample, :user => @user)}
     visit "/lk/samples"
     page.should have_selector "table tr", :count => 31
     within ".pagination" do 
@@ -69,25 +69,41 @@ describe 'Роль учет образцов' do
   it 'фильтр' do
     @sample = Factory(:sample, :name => "Карандаш")
     @sample2 = Factory(:sample, :name => "ручка")
-    visit "/lk/samples"
+    @sample3 = Factory(:sample, :name => "закрытый образец", :closed => true)
+    @sample4 = Factory(:sample, :name => "созданный мной образец", :user => @user)
+    @sample5 = Factory(:sample, :name => "я отвечаю за этот образец", :responsible => @user)
+    visit lk_samples_path
+    page.should have_checked_field "hide_closed"
+    page.should have_checked_field "only_my"
+    page.should have_no_content "закрытый образец"
+    
     fill_in "name", :with => "Руч"
+    uncheck "only_my"
     click_button "Применить"  
     page.should have_selector "table tr", :count => 2    
+    
+    visit lk_samples_path
+    uncheck "hide_closed"
+    uncheck "only_my"
+    click_button "Применить"  
+    page.should have_content "Карандаш"
+    
   end
   
   it 'если не указаны даты, то все рабоатет' do    
-    @sample = Factory(:sample, :buy_date => nil, :client_return_date => nil, :supplier_return_date => nil, :sale_date => nil)
+    @sample = Factory(:sample, :buy_date => nil, :client_return_date => nil, :supplier_return_date => nil, :sale_date => nil, :user => @user)
     visit lk_samples_path
     page.should have_content @sample.name
   end
   
   context 'Признак возврата денег(закрытый образец)' do
     before(:each) do
-      @sample = Factory(:sample, :closed => true)
+      @sample = Factory(:sample, :closed => true, :user => @user)
     end
     
     it 'роль учет образцов не может отредактировать закрытый образец' do
-      visit lk_samples_path
+      visit lk_samples_path(:hide_closed => 0)
+      
       page.should have_content @sample.name
       within "#samples_list" do
         page.should have_no_link "Edit"
