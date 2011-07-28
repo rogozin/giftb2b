@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'rufus/scheduler'  
 scheduler = Rufus::Scheduler.start_new
-scheduler.every "10s", :blocking => true do
+scheduler.cron "0 7 * * *" do
   safely do
-    SampleNotificationJob.new.perform
+      SampleNotificationJob.new.perform
   end
 end
 
