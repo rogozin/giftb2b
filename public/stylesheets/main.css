@@ -97,7 +97,7 @@ body {
 
 .left_block {
 	text-align:left;
-	font-size:8pt;
+	font-size:10pt;
 }
 
 .center_block {
@@ -119,12 +119,16 @@ div.article_img_1 {display: table; height: 120px; width:120px; #position: relati
 div.article_img_2 {#position: absolute; #top: 50%; #left:50%; display: table-cell; vertical-align: middle; text-align:center;}
 div.article_img_3 {#position: relative; #top: -50%; #left:-50%}
 
-.article_name {
+.article_name, #add_to_cart a {
 	margin:0px;
 	color:#cc3366;
 	font-weight:bold;
-	margin-top:5px;ar
+	margin-top:5px;
 	width:120px;
+}
+
+.article_sup {
+	color:#cc3366;
 }
 
 .article_t {
@@ -216,7 +220,7 @@ a:hover.menu_left {
 	-webkit-border-radius: 10px;
 	-khtml-border-radius: 10px;
 	behavior: url(public/javascripts/PIE.htc);
-	background:#993366;
+	background:#cc3366;
 	text-align:left;
 }
 
@@ -261,7 +265,7 @@ a:hover.menu_left {
 .left_block p.b-header span
 {
   color:#cc3366;
-  font-size:10pt
+  font-size:11pt
 }
 /* Для файла с выводом одной картинки */
 
@@ -750,3 +754,7 @@ a.pseudo-link
 }
 
 .city-filter { margin-bottom:10px;}
+
+#add_to_cart {
+	padding-top:10px;
+}
