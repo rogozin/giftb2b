@@ -11,9 +11,9 @@
 		<% if current_user and (current_user.is_firm_user? or current_user.is_admin_user?) -%>		  
     <p class="article_t">Кол-во на складе: <span class="article_s"><%= store_count product %></span></p>
 		<% end -%>
-		<p class="article_t">Цена: <span class="article_name"><%= product_price(product) %></span>
-		<span id="add_to_cart"><%= link_to '+', add_cart_path(product.id), :remote => true, :method => :post if current_user %></span>		
-			</p> 
+		<p class="article_t product-price">Цена: <span class="article_name"><%= product_price(product) %></span>
+	<%= link_to  image_tag("pix.gif"), add_cart_path(product.id), :remote => true, :method => :post if current_user %>	
+		</p> 
 		<div class="article_t">
 		  <%= link_to 'Подробнее о товаре', product_path(product), :class => "article_a", :target => "_blank"  %>		  
 		</div> 

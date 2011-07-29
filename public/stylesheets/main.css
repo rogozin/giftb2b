@@ -755,6 +755,11 @@ a.pseudo-link
 
 .city-filter { margin-bottom:10px;}
 
-#add_to_cart {
-	padding-top:10px;
-}
+.product-price img {
+    display:inline-block;
+    vertical-align:middle;
+    width:32px;
+    height:32px;
+    background-image: url("images/cart_add.png");
+}	
+    
