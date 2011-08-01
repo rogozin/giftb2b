@@ -2,9 +2,9 @@ require 'rubygems'
 require 'rufus/scheduler'  
 scheduler = Rufus::Scheduler.start_new
 scheduler.cron "0 7 * * *" do
-  safely do
+#  safely do
       SampleNotificationJob.new.perform
-  end
+#  end
 end
 
  def safely
