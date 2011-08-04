@@ -34,7 +34,7 @@ Giftr3::Application.routes.draw do
       end
     end
     resources :products, :only => [:index, :show]
-    resources :search, :only => [:show]
+    resources :search, :only => [:index]
     resources :orders, :only => [:create]
     
   end

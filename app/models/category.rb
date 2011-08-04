@@ -144,7 +144,7 @@ class Category < ActiveRecord::Base
   end  
   
   def as_json options={}  
-    default_options = {:only => [:id, :name, :permalink, :parent_id], :methods => ["products_size", "cat_description", "logo"]}
+    default_options = {:only => [:id, :name, :permalink, :parent_id], :methods => ["products_size", "logo"]}
     super options.present? ?  options.merge(default_options) : default_options
   end
 
@@ -159,9 +159,9 @@ class Category < ActiveRecord::Base
     Rails.cache.fetch("category_#{id}.products_size", :expires_in =>1.hour){ Product.active.all_by_category(children_ids).size }
   end
 
-  def cat_description
-    show_description? ? description : ""
-  end
+#  def cat_description
+#    show_description? ? description : ""
+#  end
   
   def logo
     #logo only on virual category
