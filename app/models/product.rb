@@ -143,7 +143,7 @@ class Product < ActiveRecord::Base
   end
 
   def similar
-    cached_analogs(3).map do |analog|
+    cached_analogs(4).map do |analog|
       { :permalink => analog.permalink, 
         :thumb => 
           analog.cached_attached_images.present? ? analog.cached_attached_images.first.image.picture.url(:thumb) : Image.default_image,
@@ -214,7 +214,7 @@ class Product < ActiveRecord::Base
 
    def analogs(limit=0)
     analogs = Product.joins(:categories).where("categories.id in (:category_ids) and product_id <> :product_id",
-                                               {:category_ids => Category.cached_analog_categories.map{|x| x[:id]}, :product_id => self[:id]})
+                                               {:category_ids => main_categories.map{|x| x[:id]}, :product_id => self[:id]}).order("rand()")
     analogs = analogs.limit(limit) if limit >0
     analogs
    end
