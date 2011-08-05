@@ -15,7 +15,11 @@ class MoveColorsAndFactursToProps < ActiveRecord::Migration
       if product.factur.present?
         product.factur.split(/[,\/]/).map{|xx| xx.strip.mb_chars.capitalize.to_s}.each do |factur|
           mat = materials.property_values.where(:value => factur).first
-          product.product_properties.create(:property_value => mat) if mat
+          begin
+            product.product_properties.create(:property_value => mat) if mat
+          rescue
+            puts "error when create material (#{mat.value}) for product #{product.id}"
+          end
         end
       end
       
