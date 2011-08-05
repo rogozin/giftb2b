@@ -362,6 +362,10 @@ ul.treeview li
   padding: 3px 0;
 }
 
+.b-tree-list {
+line-height:1.5em;
+}
+
 ul li ul 
 {
   margin-left:10px;

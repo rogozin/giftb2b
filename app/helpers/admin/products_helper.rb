@@ -9,11 +9,15 @@ module Admin::ProductsHelper
   end
 
   def product_properties_tree(category_ids,property_value_ids=[])
-    props= Property.find(:all, :joins => :property_category, :conditions=>["property_categories.category_id in (?)",category_ids ],:select => "distinct properties.*")
+    
+    p0= Property.where(:for_all_products => true) 
+    p1= Property.select("distinct properties.*").joins(:property_category).where("property_categories.category_id" => category_ids)
+    
+    props = (p0 || []) + (p1 || [])
     html =""
     return html unless props
-    html += "<ul id='tree_list'>"
-    for property in props do
+    html += "<ul class='b-tree-list'>"
+    props.each  do |property|
       html += "<li>\n"
       html += "<a href=\"javascript:void($('#prop_child_list_#{property.id}').toggle());\" class='pseudo-link'>#{property.name }</a>\n"
       if property.property_values

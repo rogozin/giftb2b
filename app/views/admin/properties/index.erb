@@ -18,6 +18,8 @@
   <th>
     Активно?
   </th>
+  <th>Для поиска?</th>
+  <th>Во всех товарах?</th>
   <th>
     Сортировка
   </th>
@@ -32,9 +34,10 @@
     </td>
     <td><%= item.property_type_text %></td>
     <td><%= item.category_ids.size %></td>
-    <td class='center'>
-      <%= checked_box_image(item.active?) %>
-    </td>
+    <td class='center'><%= checked_box_image(item.active?) %></td>
+    <td class='center'><%= checked_box_image(item.for_search?) %></td>
+    <td class='center'><%= checked_box_image(item.for_all_products?) %></td>
+    
     <td><%= item.sort_order %></td>
     <td>
       <%=  link_to image_tag('edit.png'), edit_admin_property_path(item.id), :title =>'Редактировать'  %>

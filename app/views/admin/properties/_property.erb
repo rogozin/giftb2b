@@ -18,6 +18,14 @@
   <%= f.check_box :active %>
 </div>
 <div class="b-formfield-div">
+<%= f.label :for_search, 'Использовать для поиска?' %>
+  <%= f.check_box :for_search %>
+</div>
+<div class="b-formfield-div">
+<%= f.label :for_all_products, 'Использовать во всех товарах' %>
+  <%= f.check_box :for_all_products %>
+</div>
+<div class="b-formfield-div">
   <%= f.submit "Сохранить" %>
 </div>
 </div>

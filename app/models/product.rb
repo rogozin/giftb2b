@@ -9,9 +9,11 @@ class Product < ActiveRecord::Base
   has_many :attach_images, :as => :attachable, :dependent => :delete_all, :foreign_key => :attachable_id, :order => "main_img desc"
   has_many :images, :through => :attach_images
   has_many :product_properties, :class_name=>"ProductProperty", :dependent => :delete_all
-  has_many :property_values, :through => :product_properties, :select => "property_values.*, properties.name property_name"
-  has_many :text_properties,  :through => :product_properties, :source => :property_value, :select => "property_values.*, properties.name property_name, properties.property_type property_type", :conditions => "properties.active=1 and properties.property_type = 0"
-  has_many :image_properties,  :through => :product_properties, :source => :property_value, :select => "property_values.*, properties.name property_name", :conditions => "properties.active=1 and properties.property_type = 3"
+  has_many :property_values, :through => :product_properties, :include => :property, :select => "property_values.*, properties.name property_name"
+
+  has_many :text_properties,  :through => :product_properties, :source => :property_value, :include => :property,  :conditions => "properties.active=1 and properties.property_type = 0", :order => "properties.sort_order"
+
+  has_many :image_properties,  :through => :product_properties, :source => :property_value, :include => :property, :conditions => "properties.active=1 and properties.property_type = 3"
   
 
   scope :for_admin, joins([:supplier,:manufactor, ", (select usd,eur from currency_values v order by id desc limit 1) c" ]).select("distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name,  case products.currency_type when 'USD' then c.usd * products.price when 'EUR' then c.eur * products.price else products.price end ruprice").order("sort_order, ruprice")
@@ -221,7 +223,7 @@ class Product < ActiveRecord::Base
   
   def additional_properties
     res = []
-    text_properties.group_by(&:property_name).each do |property_name, property_values|
+    text_properties.group_by{|x| x.property.name}.each do |property_name, property_values|
       res << {:name => property_name, :values =>  property_values.map{|x| x.value}}
     end
     res
@@ -229,7 +231,7 @@ class Product < ActiveRecord::Base
   
   def color_variants
     res = {}
-    image_properties.group_by(&:property_name).each do |property_name, property_values| 
+    image_properties.group_by{|x| x.property.name}.each do |property_name, property_values| 
        res.merge!( property_name =>   property_values.map{|val| Product.find_by_article(val.value)}.delete_if{|item| item.nil?} )
     end 
     res
