@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110805042728) do
+ActiveRecord::Schema.define(:version => 20110808092034) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -253,8 +253,8 @@ ActiveRecord::Schema.define(:version => 20110805042728) do
   add_index "product_properties", ["property_value_id", "product_id"], :name => "index_product_properties_on_property_value_id_and_product_id", :unique => true
 
   create_table "products", :force => true do |t|
-    t.integer  "manufactor_id"
-    t.integer  "supplier_id"
+    t.integer  "manufactor_id",                                                    :default => 0,     :null => false
+    t.integer  "supplier_id",                                                      :default => 0,     :null => false
     t.string   "article",            :limit => 100
     t.string   "short_name",         :limit => 100
     t.string   "full_name",          :limit => 100
@@ -262,13 +262,13 @@ ActiveRecord::Schema.define(:version => 20110805042728) do
     t.string   "color",              :limit => 20
     t.string   "factur",             :limit => 100
     t.string   "box",                :limit => 30
-    t.decimal  "price",                             :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "price",                             :precision => 10, :scale => 2, :default => 0.0,   :null => false
     t.integer  "sort_order",                                                       :default => 100
     t.integer  "store_count",                                                      :default => 0
     t.integer  "remote_store_count",                                               :default => 0
     t.boolean  "from_store",                                                       :default => true
     t.boolean  "from_remote_store",                                                :default => false
-    t.boolean  "active",                                                           :default => true
+    t.boolean  "active",                                                           :default => true,  :null => false
     t.text     "description"
     t.string   "meta_description"
     t.datetime "created_at"
@@ -281,8 +281,13 @@ ActiveRecord::Schema.define(:version => 20110805042728) do
     t.boolean  "best_price",                                                       :default => false
   end
 
+  add_index "products", ["active"], :name => "index_product_product_active"
   add_index "products", ["best_price"], :name => "index_products_on_best_price"
+  add_index "products", ["is_new"], :name => "index_product_is_new"
+  add_index "products", ["is_sale"], :name => "index_product_is_sale"
   add_index "products", ["permalink"], :name => "index_products_on_permalink", :unique => true
+  add_index "products", ["short_name"], :name => "index_product_short_name"
+  add_index "products", ["supplier_id"], :name => "index_product_on_suppliers"
 
   create_table "properties", :force => true do |t|
     t.string   "name",             :limit => 40
@@ -307,6 +312,7 @@ ActiveRecord::Schema.define(:version => 20110805042728) do
     t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "note"
   end
 
   create_table "roles", :force => true do |t|
