@@ -44,4 +44,14 @@ def destroy
   redirect_to admin_properties_path
 end
 
+  def show
+    @property = Property.find(params[:id])
+  end
+  
+  def load_filter_values
+    @property = Property.find(params[:id])
+    @selected = params[:selected]
+    @check_box_name = params[:check_box_name] if params[:check_box_name].present?
+  end
+
 end

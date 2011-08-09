@@ -16,7 +16,7 @@ class Product < ActiveRecord::Base
   has_many :image_properties,  :through => :product_properties, :source => :property_value, :include => :property, :conditions => "properties.active=1 and properties.property_type = 3"
   
 
-  scope :for_admin, joins([:supplier,:manufactor, ", (select usd,eur from currency_values v order by id desc limit 1) c" ]).select("distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name,  case products.currency_type when 'USD' then c.usd * products.price when 'EUR' then c.eur * products.price else products.price end ruprice").order("sort_order, ruprice")
+  scope :for_admin, joins([:supplier,:manufactor,  ", (select usd,eur from currency_values v order by id desc limit 1) c" ]).select("distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name,  case products.currency_type when 'USD' then c.usd * products.price when 'EUR' then c.eur * products.price else products.price end ruprice").order("sort_order, ruprice")
  
   scope :search, lambda { |search_text|
   active.where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code)", { :search => '%' + search_text + '%',:code => search_text}) }
@@ -88,6 +88,11 @@ class Product < ActiveRecord::Base
       cond[0]<< "products.best_price = :best_price " 
       cond[1][:best_price] = options[:best_price]
     end    
+    unless options[:property_values].blank?
+      cond[0]<< "product_properties.property_value_id in (:property_values)" 
+      cond[1][:property_values] = options[:property_values]
+    end    
+    
     cond[0]<< "products.price =0"    if options[:price] && options[:price]=="0"
     cond[0]<< "products.price >0"    if options[:price] && options[:price]=="1"
     cond[0]<< "products.store_count=0"    if options[:store] && options[:store]=="0"
@@ -99,7 +104,7 @@ class Product < ActiveRecord::Base
       when "json"
         active.where(total_conditions)
       else
-        for_admin.paginate(:all,:page=>options[:page], :per_page=>options[:per_page], :conditions=>total_conditions)
+        for_admin.joins(options[:property_values].present? ? :property_values : nil).paginate(:all,:page=>options[:page], :per_page=>options[:per_page], :conditions=>total_conditions)
       end
 
   end

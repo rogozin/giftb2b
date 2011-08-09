@@ -149,6 +149,9 @@ Giftr3::Application.routes.draw do
     end
     resources :properties do  
       resources :values, :controller => "property_values"
+      member do
+        get :load_filter_values
+      end
     end
     resources :data_changes do
       collection do

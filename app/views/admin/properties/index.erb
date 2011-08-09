@@ -2,22 +2,30 @@
 
 <% title "Дополнительные свойства для товаров" -%>
 
+
+<script type="text/javascript">
+$(function() {
+  $('a.pseudo-link').toggle(
+    function() {
+      $.get(this.href);
+     }, 
+     function(){
+      $(this).parentsUntil('table').find('table').empty();
+      });
+});
+
+</script>
+
 <div class="b-command-menu">
   [<%= link_to 'Новое свойство' , new_admin_property_path %>]
 </div>
 
 <div class="grid_8 alpha">
 <table>
-  <th>
-    Название
-  </th>
+  <th>Название</th>
   <th>Тип</th>
-  <th>
-     Категорий
-  </th>  
-  <th>
-    Активно?
-  </th>
+  <th>Категорий</th>  
+  <th>Активно?</th>
   <th>Для поиска?</th>
   <th>Во всех товарах?</th>
   <th>
@@ -27,7 +35,7 @@
   <% for item in @properties %>
   <tr>
     <td>
-      <%= link_to '+', "javascript:void($('#prop_#{item.id}_values').toggle());", :class=>"pseudo-link",:title=>"Показать список значений для свойства" %>  <%=h item.name %>
+      <%= link_to '+', admin_property_path(item), :remote => true,  :class=>"pseudo-link",:title=>"Показать список значений для свойства" %>  <%= item.name %>
       <% content_for :property_name do %>
 
       <%end -%>
@@ -45,9 +53,11 @@
       <%= link_to image_tag('add.png'), new_admin_property_value_path(item.id), :title=>"Добавить значение для свойства"  %>
     </td>
   </tr>
-
-        <%= render :partial => 'property_values',  :locals =>{ :property=>item } %>
-    
+  <tr>  
+    <%= content_tag :td, :id => "prop_#{item.id}_values", :colspan => "5" do %>
+        <%#= render :partial => 'property_values',  :locals =>{ :property=>item } %>
+     <% end -%>
+    </tr>     
   <% end %>
 </table>
 </div>

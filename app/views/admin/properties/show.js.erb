@@ -1,0 +1,1 @@
+$('#prop_<%= @property.id %>_values').html("<%= escape_javascript render(:partial => 'property_values', :locals =>  {:property => @property}) %>");

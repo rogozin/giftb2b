@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'admin/products' %>
 <%= render 'admin/shared/sub_menu_product' %>
 
 <%title 'Список товаров',false  %>
@@ -21,95 +22,38 @@
  <%= select(nil ,'sale', options_for_select( [['Нет', '0'],['Да','1']],params[:sale]),{:prompt=>'<-Распродажа->'}, {:name=>'sale'}) %> 
  <%= select(nil ,'best_price', options_for_select( [['Нет', '0'],['Да','1']],params[:best_price]),{:prompt=>'<-Лучшая цена->'}, {:name=>'best_price'}) %> 
  <%= select(nil ,'price', options_for_select( [['Равна 0', '0'],['Больше 0','1']],params[:price]),{:prompt=>'<-Цена товара->'}, {:name=>'price'}) %> 
-<%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100'],['500','500']],params[:per_page]),{:prompt=>'<-Кол-во->'}, {:name=>'per_page'}) %>
+<%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100'],['500','500']],params[:per_page]),{:prompt=>'<-Кол-во->'}, {:name=>'per_page'}) %> 
+<p>
+  <%= link_to_function 'Расширенный поиск', "$('.ext-search').toggle()", :class=>"pseudo-link" %>
+  <%= content_tag :div, :class => "ext-search #{params[:property_values].present? ? nil : "g-hidden" }" do %>
+      <% @properties.each do |item| -%>
+        <%= div_for(item, :class => "filter-property ajax-load") do %>       
+          <%= link_to  item.name, load_filter_values_admin_property_path(item, :selected => params[:property_values]), :remote => true, :class => "pseudo-link #{has_selected_items_class(item, params[:property_values])}" %>
+          <div class="filter-property-values g-hidden">
+            <%= render :partial => 'admin/properties/property_filter_values', :locals => {:property => item, :selected => params[:property_values]} if has_selected_items?(item, params[:property_values]) %>
+          </div>
+        <% end -%>
+      <% end -%>
+      <div class="clear"></div>
+  <% end -%>
+  
+</p>
 <% end -%>
 <div class="spacer"></div>
 <div>
 <%= link_to_function 'Групповые операции', "$('.group-ops').toggle()", :class=>"pseudo-link" %>
-<div class="group-ops g-hidden">
-<p>Что сделать с отмеченными товарами?</p>
-<%= form_tag group_ops_admin_products_path do -%>
-<%= hidden_field_tag :back_url, request.url %>
-<%= hidden_field_tag "product_ids", "" %>
-<%= select_tag :oper, options_for_select([["<-Выберите операцию->"],["Удалить", 'delete'],["Копировать", "copy"],["Изменить свойство",'change']]) %>
-<%= submit_tag "Выполнить", :id => "commit", :class=>"g-hidden" %>
-<% end -%>
-<script type="text/javascript">
-$(document).ready(function() {
-$('#select_all_chb').bind('click', function() {$("input[type='checkbox']").attr('checked', 'checked') });
-$('#select_all_chb').bind('dblclick', function() {$("input[type='checkbox']").removeAttr('checked') });
-})
-
-function clear_group_form() {
-  $('#commit').hide();
-  $('#category_id').remove();
-  $('#property_name').remove();
-  $('#property_value').remove();
-  return false;
-}
 
 
-$('#oper').bind('change', function() {
-  switch(this.value) {
-    case 'delete':
-      clear_group_form();
-      $('#commit').show();
-      $(this).parent().append('');
-      break;
-    case 'copy':
-      clear_group_form();
-      $('#category').clone().attr('id','category_id').insertAfter('#oper');
-      $('#commit').show();
-      break;
-    case 'change':
-      clear_group_form();
-      $('#oper').after("<select id='property_name' name='property_name'>"+
-      "<option value='null'><-Выберите свойство-></option>"+
-      "<option value='color'>Цвет</option>"+
-      "<option value='factur'>Материал</option>"+
-      "<option value='box'>Упаковка</option>"+
-      "<option value='size'>Размер</option>"+
-      "<option value='is_new'>Новинка</option>"+
-      "<option value='is_sale'>Распродажа</option>"+
-      "<option value='best_price'>Отличная цена</option>"+
-      "<option value='sort_order'>Сортировка</option>"+
-      "</select>");
-      $('#commit').show();
-      break;      
-    default:
-      clear_group_form();
-  }
-});
-  
-$('.group-ops form').bind('submit', function() {
-  $('#product_ids').val($.map($("#products_list input:checked"), function(n){return n.value }).join(','));
-});
+  <div class="group-ops g-hidden">
+    <p>Что сделать с отмеченными товарами?</p>
+    <%= form_tag group_ops_admin_products_path do -%>
+    <%= hidden_field_tag :back_url, request.url %>
+    <%= hidden_field_tag "product_ids", "" %>
+    <%= select_tag :oper, options_for_select([["<-Выберите операцию->"],["Удалить", 'delete'],["Копировать", "copy"],["Изменить свойство",'change']]) %>
+    <%= submit_tag "Выполнить", :id => "commit", :class=>"g-hidden" %>
+    <% end -%>
+  </div>
 
-$('#property_name').live('change', function() {
-  $('#property_value').remove();
-  if (this.value != "null") {
-    if (this.value == 'color' || this.value == 'factur' || this.value == 'box' || this.value == 'size' || this.value == 'sort_order') {
-      $(this).after("<input id='property_value' name='property_value' type='text'>");
-    }
-    if ((this.value == 'is_new') || (this.value == 'is_sale') || (this.value == 'best_price')) {
-      $(this).after("<select id='property_value' name='property_value'>" +
-      "<option value='0'>Нет</option>" +
-      "<option value='1'>Да</option>" +
-      "</select>");
-    }        
-    $('.main-cols').hide();
-    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale, td.sort_order, td.best_price').hide();
-    $('th.property-column').show().text(this[this.selectedIndex].innerHTML);
-    $('td.'+this.value).show();
-  }
-  else {
-    $('.main-cols').show();
-    $('th.property-column').hide();
-    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale, td.sort_order, td.best_price').hide();
-  }
-});
-</script>
-</div>
 </div>
 </fieldset>
 

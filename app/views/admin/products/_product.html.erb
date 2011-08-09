@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'admin/products' %>
 <div class="grid_7 alpha">
 <h2>Основная информация</h2>
 <%= form_for [:admin,product],  :html => {:class => 'one_line_form'} do |form| %>
@@ -114,7 +115,19 @@
 </div>
 <div class="grid_4 omega">
 <h3>Свойства</h3>
-<%= product_properties_tree(@product.category_ids, @product.property_value_ids) %>  
+<%#= product_properties_tree(@product.category_ids, @product.property_value_ids) %>  
+<div class="ext-search b-product-properties">
+ <% @properties.each do |item| -%>
+        <%= div_for(item, :class => "product-property ajax-load") do %>       
+          <%= link_to  item.name, load_filter_values_admin_property_path(item, :selected => @product.property_value_ids, :check_box_name => "product[property_value_ids][]"), :remote => true, :class => "pseudo-link #{has_selected_items_class(item, @product.property_value_ids)}" %>
+          <div class="filter-property-values g-hidden">
+            <%= render :partial => 'admin/properties/property_filter_values', 
+            :locals => {:property => item, :selected => @product.property_value_ids, :check_box_name => "product[property_value_ids][]"} if has_selected_items?(item, @product.property_value_ids) %>
+          </div>
+        <% end -%>
+      <% end -%>
+      <div class="clear"></div>
+</div>      
 </div>
 
 <div class="clear"></div>

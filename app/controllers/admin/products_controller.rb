@@ -6,8 +6,11 @@ class Admin::ProductsController < Admin::BaseController
      allow :Администратор, "Редактор каталога"
   end
   
+  before_filter :find_properties, :only => [:new, :create, :edit, :update]
+  
   def index 
     params[:page] || 1    
+    @properties = Property.for_search
     if current_user.has_role?("Редактор каталога")  
       params[:supplier] = current_user.supplier ? current_user.supplier.id : -1
     end
@@ -95,6 +98,13 @@ class Admin::ProductsController < Admin::BaseController
     end
       params[:back_url] ? redirect_to( params[:back_url]) : redirect_to( admin_products_path)    
   end
+
+  private
+  
+  def find_properties
+    @properties = Property.active
+  end
+
   
 end
 
