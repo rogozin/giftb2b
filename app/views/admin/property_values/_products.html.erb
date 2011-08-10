@@ -1,0 +1,29 @@
+<table>
+  <th></th>
+  <th>Изображение</th>
+  <th>Код</th>
+  <th>Категории</th>
+  <th>Поставщик</th>
+  <th>Артикул</th>
+  <th>Название</th>
+  <th>Цвет</th>
+  <th>Материал</th>
+
+<% @products.each do |product| -%>
+  <tr>
+    <td><%= link_to image_tag('edit.png'), edit_admin_product_path(product)  %></td>
+    <td><%= product_image(product, true) %></td>
+    <td><%= product.unique_code %></td>
+    <td><%= product.categories.collect(&:name).join(', ') %> </td>
+    <td><%= product.supplier.name %> </td>      
+    <td><%= product.article %> </td>
+    <td><%= product.short_name %></td>   
+    <td><%= product.color %></td>
+    <td><%= product.factur %></td>
+  </tr>
+<% end -%>
+</table>
+
+<%= will_paginate @products, :class => "pagination-ajax" %>
+
+
