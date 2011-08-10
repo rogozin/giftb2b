@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110808092034) do
+ActiveRecord::Schema.define(:version => 20110810123144) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -250,7 +250,9 @@ ActiveRecord::Schema.define(:version => 20110808092034) do
     t.datetime "updated_at"
   end
 
+  add_index "product_properties", ["product_id"], :name => "index_product_properties_on_product_id"
   add_index "product_properties", ["property_value_id", "product_id"], :name => "index_product_properties_on_property_value_id_and_product_id", :unique => true
+  add_index "product_properties", ["property_value_id"], :name => "index_product_properties_on_property_value_id"
 
   create_table "products", :force => true do |t|
     t.integer  "manufactor_id",                                                    :default => 0,     :null => false

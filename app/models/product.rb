@@ -43,68 +43,56 @@ class Product < ActiveRecord::Base
   end
   
   def self.find_all(options={}, place= "admin")
+    sr = Product.scoped
     options[:per_page] ||=20
-    cond=[[],{}]
     if options[:category] 
       if  options[:category].to_i >0
         cat = Category.find(options[:category].to_i)
         cats_arr = Category.tree_childs(Category.cached_all_categories,cat)
-        cond[0]<<  "exists (select null from product_categories ps where ps.product_id = products.id and  ps.category_id in ( :category))"
-        cond[1][:category]=cats_arr || options[:category]
+        sr =sr.where("exists (select null from product_categories ps where ps.product_id = products.id and  ps.category_id in ( :category))", :category => cats_arr || options[:category])
      elsif options[:category].to_i ==-1
-        cond[0]<<  "not exists (select null from product_categories ps where ps.product_id = products.id)"
+        sr = sr.where("not exists (select null from product_categories ps where ps.product_id = products.id)")
       end
     end 
-    if options[:manufactor].present? && options[:manufactor].to_i >0
-      cond[0]<<  "manufactor_id=:manufactor"
-      cond[1][:manufactor]=options[:manufactor]
-    end  
-    if options[:supplier].present? && options[:supplier].to_i
-      cond[0]<<  "supplier_id=:supplier"
-      cond[1][:supplier]=options[:supplier]
-    end      
-    cond[0]<<  "products.active=#{options[:active]}"    unless options[:active].blank?
-    unless options[:name].blank? 
-      cond[0]<< "products.article like :name"
-      cond[1][:name]= '%'+options[:name]+'%'
-    end
-    unless options[:search_text].blank? 
-      cond[0]<< "products.short_name like :search_text or description like :search_text"
-      cond[1][:search_text]= '%'+options[:search_text]+'%'
-    end  
-    unless options[:code].blank? 
-      cond[0]<< "lpad(products.id,6,'0') = :code"
-      cond[1][:code]= options[:code]
-    end 
-    unless options[:new].blank?
-      cond[0]<< "products.is_new = :new " 
-      cond[1][:new] = options[:new]
-    end
-    unless options[:sale].blank?
-      cond[0]<< "products.is_sale = :sale " 
-      cond[1][:sale] = options[:sale]
-    end    
-    unless options[:best_price].blank?
-      cond[0]<< "products.best_price = :best_price " 
-      cond[1][:best_price] = options[:best_price]
-    end    
-    unless options[:property_values].blank?
-      cond[0]<< "product_properties.property_value_id in (:property_values)" 
-      cond[1][:property_values] = options[:property_values]
-    end    
+
+    sr = sr.where(:manufactor_id => options[:manufactor]) if options[:manufactor].present? && options[:manufactor].to_i >0 
     
-    cond[0]<< "products.price =0"    if options[:price] && options[:price]=="0"
-    cond[0]<< "products.price >0"    if options[:price] && options[:price]=="1"
-    cond[0]<< "products.store_count=0"    if options[:store] && options[:store]=="0"
-    cond[0]<< "products.store_count >0"    if options[:store] && options[:store]=="1"        
-    total_conditions = cond[0] && cond[0].size>0 ? [cond[0].join(" AND "), cond[1]]  : []
+    sr = sr.where(:supplier_id => options[:supplier]) if options[:supplier].present? && options[:supplier].to_i > 0
+  
+    sr = sr.where("products.article like :name", :name => '%'+options[:name]+'%') unless options[:name].blank? 
+
+    sr = sr.where("products.short_name like :search_text or description like :search_text", :search_text => '%'+options[:search_text]+'%' )  unless options[:search_text].blank? 
+    
+    sr = sr.where("lpad(products.id,6,'0') = :code", :code => options[:code])      unless options[:code].blank? 
+    
+    sr = sr.where("products.active" => options[:active] == "0" ? false : true) unless options[:active].blank?
+    
+    sr = sr.where(:is_new => options[:new] =="0" ? false : true) if options[:new].present?
+        
+    sr = sr.where(:sale => options[:sale] == "0" ? false : true) if options[:sale].present?
+    
+    sr = sr.where(:best_price => options[:best_price] == "0" ? false : true) if options[:best_price].present?
+    
+    sr = sr.where("products.price" => 0) if options[:price] && options[:price]=="0"
+
+    sr = sr.where("products.price > 0") if options[:price] && options[:price]=="1"
+
+    sr = sr.where("products.store_count" => 0) if options[:store] && options[:store]=="0"
+    
+    sr = sr.where("products.store_count >0") if options[:store] && options[:store]=="1"
+    
+    
+  
+    prop_keys = options.keys.select{|x| x =~ /property_values_/}
+    sr = sr.where(prop_keys.map{|x| "(exists (select null from product_properties pp where pp.product_id = products.id and pp.property_value_id in (#{options[x].join(',')})) ) " }.join(" AND ")) if prop_keys.present?
+
     res= case place
       when "xml"
-        for_admin.all(:conditions=>total_conditions)
+        sr.for_admin
       when "json"
-        active.where(total_conditions)
+        sr.active
       else
-        for_admin.joins(options[:property_values].present? ? :property_values : nil).paginate(:all,:page=>options[:page], :per_page=>options[:per_page], :conditions=>total_conditions)
+        sr.for_admin.paginate(:page=>options[:page], :per_page=>options[:per_page])
       end
 
   end

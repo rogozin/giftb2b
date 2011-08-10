@@ -25,12 +25,13 @@
 <%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100'],['500','500']],params[:per_page]),{:prompt=>'<-Кол-во->'}, {:name=>'per_page'}) %> 
 <p>
   <%= link_to_function 'Расширенный поиск', "$('.ext-search').toggle()", :class=>"pseudo-link" %>
-  <%= content_tag :div, :class => "ext-search #{params[:property_values].present? ? nil : "g-hidden" }" do %>
+  <%= content_tag :div, :class => "ext-search #{params.keys.select{|x| x =~ /property_values_/}.present? ? nil : "g-hidden" }" do %>
       <% @properties.each do |item| -%>
+      <% pv_param = "property_values_#{item.id}" -%>
         <%= div_for(item, :class => "filter-property ajax-load") do %>       
-          <%= link_to  item.name, load_filter_values_admin_property_path(item, :selected => params[:property_values]), :remote => true, :class => "pseudo-link #{has_selected_items_class(item, params[:property_values])}" %>
+          <%= link_to  item.name, load_filter_values_admin_property_path(item, :selected => params[pv_param]), :remote => true, :class => "pseudo-link #{has_selected_items_class(item, params[pv_param])}" %>
           <div class="filter-property-values g-hidden">
-            <%= render :partial => 'admin/properties/property_filter_values', :locals => {:property => item, :selected => params[:property_values]} if has_selected_items?(item, params[:property_values]) %>
+            <%= render :partial => 'admin/properties/property_filter_values', :locals => {:property => item, :selected => params[pv_param]} if has_selected_items?(item, params[pv_param]) %>
           </div>
         <% end -%>
       <% end -%>

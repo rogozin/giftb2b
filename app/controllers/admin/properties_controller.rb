@@ -51,7 +51,7 @@ end
   def load_filter_values
     @property = Property.find(params[:id])
     @selected = params[:selected]
-    @check_box_name = params[:check_box_name] if params[:check_box_name].present?
+    @check_box_name = params[:check_box_name].present? ? params[:check_box_name]  : nil
   end
 
 end

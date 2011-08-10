@@ -1,7 +1,7 @@
 <%= javascript_include_tag 'admin/products' %>
+<%= form_for [:admin,product],  :html => {:class => 'one_line_form'} do |form| %>
 <div class="grid_7 alpha">
 <h2>Основная информация</h2>
-<%= form_for [:admin,product],  :html => {:class => 'one_line_form'} do |form| %>
     <%= render :partial => 'admin/shared/error_messages', :locals => {:target => product} %>
     <div class="b-formfield-div">
      <%= form.label :manufactor, "Производитель товара" %>
@@ -115,7 +115,6 @@
 </div>
 <div class="grid_4 omega">
 <h3>Свойства</h3>
-<%#= product_properties_tree(@product.category_ids, @product.property_value_ids) %>  
 <div class="ext-search b-product-properties">
  <% @properties.each do |item| -%>
         <%= div_for(item, :class => "product-property ajax-load") do %>       
