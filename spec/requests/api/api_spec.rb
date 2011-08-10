@@ -87,13 +87,13 @@ describe 'api testing' do
 
   context 'search' do
     it 'search by code' do
-      get "api/search/#{@product.unique_code}", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+      get "api/search", {:q => @product.short_name, :format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       ActiveSupport::JSON.decode(response.body).should have(1).item
       response.code.should eq("200")
     end
 
     it 'search by name' do
-      get "api/search/#{@product.short_name}", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+      get "api/search", {:q => @product.short_name, :format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       ActiveSupport::JSON.decode(response.body).should have(1).item
       response.code.should eq("200")
     end    

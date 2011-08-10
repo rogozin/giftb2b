@@ -64,7 +64,7 @@ describe Product do
   context 'Аналогичные товары' do
     before(:each) do
       5.times { Factory(:product)}
-      @analog_category = Factory(:category, :name => "Аналоги", :kind => 3)
+      @analog_category = Factory(:category, :name => "Аналоги", :kind => 1)
       Product.all.each {|p| p.categories << @analog_category}
     end
     
@@ -72,7 +72,54 @@ describe Product do
       Product.first.analogs.should have(4).items
       Product.first.analogs.first.should be_a_kind_of(Product)
     end  
-  
   end
+  
+  context 'Расширенный поиск (цвета и материалы)' do
+    before(:each) do
+      @material_prop = Factory(:text_property, :name => "Материал")
+      @val1 = @material_prop.property_values.create(:value => "Пластик")
+      @val2 = @material_prop.property_values.create(:value => "Дерево")
+
+      @color_prop = Factory(:text_property, :name => "Цвет")
+      @val3 = @color_prop.property_values.create(:value => "Красный")
+      @val4 = @color_prop.property_values.create(:value => "Белый")
+      
+      @product1  = Factory(:product)
+      @product2  = Factory(:product)
+      @product3  = Factory(:product)
+      @product4  = Factory(:product)
+      @product1.product_properties.create(:property_value => @val1)
+      @product1.product_properties.create(:property_value => @val2)
+      @product1.product_properties.create(:property_value => @val3)
+      @product1.product_properties.create(:property_value => @val4)
+      
+      @product2.product_properties.create(:property_value => @val1)
+      @product2.product_properties.create(:property_value => @val2)
+      @product2.product_properties.create(:property_value => @val3)
+      
+      @product3.product_properties.create(:property_value => @val1)
+      @product3.product_properties.create(:property_value => @val2)
+      
+      @product4.product_properties.create(:property_value => @val4)
+    end
+    
+    it "Ищу по материалу 'Пластик'" do
+      Product.find_all({"property_values_#{@material_prop.id}" => [@val1.id]}).should have(3).items
+    end
+    
+    it "Ищу по материалу 'Пластик' и цвету 'Красный'" do
+      Product.find_all({"property_values_#{@material_prop.id}" => [@val1.id], "property_values_#{@color_prop.id}" => [@val3.id]}).should have(2).items
+    end
+    
+    it "Ищу по материалу 'Пластик' и цвету 'Красный' и 'Белый'" do
+      Product.find_all({"property_values_#{@material_prop.id}" => [@val1.id], "property_values_#{@color_prop.id}" => [@val3.id, @val4.id]}).should have(2).items
+    end
+
+    it "Ищу по материалу 'Пластик' и 'Дерево' и цвету 'Красный' и 'Белый'" do
+      Product.find_all({"property_values_#{@material_prop.id}" => [@val1.id, @val2.id], "property_values_#{@color_prop.id}" => [@val3.id, @val4.id]}).should have(2).items
+    end
+    
+  end
+  
 end
 

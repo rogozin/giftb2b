@@ -42,6 +42,14 @@ Factory.define :category do |f|
   f.active true
 end
 
+Factory.define :text_property, :class => Property do |f|
+  f.name "Текстовое св-во" 
+  f.for_search true
+  f.for_all_products  true
+  f.property_type 0
+  f.active true
+end
+
 Factory.define :color_property, :class => Property do |f|
   f.name "Цветовые варианты" 
   f.property_type 3
