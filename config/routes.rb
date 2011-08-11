@@ -140,6 +140,7 @@ Giftr3::Application.routes.draw do
     resources :products do    
       put :activate, :on => :member
       post :group_ops, :on => :collection  
+      post :fields_settings, :on => :collection
       resources :images do
         member do
           delete :remove

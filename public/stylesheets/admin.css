@@ -416,4 +416,7 @@ a.has-selected-items {
   font-weight:bold;
   color:#034CFF
 }
+.float-fields {
+float:left;
+width:180px;
 }

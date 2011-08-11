@@ -23,7 +23,7 @@
  <%= select(nil ,'best_price', options_for_select( [['Нет', '0'],['Да','1']],params[:best_price]),{:prompt=>'<-Лучшая цена->'}, {:name=>'best_price'}) %> 
  <%= select(nil ,'price', options_for_select( [['Равна 0', '0'],['Больше 0','1']],params[:price]),{:prompt=>'<-Цена товара->'}, {:name=>'price'}) %> 
 <%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100'],['500','500']],params[:per_page]),{:prompt=>'<-Кол-во->'}, {:name=>'per_page'}) %> 
-<p>
+<div>
   <%= link_to_function 'Расширенный поиск', "$('.ext-search').toggle()", :class=>"pseudo-link" %>
   <%= content_tag :div, :class => "ext-search #{params.keys.select{|x| x =~ /property_values_/}.present? ? nil : "g-hidden" }" do %>
       <% @properties.each do |item| -%>
@@ -38,9 +38,10 @@
       <div class="clear"></div>
   <% end -%>
   
-</p>
+</div>
 <% end -%>
 <div class="spacer"></div>
+
 <div>
 <%= link_to_function 'Групповые операции', "$('.group-ops').toggle()", :class=>"pseudo-link" %>
 
@@ -56,6 +57,18 @@
   </div>
 
 </div>
+<div class="spacer"></div>
+<%= link_to_function 'Настройка полей', "$('#fields_visibility').toggle()", :class=>"pseudo-link" %>
+ <div id="fields_visibility" class="g-hidden">
+  <%= form_tag fields_settings_admin_products_path do  %>
+    <%= hidden_field_tag :back_url, request.url %>
+      <%= build_field_settings %>   
+      <div class="clear"></div>       
+    <%= submit_tag "Сохранить" %>
+    
+  <% end -%>
+ </div>
+
 </fieldset>
 
 <div class="spacer"></div>

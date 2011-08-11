@@ -15,4 +15,39 @@ module Admin::ProductsHelper
   def has_selected_items_class(property, selected_items)
     has_selected_items?(property,selected_items) ? "has-selected-items" : ""
   end
+  
+  def build_field_settings
+    res = ""
+    index = 0
+    product_fields.each do |key,val|
+      res << "<div class='float-fields'>" if (index % 5).zero?
+      res << "<div>\n"
+      res << check_box_tag("fields_settings[]", key,  product_fields_session && product_fields_session[key]    , :id => "field_#{key.to_s}")
+      res << label_tag("field_#{key.to_s}", val)
+      res << "</div>\n"
+      res << "</div>" if ((index +1) % 5).zero? || product_fields.keys.size == (index + 1)
+      index +=1
+    end
+   raw res 
+  end
+  
+  def build_table_headers
+    res = ""
+    product_fields_session.select{|k,v| v}.each do |key,value|
+      res << "<th>#{product_fields[key]}</th>\n"
+    end
+    raw res
+  end
+  
+  def build_cell field_name, value, options={}
+    res = ""
+    res << content_tag(:td, value, :class => options[:class].present? ? options[:class] : nil )     if product_fields_session && product_fields_session[field_name] == true
+    raw res      
+  end
+  
+  def build_properties_cell(product)
+    res = ""
+          
+  end
+  
 end

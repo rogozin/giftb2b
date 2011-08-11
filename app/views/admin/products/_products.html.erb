@@ -2,44 +2,33 @@
   <tr>
     <%= content_tag(:th, raw("<a id='select_all_chb' href='#' class='pseudo-link'>Все</a>"), :class => "group-ops g-hidden") %>
     <th></th>
-    <th>Изображение</th>
-    <th>КОД</th>
-    <th>Категория</th>
-    <th>Производитель</th>
-    <th>Поставщик</th>
-    <th>Артикул</th>
-    <th>Наименование</th>
-    <th>Цена</th>
-    <th class="main-cols">П?</th>
-    <th class="main-cols">Скл</th>
-    <th class="main-cols"></th>
-    <th class="property-column g-hidden"></th>
+      <%= build_table_headers %>
+     <th></th>
   </tr>
   <% @products.each do |item| -%>
     <tr>
       <%= content_tag(:td, check_box_tag("product_ids[]", item.id), :class =>"group-ops g-hidden" ) %>
       <td><%= link_to image_tag('edit.png') ,edit_admin_product_path(item) %></td>    
-      <td><%= product_image(item, true) %></td>
-      <td><%= item.unique_code%></td>
-      <td><%= item.categories.collect(&:name).join(', ')%> </td>
-      <td><%= item.manufactor_name %> </td>
-      <td><%= item.supplier_name %> </td>      
-      <td><%= item.article %> </td>
-      <td><%= item.short_name %></td>
-      <td><%= product_price(item) %></td>
-     
-      <td class="center main-cols"><%=link_to  image_tag(item.active ? 'checked.gif' : 'unchecked.gif', :id => "img_#{item.id}") ,   activate_admin_product_path(item.id), :remote => true, :method=>:put %>
-</td>
-      <td class="main-cols"><%= item.store_count %></td>
-      <td class="main-cols"><%= link_to image_tag('bin.png'), admin_product_path(item, :back_url=>request.url), :method=>:delete, :confirm => 'Вы уверены?' %></td>
-      <td class="color g-hidden"><%= item.color %></td>
-      <td class="factur g-hidden"><%= item.factur %></td>
-      <td class="box g-hidden"><%= item.box %></td>
-      <td class="size g-hidden"><%= item.size %></td>
-      <td class="is_new g-hidden"><%= checked_box_image item.is_new %></td>
-      <td class="is_sale g-hidden"><%= checked_box_image item.is_sale %></td>
-      <td class="best_price g-hidden"><%= checked_box_image item.best_price %></td>
-      <td class="sort_order g-hidden"><%= item.sort_order %></td>
+      <%= build_cell(:image, product_image(item, true)) %>
+      <%= build_cell(:code, item.unique_code ) %>
+      <%= build_cell(:category, item.categories.collect(&:name).join(', ') ) %>
+      <%= build_cell(:manufactor, item.manufactor_name) %>
+      <%= build_cell(:supplier, item.supplier_name) %>
+      <%= build_cell(:article, item.article) %>
+      <%= build_cell(:short_name, item.short_name) %>
+      <%= build_cell(:price, product_price(item)) %>
+      <%= build_cell(:active, link_to(checked_box_image(item.active,  "img_#{item.id}") ,   activate_admin_product_path(item.id), :remote => true, :method=>:put), {:class =>"center"} ) %>
+      <%= build_cell(:store_count, item.store_count) %> 
+      <%= build_cell(:color, item.color) %> 
+      <%= build_cell(:factur, item.factur) %> 
+      <%= build_cell(:box, item.box) %> 
+      <%= build_cell(:size, item.size) %> 
+      <%= build_cell(:new, checked_box_image(item.is_new), {:class =>"center"}) %> 
+      <%= build_cell(:sale, checked_box_image(item.is_sale), {:class =>"center"}) %> 
+      <%= build_cell(:best_price, checked_box_image(item.best_price), {:class =>"center"}) %> 
+      <%= build_cell(:sort_order, item.sort_order) %>
+      <%= build_properties_cell(item) %>    
+      <td><%= link_to image_tag('bin.png'), admin_product_path(item, :back_url=>request.url), :method=>:delete, :confirm => 'Вы уверены?' %></td>
     </tr>
   <% end -%>
 </table>

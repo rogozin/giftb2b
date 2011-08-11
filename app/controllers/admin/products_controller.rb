@@ -8,7 +8,10 @@ class Admin::ProductsController < Admin::BaseController
   
   before_filter :find_properties, :only => [:new, :create, :edit, :update]
   
+  helper_method :product_fields, :product_fields_session
+  
   def index 
+    set_default_fields
     params[:page] || 1    
     @properties = Property.active.for_search
     if current_user.has_role?("Редактор каталога")  
@@ -96,15 +99,46 @@ class Admin::ProductsController < Admin::BaseController
           flash[:notice] = "Операция выполнена! Изменено #{cnt} позиций."
         end
     end
-      params[:back_url] ? redirect_to( params[:back_url]) : redirect_to( admin_products_path)    
+      redirect_to_back   
+  end
+
+  def fields_settings 
+    if params[:fields_settings].present?
+      session[:product_fields_settings] = {} 
+      params[:fields_settings].each do |field|
+        session[:product_fields_settings][field.to_sym] = true
+      end
+    end    
+    redirect_to_back
   end
 
   private
   
+  def redirect_to_back
+    params[:back_url] ? redirect_to( params[:back_url]) : redirect_to( admin_products_path) 
+  end
+
   def find_properties
     @properties = Property.active
   end
 
+  def product_fields
+    standart = {:image => "Изображение", :code => "Код", :category => "Категория", :manufactor => "Производитель", :supplier => "Поставщик", :article => "Артикул", :short_name => "Название", :price => "Цена", :active => "П?", :store_count => "К-во на складе", :color => "Цвет", :factur => "Материал", :box => "Упаковка", :size => "Размер", 
+    :new => "Новинка", :sale => "Распродажа", :best_price => "Лучшая цена", :sort_order => "Сортировка" }
+    Property.active.each do |prop|
+      standart["property_#{prop.id}".to_sym] = prop.name
+    end
+    standart
+  end
+
+  def set_default_fields
+    product_fields_session ||= {:image => true, :code => true, :category => true, :manufactor => true, :supplier => true, :article => true, :short_name => true, :price => true, :active => true, :store_cont => true}
+
+  end
+  
+  def product_fields_session
+    session[:product_fields_settings]
+  end
   
 end
 

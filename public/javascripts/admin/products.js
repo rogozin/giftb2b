@@ -60,16 +60,8 @@ $(document).ready(function() {
       "<option value='1'>Да</option>" +
       "</select>");
     }        
-    $('.main-cols').hide();
-    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale, td.sort_order, td.best_price').hide();
-    $('th.property-column').show().text(this[this.selectedIndex].innerHTML);
-    $('td.'+this.value).show();
   }
-  else {
-    $('.main-cols').show();
-    $('th.property-column').hide();
-    $('td.color, td.box, td.size, td.factur, td.is_new, td.is_sale, td.sort_order, td.best_price').hide();
-    }
+  else {  }
   });
   
   
