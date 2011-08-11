@@ -148,7 +148,11 @@ Giftr3::Application.routes.draw do
       end
     end
     resources :properties do  
-      resources :values, :controller => "property_values"
+      resources :values, :controller => "property_values" do 
+        member do
+          post :join
+        end
+      end
       member do
         get :load_filter_values
       end

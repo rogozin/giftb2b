@@ -28,6 +28,7 @@ $(function() {
   <th>Активно?</th>
   <th>Для поиска?</th>
   <th>Во всех товарах?</th>
+  <th>Показывать в товаре?</th>
   <th>
     Сортировка
   </th>
@@ -45,6 +46,7 @@ $(function() {
     <td class='center'><%= checked_box_image(item.active?) %></td>
     <td class='center'><%= checked_box_image(item.for_search?) %></td>
     <td class='center'><%= checked_box_image(item.for_all_products?) %></td>
+    <td class='center'><%= checked_box_image(item.show_in_card?) %></td>
     
     <td><%= item.sort_order %></td>
     <td>

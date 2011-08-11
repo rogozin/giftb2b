@@ -3,8 +3,9 @@ class Property < ActiveRecord::Base
   has_many :property_values, :dependent => :destroy, :order => "value"
   has_many :property_category, :dependent => :delete_all
   has_many :categories, :through => :property_category
-  scope :for_search, where(:for_search => true)
   scope :active, where(:active => true)
+  scope :for_search, where(:for_search => true)
+  default_scope order("sort_order")
   
   def self.property_types
     [['Текст',0],['Ссылка на изобржение',1],['Гиперссылка',2],['Артикул товара',3]]

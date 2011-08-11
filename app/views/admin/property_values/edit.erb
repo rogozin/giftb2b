@@ -1,6 +1,32 @@
-<%title 'Изменение значения'  %>
 
-<%= render  :partial => 'property_value', :object => @property_value %>
+<%title 'Изменение значения свойства'  %>
+
+<div class="grid_8 alpha">
+  <%= render  :partial => 'property_value', :object => @property_value %>
+</div>
+<div class="grid_8 omega">
+<h3>Объединить c другим свойством:</h3>
+<%= form_tag join_admin_property_value_path(@property_value.property.id, @property_value) do %>
+  <div>
+  <%= select_tag :property_id, options_for_select([["<- Выберите свойство ->", -1]] + @properties.map{|x| [x.name, x.id]}) %>
+  </div>
+  <div id="custom_property_values">
+  </div>
+<% end %>
+</div>
+
+<script type="text/javascript">
+$('#property_id').change(function() {
+    if (this.value > -1) {
+      $('#custom_property_values').html("<div id='property_" + this.value + "'>Выберите значение:<div class='filter-property-values'></div></div>");
+      $.getScript('/admin/properties/' + this.value + '/load_filter_values?check_box_name=property_values[]', function() {
+        $('#custom_property_values').append("<input type='submit' value='Объединить'>");
+      });
+    }
+  });
+</script>
+
+
 <div class="clear spacer"></div> 
 
 <%= link_to "Показать товары", admin_property_value_path(@property_value), :remote => true, :class => "pseudo-link" %>

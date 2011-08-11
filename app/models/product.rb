@@ -11,9 +11,9 @@ class Product < ActiveRecord::Base
   has_many :product_properties, :class_name=>"ProductProperty", :dependent => :delete_all
   has_many :property_values, :through => :product_properties, :include => :property, :select => "property_values.*, properties.name property_name"
 
-  has_many :text_properties,  :through => :product_properties, :source => :property_value, :include => :property,  :conditions => "properties.active=1 and properties.property_type = 0", :order => "properties.sort_order"
+  has_many :text_properties,  :through => :product_properties, :source => :property_value, :include => :property,  :conditions => "properties.active=1 and properties.show_in_card=1 and properties.property_type = 0", :order => "properties.sort_order"
 
-  has_many :image_properties,  :through => :product_properties, :source => :property_value, :include => :property, :conditions => "properties.active=1 and properties.property_type = 3"
+  has_many :image_properties,  :through => :product_properties, :source => :property_value, :include => :property, :conditions => "properties.active=1 and properties.show_in_card=1 and properties.property_type = 3"
   
 
   scope :for_admin, joins([:supplier,:manufactor,  ", (select usd,eur from currency_values v order by id desc limit 1) c" ]).select("distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name,  case products.currency_type when 'USD' then c.usd * products.price when 'EUR' then c.eur * products.price else products.price end ruprice").order("sort_order, ruprice")

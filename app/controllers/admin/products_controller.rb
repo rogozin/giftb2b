@@ -10,7 +10,7 @@ class Admin::ProductsController < Admin::BaseController
   
   def index 
     params[:page] || 1    
-    @properties = Property.for_search
+    @properties = Property.active.for_search
     if current_user.has_role?("Редактор каталога")  
       params[:supplier] = current_user.supplier ? current_user.supplier.id : -1
     end

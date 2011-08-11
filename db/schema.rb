@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110810151637) do
+ActiveRecord::Schema.define(:version => 20110811061325) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -300,6 +300,7 @@ ActiveRecord::Schema.define(:version => 20110810151637) do
     t.integer  "property_type",                  :default => 0,     :null => false
     t.boolean  "for_search",                     :default => false
     t.boolean  "for_all_products",               :default => false
+    t.boolean  "show_in_card",                   :default => false
   end
 
   create_table "property_categories", :id => false, :force => true do |t|
