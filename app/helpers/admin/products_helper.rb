@@ -47,7 +47,11 @@ module Admin::ProductsHelper
   
   def build_properties_cell(product)
     res = ""
-          
+    product_fields_session.select{|k,v| k.to_s =~ /property_/ }.each do |key, value|
+      property_id = key.to_s.match(/\d+/)
+      res << build_cell(key, product.property_values.where(:property_id => property_id.to_s).map(&:value).join(', '))
+    end         
+    raw res 
   end
   
 end

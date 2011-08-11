@@ -132,7 +132,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def set_default_fields
-    product_fields_session ||= {:image => true, :code => true, :category => true, :manufactor => true, :supplier => true, :article => true, :short_name => true, :price => true, :active => true, :store_cont => true}
+     session[:product_fields_settings] ||= {:image => true, :code => true, :category => true, :manufactor => true, :supplier => true, :article => true, :short_name => true, :price => true, :active => true, :store_cont => true}
 
   end
   
