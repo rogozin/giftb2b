@@ -141,6 +141,7 @@ module XmlUpload
         p[inverted_fields[node.name]]=node.content
       end
     end
+    p.sort_order = 999 if p.price == 0 && p.sort_order < 999
     p.save
     p.images.clear if @reset_images    
     process_image_nodes(p, xml_nodes) if @process_images
