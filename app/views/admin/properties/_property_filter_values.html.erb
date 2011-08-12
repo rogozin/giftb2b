@@ -1,7 +1,8 @@
 <ul>
 <% property.property_values.each do |item| -%>
-  <li><%= check_box_tag defined?(check_box_name) && check_box_name ? check_box_name : "property_values_#{property.id}[]", item.id, selected && selected.compact.map(&:to_i).include?(item.id), :id => "#{item.id}" %>
-  <%= label_tag "#{item.id}",  item.value %>
+<% item_id = defined?(prefix) && prefix ? "#{prefix}_#{item.id}" : item.id -%>
+  <li><%= check_box_tag defined?(check_box_name) && check_box_name ? check_box_name : "property_values_#{property.id}[]", item.id, selected && selected.compact.map(&:to_i).include?(item.id), :id => item_id %>
+  <%= label_tag item_id,  item.value %>
   </li>  
 <% end -%>
 </ul>

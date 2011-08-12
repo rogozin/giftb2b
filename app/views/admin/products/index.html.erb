@@ -52,7 +52,9 @@
     <%= hidden_field_tag :back_url, request.url %>
     <%= hidden_field_tag "product_ids", "" %>
     <%= select_tag :oper, options_for_select([["<-Выберите операцию->"],["Удалить", 'delete'],["Копировать", "copy"],["Изменить свойство",'change']]) %>
+    <%= select_tag :group_property_id, options_for_select([["<- Выберите доп. свойство ->", -1]] + @properties.map{|x| [x.name, x.id]}), :class => "g-hidden" %>    
     <%= submit_tag "Выполнить", :id => "commit", :class=>"g-hidden" %>
+    <div id="group_property_values"></div>
     <% end -%>
   </div>
 

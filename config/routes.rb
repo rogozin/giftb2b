@@ -138,7 +138,11 @@ Giftr3::Application.routes.draw do
       get :cbrf_tax, :on => :collection
     end
     resources :products do    
-      put :activate, :on => :member
+      member do
+        put :activate
+        get :inline_property_values
+        post :update_inline
+      end
       post :group_ops, :on => :collection  
       post :fields_settings, :on => :collection
       resources :images do

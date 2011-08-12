@@ -420,3 +420,12 @@ a.has-selected-items {
 float:left;
 width:180px;
 }
+
+div.inline-property li {
+  padding:0px;
+  margin:0px;
+}
+
+div.inline-property input[type="checkbox"]{
+margin:0px;
+}

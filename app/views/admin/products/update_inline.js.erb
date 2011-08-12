@@ -1,0 +1,2 @@
+data = "<%= get_prop_values(@product, @property.id) %> <%= escape_javascript(build_editable_cell_link(@product.id, @property.id)) %> ";
+$("#<%= "product_#{@product.id}_property_#{@property.id}"  %>").html(data).effect("highlight", {}, 3000);

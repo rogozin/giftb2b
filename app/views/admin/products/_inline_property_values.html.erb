@@ -1,0 +1,11 @@
+<%= form_tag update_inline_admin_product_path(@product.id), :remote => true do %>
+<%= hidden_field_tag :property_id, @property.id %>
+<ul>
+<% @property.property_values.each do |item| -%>
+  <li><%= check_box_tag "property_values[]", item.id, @product.property_value_ids.include?(item.id), :id => "item_#{@product.id}_#{item.id}" %>
+  <%= label_tag "item_#{@product.id}_#{item.id}",  item.value %>
+  </li>  
+<% end -%>
+</ul>
+<%= submit_tag "Сохранить" %>
+<% end -%>

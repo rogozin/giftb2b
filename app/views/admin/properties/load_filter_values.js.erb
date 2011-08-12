@@ -1,2 +1,2 @@
-$("#property_<%= @property.id %> .filter-property-values").html("<%= escape_javascript render(:partial => "property_filter_values", 
-:locals => { :property => @property, :selected => @selected, :check_box_name => @check_box_name })  %>");
+$("#<%= params[:prefix].present? ? params[:prefix] + "_" :nil %>property_<%= @property.id %> .filter-property-values").html("<%= escape_javascript render(:partial => "property_filter_values", 
+:locals => { :property => @property, :selected => @selected, :check_box_name => @check_box_name, :prefix => params[:prefix].present? ? "group" : nil })  %>");

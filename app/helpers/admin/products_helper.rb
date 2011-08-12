@@ -8,6 +8,10 @@ module Admin::ProductsHelper
    end 
   end
 
+  def get_prop_values(product, property_id)
+    product.property_values.where(:property_id => property_id).map(&:value).join(', ')
+  end
+
   def has_selected_items?(property, selected_items)
     property.property_values.where(:id => selected_items).present?
   end 
@@ -39,17 +43,28 @@ module Admin::ProductsHelper
     raw res
   end
   
+  def build_editable_cell_link(product_id, property_id)
+     content_tag(:div, link_to('изменить', inline_property_values_admin_product_path(product_id, :property_id => property_id), :remote => true, :class => "pseudo-link" ), :class => "inline-property" ) 
+  end
+  
   def build_cell field_name, value, options={}
     res = ""
-    res << content_tag(:td, value, :class => options[:class].present? ? options[:class] : nil )     if product_fields_session && product_fields_session[field_name] == true
+    id = nil
+    if field_name =~ /property_/ && options.has_key?(:product_id) && options.has_key?(:property_id)
+      id = "product_#{options[:product_id]}_property_#{options[:property_id]}" 
+      value += build_editable_cell_link(options[:product_id], options[:property_id])
+    end
+    res << content_tag(:td, raw(value), :class => options[:class].present? ? options[:class] : nil, :id => id )     if product_fields_session && product_fields_session[field_name] == true
     raw res      
   end
+  
+
   
   def build_properties_cell(product)
     res = ""
     product_fields_session.select{|k,v| k.to_s =~ /property_/ }.each do |key, value|
       property_id = key.to_s.match(/\d+/)
-      res << build_cell(key, product.property_values.where(:property_id => property_id.to_s).map(&:value).join(', '))
+      res << build_cell(key, get_prop_values(product, property_id.to_s), {:product_id => product.id, :property_id => property_id})
     end         
     raw res 
   end

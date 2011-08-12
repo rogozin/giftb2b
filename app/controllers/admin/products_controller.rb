@@ -7,6 +7,7 @@ class Admin::ProductsController < Admin::BaseController
   end
   
   before_filter :find_properties, :only => [:new, :create, :edit, :update]
+  before_filter :find_product, :only => [:show, :destroy, :edit, :update]
   
   helper_method :product_fields, :product_fields_session
   
@@ -44,12 +45,11 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def edit
-    @product = Product.find_by_permalink(params[:id])
+
   end
 
   def update
    params[:property_value_ids] ||=[]
-    @product = Product.find_by_permalink(params[:id])
     if @product.update_attributes params[:product]
       flash[:notice] = 'Продукт успешно изменен'
       redirect_to edit_admin_product_path(@product)
@@ -60,11 +60,9 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def show
-     @product = Product.find_by_permalink(params[:id])
   end
 
   def destroy
-    @product = Product.find_by_permalink(params[:id])
     if  @product.destroy
       flash[:notice] = "Продукт удален"
       params[:back_url] ? redirect_to( params[:back_url]) : redirect_to( admin_products_path)
@@ -94,8 +92,15 @@ class Admin::ProductsController < Admin::BaseController
         end
       when 'change'
         params[:product_ids].split(',').each do |product_id|
-          p = Product.find(product_id)
-          cnt +=1 if p && p.update_attribute(params[:property_name], params[:property_value])
+          if params[:property_values].present?
+            params[:property_values].each do |p_value_id|
+              ProductProperty.create(:property_value_id => p_value_id, :product_id => product_id)
+            end          
+            cnt += 1
+          else
+            p = Product.find(product_id)
+            cnt +=1 if p && p.update_attribute(params[:property_name], params[:property_value])
+          end
           flash[:notice] = "Операция выполнена! Изменено #{cnt} позиций."
         end
     end
@@ -111,8 +116,31 @@ class Admin::ProductsController < Admin::BaseController
     end    
     redirect_to_back
   end
+  
+  def inline_property_values
+    @product = Product.find(params[:id])
+    @property = Property.find(params[:property_id])
+    
+  end
+  
+  def update_inline
+    params[:property_values] ||=[]
+    @product = Product.find(params[:id])
+    @property = Property.find(params[:property_id])    
+    @product.product_properties.joins(:property_value).where("property_values.property_id" => @property.id).each do |pp| 
+      pp.destroy
+    end
+    params[:property_values].each do |property_value_id|
+      @product.product_properties.create(:property_value_id => property_value_id)  
+    end
+  end
 
   private
+  
+  def find_product
+    @product = Product.find_by_permalink(params[:id])    
+  end
+
   
   def redirect_to_back
     params[:back_url] ? redirect_to( params[:back_url]) : redirect_to( admin_products_path) 
@@ -123,7 +151,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def product_fields
-    standart = {:image => "Изображение", :code => "Код", :category => "Категория", :manufactor => "Производитель", :supplier => "Поставщик", :article => "Артикул", :short_name => "Название", :price => "Цена", :active => "П?", :store_count => "К-во на складе", :color => "Цвет", :factur => "Материал", :box => "Упаковка", :size => "Размер", 
+    standart = {:image => "Изображение", :code => "Код", :category => "Категория", :manufactor => "Производитель", :supplier => "Поставщик", :article => "Артикул", :short_name => "Название", :price => "Цена", :active => "П?", :store_count => "К-во на складе", :color => "Цвет(П)", :factur => "Материал(П)", :box => "Упаковка", :size => "Размер", 
     :new => "Новинка", :sale => "Распродажа", :best_price => "Лучшая цена", :sort_order => "Сортировка" }
     Property.active.each do |prop|
       standart["property_#{prop.id}".to_sym] = prop.name

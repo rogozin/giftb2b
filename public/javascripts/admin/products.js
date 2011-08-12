@@ -28,14 +28,15 @@ $(document).ready(function() {
       clear_group_form();
       $('#oper').after("<select id='property_name' name='property_name'>"+
       "<option value='null'><-Выберите свойство-></option>"+
-      "<option value='color'>Цвет</option>"+
-      "<option value='factur'>Материал</option>"+
+      "<option value='color'>Цвет(П)</option>"+
+      "<option value='factur'>Материал(П)</option>"+
       "<option value='box'>Упаковка</option>"+
       "<option value='size'>Размер</option>"+
       "<option value='is_new'>Новинка</option>"+
       "<option value='is_sale'>Распродажа</option>"+
       "<option value='best_price'>Отличная цена</option>"+
       "<option value='sort_order'>Сортировка</option>"+
+      "<option value='additional_props'>Дополнительные свойства</option>"+
       "</select>");
       $('#commit').show();
       break;      
@@ -60,9 +61,23 @@ $(document).ready(function() {
       "<option value='1'>Да</option>" +
       "</select>");
     }        
+    if (this.value == 'additional_props') {
+      $('#group_property_id').show();      
+    }
   }
-  else {  }
+  else {
+    $('#group_property_id').hide(); 
+    }
   });
+  
+  
+  $('#group_property_id').change(function() {
+    if (this.value > -1) {
+      $('#group_property_values').html("<div id='group_property_" + this.value + "'>Выберите значение:<div class='filter-property-values'></div></div>");
+      $.getScript('/admin/properties/' + this.value + '/load_filter_values?check_box_name=property_values[]&prefix=group');
+    }
+  });
+
   
   
    $('.ajax-load :checkbox').live('click', function() {
