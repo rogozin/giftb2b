@@ -421,6 +421,10 @@ float:left;
 width:180px;
 }
 
+div.inline-property { 
+  margin-top:10px;
+}
+
 div.inline-property li {
   padding:0px;
   margin:0px;
@@ -429,3 +433,5 @@ div.inline-property li {
 div.inline-property input[type="checkbox"]{
 margin:0px;
 }
+
+
