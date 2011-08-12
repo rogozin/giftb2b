@@ -111,7 +111,7 @@ class Product < ActiveRecord::Base
   end
    
    def price_in_rub
-     CurrencyValue.kurs(currency_type)* price
+     (CurrencyValue.kurs(currency_type)* price).round(2)
    rescue
      0
    end
