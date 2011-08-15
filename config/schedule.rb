@@ -13,7 +13,7 @@ job_type :runner,  "cd :path && rvm use 1.9.2 && script/rails runner -e :environ
 #   rake "some:great:rake:task"
 # end
 #
- every 1.day, :at => "11:00 am" do
+ every 1.day, :at => "06:00 am" do
    runner "SampleNotificationJob.new.perform"
  end
 
