@@ -19,12 +19,11 @@ gem 'nokogiri'
 gem 'RedCloth'
 gem 'composite_primary_keys', '=3.1.0'
 gem 'pdfkit', "0.4.6"
-#gem 'spreadsheet'
 gem 'writeexcel'
 gem 'rake', '~> 0.8.7'
 gem 'unicorn'
-#gem 'scheduler_daemon', :git => 'git://github.com/ssoroka/scheduler_daemon.git'
-gem 'rufus-scheduler'
+#gem 'rufus-scheduler'
+gem 'whenever'
 
  group :development, :test do
    gem "rspec-rails", "~> 2.4"
