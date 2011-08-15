@@ -1,5 +1,5 @@
 #encoding: utf-8;
-require 'xml_download'
+#require 'xml_download'
 
 class Admin::ProductsController < Admin::BaseController
   access_control do

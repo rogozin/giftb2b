@@ -43,7 +43,7 @@ module XmlDownload
             
             if (product.text_properties.present? || product.image_properties.present?) && options.key?(:additional_properties)
             xml.additional_properties {
-              product.text_properties.group_by(&:property_name).each do |property_name, property_values|
+              product.text_properties.group_by{ |x| x.property.name }.each do |property_name, property_values|
                 xml.property {
                   xml.type_ 0
                   xml.name {xml.cdata property_name}
@@ -55,7 +55,7 @@ module XmlDownload
                 }
               end
               
-              product.image_properties.group_by(&:property_name).each do |property_name, property_values|
+              product.image_properties.group_by{ |x| x.property.name }.each do |property_name, property_values|
                 xml.property {
                   xml.type_ 3
                   xml.name {xml.cdata property_name}

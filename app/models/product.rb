@@ -11,7 +11,9 @@ class Product < ActiveRecord::Base
   has_many :product_properties, :class_name=>"ProductProperty", :dependent => :delete_all
   has_many :property_values, :through => :product_properties, :include => :property, :select => "property_values.*, properties.name property_name", :order => "value"
 
-  has_many :text_properties,  :through => :product_properties, :source => :property_value, :include => :property,  :conditions => "properties.active=1 and properties.show_in_card=1 and properties.property_type = 0", :order => "properties.sort_order"
+  has_many :card_properties,  :through => :product_properties, :source => :property_value, :include => :property,  :conditions => "properties.active=1 and properties.show_in_card=1 and properties.property_type = 0", :order => "properties.sort_order"
+
+  has_many :text_properties,  :through => :product_properties, :source => :property_value, :include => :property,  :conditions => "properties.active=1  and properties.property_type = 0", :order => "properties.sort_order"
 
   has_many :image_properties,  :through => :product_properties, :source => :property_value, :include => :property, :conditions => "properties.active=1 and properties.show_in_card=1 and properties.property_type = 3"
   
@@ -216,7 +218,7 @@ class Product < ActiveRecord::Base
   
   def additional_properties
     res = []
-    text_properties.group_by{|x| x.property.name}.each do |property_name, property_values|
+    card_properties.group_by{|x| x.property.name}.each do |property_name, property_values|
       res << {:name => property_name, :values =>  property_values.map{|x| x.value}}
     end
     res
