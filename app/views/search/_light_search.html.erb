@@ -1,0 +1,8 @@
+        <div class="search corner-all"> 
+	      	  <div class="search-form">
+	        	  <p>Поиск сувениров:</p>
+               <%= form_tag search_path, :method=> :get do  -%>
+                <%= text_field_tag :request, params[:request] %><button class="s_button" type="submit">.</button>
+               <% end -%>
+          </div> 
+        </div> <!-- end search --> 

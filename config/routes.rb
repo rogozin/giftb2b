@@ -4,7 +4,7 @@ Giftr3::Application.routes.draw do
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
   match 'admin' => 'admin/products#index', :as => :admin
-  match 'search' => 'main#search', :as => :search
+  match 'search' => 'search#index', :as => :search
   match 'profile' => "profile#edit", :as => :profile
   match 'change_profile' => 'profile#update', :as => :change_profile
   match 'register' => "users#new", :as => :register_user

@@ -1,14 +1,15 @@
-<%= form_for :user_session, :url=>user_session_path, :html=>{:id=>"login_form", :name => "login_form"} do |form| %>
+<%= form_for :user_session, :url=>user_session_path, :html=>{:id=>"login_form", :name => "login_form", :class => "one_line_form"} do |form| %>
     <%#= form.error_messages %>  
-      <div class="lk_form" >
-		<p class="text_10pt_999999_bold">Личный кабинет:</p> 
-        <p class="text_9pt_999999_normal">имя: <%= form.text_field :username, :style=>"width:130px" %>
-        <p class="text_9pt_999999_normal">пароль: <%= form.password_field :password, :style=>"width:130px" %>
-        <%= form.submit ">>", :style=>"visibility:hidden; width:0px;" %>
-        
-		<a class="lk_login" onclick="login_form.submit();" >.</a></p> 
+      <div class="login-form" >
+		      <h2>Личный кабинет:</h2>
+        <p> <%= label_tag :username, "имя:" %> <%= form.text_field :username %></p>
+        <p><%= label_tag :password, "пароль:" %> <%= form.password_field :password %>
+     		<a class="lk-login" onclick="login_form.submit();" >.</a>
+        </p>
+
         <span style="color:#ff66cc;font-size:10pt"><%= flash[:login_error] %></span>
-        <span class="lk_reg"><a href="/register">pегистрация</a></span> 
+        <span class="lk-reg"><a href="/register">pегистрация</a></span> 
       </div> 
+       <%= submit_tag ".", :style=>"visibility:hidden; width:0px;" %>
       <% end %>    
  

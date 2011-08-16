@@ -1,10 +1,7 @@
-        <div class="search"> 
-          <div class="s_center">
-		  <div class="s_form">
-		  <p class="s_text">Поиск сувениров:</p>
-          <%= form_tag search_path, :method=> :get do  -%>
-            <%= text_field_tag :request, params[:request] %><button class="s_button" type="submit">.</button>
-          <% end -%>
-		  </div>
-          </div> 
-        </div> <!-- end search --> 
+
+	        	  <% if controller_name == "search" && params[:request].blank? -%>
+	        	    <%= render :partial => 'search/ext_search' %>
+	        	  <% else -%>
+	        	    <%= render :partial => 'search/light_search' %>	        	  
+	        	  <% end -%>
+
