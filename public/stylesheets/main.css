@@ -1,19 +1,12 @@
+@import url("reset.css");
+
+
  * {
 	margin:0px;
 	font-family: Helvetica, Arial;
 }
 
 html {
-	margin:0px;
-	padding:0px;
-	width:100%;
-	height:100%;
-}
-
-body{
-  font-size: .75em;
-	margin:0px;
-	padding:0px;
 	width:100%;
 	height:100%;
 }
@@ -21,10 +14,12 @@ body{
 img { border:0px; }
 
 body {	
+    font-size: .75em;
 	text-align:center;
+	width:100%;
 	min-height: 100%;
-	height: auto !important;
 	height: 100%;
+	height: auto !important;
 	position: relative;
 }
 
@@ -34,9 +29,9 @@ h1, h2, h3 {
     margin-bottom:5px;
 }
 
-h1{font-size:1.3em;}
-h2{font-size:1.2em;}
-h3{font-size:1.1em;}
+h1 {font-size:1.3em;}
+h2 {font-size:1.2em;}
+h3 {font-size:1.1em;}
 
 
 table
@@ -77,9 +72,7 @@ table tr.alert td
 
 div.spacer {height:10px;}
 
-.clear{
-	clear:both;
-}
+.clear{	clear:both;}
 
 input[type="text"],  input[type="email"], input[type="url"], input[type="password"],  select,  textarea { 
   border: 1px solid #999;
@@ -256,13 +249,13 @@ a:hover.menu_left {
 	width:100%;
 	margin-top:13px;
 	margin-bottom:15px;
-  min-height:110px;
+    min-height:110px;
 	background:#cc3366;  
 	
 }
 
 .ext-search {
-	height:210px;
+/*	height:210px;*/
   font-size:1.2em;	
 }
 
@@ -307,6 +300,11 @@ a:hover.menu_left {
   width:200px;
   float:left;
   text-align:left;
+}  
+
+.has-selected-items {
+  font-size: 1.1em;
+  font-weight:bold;
 }  
 
 .s_button {

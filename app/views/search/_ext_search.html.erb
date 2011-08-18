@@ -8,11 +8,29 @@
                 <button class="s_button" type="submit">.</button>                
                 </div>
                 <div class="spacer"></div>
+                <div id="search_properties">
                 <% @properties.each do |property| -%>
-                  <div class="b-search-property">
-                  <%= link_to property.name, ""  %>
-                  </div>
+                  <%= div_for(property, :class => "b-search-property") do -%>
+                    <% prop_name = "pv_#{property.id}" -%>                      
+                    <%= link_to property.name, "#", :class => params[prop_name].present? ? "has-selected-items" : nil  %>
+                    <%= content_tag :div, :class => "b-property-items g-hidden" do %>
+                      <%= render :partial => 'admin/properties/property_filter_values', :locals => {:property => property, :selected => params[prop_name], 
+                                                                                        :check_box_name => prop_name + "[]", :prefix => "ext"} %>
+                    <% end -%>
+                  <% end -%>
                 <% end -%>
+                </div>
+                <div class="clear spacer"></div>
+                <div>
+                  <%= label_tag :price_from, "Цена" %> 
+                  <%= text_field_tag :price_from %>
+                  <%= label_tag :price_to, "до" %> 
+                  <%= text_field_tag :price_to %>
+                </div>
+                <div>
+                  <%= label_tag :store, "Кол-во на складе" %> 
+                  <%= text_field_tag :store %>                 
+                </div>
                <% end -%>
           </div> 
         </div> <!-- end search --> 
