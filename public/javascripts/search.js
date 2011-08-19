@@ -30,7 +30,11 @@ $(function() {
 			}
 		});
 		$( ".b-filter-slider :text" ).each(function(index) {
-		  selected_values = $(this).val().split('-');		  
+		   if ( $(this).val() == "по запросу" ) 
+		    selected_values = [0, 0];
+       else
+   		  selected_values = $(this).val().split('-');		  
+   		  
 		  if (selected_values.length == 1 )
 		    selected_values = [0, selected_values[0] > 0 ? selected_values[0] : 30000];
 		    
