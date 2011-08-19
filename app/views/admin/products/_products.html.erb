@@ -12,8 +12,8 @@
       <%= build_cell(:image, product_image(item, true)) %>
       <%= build_cell(:code, item.unique_code ) %>
       <%= build_cell(:category, item.categories.collect(&:name).join(', ') ) %>
-      <%= build_cell(:manufactor, item.manufactor_name) %>
-      <%= build_cell(:supplier, item.supplier_name) %>
+      <%= build_cell(:manufactor, item.manufactor.name) %>
+      <%= build_cell(:supplier, item.supplier.name) %>
       <%= build_cell(:article, item.article) %>
       <%= build_cell(:short_name, item.short_name) %>
       <%= build_cell(:price, product_price(item)) %>

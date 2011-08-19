@@ -14,7 +14,7 @@
  <%= select(nil ,'manufactor', options_for_select( Manufactor.all.collect{|i| [i.name, i.id] },params[:manufactor].to_i),{:prompt=>'<-Производитель->'}, {:name=>'manufactor'}) %>
   <%= select(nil ,'supplier', options_for_select( Supplier.all.collect{|i| [i.name, i.id] },params[:supplier].to_i),{:prompt=>'<-Поставщик->'}, {:name=>'supplier'}) unless current_user.has_role?("Редактор каталога") %>
 <%= select(nil ,'store', options_for_select( [['Отсуствует', '0'],['В наличии','1']],params[:store]),{:prompt=>'<-Наличие на складе->'}, {:name=>'store'}) %>
- арт: <%= text_field_tag :name, params[:name] %>
+ арт: <%= text_field_tag :article, params[:article] %>
  код: <%= text_field_tag :code, params[:code] %>
  <%= submit_tag "Ok", :name=>nil %><br />
  <%= select(nil ,'active', options_for_select( [['Нет', '0'],['Да','1']],params[:active]),{:prompt=>'<-Опубликован->'}, {:name=>'active'}) %> 

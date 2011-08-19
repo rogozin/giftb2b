@@ -18,7 +18,8 @@ class Product < ActiveRecord::Base
   has_many :image_properties,  :through => :product_properties, :source => :property_value, :include => :property, :conditions => "properties.active=1 and properties.show_in_card=1 and properties.property_type = 3"
   
 
-  scope :for_admin, joins([:supplier,:manufactor,  ", (select usd,eur from currency_values v order by id desc limit 1) c" ]).select("distinct products.*, manufactors.name manufactor_name, suppliers.name supplier_name,  case products.currency_type when 'USD' then c.usd * products.price when 'EUR' then c.eur * products.price else products.price end ruprice").order("sort_order, ruprice")
+  scope :for_admin, joins( ", (select usd,eur from currency_values v order by id desc limit 1) c" ).select("distinct products.*,  case products.currency_type when 'USD' then c.usd * products.price when 'EUR' then c.eur * products.price else products.price end ruprice").order("sort_order, ruprice")
+ 
  
   scope :search, lambda { |search_text|
   active.where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code)", { :search => '%' + search_text + '%',:code => search_text}) }
@@ -45,14 +46,28 @@ class Product < ActiveRecord::Base
   end
   
   def self.find_all(options={}, place= "admin")
+    puts options
     sr = Product.scoped
     options[:per_page] ||=20
-    if options[:category] 
-      if  options[:category].to_i >0
-        cat = Category.find(options[:category].to_i)
-        cats_arr = Category.tree_childs(Category.cached_all_categories,cat)
-        sr =sr.where("exists (select null from product_categories ps where ps.product_id = products.id and  ps.category_id in ( :category))", :category => cats_arr || options[:category])
-     elsif options[:category].to_i ==-1
+    
+    if options[:category].present?
+      cats_arr = if options[:category].is_a?(Array)
+          double_arr = []
+          options[:category].each do |c|
+            cat =  cat = Category.find(c)
+            double_arr <<  Category.tree_childs(Category.cached_all_categories,cat)
+          end
+          double_arr.flatten
+        elsif options[:category].to_i >0
+          cat = Category.find(options[:category].to_i)
+          Category.tree_childs(Category.cached_all_categories,cat)
+       elsif options[:category].to_i ==-1
+          nil
+       end
+       
+       if cats_arr.present?
+        sr =sr.where("exists (select null from product_categories ps where ps.product_id = products.id and  ps.category_id in ( :category))", :category => cats_arr)
+       else
         sr = sr.where("not exists (select null from product_categories ps where ps.product_id = products.id)")
       end
     end 
@@ -61,7 +76,7 @@ class Product < ActiveRecord::Base
     
     sr = sr.where(:supplier_id => options[:supplier]) if options[:supplier].present? && options[:supplier].to_i > 0
   
-    sr = sr.where("products.article like :name", :name => '%'+options[:name]+'%') unless options[:name].blank? 
+    sr = sr.where("products.article like :article", :article => '%'+options[:article]+'%') unless options[:article].blank? 
 
     sr = sr.where("products.short_name like :search_text or description like :search_text", :search_text => '%'+options[:search_text]+'%' )  unless options[:search_text].blank? 
     
@@ -83,16 +98,34 @@ class Product < ActiveRecord::Base
     
     sr = sr.where("products.store_count >0") if options[:store] && options[:store]=="1"
     
-    
   
-    prop_keys = options.keys.select{|x| x =~ /property_values_/}
+   if options[:price_range].present? && options[:price_range].is_a?(Array)
+     if options[:price_range].size == 2       
+       sr = sr.where("products.price >= ? and products.price <= ?", options[:price_range].first, options[:price_range].last)
+     else
+       sr = sr.where("products.price >= ?", options[:price_range].first)
+     end
+   end  
+   
+  if options[:store_count_range].present? && options[:store_count_range].is_a?(Array)
+     if options[:store_count_range].size == 2       
+       sr = sr.where("products.store_count >= ? and products.store_count <= ?", options[:store_count_range].first, options[:store_count_range].last)
+     else
+       sr = sr.where("products.store_count >= ?", options[:store_count_range].first)
+     end
+   end     
+  
+  
+    prop_keys = options.keys.select{|x| x =~ /property_values_\d+/ || x=~ /pv_\d+/ }
     sr = sr.where(prop_keys.map{|x| "(exists (select null from product_properties pp where pp.product_id = products.id and pp.property_value_id in (#{options[x].join(',')})) ) " }.join(" AND ")) if prop_keys.present?
 
     res= case place
       when "xml"
         sr.for_admin
-      when "json"
+    when "json"
         sr.active
+    when "ext-search"
+        sr.active.for_admin
       else
         sr.for_admin.paginate(:page=>options[:page], :per_page=>options[:per_page])
       end
