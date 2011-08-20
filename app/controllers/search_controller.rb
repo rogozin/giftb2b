@@ -19,6 +19,8 @@ class SearchController < ApplicationController
        s_options.merge!(params.select{ |k,v| k =~ /pv_\d+/ })
        if params[:price_from] == "по запросу"
          s_options.merge!(:price => "0") 
+       elsif  price[0] > price[1] 
+         s_options.merge!(:price => price[0]) 
        else
          s_options.merge!(:price_range => price)
        end
