@@ -29,15 +29,19 @@
                 <div class="clear spacer"></div>
                 <div class="b-filter-slider">
                   <div>
-                    <%= label_tag :price, "Цена, руб:", %> 
-                    <%= text_field_tag :price, params[:price], :class => "inp-numeric" %>
+                    <%= label_tag :price_from, "Цена, от:" %> 
+                    <%= text_field_tag :price_from, params[:price_from], :class => "inp-numeric value-from" %>
+                    <%= label_tag :price_to, "до:" %> 
+                    <%= text_field_tag :price_to, params[:price_to], :class => "inp-numeric value-to" %> руб.                    
                   </div>
                   <div id="price_slider" class="slider-range"> </div>                   
                 </div>
                 <div class="b-filter-slider">
                   <div>
-                    <%= label_tag :store_from, "Кол-во на складе, шт:" %> 
-                    <%= text_field_tag :store_count, params[:store_count], :class => "inp-numeric" %>                 
+                    <%= label_tag :store_from, "Кол-во на складе, от:" %> 
+                    <%= text_field_tag :store_from, params[:store_from], :class => "inp-numeric value-from" %>                 
+                    <%= label_tag :store_to, "до:" %> 
+                    <%= text_field_tag :store_to, params[:store_to], :class => "inp-numeric value-to" %> шт.
                   </div>
                   <div id="store_count_slider" class="slider-range"> </div>                   
                 </div>
