@@ -13,9 +13,9 @@ $(function() {
      }     
     }); 
        
-        
-    $( ".slider-range" ).slider({
-			range: true,
+       
+    $("#price_slider").slider({
+        	range: true,
 			min: 0,
 			max: 10000,
 			step:10,
@@ -33,18 +33,37 @@ $(function() {
 				}
 			}
 		});
+        
+    $( "#store_count_slider" ).slider({
+			range: false,
+			min: 0,
+			max: 1000,
+			step:10,
+			values: [ 100 ],
+			slide: function( event, ui ) {
+			  input_elem = $(this).parent().find(':text');
+			  if ( (ui.values[0] == 0) ) {
+			    $(input_elem).val('по запросу');
+			  }
+			  else {
+  				$( input_elem ).val( ui.values[ 0 ] );
+				}
+			}
+		});
+		
 		$( ".b-filter-slider :text" ).each(function(index) {
            slider = $(this).parentsUntil('.b-filter-slider').parent().find('.slider-range');
            val = 0;
-		   if ( $(this).val() != "по запросу" ) {
-		    if ($(this).hasClass('value-from')) {		
+		   if ( $(this).val() == "по запросу" ) 
+             $(slider).slider({values: [0,0]});		           		    
+		   else if ($(this).val().length > 0) {		   
+		    if ( $(this).hasClass('value-from') ) {		
         	  $(slider).slider("values", 0, $(this).val());
 		     } 
 		    if ($(this).hasClass('value-to')) {
         	  $(slider).slider("values", 1, $(this).val());		      
 		    }
 		   } 
-		  else  
-           $(slider).slider({values: [0,0]});		           		    
+
 		});
 });

@@ -96,7 +96,7 @@ class Product < ActiveRecord::Base
 
     sr = sr.where("products.store_count" => 0) if options[:store] && options[:store]=="0"
     
-    sr = sr.where("products.store_count >0") if options[:store] && options[:store]=="1"
+    sr = sr.where("products.store_count >= ?", options[:store]) if options[:store] && options[:store].to_i > 0
     
   
    if options[:price_range].present? && options[:price_range].is_a?(Array)
@@ -107,14 +107,14 @@ class Product < ActiveRecord::Base
      end
    end  
    
-  if options[:store_count_range].present? && options[:store_count_range].is_a?(Array)
-     if options[:store_count_range].size == 2       
-       sr = sr.where("products.store_count >= ? and products.store_count <= ?", options[:store_count_range].first, options[:store_count_range].last)
-     else
-       sr = sr.where("products.store_count >= ?", options[:store_count_range].first)
-     end
-   end     
-  
+#  if options[:store_count_range].present? && options[:store_count_range].is_a?(Array)
+#     if options[:store_count_range].size == 2       
+#       sr = sr.where("products.store_count >= ? and products.store_count <= ?", options[:store_count_range].first, options[:store_count_range].last)
+#     else
+#       sr = sr.where("products.store_count >= ?", options[:store_count_range].first)
+#     end
+#   end     
+#  
   
     prop_keys = options.keys.select{|x| x =~ /property_values_\d+/ || x=~ /pv_\d+/ }
     sr = sr.where(prop_keys.map{|x| "(exists (select null from product_properties pp where pp.product_id = products.id and pp.property_value_id in (#{options[x].join(',')})) ) " }.join(" AND ")) if prop_keys.present?

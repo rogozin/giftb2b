@@ -10,11 +10,9 @@ class SearchController < ApplicationController
       res = res.where(:supplier_id =>  session[:flt_supplier_id]) if session[:flt_supplier_id]
       @products = res.paginate(:page => params[:page], :per_page => params[:per_page])
     elsif current_user && (current_user.is_firm_user? || current_user.is_admin?)
-      price, store_count = [],[]
+      price = []
       price[0] = params[:price_from].to_i
       price[1] = params[:price_to].to_i
-      store_count[0] = params[:store_from].to_i
-      store_count[1] = params[:store_to].to_i
       
       s_options = {:article => params[:article], :search_text => params[:name],:category => params[:category_ids]}
        
@@ -27,8 +25,8 @@ class SearchController < ApplicationController
        
        if params[:store_from] == "по запросу"
          s_options.merge!(:store => "0") 
-       else
-         s_options.merge!(:store_count_range => store_count)
+      elsif params[:store_from].to_i > 0
+         s_options.merge!(:store => params[:store_from]) 
        end
       
       res = Product.find_all(s_options, "ext-search")
