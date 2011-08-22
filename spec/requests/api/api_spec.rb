@@ -78,7 +78,7 @@ describe 'api testing' do
   
   context 'order' do
     it 'создание новго заказа' do
-      post 'api/orders', {:order => {:email => "demo@demo.ru", :comment => "Комментарий", :products => [:product => {:id => @product.id, :quantity => 1, :price => @product.price_in_rub }]}}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+      post 'api/orders', {:order => {:email => "demo@demo.ru", :phone => "888-999-32", :name => "ilya", :comment => "Комментарий", :products => [:product => {:id => @product.id, :quantity => 1, :price => @product.price_in_rub }]}}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       response.code.should eq("200")
       LkOrder.all.should have(1).item
       LkOrder.first.lk_order_items.should have(1).item
