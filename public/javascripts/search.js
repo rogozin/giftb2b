@@ -56,12 +56,17 @@ $(function() {
            val = 0;
 		   if ( $(this).val() == "по запросу" ) 
              $(slider).slider({values: [0,0]});		           		    
-		   else if ($(this).val().length > 0) {		   
-		    if ( $(this).hasClass('value-from') ) {		
+		   else  {		   
+		    if ( $(this).hasClass('value-from') && ($(this).val().length > 0) ) {		
         	  $(slider).slider("values", 0, $(this).val());
 		     } 
 		    if ($(this).hasClass('value-to')) {
+		     
+		     if ( ($(this).val() == "") || ( parseInt($(this).val()) < parseInt($(slider).slider("values",0)) ) )
+        	  $(slider).slider("values", 1, $(slider).slider("option", "max"));		   
+		     else 
         	  $(slider).slider("values", 1, $(this).val());		      
+        	  
 		    }
 		   } 
 

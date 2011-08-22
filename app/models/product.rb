@@ -92,7 +92,7 @@ class Product < ActiveRecord::Base
     
     sr = sr.where("products.price" => 0) if options[:price] && options[:price]=="0"
 
-    sr = sr.where("products.price > 0") if options[:price] && options[:price]=="1"
+    sr = sr.where("products.price >= ?", options[:price]) if options[:price] && options[:price].to_i > 0
 
     sr = sr.where("products.store_count" => 0) if options[:store] && options[:store]=="0"
     
