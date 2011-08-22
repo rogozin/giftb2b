@@ -75,6 +75,9 @@ ru:
         lk_firm_id: "Фирма"
         firm_id: "Фирма"   
         user_comment: "Комментарий"     
+        user_email: "Контактный e-mail"
+        user_phone: "Контактный тел."
+        user_name: "Имя заказчика"
       content:
         title: "Заголовок"
         start: "Начало публикации"			

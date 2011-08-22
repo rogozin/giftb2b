@@ -327,9 +327,9 @@ a:hover.menu_left {
 
 .search-form input {   border: solid 1px #BB0F48; }
 
-input.inp-numeric {
-  width:100px;
-}
+input.inp-numeric { width:100px;}
+
+input.inp-quantity {width:30px;}
 
 .text_center {
 	width:100%;
@@ -563,7 +563,8 @@ span.message {color:#C36;}
 #flash_notice
 {
     color: black;
-    background-color: #9CA01C;
+    background-color: #B9F6A9;
+    opacity: .8;
 }
 
 .errorExplanation
@@ -788,3 +789,12 @@ a.pseudo-link
     background-image: url("images/cart_add.png");
 }	
     
+div.v-spacer, div.v-spacer2 {
+ float:left;
+ width:10px;
+ height:1em;
+}
+
+div.v-spacer2 {
+ width:20px;
+}

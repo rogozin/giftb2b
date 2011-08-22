@@ -1,19 +1,49 @@
-<h2>Редактирование заказа</h2>
+<h1>Заказ <%= @order.id %></h1>
 <div class="spacer"></div>
-<div id="order">
+<div id="order" class="b-bg corner-all">
   <%= form_for @order do |f| -%>
-   <div>
-   <%= f.label :lk_firm_id %>
-   <%= f.select :lk_firm_id, options_from_collection_for_select(@lk_firms, 'id', 'name', @order.lk_firm_id) %>
-
-   <%= f.label :status_id %>
-   <%= f.select :status_id, options_for_select(LkOrder.statuses, @order.status_id) %>
-   <%= f.submit "Сохранить" %>
+   <div class="one_line_form">
+     <div class="b-formfield-div">
+      <%= f.label :lk_firm_id %>
+      <%= f.select :lk_firm_id, options_from_collection_for_select(@lk_firms, 'id', 'name', @order.lk_firm_id) %>
+    </div>
+     <div class="b-formfield-div">
+     <%= f.label :status_id %>
+     <%= f.select :status_id, options_for_select(LkOrder.statuses, @order.status_id) %>
+     </div>
    </div>
+   <div class="v-spacer2"></div>
+  
+   <div class="one_line_form">
+     <div class="b-formfield-div">
+       <%= f.label :user_name %>
+       <%= f.text_field :user_name %>
+     </div>          
+     <div class="b-formfield-div">
+       <%= f.label :user_email %>
+       <%= f.email_field :user_email %>
+     </div>
+     <div class="b-formfield-div">
+       <%= f.label :user_phone %>
+       <%= f.text_field :user_phone %>
+     </div>
+   </div>   
+   
+   <div class="clear"></div>
+
+   <div class="b-user-comment">
+     <div class="">
+       <%= f.label :user_comment, "Комментарий к заказу:" %> <br />
+       <%= f.text_area :user_comment,  :rows => 3 %>
+     </div>
+   </div>
+   <div class="clear"></div>
+   <%= f.submit "Сохранить" %>
   <% end -%>
 </div>
 
 <div class="spacer"></div>
+<h2>Список товаров:</h2>
 <%= render :partial => 'order_items' %>
 <div class="spacer"></div>
 

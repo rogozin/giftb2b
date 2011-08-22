@@ -17,7 +17,7 @@
       <td><%= item.lk_product.article %></td>
       <td><%= item.lk_product.short_name %></td>
       <td><%= price_ru_label item.lk_product.price  %></td>
-      <td><%= text_field_tag "co_items[#{item.lk_product.id}]", item.quantity, :size =>1 %></td>
+      <td><%= text_field_tag "co_items[#{item.lk_product.id}]", item.quantity, :class => "inp-quantity" %></td>
       <td><%= price_ru_label item.lk_product.price * item.quantity %></td>
       <td><%= link_to image_tag('bin.png'), lk_commercial_offer_product_path(@commercial_offer, item), :method => :delete, :confirm => "Удалить товар из коммерческого предложения?"  %></td>
     </tr>
@@ -25,7 +25,7 @@
   <tr>
     <td colspan="2"><%= submit_tag "Пересчитать" %></td>
     <td colspan="2">
-    <%= label_tag :sale,"Скидка, %:" %> <%= text_field_tag :sale, @commercial_offer.sale, :size => 3 %></td>
+    <%= label_tag :sale,"Скидка, %:" %> <%= text_field_tag :sale, @commercial_offer.sale, :class => "inp-quantity" %></td>
     <td>Итого:</td>
     <td><%= @commercial_offer.commercial_offer_items.sum(:quantity) %> шт.</td>
     <td colspan="2"><%= price_ru_label @commercial_offer.total_price_with_sale  %></td>

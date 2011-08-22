@@ -1,3 +1,7 @@
+.center_block { 
+  margin-top:20px
+}  
+
 .b-command-menu
 {
     padding:10px 0;
@@ -25,4 +29,20 @@ line-height:2em;
 
 tr.disabled-row {
  color:#999;
+}
+
+#order .b-main-information {
+ width:60%;
+ border: 1px solid black;
+}
+
+#order .b-user-comment textarea {
+  min-width:200px;
+  width: 80%;
+}  
+
+.b-bg {
+  background:#ccc;
+  padding:15px;
+  color:#193839;
 }

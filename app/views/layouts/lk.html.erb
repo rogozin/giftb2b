@@ -28,12 +28,12 @@
 <div class="content">
  <%= render :partial => 'lk/shared/happy_birthday' if current_user.is_firm_user? && is_birthday_today? %>    
  <%- flash.each do |name, msg| -%>
-    <%= content_tag :div, raw(msg), :id => "flash_#{name}" if name.to_s.index("notice") or name.to_s.index("alert") %>
+    <%= content_tag :div, raw(msg), :id => "flash_#{name}", :class => "corner-all" if name.to_s.index("notice") or name.to_s.index("alert") %>
     <%- end -%>
 </div>
  <div id="main_content" class="content">
    <%- if show_title? -%>
-     <div id="title">dfsdfds
+     <div id="title">
          <h1><%=  @content_for_title %></h1>
       </div>
     <%end%>

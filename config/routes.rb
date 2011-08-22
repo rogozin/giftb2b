@@ -79,6 +79,7 @@ Giftr3::Application.routes.draw do
       member do 
         post :calculate
         post :add_product
+        post :move_to_order
         get :export
       end
      get :load_lk_products

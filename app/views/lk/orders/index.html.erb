@@ -4,9 +4,11 @@
 <tr>
   <th></th>
   <th>№ заказа</th>
-  <th>Кому</th>
+  <th>Фирма</th>
+  <th>Заказчик</th>
   <th>Статус</th>
   <th>Сумма</th>
+  <th>Посл. изменение</th>
   <th></th>
 </tr>
 <% @orders.each do |item| -%>
@@ -14,8 +16,10 @@
     <td><%= link_to image_tag('edit.png'), edit_lk_order_path(item) %></td>
     <td><%= item.id  %></td>
     <td><%= item.lk_firm.name  if item.lk_firm %></td>
+    <td><%= item.user_name %></td>
     <td><%= item.status %></td>
     <td><%= price_ru_label item.sum %></td>
+    <td><%= I18n.l(item.updated_at, :format => :long) %></td>
     <td><%= link_to image_tag('bin.png'), lk_order_path(item), :method => :delete, :confirm => "Удалить заказ?" %></td>
   </tr>
 <% end -%>

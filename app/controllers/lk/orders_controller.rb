@@ -8,7 +8,7 @@ class Lk::OrdersController < Lk::BaseController
   
   def index
     if (current_user.is_admin_user? || current_user.is_firm_user?) && current_user.firm_id.present? 
-      @orders = LkOrder.find_all_by_firm_id(current_user.firm.id)
+      @orders = LkOrder.where(:firm_id => current_user.firm.id).order("id desc")
     else 
       @orders  = []
       not_firm_assigned!
