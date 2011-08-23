@@ -21,7 +21,7 @@ class SearchController < ApplicationController
          s_options.merge!(:price => "0") 
        elsif  price[0] > price[1] 
          s_options.merge!(:price => price[0]) 
-       else
+       elsif price[1] > price[0]
          s_options.merge!(:price_range => price)
        end
        

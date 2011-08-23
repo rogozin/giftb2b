@@ -5,7 +5,7 @@
                 <div>
                 <%= label_tag :article, "Артикул:" %> <%= text_field_tag :article, params[:article] %>
                 <%= label_tag :name, "Название:" %> <%= text_field_tag :name, params[:name] %>               
-                <button class="s_button" type="submit">.</button>                
+                <button class="s_button" id="go_search" type="submit">.</button>                
                 </div>
                 <div class="spacer"></div>
                 <div id="search_properties">
@@ -30,7 +30,7 @@
                 <div class="b-filter-slider">
                   <div>
                     <%= label_tag :price_from, "Цена, от:" %> 
-                    <%= text_field_tag :price_from, params[:price_from], :class => "inp-numeric value-from" %>
+                    <%= text_field_tag :price_from, params[:price_from], :class => "inp-numeric value-from" %> 
                     <%= label_tag :price_to, "до:" %> 
                     <%= text_field_tag :price_to, params[:price_to], :class => "inp-numeric value-to" %> руб.                    
                   </div>

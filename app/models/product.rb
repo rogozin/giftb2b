@@ -46,7 +46,6 @@ class Product < ActiveRecord::Base
   end
   
   def self.find_all(options={}, place= "admin")
-    puts options
     sr = Product.scoped
     options[:per_page] ||=20
     

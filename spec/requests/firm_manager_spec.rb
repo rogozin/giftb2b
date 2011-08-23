@@ -1,9 +1,6 @@
 #encoding: utf-8;
 require 'spec_helper'
 
-
-
-
 describe 'Роль менеджер фирмы' do
   before(:each) do
      login_as :firm_manager    
@@ -36,5 +33,7 @@ describe 'Роль менеджер фирмы' do
        page.current_path.should == edit_lk_order_path(order)
      end
    end
+   
+    
    
 end
