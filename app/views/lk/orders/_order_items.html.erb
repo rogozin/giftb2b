@@ -1,3 +1,12 @@
+<script type="text/javascript">
+$(function() { 
+  $('a.remove-item').click(function() {
+      $(this).parentsUntil('tr').parent().find('input.inp-quantity').val(0);
+      $(this).parents('form').submit();
+    });
+ });
+</script>
+
 <%= form_for :order_items, :url => calculate_lk_order_path(@order) do |form| %>
 <table width="100%">
   <tr>
@@ -7,6 +16,7 @@
     <th>Цена за шт</th>
     <th>Кол-во</th>
     <th>Сумма</th>
+    <th></th>
   </tr>
   <% @order.lk_order_items.each do |item| -%>
     <tr>
@@ -16,6 +26,7 @@
       <td><%= text_field_tag "price[#{item.id}]", item.price, :class => "inp-numeric"  %> руб.</td>
       <td><%= text_field_tag "quantity[#{item.id}]", item.quantity, :class => "inp-quantity" %></td>
       <td><%= price_ru_label item.price * item.quantity %></td>
+      <td><%= link_to image_tag("bin.png"), "#", :title => "Удалить из заказа", :confirm => "Удалить товар из заказа?", :class => "remove-item" %></td>
     </tr>
   <% end -%>
   <tr>

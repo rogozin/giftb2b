@@ -50,6 +50,9 @@ class Lk::ProductsController < Lk::BaseController
  
    def load_lk_products
     params[:page] ||="1"
+    @object_type = params[:object_type]
+    @object_id = params[:object_id]
+    set_post_url
     @lk_products =  params[:request] ?  LkProduct.active.search(params[:request]).find_all_by_firm_id(current_user.firm.id) : LkProduct.active.find_all_by_firm_id(current_user.firm.id)
      @lk_products = @lk_products.paginate(:page => params[:page], :per_page => 5)
   end

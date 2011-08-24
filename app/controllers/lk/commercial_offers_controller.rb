@@ -12,7 +12,6 @@ class Lk::CommercialOffersController < Lk::BaseController
       if current_user.firm_id.present?
       @commercial_offers = CommercialOffer.find_all_by_firm_id(current_user.firm.id, :order => "id desc").paginate(:page => params[:page])
     else 
-      #@commercial_offers  = []
        not_firm_assigned!
     end
   end
@@ -59,10 +58,16 @@ class Lk::CommercialOffersController < Lk::BaseController
      params[:cart_product_ids].each do |cart_product_id|
        product = Product.find(cart_product_id)
        lk_product = copy_product_to_lk(product, @commercial_offer.firm_id)
-       @commercial_offer.commercial_offer_items.create({:lk_product=>lk_product, :quantity => 1})
+      cnt +=1 if @commercial_offer.commercial_offer_items.create({:lk_product=>lk_product, :quantity => 1})
      end
-     flash[:notice] = I18n.t :co_added_products, :count => cnt
-     redirect_to lk_commercial_offer_path(@commercial_offer) 
+     
+     if cnt > 0
+       flash[:notice] = I18n.t(:co_added_products, :count => cnt) 
+     else
+       flash[:alert] = I18n.t(:co_added_products, :count => 0) 
+     end
+     
+     redirect_to lk_commercial_offer_path(@commercial_offer)
   end
 
   def create

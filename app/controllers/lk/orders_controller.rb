@@ -4,7 +4,7 @@ class Lk::OrdersController < Lk::BaseController
      allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
   end
 
-  before_filter :find_order, :only => [:edit, :update, :destroy, :calculate]
+  before_filter :find_order, :only => [:edit, :update, :destroy, :calculate, :add_product]
   
   def index
     if (current_user.is_admin_user? || current_user.is_firm_user?) && current_user.firm_id.present? 
@@ -44,7 +44,7 @@ class Lk::OrdersController < Lk::BaseController
       lkoi.quantity = params[:quantity][key] if params[:quantity].has_key?(key)
       lkoi.quantity == 0 ? lkoi.destroy : lkoi.save
     end
-    redirect_to edit_lk_order_path(@order)
+    redirect_to edit_lk_order_path(@order), :notice => "Заказ изменен"
   end
   
   def destroy
@@ -52,6 +52,29 @@ class Lk::OrdersController < Lk::BaseController
     redirect_to lk_orders_path
   end
   
+  def add_product
+     cnt = 0
+     params[:lk_product_ids] ||=[]
+     params[:cart_product_ids] ||=[]
+     params[:lk_product_ids].each  do |lk_product_id|
+       lk_product = LkProduct.find(lk_product_id)
+      cnt +=1 if @order.lk_order_items.create({:quantity => 1, :product => lk_product, :price => lk_product.price })
+     end
+     params[:cart_product_ids].each do |cart_product_id|
+       product = Product.find(cart_product_id)
+      cnt +=1 if  @order.lk_order_items.create({:product=>product, :quantity => 1, :price => product.price_in_rub })
+    end
+    
+    if cnt > 0
+      flash[:notice] =  I18n.t(:lk_order_added_products, :count => cnt)
+    else
+      flash[:alert] =  I18n.t(:lk_order_added_products, :count => 0)
+    end
+    
+     redirect_to edit_lk_order_path(@order)
+  end
+   
+
   private
   
   def find_order
