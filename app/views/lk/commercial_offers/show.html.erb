@@ -8,9 +8,9 @@
 </div>
 <div class="spacer"></div>
 
-<p><%= link_to 'Добавить товар из корзины', lk_commercial_offer_load_cart_products_path(@commercial_offer), :remote => true  %></p>
+<p><%= link_to 'Добавить товар из корзины', lk_cart_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true  %></p>
 <div id="add_cart_prodcut"></div>
-<p><%= link_to 'Добавить товар из моего списка', lk_commercial_offer_load_lk_products_path(@commercial_offer), :remote => true  %></p>
+<p><%= link_to 'Добавить товар из моего списка', lk_load_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true  %></p>
 <div class="spacer"></div>
 <div id="add_lk_prodcut"></div>
 <p><%= link_to_function 'Преобразовать в заказ', "$('#move_to_order').toggle();"  %></p>

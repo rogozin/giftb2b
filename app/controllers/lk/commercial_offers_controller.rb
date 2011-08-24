@@ -48,15 +48,6 @@ class Lk::CommercialOffersController < Lk::BaseController
     redirect_to lk_commercial_offer_path(@commercial_offer)  
   end
   
-  def load_cart_products
-    @cart = find_cart
-  end
-  
-  def load_lk_products
-    params[:page] ||="1"
-    @lk_products =  params[:request] ?  LkProduct.active.search(params[:request]).find_all_by_firm_id(current_user.firm.id) : LkProduct.active.find_all_by_firm_id(current_user.firm.id)
-     @lk_products = @lk_products.paginate(:page => params[:page], :per_page => 5)
-  end
   
   def add_product
      cnt = 0

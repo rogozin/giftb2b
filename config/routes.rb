@@ -66,12 +66,15 @@ Giftr3::Application.routes.draw do
   end
   resources :lk, :only =>[:index]
   namespace :lk do
+    match 'load_cart_products' =>  'base#load_cart_products', :as => :cart_products    
     resources :accounts
     resources :firms
     resources :products
+    match 'load_lk_products' =>  'products#load_lk_products', :as => :load_products    
     resources :orders do
       member do
         post :calculate
+        post :add_product        
       end
     end    
     resources :user_orders, :only => [:create, :index, :show]
@@ -82,8 +85,6 @@ Giftr3::Application.routes.draw do
         post :move_to_order
         get :export
       end
-     get :load_lk_products
-     get :load_cart_products
     resources :products, :controller => "commercial_offer_items", :except => [:index] 
     end  
     resources :samples    

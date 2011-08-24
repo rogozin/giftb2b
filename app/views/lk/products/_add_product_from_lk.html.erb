@@ -1,13 +1,13 @@
 <h3>Мои товары:</h3>
 <div class="spacer"></div>
 <div class="gray-block">
-<%= form_tag lk_commercial_offer_load_lk_products_path(@commercial_offer), :remote => true, :method => :get do %>
+<%= form_tag lk_load_products_path(:id => @object_id, :object_type => @object_type ), :remote => true, :method => :get do %>
 Поиск:
 <%= text_field_tag :request, params[:request] %>
 <%= submit_tag "Найти" %>
 <% end %>
 </div>
-<%= form_tag add_product_lk_commercial_offer_path(@commercial_offer) do -%>
+<%= form_tag post_url do -%>
 <table>
 <tr>
   <th></th>
