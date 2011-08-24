@@ -53,4 +53,6 @@ end
 Factory.define :color_property, :class => Property do |f|
   f.name "Цветовые варианты" 
   f.property_type 3
+  f.active true
+  f.show_in_card true
 end

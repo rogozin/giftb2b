@@ -11,7 +11,7 @@ describe 'расширенный поиск' do
     @product = Factory(:product, :article => "4706")
     visit search_path
     fill_in "article", :with => @product.article
-   click_button "go_search"
+    click_button "go_search"
     page.should have_selector "#product_#{@product.id}"
   end   
      
@@ -25,7 +25,6 @@ describe 'расширенный поиск' do
     click_button "go_search"
     page.should have_no_selector "#product_#{@product.id}"
     page.should have_selector "#product_#{@product_1.id}"
-    save_and_open_page
    end
       
 end

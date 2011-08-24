@@ -3,13 +3,30 @@ require 'spec_helper'
 
 describe Product do
   before(:each) do
-    CurrencyValue.create({:dt => Date.today, :usd => 30, :eur => 40})
+    @currency = CurrencyValue.create({:dt => Date.today, :usd => 30, :eur => 40})
   end
    
   subject { Product.new}
   it { should_not be_valid}
 #  it { should have(1).error_on(:article)}
 #  it { should have(1).error_on(:supplier_id)}
+
+
+  context 'ruprice' do
+    it 'ruprice заполняется автоматически' do
+      @product = Factory(:product, :currency_type => "EUR", :price => 10)
+      @product.ruprice.should == @currency.eur * @product.price
+      @product.update_attributes(:currency_type => "USD")
+      @product.ruprice.should == @currency.usd * @product.price
+      @product.update_attributes(:currency_type => "RUB")
+      @product.ruprice.should == @product.price
+    end
+    
+    it 'у товара в рублях ruprice==price' do
+      @product = Factory(:product, :currency_type => "RUB", :price => 10)
+      @product.ruprice.should == @product.price      
+    end
+  end
 
 
   context "filtering and searching" do
@@ -24,6 +41,7 @@ describe Product do
     it "should not have inactive product in search result" do
       Product.search("art12345").should be_empty
       Product.search_with_article("art12345").should be_empty
+      Product.find_all({:article => "art12345"}).should be_empty
     end
   end
   

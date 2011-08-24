@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110822065709) do
+ActiveRecord::Schema.define(:version => 20110824044302) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -283,6 +283,7 @@ ActiveRecord::Schema.define(:version => 20110822065709) do
     t.boolean  "is_new",                                                           :default => false
     t.boolean  "is_sale",                                                          :default => false
     t.boolean  "best_price",                                                       :default => false
+    t.decimal  "ruprice",                           :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "products", ["active"], :name => "index_product_product_active"

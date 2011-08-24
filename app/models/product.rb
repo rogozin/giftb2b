@@ -17,9 +17,7 @@ class Product < ActiveRecord::Base
 
   has_many :image_properties,  :through => :product_properties, :source => :property_value, :include => :property, :conditions => "properties.active=1 and properties.show_in_card=1 and properties.property_type = 3"
   
-
-  scope :for_admin, joins( ", (select usd,eur from currency_values v order by id desc limit 1) c" ).select("distinct products.*,  case products.currency_type when 'USD' then c.usd * products.price when 'EUR' then c.eur * products.price else products.price end ruprice").order("sort_order, ruprice")
- 
+  scope :sorted, order("sort_order, ruprice")
  
   scope :search, lambda { |search_text|
   active.where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code)", { :search => '%' + search_text + '%',:code => search_text}) }
@@ -38,7 +36,7 @@ class Product < ActiveRecord::Base
   validates :article, :presence => true
   validates_uniqueness_of :permalink, :allow_nil => true
   
-  before_save :set_permalink  
+  before_save :set_permalink, :set_ruprice
   after_save :clear_cache
 
   def self.cached_novelty
@@ -89,9 +87,9 @@ class Product < ActiveRecord::Base
     
     sr = sr.where(:best_price => options[:best_price] == "0" ? false : true) if options[:best_price].present?
     
-    sr = sr.where("products.price" => 0) if options[:price] && options[:price]=="0"
+    sr = sr.where("products.ruprice" => 0) if options[:price] && options[:price]=="0"
 
-    sr = sr.where("products.price >= ?", options[:price]) if options[:price] && options[:price].to_i > 0
+    sr = sr.where("products.ruprice >= ?", options[:price]) if options[:price] && options[:price].to_i > 0
 
     sr = sr.where("products.store_count" => 0) if options[:store] && options[:store]=="0"
     
@@ -100,9 +98,9 @@ class Product < ActiveRecord::Base
   
    if options[:price_range].present? && options[:price_range].is_a?(Array)
      if options[:price_range].size == 2       
-       sr = sr.where("products.price >= ? and products.price <= ?", options[:price_range].first, options[:price_range].last)
+       sr = sr.where("products.ruprice >= ? and products.ruprice <= ?", options[:price_range].first, options[:price_range].last)
      else
-       sr = sr.where("products.price >= ?", options[:price_range].first)
+       sr = sr.where("products.ruprice >= ?", options[:price_range].first)
      end
    end  
    
@@ -120,13 +118,11 @@ class Product < ActiveRecord::Base
 
     res= case place
       when "xml"
-        sr.for_admin
-    when "json"
-        sr.active
-    when "ext-search"
-        sr.active.for_admin
+        sr.sorted
+  when "json", "ext-search"
+        sr.active.sorted
       else
-        sr.for_admin.paginate(:page=>options[:page], :per_page=>options[:per_page])
+        sr.sorted.paginate(:page=>options[:page], :per_page=>options[:per_page])
       end
 
   end
@@ -274,6 +270,10 @@ class Product < ActiveRecord::Base
     else 
       self.permalink= self.permalink.parameterize
     end
+  end
+  
+  def set_ruprice
+    self[:ruprice] = price_in_rub
   end
    
    def prepare_permalink
