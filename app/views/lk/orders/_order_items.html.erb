@@ -10,7 +10,7 @@
   </tr>
   <% @order.lk_order_items.each do |item| -%>
     <tr>
-      <td><%= image_tag(item.product && item.product.picture ? item.product.picture.url(:thumb) : "default_image.jpg") %></td>
+      <td><%= image_tag(item.product && item.product.picture ? (item.product.is_a?(LkProduct) ? item.product.picture.url(:original) : item.product.picture.url(:thumb) ): "default_image.jpg") %></td>
       <td><%= item.product.article %></td>
       <td><%= item.product.short_name %></td>
       <td><%= text_field_tag "price[#{item.id}]", item.price, :class => "inp-numeric"  %> руб.</td>

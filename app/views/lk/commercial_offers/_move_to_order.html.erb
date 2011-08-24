@@ -3,4 +3,3 @@
 <%= select_tag :lk_firm, options_for_select(@lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm.id) %>
 <%= submit_tag "Преобразовать" %>
 <% end -%>
-

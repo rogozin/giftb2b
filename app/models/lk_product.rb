@@ -12,6 +12,10 @@ class LkProduct < ActiveRecord::Base
    validates :article, :presence => true
    validates :price, :numericality => {:greater_than_or_equal_to => 0, :allow_nil => true}
    
+   def is_my?
+     product_id.nil?
+   end
+   
 #  before_destroy :drop_lk_product
 #  
 #  private 

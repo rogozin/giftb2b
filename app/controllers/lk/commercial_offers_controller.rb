@@ -93,7 +93,7 @@ class Lk::CommercialOffersController < Lk::BaseController
   end
 
   def move_to_order
-    @lk_order = LkOrder.create(:firm_id => @commercial_offer.firm_id, :lk_firm_id => @commercial_offer.lk_firm_id, :user => current_user, :user_comment => "Сгенерировано из коммерческого предложения № #{@commercial_offer.id}")
+    @lk_order = LkOrder.create(:firm_id => @commercial_offer.firm_id, :lk_firm_id => params[:lk_firm], :user => current_user, :user_comment => "Сгенерировано из коммерческого предложения № #{@commercial_offer.id}")
     @commercial_offer.commercial_offer_items.each do |co_item|
       @lk_order.lk_order_items.create(:product => co_item.lk_product, :quantity => co_item.quantity)      
     end
