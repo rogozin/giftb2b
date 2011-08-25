@@ -1,4 +1,5 @@
-<h2>Коммерческое предложение  <%= @commercial_offer.lk_firm.name if @commercial_offer.lk_firm %></h2>
+<% page_title "Коммерческое предложение № #{@commercial_offer.id}" -%>
+<h2>Коммерческое предложение для "<%= @commercial_offer.lk_firm.name if @commercial_offer.lk_firm %>"</h2>
 <div class="spacer"></div>
 <p>дата создания <%= I18n.l(@commercial_offer.created_at, :format => :long) %></p>
 

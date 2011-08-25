@@ -1,7 +1,7 @@
 <script type="text/javascript">
 $(function(){
   $("#change_price").click(function(){   
-    $(this).hide();
+    $(this).hide().parents('td').attr("colspan",5);
     $("#delta_value, table th.g-hidden, table td.g-hidden").show();
   });
 });
@@ -27,28 +27,28 @@ $(function(){
       <td><%= link_to_if item.lk_product.product, image_tag(item.lk_product && item.lk_product.picture ? item.lk_product.picture.url : "default_image.jpg"), product_path(item.lk_product.product), :target => "_blank" %></td>
       <td><%= item.lk_product.article %></td>
       <td><%= item.lk_product.short_name %></td>
-      <td><%= price_ru_label item.lk_product.price  %></td>
-      <td><%= text_field_tag "co_items[#{item.lk_product.id}]", item.quantity, :class => "inp-quantity" %></td>
-      <td><%= price_ru_label item.lk_product.price * item.quantity %></td>
+      <td class="no-wrap"><%= price_ru_label item.lk_product.price  %></td>
+      <td class="no-wrap"><%= text_field_tag "co_items[#{item.lk_product.id}]", item.quantity, :class => "inp-quantity" %></td>
+      <td class="no-wrap"><%= price_ru_label item.lk_product.price * item.quantity %></td>
       <td><%= link_to image_tag('bin.png'), lk_commercial_offer_product_path(@commercial_offer, item), :method => :delete, :confirm => "Удалить товар из коммерческого предложения?"  %></td>
     </tr>
   <% end -%>
   <tr>
-    <td colspan="5"><%= submit_tag "Пересчитать" %>
+    <td colspan="4"><%= submit_tag "Пересчитать" %>
       <span style="margin-left:20px">
       <%= link_to 'Изменить стоимость', "#", :title => "Введите числовое значение, на величину которого хотите изменить стоимость выбранных товаров и выполните пересчет коммерческого предложения", :id => "change_price", :class => "pseudo-link"  %>
       </span>
       <span style="margin-left:20px" class="g-hidden" id="delta_value">
-        <%= label_tag :delta, "Изменить стоимость на:" %> <%= text_field_tag :delta, nil, :class => "inp-numeric" %> руб.
+        <%= label_tag :delta, "Изменить стоимость на:" %> <%= text_field_tag :delta, nil, :class => "inp-quantity" %> руб.
       </span>
       <span style="margin-left:20px">
         <%= label_tag :sale,"Скидка, %:" %> <%= text_field_tag :sale, @commercial_offer.sale, :class => "inp-quantity" %>
       </span>
       </td>
       
-    <td>Итого:</td>
-    <td><%= @commercial_offer.commercial_offer_items.sum(:quantity) %> шт.</td>
-    <td colspan="2"><%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
+    
+    <td class="no-wrap" colspan="4">Итого: <%= @commercial_offer.commercial_offer_items.sum(:quantity) %> шт. 
+    на сумму <%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
   </tr>
 </table>
 <% end %>

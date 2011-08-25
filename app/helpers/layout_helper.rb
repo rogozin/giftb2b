@@ -10,7 +10,7 @@ module LayoutHelper
   end
 
   def page_title(header=nil)
-    default = "giftb2b.ru" 
+    default = controller_path =~ /^lk\// ? "Личный кабинет giftb2b.ru"  :  "giftb2b.ru" 
     @page_title = [header, default].compact.join(' | ')
   end
   
