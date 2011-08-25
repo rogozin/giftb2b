@@ -62,6 +62,8 @@ describe 'api testing' do
   context 'products' do
     it 'index' do
       cat = @product.categories.first
+      category = Factory(:category, :parent => cat)
+      @product.categories << category
       get "api/products", {:format => :json, :category => cat.id}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       ActiveSupport::JSON.decode(response.body).should have(1).item
 

@@ -30,7 +30,7 @@ class Product < ActiveRecord::Base
   scope :sale, where({:is_sale => true})
   scope :active, where({:active => true})
   scope :all_by_category, lambda { |category_ids|
-    joins(:product_categories).where("product_categories.category_id" => category_ids)
+    select("distinct products.*").joins(:product_categories).where("product_categories.category_id" => category_ids)
   }
   validates :supplier_id, :presence => true
   validates :article, :presence => true
