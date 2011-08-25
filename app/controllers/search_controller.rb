@@ -14,7 +14,7 @@ class SearchController < ApplicationController
       price[0] = params[:price_from].to_i
       price[1] = params[:price_to].to_i
       
-      s_options = {:article => params[:article], :search_text => params[:name],:category => params[:category_ids]}
+      s_options = {:article => params[:article], :search_text => params[:name],:category => params[:category_ids], :manufactor => params[:manufactor_ids]}
        
        s_options.merge!(params.select{ |k,v| k =~ /pv_\d+/ })
        if params[:price_from] == "по запросу"
@@ -35,6 +35,7 @@ class SearchController < ApplicationController
       @products = res.paginate(:page => params[:page], :per_page => params[:per_page])
       @properties = Property.active.for_search
       @categories = Category.catalog.roots
+      @manufactors =  Manufactor.order("name")
     end      
   end
   

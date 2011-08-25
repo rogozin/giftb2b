@@ -44,6 +44,7 @@ class Product < ActiveRecord::Base
   end
   
   def self.find_all(options={}, place= "admin")
+    puts options
     sr = Product.scoped
     options[:per_page] ||=20
     
@@ -69,11 +70,11 @@ class Product < ActiveRecord::Base
       end
     end 
 
-    sr = sr.where(:manufactor_id => options[:manufactor]) if options[:manufactor].present? && options[:manufactor].to_i >0 
+    sr = sr.where(:manufactor_id => options[:manufactor]) if options[:manufactor].present? 
     
     sr = sr.where(:supplier_id => options[:supplier]) if options[:supplier].present? && options[:supplier].to_i > 0
   
-    sr = sr.where("products.article like :article", :article => '%'+options[:article]+'%') unless options[:article].blank? 
+    sr = sr.where("(products.article like :article) or (lpad(products.id,6,'0') = :code)", :article => '%'+options[:article]+'%', :code => options[:article]) unless options[:article].blank? 
 
     sr = sr.where("products.short_name like :search_text or description like :search_text", :search_text => '%'+options[:search_text]+'%' )  unless options[:search_text].blank? 
     

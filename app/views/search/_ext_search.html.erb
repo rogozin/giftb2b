@@ -14,7 +14,13 @@
                     <div class="g-hidden b-property-items" id="filter_category">
                       <%= render :partial => 'category_check', :locals => { :selected => params[:category_ids] } %>
                     </div>
-                  </div>                
+                  </div>
+                 <div class="b-search-property">
+                  <%= link_to 'Производитель', "#", :class => params[:manufactor_ids].present? ? "has-selected-items" : nil  %>
+                    <div class="g-hidden b-property-items" id="filter_manufactor">
+                      <%= render :partial => 'manufactor_check', :locals => { :selected => params[:manufactor_ids] } %>
+                    </div>
+                  </div>                                     
                 <% @properties.each do |property| -%>
                   <%= div_for(property, :class => "b-search-property") do -%>
                     <% prop_name = "pv_#{property.id}" -%>                      
@@ -36,6 +42,7 @@
                   </div>
                   <div id="price_slider" class="slider-range"> </div>                   
                 </div>
+                <div class="v-spacer2"></div>
                 <div class="b-filter-slider">
                   <div>
                     <%= label_tag :store_from, "Кол-во на складе, от:" %> 

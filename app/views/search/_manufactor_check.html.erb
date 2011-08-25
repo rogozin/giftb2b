@@ -1,0 +1,7 @@
+<% selected ||=[] -%>
+<ul>
+ <% @manufactors.each do |item| -%>
+    <li><%= check_box_tag "manufactor_ids[]", item.id, selected && selected.compact.map(&:to_i).include?(item.id), :id => "man_#{item.id}" %>
+    <%= label_tag "man_#{item.id}", item.name %></li>
+ <% end -%>
+</ul>

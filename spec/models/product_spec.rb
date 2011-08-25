@@ -43,6 +43,10 @@ describe Product do
       Product.search_with_article("art12345").should be_empty
       Product.find_all({:article => "art12345"}).should be_empty
     end
+    
+    it 'Поиск по производителю' do
+      Product.find_all({:manufactor => Manufactor.all.map(&:id)}).should_not be_empty
+    end
   end
   
   context "sorting" do
