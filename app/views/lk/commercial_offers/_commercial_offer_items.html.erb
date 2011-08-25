@@ -1,6 +1,16 @@
+<script type="text/javascript">
+$(function(){
+  $("#change_price").click(function(){   
+    $(this).hide();
+    $("#delta_value, table th.g-hidden, table td.g-hidden").show();
+  });
+});
+</script>
+
 <%= form_tag calculate_lk_commercial_offer_path(@commercial_offer) do %>
 <table width="100%">
   <tr>
+    <th class="g-hidden"></th>
     <th></th>
     <th>Изображение</th>
     <th>Артикул</th>
@@ -12,6 +22,7 @@
   </tr>
   <% @commercial_offer.commercial_offer_items.each do |item| -%>
     <tr>
+      <td class="checkbox g-hidden"><%= check_box_tag "co_items_ids[]", item.lk_product.id %></td>
       <td><%= link_to image_tag('edit.png'), edit_lk_commercial_offer_product_path(@commercial_offer, item)  %></td>
       <td><%= link_to_if item.lk_product.product, image_tag(item.lk_product && item.lk_product.picture ? item.lk_product.picture.url : "default_image.jpg"), product_path(item.lk_product.product), :target => "_blank" %></td>
       <td><%= item.lk_product.article %></td>
@@ -23,7 +34,14 @@
     </tr>
   <% end -%>
   <tr>
-    <td colspan="2"><%= submit_tag "Пересчитать" %></td>
+    <td colspan="3"><%= submit_tag "Пересчитать" %>
+      <span style="margin-left:20px">
+      <%= link_to 'Изменить стоимость', "#", :title => "Введите числовое значение, на величину которого хотите изменить стоимость выбранных товаров и выполните пересчет коммерческого предложения", :id => "change_price", :class => "pseudo-link"  %>
+      <span class="g-hidden" id="delta_value">
+        <%= label_tag :delta, "Изменить стоимость на:" %> <%= text_field_tag :delta, nil, :class => "inp-numeric" %> руб.
+      </span>
+      </span>
+    </td>
     <td colspan="2">
     <%= label_tag :sale,"Скидка, %:" %> <%= text_field_tag :sale, @commercial_offer.sale, :class => "inp-quantity" %></td>
     <td>Итого:</td>

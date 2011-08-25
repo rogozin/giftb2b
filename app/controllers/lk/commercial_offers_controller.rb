@@ -35,14 +35,30 @@ class Lk::CommercialOffersController < Lk::BaseController
   end
   
   def calculate 
+    flash_alert = ""
     @commercial_offer.sale = params[:sale]
-    flash[:alert] = "Ошибка при пересчете!" unless @commercial_offer.save
+    flash_alert << "Ошибка при пересчете. " unless @commercial_offer.save
+    
     params[:co_items].each do |lk_product_id, quantity|
       if quantity.to_i >0
         @commercial_offer.commercial_offer_items.find_by_lk_product_id(lk_product_id).update_attribute :quantity, quantity
       else
         @commercial_offer.commercial_offer_items.find_by_lk_product_id(lk_product_id).destroy
       end 
+    end
+    
+    flash_alert << "Не выбраны товары для изменения стоимости" if params[:delta].present? && params[:co_items_ids].blank?
+    if params[:delta].present? && params[:co_items_ids].present?
+      delta = params[:delta].to_i
+      params[:co_items_ids].each do |lk_product_id|
+         p = @commercial_offer.commercial_offer_items.where(:lk_product_id => lk_product_id).first.lk_product
+         p.update_attribute(:price, p.price + delta > 0 ?  p.price + delta : 0) if p
+      end
+    end
+    if flash_alert.present?
+      flash[:alert] = flash_alert
+    else
+      flash[:notice] = "Коммерческое предложение пересчитано"
     end
     redirect_to lk_commercial_offer_path(@commercial_offer)  
   end

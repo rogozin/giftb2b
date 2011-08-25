@@ -46,3 +46,7 @@ tr.disabled-row {
   padding:15px;
   color:#193839;
 }
+
+td.checkbox {
+  width:14px;
+}  
