@@ -66,7 +66,10 @@ table tr.alert td
 }
 
 
+td, th {vertical-align:middle;}
+
 .center_block table {width:100%;}
+.no-wrap {white-space: nowrap;}
 
 
 
