@@ -31,8 +31,8 @@ describe 'Роль менеджер фирмы' do
        page.select new_firm.name, :from => "lk_firm"
        page.click_button "Преобразовать"
        page.should have_selector("#flash_notice", :text => "Заказ успешно сгенерирован из коммерческого предложения")
-       save_and_open_page
        order = LkOrder.last
+       order.lk_order_items.first.price.should == @commercial_offer.commercial_offer_items.first.lk_product.price
        order.lk_firm_id.should == new_firm.id
        page.current_path.should == edit_lk_order_path(order)
      end
