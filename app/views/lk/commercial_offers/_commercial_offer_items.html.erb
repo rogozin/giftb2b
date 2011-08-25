@@ -34,16 +34,18 @@ $(function(){
     </tr>
   <% end -%>
   <tr>
-    <td colspan="3"><%= submit_tag "Пересчитать" %>
+    <td colspan="5"><%= submit_tag "Пересчитать" %>
       <span style="margin-left:20px">
       <%= link_to 'Изменить стоимость', "#", :title => "Введите числовое значение, на величину которого хотите изменить стоимость выбранных товаров и выполните пересчет коммерческого предложения", :id => "change_price", :class => "pseudo-link"  %>
-      <span class="g-hidden" id="delta_value">
+      </span>
+      <span style="margin-left:20px" class="g-hidden" id="delta_value">
         <%= label_tag :delta, "Изменить стоимость на:" %> <%= text_field_tag :delta, nil, :class => "inp-numeric" %> руб.
       </span>
+      <span style="margin-left:20px">
+        <%= label_tag :sale,"Скидка, %:" %> <%= text_field_tag :sale, @commercial_offer.sale, :class => "inp-quantity" %>
       </span>
-    </td>
-    <td colspan="2">
-    <%= label_tag :sale,"Скидка, %:" %> <%= text_field_tag :sale, @commercial_offer.sale, :class => "inp-quantity" %></td>
+      </td>
+      
     <td>Итого:</td>
     <td><%= @commercial_offer.commercial_offer_items.sum(:quantity) %> шт.</td>
     <td colspan="2"><%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
