@@ -35,7 +35,7 @@ class SearchController < ApplicationController
       @products = res.paginate(:page => params[:page], :per_page => params[:per_page])
       @properties = Property.active.for_search
       @categories = Category.catalog.roots
-      @manufactors =  Manufactor.order("name")
+      @manufactors =  Manufactor.where("exists (select null from products p where p.manufactor_id = manufactors.id and p.active=1)").order("name")
     end      
   end
   
