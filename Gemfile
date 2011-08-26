@@ -17,7 +17,7 @@ gem 'dalli'
 gem 'delayed_job'
 gem 'nokogiri'
 gem 'RedCloth'
-gem 'composite_primary_keys', '=3.1.0'
+gem 'composite_primary_keys', '~> 3.1.1'
 gem 'pdfkit', "0.4.6"
 gem 'writeexcel'
 gem 'rake', '~> 0.8.7'

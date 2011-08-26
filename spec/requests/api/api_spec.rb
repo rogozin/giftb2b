@@ -4,7 +4,8 @@ require 'spec_helper'
 describe 'api testing' do
   before(:each) do    
     @product = Factory(:product)
-    @foreign_access = Factory(:foreign_access, :firm => Factory(:firm))    
+    @firm = Factory(:firm)
+    @foreign_access = Factory(:foreign_access, :firm => @firm)    
     @token = @foreign_access.param_key
   end  
 
@@ -70,6 +71,13 @@ describe 'api testing' do
       #Этот код не работает, т.к. по разному кодируется time      
       #products = Product.active.all_by_category(Category.tree_childs(Category.cached_active_categories, cat.id))
       #ActiveSupport::JSON.decode(response.body).should eq(products.as_json)
+    end
+    
+    it 'товар пользователя подмешивается в выдачу' do
+      cat = @product.categories.first
+      @lk_product = Factory(:lk_product, :firm => @firm, :category_ids => [cat.id], :show_on_site => true, :active => true)
+      get "api/products", {:format => :json, :category => cat.id}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+      ActiveSupport::JSON.decode(response.body).should have(2).item  
     end
 
     it 'show' do

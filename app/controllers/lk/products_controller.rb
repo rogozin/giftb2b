@@ -5,6 +5,7 @@ class Lk::ProductsController < Lk::BaseController
   end
   
   before_filter :find_lk_product, :only => [:edit, :update, :destroy]
+  before_filter :load_categories, :only => [:edit, :update, :new, :create]
   
   def index
     if current_user.firm_id.present?
@@ -57,6 +58,13 @@ class Lk::ProductsController < Lk::BaseController
      @lk_products = @lk_products.paginate(:page => params[:page], :per_page => 5)
   end
  
- private :find_lk_product
+ 
+  def load_categories
+    @catalog = Category.cached_catalog_categories
+    @analogs = Category.cached_analog_categories
+    @thematic = Category.cached_thematic_categories     
+  end
+  
+ private :find_lk_product, :load_categories
  
 end

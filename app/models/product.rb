@@ -192,23 +192,23 @@ class Product < ActiveRecord::Base
   end
 
    def cached_analogs(limit=0)
-     Rails.cache.fetch("product_#{self[:id]}.analogs_#{limit}", :expires_in =>1.hour){ analogs(limit).all }
+     Rails.cache.fetch("product_#{self[:id]}.analogs_#{limit}", :expires_in =>24.hours){ analogs(limit).all }
    end
    
   def cached_attached_images
-    Rails.cache.fetch("product_#{self[:id]}.attached_images", :expires_in =>1.hour){ attach_images.all }
+    Rails.cache.fetch("product_#{self[:id]}.attached_images", :expires_in =>24.hours){ attach_images.all }
   end
   
   def cached_images
-    Rails.cache.fetch("product_#{self[:id]}.images", :expires_in =>1.hour){ images.all }
+    Rails.cache.fetch("product_#{self[:id]}.images", :expires_in =>24.hours){ images.all }
   end
 
   def cached_color_variants
-    Rails.cache.fetch("product_#{self[:id]}.color_variants", :expires_in =>1.hour){ color_variants }    
+    Rails.cache.fetch("product_#{self[:id]}.color_variants", :expires_in =>24.hours){ color_variants }    
   end
   
   def cached_properties
-    Rails.cache.fetch("product_#{self[:id]}.properties", :expires_in =>1.hour){ additional_properties }    
+    Rails.cache.fetch("product_#{self[:id]}.properties", :expires_in =>24.hours){ additional_properties }    
   end  
 
    

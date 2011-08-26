@@ -1,58 +1,92 @@
+<script type="text/javascript">
+$(function() {
+  $('a.toggle-category').click(function(){
+      $(this).next().toggle();
+   });
+});
+</script>
 <% form_for @product, :html => {:multipart => true} do |f| -%>
 <%= f.hidden_field :firm_id %>
 <%= hidden_field_tag :redirect, defined?(redirect) ? redirect : ""   %>
 <div><%= render :partial => 'admin/shared/error_messages', :locals => {:target => @product} %></div>
-<table>
-  <tr>
-    <td><%= f.label :article %></td>
-    <td><%= f.text_field :article %></td>
-  </tr>
-  <tr>
-    <td><%= f.label :picture %></td>
-    <td>
-      <div>
-    <%= image_tag(@product.picture.url, :width=>"120")   unless @product.new_record? %>
+<div class="one_line_form">
+
+  <div class="b-formfield-div">
+    <%= f.label :article %>
+    <%= f.text_field :article %>
+  </div> 
+  <div class="b-formfield-div">
+    <%= f.label :short_name %>
+    <%= f.text_field :short_name %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :store_count %>
+    <%= f.text_field :store_count %>
+  </div>  
+  <div class="b-formfield-div">
+    <%= f.label :color %>
+    <%= f.text_field :color %>
+  </div>  
+  <div class="b-formfield-div">
+    <%= f.label :factur %>
+    <%= f.text_field :factur %>
+  </div>  
+  <div class="b-formfield-div">
+    <%= f.label :box %>
+    <%= f.text_field :box %>
+  </div>  
+  <div class="b-formfield-div">
+    <%= f.label :size %>
+    <%= f.text_field :size %>
+  </div> 
+  <div class="b-formfield-div">
+    <%= f.label :infliction %>
+    <%= f.text_field :infliction %>
+  </div>    
+  <div class="b-formfield-div">
+    <%= f.label :show_on_site %>
+    <%= f.check_box :show_on_site %>
+  </div>      
+  <div class="b-formfield-div">
+    <%= f.label :description %>
+    <%= f.text_area :description, :size => "25x5" %>
+  </div>      
+  <div class="b-formfield-div">
+    <%= f.submit %>
+  </div>
+</div>
+<div class="margin-left4 b-float-left">
+  <div>
+     <h2>Изображение товара:</h2>
+     <div>
+      <%= image_tag(@product.picture.url, :width=>"120")   unless @product.new_record? %>
+     </div>
+     <div>
+        <%= f.file_field :picture %>
+     </div>
+  </div>  
+  <div class="spacer"></div>
+  <div>
+    <h2>Категории товара:</h2>
+      <h3><%= link_to_function "Основной каталог", "$('#categories_tree').toggle();", :class=>"pseudo-link" %> </h3>
+      <div id="categories_tree" class="g-hidden">
+        <%= hashed_categories_tree(@catalog, @product.category_ids) %>
       </div>
-    <%= f.file_field :picture %>
-    </td>
-  </tr>  
-  <tr>
-    <td><%= f.label :short_name %></td>
-    <td><%= f.text_field :short_name %></td>
-  </tr>
-  <tr>
-    <td><%= f.label :price %></td>
-    <td><%= f.text_field :price %></td>
-  </tr>
-  <tr>
-    <td><%= f.label :store_count %></td>
-    <td><%= f.text_field :store_count %></td>
-  </tr>  
-  <tr>
-    <td><%= f.label :color %></td>
-    <td><%= f.text_field :color %></td>
-  </tr>  
-  <tr>
-    <td><%= f.label :factur %></td>
-    <td><%= f.text_field :factur %></td>
-  </tr>  
-  <tr>
-    <td><%= f.label :box %></td>
-    <td><%= f.text_field :box %></td>
-  </tr>  
-  <tr>
-    <td><%= f.label :size %></td>
-    <td><%= f.text_field :size %></td>
-  </tr> 
-  <tr>
-    <td><%= f.label :infliction %></td>
-    <td><%= f.text_field :infliction %></td>
-  </tr>    
-  <tr>
-    <td><%= f.label :description %></td>
-    <td><%= f.text_area :description, :size => "25x5" %></td>
-  </tr>      
-    <td colspan="2"><%= f.submit %></td>
-  </tr>
-</table>
+      <h3><%= link_to_function "Тематический каталог", "$('#thematic_tree').toggle();", :class=>"pseudo-link" %> </h3>
+      <div id="thematic_tree" class="g-hidden">
+        <%= hashed_categories_tree(@thematic, @product.category_ids) %>
+      </div>
+      <h3><%= link_to_function "Праздники", "$('#analog_tree').toggle();", :class=>"pseudo-link" %> </h3>
+      <div id="analog_tree" class="g-hidden">
+        <%= hashed_categories_tree(@analogs, @product.category_ids) %>
+      </div>
+
+  </div>
+</div>
+<div class="clear"></div>
 <% end -%>
+

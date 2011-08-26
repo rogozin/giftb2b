@@ -76,6 +76,7 @@ ru:
         infliction: "Нанесение"
         description: "Описание"
         store_count: "Кол-во на складе"
+        show_on_site: "Показывать на сайте"
       lk_order:
         status_id: "Статус"
         lk_firm_id: "Фирма"
