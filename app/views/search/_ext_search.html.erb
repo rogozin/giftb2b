@@ -16,7 +16,7 @@
                     </div>
                   </div>
                  <div class="b-search-property">
-                  <%= link_to 'Производитель', "#", :class => params[:manufactor_ids].present? ? "has-selected-items" : nil  %>
+                  <%= link_to 'Бренд', "#", :class => params[:manufactor_ids].present? ? "has-selected-items" : nil  %>
                     <div class="g-hidden b-property-items" id="filter_manufactor">
                       <%= render :partial => 'manufactor_check', :locals => { :selected => params[:manufactor_ids] } %>
                     </div>
