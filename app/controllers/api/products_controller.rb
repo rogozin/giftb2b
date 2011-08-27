@@ -18,21 +18,12 @@ class Api::ProductsController < Api::BaseController
   
   def show
     @product = []
-    @product = if params[:id] =~ /^lk-/
-      LkProduct.find(params[:id].match(/\d+/).to_s)
-    else
-      Product.find_by_permalink(params[:id])
-    end      
+    @product = is_lk_product? ? find_lk_product : Product.find_by_permalink(params[:id])
     respond_with(@product)
   end
   
   def by_id
-    @product = if params[:id] =~ /^lk-/
-      LkProduct.find(params[:id].match(/\d+/).to_s)
-    else
-      Product.find(params[:id])
-    end      
-    
+    @product = is_lk_product ? find_lk_product : Product.find(params[:id])
     respond_with(@product)
   end
 

@@ -6,7 +6,7 @@ class Api::OrdersController < Api::BaseController
     :user_name => params[:order][:name], :firm_id => @firm[:id])            
     if @firm && order.save
       params[:order][:products].each do |item|
-        p = Product.find(item[:product][:id])
+        p = is_lk_product?(item[:product][:id]) ? find_lk_product(item[:product][:id]) : Product.find(item[:product][:id])
         order.lk_order_items << LkOrderItem.create(:product => p,:quantity => item[:product][:quantity], :price => item[:product][:price])
       end    
       render :json  => { :success => true }

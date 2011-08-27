@@ -3,7 +3,15 @@ class Api::BaseController < ActionController::Base
   respond_to :json
   before_filter :authorization  
   
-  private
+  protected
+  
+  def is_lk_product?(product_id = params[:id])
+    product_id =~ /^lk-/
+  end
+  
+  def find_lk_product(product_id = params[:id])
+    LkProduct.find(product_id.match(/\d+/).to_s)
+  end
   
 #  def respond_with( object, options = {})
 #    options = options.merge(:callback => params[:callback])
