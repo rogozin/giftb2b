@@ -29,6 +29,10 @@ $(function() {
     $.get($(this).attr('href')+'?per_page='+this.value, null, null, "script");
     return false;
   }); 
+  
+  $('a.toggle-category').click(function(){
+      $(this).next().toggle();
+   });
 });
 
 

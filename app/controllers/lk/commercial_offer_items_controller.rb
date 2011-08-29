@@ -6,16 +6,9 @@ class Lk::CommercialOfferItemsController < Lk::BaseController
   
   before_filter :find_co
   before_filter :find_co_item, :except => [:create, :new]
-  before_filter :load_categories, :only => [:edit, :update, :new, :create]
+  before_filter :load_categories, :only => [:edit, :update]
   
   
-  def new
-    
-  end
-  
-  def create
-    
-  end
   
   def edit
     @product = @commercial_offer_item.lk_product

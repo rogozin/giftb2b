@@ -5,7 +5,7 @@ $(function() {
      });
 
     $('.b-search-property :checkbox').live('click', function() {
-     if ($(this).parent().parent().find('li input:checked').size() >0) {
+     if ($(this).parentsUntil('.b-search-property').find('li input:checked').size() >0) {
        $(this).parentsUntil('#search_properties').find('a').addClass('has-selected-items');
      }
      else {
