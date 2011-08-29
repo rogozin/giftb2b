@@ -59,11 +59,7 @@ class Lk::ProductsController < Lk::BaseController
   end
  
  
-  def load_categories
-    @catalog = Category.cached_catalog_categories
-    @analogs = Category.cached_analog_categories
-    @thematic = Category.cached_thematic_categories     
-  end
+
   
  private :find_lk_product, :load_categories
  

@@ -16,6 +16,12 @@ class Lk::BaseController < ApplicationController
     render 'lk/shared/load_cart_products.js'
   end
   
+  def load_categories
+    @catalog = Category.cached_catalog_categories
+    @analogs = Category.cached_analog_categories
+    @thematic = Category.cached_thematic_categories     
+  end
+  
   def set_post_url
     
   case params[:object_type]    
@@ -28,5 +34,5 @@ class Lk::BaseController < ApplicationController
   
   
   private :not_firm_assigned!
-  protected :set_post_url
+  protected :set_post_url, :load_categories
 end
