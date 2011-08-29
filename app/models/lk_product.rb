@@ -16,7 +16,7 @@ class LkProduct < ActiveRecord::Base
    scope :for_my_site, lambda { |firm_id|
     active.where(:show_on_site => true, :firm_id => firm_id) }
    validates :article, :presence => true
-   validates :price, :numericality => {:greater_than_or_equal_to => 0, :allow_nil => true}
+   validates :price, :numericality => {:greater_than_or_equal_to => 0, :allow_nil => false}
    
    def is_my?
      product_id.nil?
