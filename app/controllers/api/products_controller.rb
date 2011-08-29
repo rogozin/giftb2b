@@ -11,7 +11,8 @@ class Api::ProductsController < Api::BaseController
      res2 = @firm.present? ? LkProduct.for_my_site(@firm.id) : []
      res1 + res2
     else
-      Product.active.sorted
+      #Product.active.sorted
+      []
     end
     respond_with @products.paginate(:page => params[:page], :per_page => params[:per_page])
   end

@@ -13,15 +13,16 @@ class Api::BaseController < ActionController::Base
     LkProduct.find(product_id.match(/\d+/).to_s)
   end
   
-#  def respond_with( object, options = {})
-#    options = options.merge(:callback => params[:callback])
-#    super(object, options)
-#  end
+  def respond_with( object, options = {})
+    options.merge!(:callback => params[:callback]) if params[:callback]
+    options.merge!(:status => :not_found) unless object.present?       
+    super(object, options)
+  end
 
   
   private
   def authorization
-   request.headers.each {|k,v| logger.info "#{k} = #{v}"}
+   #request.headers.each {|k,v| logger.info "#{k} = #{v}"}
    #logger.info "==request auth=#{request.authorization.to_s}"
    authenticate_or_request_with_http_token do |t,o|
       access = ForeignAccess.accepted_clients.select{|x| x.param_key == t}

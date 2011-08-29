@@ -58,7 +58,13 @@ describe 'api testing' do
       get "api/categories/#{cat.permalink}", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       ActiveSupport::JSON.decode(response.body).should == cat.as_json
     end
+    
+    it 'если запросить неправильную категорию' do
+      get "api/categories/not-existed", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+      response.code.should eq "404"
+    end
   end
+
 
   context 'products' do
     it 'index' do
@@ -73,6 +79,12 @@ describe 'api testing' do
       #ActiveSupport::JSON.decode(response.body).should eq(products.as_json)
     end
     
+    it 'если запрашиваем товары несуществующей категории' do
+     get "api/products", {:format => :json, :category => 9999}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+     response.code.should eq "404"
+    end
+
+    
     it 'товар пользователя подмешивается в выдачу' do
       cat = @product.categories.first
       @lk_product = Factory(:lk_product, :firm => @firm, :category_ids => [cat.id], :show_on_site => true, :active => true)
@@ -84,6 +96,12 @@ describe 'api testing' do
       get "api/products/#{@product.permalink}", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       ActiveSupport::JSON.decode(response.body).first.last["short_name"].should == @product.short_name
     end
+    
+    it 'Запрашиваем несуществующий товар' do
+      get "api/products/not-exist", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+      response.code.should eq "404"      
+    end
+
   end
   
   context 'order' do
