@@ -54,6 +54,14 @@
     <% end -%>
     </div>
       <!-- <div class="line_right"></div> --> 
+    <div class="left_block b-sale-information">
+    <p>
+      <a href="/p/dlya-postavschikov">Для поставщиков</a>
+    </p>
+    <p>
+      <a href="/p/dlya-reklamnyh-agenstv">Для рекламных агенств</a>
+    </p>
+    </div>
     <div class="line"></div> 
     <div class="left_block"> 
        <%= render :partial => 'shared/prodazha_suvenirov' %>     
@@ -92,7 +100,7 @@
   </div> <!--end right_content --> 
   <div id="left_content"> 
     <%= link_to image_tag("/images/logo_giftb2b.gif", :width => "208", :height => "86", :alt => "giftb2b.ru", :style => "margin-top:13px;margin-left:0px;" ), root_path  %>
-    <div style="width:100%;text-align:center;padding-top:20px;">
+    <div class="b-get-more">
       <%= link_to 'узнать больше...', content_path("get-more")  %>  
     </div> 
     <div class="lk" id="lk"> 

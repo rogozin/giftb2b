@@ -104,6 +104,7 @@ input[type="text"],  input[type="email"], input[type="url"], input[type="passwor
 	float:left;
 	width:260px;
 	margin-left:-100%;
+	
 }
 
 .content{
@@ -143,12 +144,15 @@ input[type="text"],  input[type="email"], input[type="url"], input[type="passwor
 .left_block {
 	text-align:left;
 	font-size:10pt;
+	background:none;
 }
 
 .center_block {
 	width:100%;
 	text-align:left;
 	margin-bottom:20px;
+	padding-right:20px;
+	padding-left:20px;
 }
 
 .article {
@@ -356,14 +360,14 @@ input.inp-quantity {width:30px;}
 }
 
 .left_block p.b-header   {
-  margin-bottom:10px;
-  margin-left:15px;    
-}
+  margin-bottom:20px;
+  margin-left:15px;
+  }
 
-.left_block p.b-header span
-{
+  
+.left_block p.b-header span{
   color:#cc3366;
-  font-size:11pt
+  font-size:13pt
 }
 /* Для файла с выводом одной картинки */
 
@@ -432,37 +436,50 @@ div.article_img_1_z {display: table; height: 120px; width:120px; #position: rela
 .article_z {
     font-size:8pt;
     margin-right:10px;
-    margin-bottom:10px;
+    margin-bottom:20px;
     text-align:left;
 }
 a.text_b_z {
-    color:#333333;
-    font-size:10pt;
+    color: #c36;
+    font-size:14pt;
     font-weight:bold;
+	text-decoration:none;
+	padding-top:20px;
 }
 
 a:hover.text_b_z {
-    color:black;
-    text-decoration:none;
+    
+	text-decoration:underline;
+}
+
+span.article_img_4 {
+	width:120px;
+	text-align:left;
+	margin-bottom:20px;
+	display:block;
 }
 
 span.text_n_z, a.text_n_z, a.all-list {
-    color:#336699;
-    font-size:8pt;
+    color:#999;
+    font-size:11pt;
     font-weight:normal;
+	line-height:1.2;
+	text-decoration:none;
 }
 
 a:hover.text_n_z {
-    color:#336699;
-    text-decoration:none;
+    color:#999;
+    text-decoration:underline;
 }
 
 .text_c_ul {
-    padding-left:15px;
+	padding-top:5px;
+    padding-left:0px;
+	list-style: disc;
 }
 
 .text_c_ul li{
-    color:#336699;
+    color:#999;
     margin-bottom:2px;
     width:160px;
 }
@@ -478,8 +495,8 @@ a:hover.text_n_z {
 	display:-moz-inline-box;
 	display:inline-block;
 	vertical-align:top;
-	margin-right:10px;
-    margin-bottom:10px;
+	margin-right:20px;
+    margin-bottom:20px;
 }
 
 .ul_c {
@@ -528,8 +545,9 @@ a:hover.text_n_z {
 .treeview li span.selected a {color:#cc3366;}
 
 .treeview li a {
-	color:#999999;
-	font-weight:bold;
+	color:#999;
+	font-weight:normal;
+	font-size:11pt;
 }
 
 .treeview li a:hover, .treeview ul a:hover {
@@ -649,7 +667,7 @@ span.message {color:#C36;}
     border-bottom:dotted 1px;
     cursor:pointer;
     text-decoration:none;
-    color:#034AF3;    
+      
 }
 .scrollable-control a:hover {color:#4477EE;}
 .scrollable-control a.selected {color:#936;}
@@ -693,16 +711,17 @@ span.message {color:#C36;}
 }
 .login-form h2 {
 	font-size:10pt;
-	color:#999999;
-	font-weight:bold;
+	color:#fff;
+	font-weight:normal;
 }
 .login-form p {
 	font-size:9pt;
-	color:#999999;
-  clear:both;
-  text-align:right;
-  line-height: 20px;
-  margin-bottom: 10px;
+	color:#fff;
+	clear:both;
+	text-align:right;
+	line-height: 20px;
+	margin-bottom: 5px;
+	font-weight:bold;
 }
 
 .login-form input[type="text"], .login-form input[type="password"] {
@@ -712,14 +731,14 @@ span.message {color:#C36;}
 /* Личный кабинет */
 .lk {
 	margin-top:20px;
-	margin-left:15px;
-	width:230px;
+	margin-left:10px;
+	width:240px;
 	height:100px;
-	background:#cccccc;
+	background:#999;
 	text-align:left;
 }
 .lk a {
-	color:#999999;
+	color:#fff;
 }
 .lk a:hover {
 	color:#CC3366;
@@ -729,8 +748,14 @@ span.message {color:#C36;}
 	padding-left:111px;
 	font-weight:normal;
 	font-size:9pt;
-	padding-top:3px;
+	padding-top:1px;
 	color:#999999
+}
+
+.lk-reg a {
+	border-bottom:1px dotted #fff;
+	text-decoration:none;
+
 }
 
 .lk-t {
@@ -800,4 +825,20 @@ div.v-spacer, div.v-spacer2 {
 
 div.v-spacer2 {
  width:20px;
+}
+
+#novelty_link {
+	color:#82d269;
+}
+
+#sale_link {
+	color:#ff5026;  
+}
+.b-get-more {
+	width:100%;
+	text-align:center;
+	padding-top:20px;
+}
+.b-get-more a {
+	color:#177e99;
 }

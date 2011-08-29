@@ -2,7 +2,7 @@
 <% Category.cached_virtual_categories.each do |cat| -%>
 <li class="li_v">
 <div class="article_z">
-  <span style="text-align:center;width:120px;"><span class="article_img_1_z"><span class="article_img_2"><span class="article_img_3"> <%= image_tag cat[:logo], :width =>"120", :height =>"120", :alt => cat[:name], :title => cat[:name] if cat[:logo].present? %> </span></span></span></span> 
+  <span class="article_img_4"><span class="article_img_1_z"><span class="article_img_2"><span class="article_img_3"> <%= image_tag cat[:logo], :width =>"120", :height =>"120", :alt => cat[:name], :title => cat[:name] if cat[:logo].present? %> </span></span></span></span> 
     <p><%= link_to(cat[:name], category_path(cat[:permalink]), :class=> "text_b_z") %></p> 
     <ul class="text_c_ul">
     <% cat[:children].each_with_index do |child_cat, index| -%>
