@@ -85,7 +85,7 @@ Giftr3::Application.routes.draw do
         post :move_to_order
         get :export
       end
-    resources :products, :controller => "commercial_offer_items", :except => [:index] 
+    resources :products, :controller => "commercial_offer_items", :only => [:edit, :destroy] 
     end  
     resources :samples    
   end
