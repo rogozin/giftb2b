@@ -84,6 +84,11 @@ describe 'api testing' do
      response.code.should eq "404"
     end
 
+    it 'если есть категория но нет товаров' do
+     category = Factory(:category)
+     get "api/products", {:format => :json, :category => category.id}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+     response.code.should eq "404"
+    end
     
     it 'товар пользователя подмешивается в выдачу' do
       cat = @product.categories.first
