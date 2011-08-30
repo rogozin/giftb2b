@@ -4,6 +4,8 @@ class Admin::PropertiesController < Admin::BaseController
      allow :Администратор, "Редактор каталога"
   end
   
+  before_filter :load_categories, :only => [:new, :create, :update, :edit]
+  
 def index
   @properties = Property.all
   @property_values = PropertyValue.all
@@ -52,6 +54,12 @@ end
     @property = Property.find(params[:id])
     @selected = params[:selected]
     @check_box_name = params[:check_box_name].present? ? params[:check_box_name]  : nil
+  end
+  
+  private 
+  
+   def load_categories
+    @categories = Category.catalog_tree(Category.catalog)
   end
 
 end

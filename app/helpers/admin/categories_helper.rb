@@ -35,33 +35,6 @@ module Admin::CategoriesHelper
     raw ret  
   end
   
-  def tree_ul_category(acts_as_tree_set, child = nil, init=true,field_name='property',category_ids=[])
-    if init 
-      roots = acts_as_tree_set.select{|set_item| set_item.parent_id==nil}    
-    else
-      roots = child
-    end   
-    if roots.size > 0
-      
-      ret = init ?  "<ul#{" id='tree_list'" if init}> \n" : "<ul id='child_list_#{roots.first.parent_id}' style='display:none;' > \n"
-      roots.collect do |item|
-        #next if item.parent_id && init
-        ret += '<li>'
-        children=acts_as_tree_set.select {|set_item| set_item.parent_id==item.id}
-        ret += check_box_tag "#{field_name}[category_ids][]",item.id, (category_ids.include?  item.id)
-        unless children.empty?
-          ret += "<a href=\"javascript:void($('#child_list_#{item.id}').toggle());\" class='pseudo-link'>#{item.name }</a>"
-        else
-          ret += item.name 
-        end
-        ret += tree_ul_category(acts_as_tree_set,children, false, field_name, category_ids) if children.size > 0
-        ret += "</li> \n"
-      end
-      ret += "</ul> \n"      
-     ret += hidden_field_tag("#{field_name}[category_ids][]", '' )
-    end
-    raw ret
-  end
   
   private
   def tree_destroy_item_link item

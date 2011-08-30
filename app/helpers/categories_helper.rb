@@ -9,8 +9,8 @@ module CategoriesHelper
     res = init ? "<ul class='treeview'>\n" : (expand_block ? "<ul>\n" : "<ul style='display:none;'>\n")
       categories_hash.each do |category|
        res << "<li>"
-       res += check_box_tag("#{field_name}[]", category[:id],checked_items.include?(category[:id]), :id => "#{field_name}_cat_#{category[:id]}" ) +" " + 
-       (category[:children].present? ? link_to(category[:name], "#", :class => "toggle-category") : label_tag("#{field_name}_cat_#{category[:id]}", category[:name]))
+       res += check_box_tag("#{field_name}[]", category[:id],checked_items.include?(category[:id]), :id => "#{ field_name.parameterize('_') }_cat_#{category[:id]}" ) +" " + 
+       (category[:children].present? ? link_to(category[:name], "#", :class => "toggle-category pseudo-link") : label_tag("#{field_name}_cat_#{category[:id]}", category[:name]))
        res << hashed_categories_tree(category[:children], checked_items, false, find_value(category, checked_items).present?, field_name) if category[:children].present?
        res << "</li>\n"
       end

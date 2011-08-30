@@ -8,6 +8,8 @@ class Admin::ProductsController < Admin::BaseController
   
   before_filter :find_properties, :only => [:new, :create, :edit, :update]
   before_filter :find_product, :only => [:show, :destroy, :edit, :update]
+  before_filter :load_categories, :only => [:new, :create, :edit, :update]
+  
   
   helper_method :product_fields, :product_fields_session
   
@@ -167,6 +169,13 @@ class Admin::ProductsController < Admin::BaseController
   def product_fields_session
     session[:product_fields_settings]
   end
+  
+  def load_categories
+    @catalog = Category.catalog_tree(Category.catalog)
+    @analogs = Category.catalog_tree(Category.analog)
+    @thematic = Category.catalog_tree(Category.thematic)   
+  end
+
   
 end
 
