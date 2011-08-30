@@ -39,6 +39,7 @@ def add_role(user, factory_name)
  r = Factory.build(factory_name)
  #Factory(factory_name) unless Role.where(:name => r.name).exists?
  user.has_role!(r.name)
+ Role.update_all("roles.group = #{r.group}", ["name=:name", :name => r.name] )
 end
 
 Factory.define :role_admin, :class => Role do |f|

@@ -24,6 +24,7 @@ describe "ограничения  редактора каталога" do
     it 'не должен видеть товары в админке' do
       visit admin_products_path
       page.should have_selector("table#products_list tr", :count => 1)
+      
     end
     
   end
@@ -44,7 +45,6 @@ describe "ограничения  редактора каталога" do
     it 'Поиск выводит только товары назначенного поставщика' do
       fill_in "request", :with => "product"
       click_button "."
-      save_and_open_page
       page.should have_no_selector "#product_#{@product2.id}"
     end
     

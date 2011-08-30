@@ -72,7 +72,7 @@ class Product < ActiveRecord::Base
 
     sr = sr.where(:manufactor_id => options[:manufactor]) if options[:manufactor].present? 
     
-    sr = sr.where(:supplier_id => options[:supplier]) if options[:supplier].present? && options[:supplier].to_i > 0
+    sr = sr.where(:supplier_id => options[:supplier]) if options[:supplier].present? && options[:supplier].to_i >= -1
   
     sr = sr.where("(products.article like :article) or (lpad(products.id,6,'0') = :code)", :article => '%'+options[:article]+'%', :code => options[:article]) unless options[:article].blank? 
 
@@ -84,7 +84,7 @@ class Product < ActiveRecord::Base
     
     sr = sr.where(:is_new => options[:new] =="0" ? false : true) if options[:new].present?
         
-    sr = sr.where(:sale => options[:sale] == "0" ? false : true) if options[:sale].present?
+    sr = sr.where(:is_sale => options[:sale] == "0" ? false : true) if options[:sale].present?
     
     sr = sr.where(:best_price => options[:best_price] == "0" ? false : true) if options[:best_price].present?
     

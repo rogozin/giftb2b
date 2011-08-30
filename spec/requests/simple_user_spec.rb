@@ -28,7 +28,7 @@ describe "Работа обычного пользователя" do
       click_link @product.categories.first.name
     end
     within "#product_#{@product.id}" do
-      click_link "+"
+      click_link "Pix"
     end
     within "#cart" do
       page.should have_content "Корзина: 1 товар"
@@ -41,7 +41,7 @@ describe "Работа обычного пользователя" do
       visit cart_index_path
       click_link "Оформить заказ"
       save_and_open_page
-      select @firm.short_name, :from => "lk_order_firm_id"
+      #select @firm.short_name, :from => "lk_firm_id"
       fill_in "Комментарий", :with => "Примечание к заказу"
       click_button "Оформить"
       page.should have_content "Заказ оформлен!"  
@@ -61,7 +61,8 @@ describe "Работа обычного пользователя" do
   it 'я не могу посмотреть заказы, созданные другим пользователем' do
     order2= Factory(:lk_order, :user_id => @user.id + 1)
     visit lk_user_order_path(order2)
-    page.should have_content "Заказ не найден!"
+    #page.should have_content "Заказ не найден!"
+    page.status_code.should eq "404"
   end
 
 
