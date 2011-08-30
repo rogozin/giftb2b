@@ -33,8 +33,9 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found(message=nil)    
-    flash[:alert] = message if message
-    render :template => 'not_found', :status => 404
+    #flash[:alert] = message if message
+    #raise ActionController::RoutingError.new('Not Found')
+    render :file => 'public/404.html', :status => 404, :layout => false
   end  
 
   def current_user_session
