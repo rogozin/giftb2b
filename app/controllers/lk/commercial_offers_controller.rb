@@ -37,6 +37,7 @@ class Lk::CommercialOffersController < Lk::BaseController
   def calculate 
     flash_alert = ""
     @commercial_offer.sale = params[:sale]
+    @commercial_offer.signature = params[:signature]
     flash_alert << "Ошибка при пересчете. " unless @commercial_offer.save
     
     params[:co_items].each do |lk_product_id, quantity|
@@ -58,7 +59,7 @@ class Lk::CommercialOffersController < Lk::BaseController
     if flash_alert.present?
       flash[:alert] = flash_alert
     else
-      flash[:notice] = "Коммерческое предложение пересчитано"
+      flash[:notice] = "Коммерческое предложение изменено"
     end
     redirect_to lk_commercial_offer_path(@commercial_offer)  
   end

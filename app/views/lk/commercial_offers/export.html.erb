@@ -1,9 +1,19 @@
 <html>
 <head>
 <style>
+#table_t, .table_header {
+	border-bottom:1px solid #ccc;
+  width:800px;	
+}
+	
+#table_t {
+  margin:auto;
+  page-break-inside: avoid;
+  padding-bottom:5px;
+  padding-top:5px;
+}	
+	
 .table_header {
-	width:800px;
-	border-bottom:1px solid black;
 	margin:0px;
 	padding:0px;
 }
@@ -23,9 +33,9 @@
 	padding:0px;
 	line-height:1.2;
 	}
-.t9i {
+.t9i, .t9i p {
 	font-size:9pt;
-	margin:0px;
+	margin:5px 0;
 	margin-left:15px;
 	padding:0px;
 	line-height:1.2;
@@ -62,13 +72,7 @@ div.article_img_2 {
 }
 div.article_img_3 {
 }
-#table_t {
-margin:auto;
-page-break-inside: avoid;
-width:800px;
-padding-bottom:5px;
-padding-top:5px;
-}
+
 
 </style>
 </head>
@@ -83,6 +87,7 @@ padding-top:5px;
 	<p class="t11"><%= @commercial_offer.firm.addr_f %></p> 
 	<p class="t11">Менеджер: <%= @commercial_offer.user.fio %> </p> 
 	<p class="t11"> Тел./факс: <%= @commercial_offer.firm.phone %> e-mail: <%= @commercial_offer.firm.email %> <%= @commercial_offer.firm.url %></p>
+	<p class="t11"> Специально для компании: <%= @commercial_offer.lk_firm.name %> </p>
 	 </td> 
 	</tr> 
 </table>
@@ -92,7 +97,7 @@ padding-top:5px;
 <table id="table_t"> 
 <tr> 
 <td width="90"><div class="article_img_1"><div class="article_img_2"> <div class="article_img_3">  
-   <%= image_tag(image_path("#{controller.request.protocol}#{controller.request.host}:#{controller.request.port}"+item.lk_product.picture.url) )%>
+   <%= image_tag(image_path("#{controller.request.protocol}#{controller.request.host}:#{controller.request.port}"+item.lk_product.picture.url), :width => "90" )%>
   <%#= image_tag("#{controller.request.protocol}#{controller.request.host}:#{controller.request.port}/images/default_image.jpg") %>
  </div></div></div>
 </td> 
@@ -113,12 +118,14 @@ padding-top:5px;
 		<p class="t10b">Общая сумма со скидкой <%= @commercial_offer.sale %>%: <%= price_ru_label item.quantity * price_with_sale(item.lk_product.price, @commercial_offer.sale) %> за <%= item.quantity %> шт.</p> 
 		<% end -%>
 </td> 
-<td class="td_descr"> 
-		<p class="t9i"><%= item.lk_product.description %></p> 
+<td class="td_descr t9i"> 
+		<%= simple_format(item.lk_product.description) %>
 </td> 
 </tr> 
-
 </table>
 <% end -%>
+<div class="t9">
+<%= simple_format(@commercial_offer.signature) %>
+</div>
 </body>
 </html>

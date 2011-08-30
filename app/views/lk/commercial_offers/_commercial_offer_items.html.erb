@@ -3,6 +3,7 @@ $(function(){
   $("#change_price").click(function(){   
     $(this).hide().parents('td').attr("colspan",5);
     $("#delta_value, table th.g-hidden, table td.g-hidden").show();
+    return false;
   });
 });
 </script>
@@ -34,12 +35,13 @@ $(function(){
     </tr>
   <% end -%>
   <tr>
-    <td colspan="4"><%= submit_tag "Пересчитать" %>
+    <td colspan="4">
       <span style="margin-left:20px">
       <%= link_to 'Изменить стоимость', "#", :title => "Введите числовое значение, на величину которого хотите изменить стоимость выбранных товаров и выполните пересчет коммерческого предложения", :id => "change_price", :class => "pseudo-link"  %>
       </span>
       <span style="margin-left:20px" class="g-hidden" id="delta_value">
         <%= label_tag :delta, "Изменить стоимость на:" %> <%= text_field_tag :delta, nil, :class => "inp-quantity" %> руб.
+        <%= submit_tag "ок" %>
       </span>
       <span style="margin-left:20px">
         <%= label_tag :sale,"Скидка, %:" %> <%= text_field_tag :sale, @commercial_offer.sale, :class => "inp-quantity" %>
@@ -49,6 +51,16 @@ $(function(){
     
     <td class="no-wrap" colspan="4">Итого: <%= @commercial_offer.commercial_offer_items.sum(:quantity) %> шт. 
     на сумму <%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
+  </tr>
+  <tr>
+    <td colspan="9">
+      <%= text_area_tag :signature,  @commercial_offer.signature, :rows => 5, :style => "width:100%" %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="9" class="right">
+      <%= submit_tag "Cохранить изменения" %>
+    </td>
   </tr>
 </table>
 <% end %>
