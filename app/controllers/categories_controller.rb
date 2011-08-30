@@ -3,6 +3,7 @@ class CategoriesController < ApplicationController
 
 def show
     @category = Category.find_by_permalink(params[:id])
+    return not_found unless @category
     return render "virtual" if @category.is_virtual?
     session[:category_location] = @category.permalink
 #    @ltp = url_for(:only_path => false, :controller => controller_name, :action => action_name, :id => @category.permalink, :page=>params[:page], :per_page=>params[:per_page])    

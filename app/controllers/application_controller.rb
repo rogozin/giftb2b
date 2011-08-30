@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 
   def not_found(message=nil)    
     flash[:alert] = message if message
-    render :template => 'not_found'
+    render :template => 'not_found', :status => 404
   end  
 
   def current_user_session

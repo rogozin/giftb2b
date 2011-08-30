@@ -6,7 +6,6 @@ describe 'Главная страница' do
     visit '/'
   end
   context 'Выгодные предложения' do
-    context "Просмотр выгодных предложений" do
       before(:each) do
         @product = Factory(:product, :is_sale => true, :best_price => true) 
       end
@@ -32,8 +31,19 @@ describe 'Главная страница' do
         visit best_price_categories_path
         page.should have_no_selector "#product_#{@product.id}"
       end
-
-
-    end #context
   end #context
+  
+  context 'обработка исключительных ситуаций' do
+    it '404, если не найдена категория' do
+      get category_path("not-existed")
+      response.code.should eq "404"
+    end
+    
+    it '404, если не найден товар' do
+      get product_path("not-existed")
+      response.code.should eq "404"
+    end
+    
+  end
+  
 end #describe
