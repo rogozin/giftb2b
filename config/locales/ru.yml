@@ -50,7 +50,7 @@ ru:
         lk_firm_id: "Фирма"        
         email: "E-mail"
         sale: "Скидка, %"
-        signature: "Подпись"
+        signature: "Комментарий"
       commercial_offer_item:
         quantity: "Количество" 
         price: "Цена"
