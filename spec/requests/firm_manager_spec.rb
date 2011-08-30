@@ -36,6 +36,11 @@ describe 'Роль менеджер фирмы' do
        order.lk_firm_id.should == new_firm.id
        page.current_path.should == edit_lk_order_path(order)
      end
+     
+     it 'нельзя удалить товар из ко, если он есть в заказе' do
+       
+     end
+     
    end
    
     
