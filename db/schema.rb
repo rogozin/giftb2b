@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110826061823) do
+ActiveRecord::Schema.define(:version => 20110830121544) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -208,6 +208,7 @@ ActiveRecord::Schema.define(:version => 20110826061823) do
     t.string   "user_email"
     t.string   "user_phone"
     t.string   "user_name"
+    t.boolean  "is_remote",    :default => false
   end
 
   create_table "lk_product_categories", :id => false, :force => true do |t|
