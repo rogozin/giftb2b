@@ -1,6 +1,7 @@
 #encoding: utf-8;
 class LkProduct < ActiveRecord::Base
   has_many :commercial_offer_items
+  has_many :lk_order_items, :as => :product, :dependent => :restrict
   belongs_to :product
   belongs_to :firm
   has_many :lk_product_categories
