@@ -29,7 +29,7 @@ class Lk::UserOrdersController < Lk::BaseController
       end
       @cart.items.clear
       unless Rails.env == 'test'
-        UserMailer.new_order_notification(current_user, @order).deliver if @current_user.email.present?
+        AccountMailer.new_order_notification(current_user, @order).deliver if @current_user.email.present?
         FirmMailer.new_user_order_notification(@order.firm, current_user, @order).deliver if @order.firm && @order.firm.email.present?
       end
     else  

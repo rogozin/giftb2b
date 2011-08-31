@@ -7,6 +7,9 @@ class LkOrder < ActiveRecord::Base
   belongs_to :user
   before_create :set_random_link
   after_save :set_log
+  
+  validates :user_email, :email => {:allow_blank => true}
+  validates :firm_id, :presence => true
 
   def self.statuses
     [["заказ в обработке",0],["выставлен счет на оплату заказа",10],["макет на утверждении", 20],
@@ -21,6 +24,10 @@ class LkOrder < ActiveRecord::Base
   
   def sum
     lk_order_items.sum("price*quantity")
+  end
+  
+  def contact_email
+    user_email.present? ? user_email : firm.email
   end
   
   private

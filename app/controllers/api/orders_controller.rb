@@ -8,7 +8,9 @@ class Api::OrdersController < Api::BaseController
       params[:order][:products].each do |item|
         p = is_lk_product?(item[:product][:id]) ? find_lk_product(item[:product][:id]) : Product.find(item[:product][:id])
         order.lk_order_items << LkOrderItem.create(:product => p,:quantity => item[:product][:quantity], :price => item[:product][:price])
-      end    
+      end 
+      UserMailer.new_remote_order_notification(@order).deliver
+      FirmMailer.new_remote_order_notification(@order).deliver
       render :json  => { :success => true }
     else
       render :json => { :success => false }

@@ -1,0 +1,18 @@
+<table style="border:1px solid #ccc; border-collapse:collapse;" cellpadding="5px">
+<tr>
+  <th style="background:#ccc; border:1px solid #6d6d6d">Артикул</th>
+  <th style="background:#ccc; border:1px solid #6d6d6d">Название</th>
+  <th style="background:#ccc; border:1px solid #6d6d6d">Цена</th>
+  <th style="background:#ccc; border:1px solid #6d6d6d">Кол-во</th>
+  <th style="background:#ccc; border:1px solid #6d6d6d">Сумма</th>
+</tr>
+<% @order.lk_order_items.each do |item| %>
+  <tr>
+    <td style="border:1px solid #ccc"><%= item.product.article %></td>
+    <td style="border:1px solid #ccc"><%= item.product.short_name %></td>
+    <td style="border:1px solid #ccc; white-space: nowrap;"><%= number_to_currency item.price %></td>
+    <td style="border:1px solid #ccc"><%= item.quantity %></td>    
+    <td style="border:1px solid #ccc; white-space: nowrap;"><%= number_to_currency item.sum %></td>
+  </tr>
+<% end -%>
+</table>

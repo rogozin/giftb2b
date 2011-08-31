@@ -7,7 +7,7 @@ def new
   def create
     @user = User.new(params[:user])
     if @user.save
-      UserMailer.activation_email(@user).deliver
+      AccountMailer.activation_email(@user).deliver
       @user.has_role! "Пользователь"
       flash[:notice] = "Учетная запись создана."
       render 'thanks'
@@ -34,7 +34,7 @@ def new
     @user = User.find_using_perishable_token(params[:activation_code], 1.hour)
     if @user && @user.update_attribute(:active, true)
       flash[:notice] = "Учетная запись активирована"
-      UserMailer.activation_complete(@user).deliver
+      AccountMailer.activation_complete(@user).deliver
     else
       render 'activation_failed'
     end

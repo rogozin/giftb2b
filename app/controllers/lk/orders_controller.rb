@@ -29,8 +29,10 @@ class Lk::OrdersController < Lk::BaseController
   end
    
   def update
+    current_status = @order.status_id
     if @order.update_attributes(params[:lk_order])
       flash[:notice] = "Заказ изменен!" 
+      UserMailer.update_order_notification(@order).deliver if params[:lk_order][:status_id].to_i != current_status
       redirect_to edit_lk_order_path(@order)
     else
       render 'edit'

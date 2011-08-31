@@ -4,9 +4,7 @@ class Firm < ActiveRecord::Base
   has_many :images, :through => :attach_images
   has_many :users
   validates :name, :presence => true, :uniqueness => true
-  validates :email,
-  :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :allow_blank => true},
-  :length => {:maximum => 40, :allow_nil => true}  
+  validates :email, :email => {:allow_blank => true},  :length => {:maximum => 40, :allow_nil => true}  
   validates :url,
   :format => { :with => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :allow_blank => true},
   :length => {:maximum => 40, :allow_nil => true}

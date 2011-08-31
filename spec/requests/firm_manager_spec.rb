@@ -16,10 +16,9 @@ describe 'Роль менеджер фирмы' do
      visit edit_lk_sample_path(@sample)
      page.should have_checked_field "sample_closed"
    end
-  end
+  end 
    
-   
-   context 'личный кабинет' do
+   context "Коммерческое предложение" do    
      before(:each) do
        @commercial_offer = Factory(:commercial_offer, :firm => @user.firm, :lk_firm => @lk_firm)
      end
@@ -37,12 +36,38 @@ describe 'Роль менеджер фирмы' do
        page.current_path.should == edit_lk_order_path(order)
      end
      
-     it 'нельзя удалить товар из ко, если он есть в заказе' do
+     it 'Удаление товара из коммерческого предложения' do
+       @lk_order = Factory(:lk_order, :firm =>@user.firm)
+       @lk_product  = @commercial_offer.commercial_offer_items.first.lk_product
+       @lk_order.lk_order_items.create(:product => @lk_product, :quantity => 1, :price => 10)
+       visit lk_commercial_offer_path(@commercial_offer)       
+       within "#commercial_offer_items" do
+         click_link "Bin"
+       end
+       page.should have_content("Товар исключен из коммерческого предложения")
+       @commercial_offer.commercial_offer_items.size.should == 0
+     end
+   end
+   
+   context 'Заказ' do
+     
+     context 'отправка писем' do
+            
+       it 'После создания заказа через апи письмо уходит заказчику и фирме ' do
+          
+       end
        
+       it 'после создания заказа через личный кабинет письмо уходит заказчику' do
+         
+       end
+     
+       it 'После изменения статуса заказа заказчику отправляется уведомление' do
+       
+       end
+
      end
      
    end
-   
     
    
 end

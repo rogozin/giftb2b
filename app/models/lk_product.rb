@@ -4,7 +4,7 @@ class LkProduct < ActiveRecord::Base
   has_many :lk_order_items, :as => :product, :dependent => :restrict
   belongs_to :product
   belongs_to :firm
-  has_many :lk_product_categories
+  has_many :lk_product_categories, :dependent => :delete_all
   has_many :categories, :through => :lk_product_categories
   has_attached_file :picture, :styles => {:original => "300x300", :thumb =>  "120x120"}, 
    :path =>":rails_root/public/system/firms/:firm_id/:id/:style/:filename",
@@ -56,6 +56,10 @@ class LkProduct < ActiveRecord::Base
    
    def price_in_rub
      price     
+   end
+   
+   def can_destroy?
+     lk_order_items.size == 0 && commercial_offer_items.size == 0 && !active?
    end
    
 #  before_destroy :drop_lk_product

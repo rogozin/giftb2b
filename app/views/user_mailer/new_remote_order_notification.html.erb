@@ -1,0 +1,23 @@
+<h1>Уважаемый клиент! </h1>
+
+
+<p>
+  Вы оформили заказ на сайте <%= @firm.url %>. <br />
+  Номер Вашего заказа: <%= @order.id %>, всего на сумму <%= @order.sum %> руб. <br />
+  В ближайшее время с Вами свяжется менеджер для уточнения деталей.
+</p>
+
+<div style="text-align:left">
+
+
+<h2>Информация о заказе:</h2>
+<%= render :partial => "order_details" %>
+
+<% if @order.user_comment.present? -%>
+<div style="text-align:left; font-size:0.9em; color:#999;margin:10px 0;">
+Комментарий к заказу: <%= @order.user_comment %>  
+</div>
+<% end -%>
+
+</div>
+
