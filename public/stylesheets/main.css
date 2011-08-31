@@ -539,15 +539,28 @@ a:hover.text_n_z {
 }
 
 .li_c  p.article_name, .li_c  p.article_t, .li_c  p.article_s, .li_c a.article_a{
-	font-size:1 em;
+	font-size:1em;
 }
 
 .treeview li span.selected a {color:#cc3366;}
 
 .treeview li a {
-	color:#999;
+	color:#333;
 	font-weight:normal;
 	font-size:11pt;
+	line-height:1.5;
+}
+
+.treeview li ul li a {
+	font-size:10.5pt;
+	line-height:1.2;
+	
+}
+
+.treeview li ul li ul li a {
+	font-size:10pt;
+	line-height:1.2;
+	color:#999;
 }
 
 .treeview li a:hover, .treeview ul a:hover {
@@ -555,7 +568,7 @@ a:hover.text_n_z {
 }
 
 .treeview ul a {
-	color:#999999;
+	color:#666;
 	font-weight:normal;
 }
 
@@ -846,4 +859,9 @@ div.v-spacer2 {
 .b-sale-information {
 	background:#ffc;
 	margin: 10px;
+}
+
+#left_content .treeview {
+	background:#F6F5FF;
+	margin-right:10px;
 }
