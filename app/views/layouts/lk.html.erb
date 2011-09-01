@@ -23,7 +23,10 @@
 </div> <!-- end header --> 
   
 <div id="all_content"> 
-<div class="content"><h1>Личный кабинет</h1></div>
+<div class="content"><h3>Вы находитесь в личный кабинете</h3>
+<hr>
+</div>
+
 <div class="clear"></div>   
 <div class="content">
  <%= render :partial => 'lk/shared/happy_birthday' if current_user.is_firm_user? && is_birthday_today? %>    
