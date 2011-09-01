@@ -6,7 +6,7 @@ class Api::BaseController < ActionController::Base
   protected
   
   def is_lk_product?(product_id = params[:id])
-    product_id =~ /^lk-/
+    product_id =~ /^(lk|my)-/ 
   end
   
   def find_lk_product(product_id = params[:id])

@@ -24,7 +24,7 @@ class Api::ProductsController < Api::BaseController
   end
   
   def by_id
-    @product = is_lk_product ? find_lk_product : Product.find(params[:id])
+    @product = is_lk_product? ? find_lk_product : Product.find(params[:id].to_i)
     respond_with(@product)
   end
 
