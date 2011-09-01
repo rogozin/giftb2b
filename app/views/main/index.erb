@@ -3,8 +3,8 @@
 <% content_for :meta_keywords, "gifts" -%>
 <% content_for :document_ready, "run_scrollable();" -%>
 <div class="content">
-  <div class="scrollable-control"><%= link_to 'Новинки', change_scrollable_main_index_path, :remote => true, :id => "novelty_link", :class => "selected"  %>
-   <%= link_to "Распродажа", change_scrollable_main_index_path(:sale => 1), :remote => true, :id => "sale_link" %> </div>
+  <div class="scrollable-control"><%= link_to 'Новинки!', change_scrollable_main_index_path, :remote => true, :id => "novelty_link", :class => "selected"  %>
+   <%= link_to "Распродажа!", change_scrollable_main_index_path(:sale => 1), :remote => true, :id => "sale_link" %> </div>
  <div id="novice_animation">
 	      <img alt='Loading' src='/images/loading.gif' widht="16px">
 	      </div>   

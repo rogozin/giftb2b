@@ -223,7 +223,11 @@ a:hover.menu_left {
 	font-size:9pt;
 	margin-bottom:15px;
 }
-
+.catalog_pages {
+	float:left;
+	margin-right:20px;
+	padding-top:2px;
+}
 .banner_left {
 	width:230px;
 	margin-left:15px;
@@ -842,10 +846,13 @@ div.v-spacer2 {
 
 #novelty_link {
 	color:#82d269;
+	margin-right:20px;
+	font-weight:bold;
 }
 
 #sale_link {
 	color:#ff5026;  
+	font-weight:bold;
 }
 .b-get-more {
 	width:100%;
@@ -861,7 +868,6 @@ div.v-spacer2 {
 	margin: 10px;
 }
 
-#left_content .treeview {
+#left_content .b-background {
 	background:#F6F5FF;
-	margin-right:10px;
 }
