@@ -34,8 +34,10 @@ class Product < ActiveRecord::Base
   }
   validates :supplier_id, :presence => true
   validates :article, :presence => true
+  validates :price, :presence => true
   validates_uniqueness_of :permalink, :allow_nil => true
-  
+
+  before_validation :set_price  
   before_save :set_permalink, :set_ruprice
   after_save :clear_cache
 
@@ -271,6 +273,10 @@ class Product < ActiveRecord::Base
     else 
       self.permalink= self.permalink.parameterize
     end
+  end
+
+  def set_price
+    self[:price] = 0 if price.nil?
   end
   
   def set_ruprice

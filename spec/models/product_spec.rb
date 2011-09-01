@@ -8,6 +8,13 @@ describe Product do
    
   subject { Product.new}
   it { should_not be_valid}
+  it {subject.price.should be_zero }
+  
+  it 'prce' do
+    p = Factory(:product, :price => nil)
+    p.price.should be_zero
+      
+  end
 #  it { should have(1).error_on(:article)}
 #  it { should have(1).error_on(:supplier_id)}
 
