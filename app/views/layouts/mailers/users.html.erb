@@ -24,7 +24,7 @@
   <td/>
   <td align="left">
     <span style="font-family:Tahoma; font-size:12px; color:#404040;">
-   ©  <%=link_to @firm.name, @firm.url %>  <%= Date.current.year %></span>
+   ©  <a href="<%= @firm.url %>"><%= @firm.name %></a>  <%= Date.current.year %></span>
   </td>
 </tr>
 <tr>

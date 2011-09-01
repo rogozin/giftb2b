@@ -12,7 +12,7 @@ class FirmMailer < ActionMailer::Base
   
   def new_remote_order_notification(order)
     @order = order
-    mail(:to => order.firm.email, :subject => "giftb2b.ru - поступил новый заказ (#{order.id})" )  if order.firm && order.firm.email
+    mail(:to => order.firm.email, :subject => "giftb2b.ru - поступил новый заказ (#{order.id})" ) 
   end
   
 end

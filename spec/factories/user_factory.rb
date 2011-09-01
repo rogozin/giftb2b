@@ -81,5 +81,9 @@ Factory.sequence :firm_seq do |n|
 Factory.define :firm do |f|
   f.name {Factory.next(:firm_seq)}
   f.short_name "Рога и копыта"
+  f.email "firm@example.com"
+  f.url "http://www.example.com"
+  f.addr_f "Москва, ул. Льва Толстого д.12 стр. 1"
+  f.addr_u "Москва, хата с краю"
 end
 

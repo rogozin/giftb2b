@@ -14,7 +14,7 @@ describe LkOrder do
   
   it 'контактный email' do
     @lk_order = Factory(:lk_order)
-    @lk_order.firm.email = "firm@demo.net"
+    @lk_order.lk_firm.email = "firm@demo.net"
     @lk_order.contact_email.should eq("firm@demo.net")
     @lk_order.user_email =  "user@demo.net"
     @lk_order.contact_email.should eq("user@demo.net")

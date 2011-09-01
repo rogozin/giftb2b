@@ -27,7 +27,7 @@ class LkOrder < ActiveRecord::Base
   end
   
   def contact_email
-    user_email.present? ? user_email : firm.email
+    user_email.present? ? user_email : lk_firm.email
   end
   
   private

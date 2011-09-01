@@ -17,6 +17,7 @@ Factory.sequence :lk_firm_seq do |n|
 Factory.define :lk_firm do |f|
   f.name "Фирма #{Factory.next(:lk_firm_seq)}"
   f.contact "02"
+  f.email "lk_firm@example.com"
 end
 
 Factory.define :commercial_offer do |f|

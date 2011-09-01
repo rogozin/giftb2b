@@ -50,6 +50,9 @@ describe 'Роль менеджер фирмы' do
    end
    
    context 'Заказ' do
+     before(:each) do
+       @lk_order = Factory(:lk_order, :firm => @user.firm, :lk_firm => @lk_firm)
+     end
      
      context 'отправка писем' do
             
@@ -62,7 +65,11 @@ describe 'Роль менеджер фирмы' do
        end
      
        it 'После изменения статуса заказа заказчику отправляется уведомление' do
-       
+        visit edit_lk_order_path(@lk_order)
+        select "макет на утверждении", :from => "lk_order_status_id"
+        click_button "Сохранить"
+        ActionMailer::Base.deliveries.should have(1).item
+        ActionMailer::Base.deliveries.first.to.should include(@lk_order.contact_email)
        end
 
      end
