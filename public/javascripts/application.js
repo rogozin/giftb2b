@@ -17,10 +17,7 @@ $(".ajax_animation").bind({
 $(function() {
   $(".catalog_pages a").live("click", function() {
     $(ANIMATE_ELEMENT).insertAfter('.article_t_p');
-	var reReplacePattern = "http://"+ location.host + "/catalog";
-	var strReplaceTo = "http://r3.giftb2b.ru/foreign";
-	link = this.href.replace (reReplacePattern, strReplaceTo);
-	$.get(link, null, null, "script");
+	$.get(this.href, null, null, "script");
     return false;
   });
 
@@ -63,10 +60,30 @@ function changeImage(img_nr) {
 }	 
 
 function run_scrollable() {
-$("div#scrollable").smoothDivScroll({ autoScroll: "onstart", autoScrollDirection: "backandforth", autoScrollStep: 1, autoScrollInterval: 15, startAtElementId: "startAtMe", visibleHotSpots: "always"});
+$("#scrollable").smoothDivScroll({ autoScroll: "onstart", autoScrollDirection: "backandforth", autoScrollStep: 1, autoScrollInterval: 15, startAtElementId: "startAtMe", visibleHotSpots: "always"});
  $("div#scrollable").bind({
       ajaxStart: function() { $(this).empty(); $('#novice_animation img').show(); },
       ajaxStop: function() { $('#novice_animation img').hide(); }
     });
 return false;
 }
+
+$(function() {
+
+  $('.scrollableArea div').mouseover(function(e) {
+    $("<div style='top:"+ e.clientY + "px; left:"+ e.clientX +"px;' class='b-popup' id='popup-img'></div>")
+    .html($(this).find('div').html())
+    .appendTo('body')
+    .fadeIn();
+    $("#scrollable").smoothDivScroll("stopAutoScroll");
+    
+   })
+  $('.scrollableArea div').mouseleave( function() {
+    $("#popup-img").fadeOut().remove(); 
+    $("#scrollable").smoothDivScroll("startAutoScroll");
+   })
+   
+   
+});
+
+

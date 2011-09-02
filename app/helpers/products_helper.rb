@@ -8,13 +8,13 @@ module ProductsHelper
       val==0 ?  "по запросу" :  number_to_currency(val, :unit => 'руб. ')
     end
     
-    def product_image(product, thumb = true)
+    def product_image(product, thumb = true, title = true)
       pfi = product.main_image
       if pfi
         if thumb
-          image_tag pfi.picture.url(:thumb), :alt=>product.id, :title => product.short_name
+          image_tag pfi.picture.url(:thumb), :alt=>product.id, :title => title ? product.short_name : nil
         else
-          image_tag pfi.picture.url, :alt=>product.id, :title => product.short_name
+          image_tag pfi.picture.url, :alt=>product.id, :title => title ? product.short_name : nil
         end
       else
        default_image
@@ -33,8 +33,13 @@ module ProductsHelper
       end
     end
     
-    def supplier product
-      content_tag(:p, content_tag(:span, "Поставщик: ", :class => "article_t") + link_to(product.supplier.name, supplier_path(product.supplier)), :class => "article_name_2") if current_user and  (current_user.is_firm_user? or current_user.is_admin_user?) and product.supplier
+    def supplier product, use_link=true
+      if current_user and (current_user.is_firm_user? or current_user.is_admin_user?) and  product.supplier
+      content_tag(:p, :class => "article_name_2") do
+       concat content_tag(:span, "Поставщик: ", :class => "article_t") 
+       concat (use_link ? link_to(product.supplier.name, supplier_path(product.supplier)) : product.supplier.name) 
+       end
+      end
     end
     
     def store_count product

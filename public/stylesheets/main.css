@@ -905,4 +905,29 @@ div.v-spacer2 {
 	width:250px;
 }
 
+
+
 ul li.category-outline {padding-bottom:20px;}
+
+.scrollableArea div {
+  margin: 0 10px; 
+  }
+  
+.b-popup{
+ position:absolute;
+ z-index:999;
+ padding:10px;
+ border:solid 1px #c36;
+ width:200px;
+ height:130px;
+ background-color: #fee;
+ display:none;
+}
+
+div.b-popup-info {
+	text-align:left;
+	line-height:1.2em;
+}
+
+div.b-popup-info h1 {
+padding-bottom: 0.8em;}

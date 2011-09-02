@@ -1,0 +1,7 @@
+	  	    <div class="b-popup-info">
+      			<h1 class="article_t"><%= product.short_name %></h1>
+      			<p class="article_name_2"><span class="article_t">Артикул: </span><%= article product %></p>						
+      	  	<%= supplier product, false %>			
+      	  	<p class="article_t">Количество на складе: <span class="article_s"><%= store_count product %></span></p>
+			      <p class="article_t">Цена: <span class="article_name"><%= product_price(product) %></span></p>	
+	  	    </div>

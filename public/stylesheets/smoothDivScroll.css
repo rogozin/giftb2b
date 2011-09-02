@@ -88,13 +88,14 @@ div.scrollableArea
  #scrollable div.scrollableArea *
 {
 	position: relative;
-	display: block;
+/*	display: block;*/
 	float: left;
-	margin: 0;
+/*	margin: 0;*/
 }
 
 #scrollable img
 {
-    width:120px;	
-    padding: 0 5px;		
+/*    width:120px;	*/
+    max-width:120px;	
+    max-height:120px
 }
