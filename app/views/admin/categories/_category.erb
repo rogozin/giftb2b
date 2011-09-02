@@ -43,6 +43,10 @@
   <%= f.check_box :active %>
 </div>
 <div class="b-formfield-div">
+  <%= f.label :outline, 'Вставить отступ после этой категори' %>
+  <%= f.check_box :outline %>
+</div>
+<div class="b-formfield-div">
   <%= f.label :meta_keywords, 'META KEYWORDS' %>
   <%= f.text_area :meta_keywords, :cols=>22, :rows=>3 %>
 </div>
@@ -51,7 +55,7 @@
   <%= f.text_area :meta_description, :cols=>22, :rows=>3 %>
 </div>
 <div class="b-formfield-div">
-  <%= f.label :show_description, 'Отображать описание' %>
+  <%= f.label :show_description, 'Показывать описание' %>
   <%= f.check_box :show_description %>
 </div>
 <div>

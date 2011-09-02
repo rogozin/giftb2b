@@ -58,10 +58,10 @@ module CategoriesHelper
   def tree_ul_from_hash(categories_hash, init=true, &block)
     res = init ? "<ul class='b-tree'>\n" : "<ul>\n"
       categories_hash.each do |category|
-       res << "<li>"
-       res += block_given? ? yield(category) : category[:name]
-       res << tree_ul_from_hash(category[:children],false, &block) if category[:children].present?
-       res << "</li>\n"
+       res << content_tag(:li, :class => category[:outline] ? "category-outline" : nil) do
+       concat block_given? ? yield(category) : category[:name]
+       concat tree_ul_from_hash(category[:children],false, &block) if category[:children].present?
+       end
       end
     res << "</ul>\n"
     raw res  

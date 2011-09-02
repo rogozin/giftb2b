@@ -18,5 +18,10 @@
       <tr class="g-hidden toggled" id="child_of_<%= item.id %>">
       <td style="padding-left:30px;" colspan="5"></td>      
       </tr>    
+    <% if item.outline -%>
+      <tr class="category-outline">
+        <td colspan="6"></td>
+      </tr>
+    <% end -%>
   <% end -%>
 </table>

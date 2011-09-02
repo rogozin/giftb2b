@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110830121544) do
+ActiveRecord::Schema.define(:version => 20110902051306) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20110830121544) do
     t.boolean  "show_description",               :default => false
     t.string   "meta_keywords"
     t.string   "meta_description"
+    t.boolean  "outline",                        :default => false
   end
 
   add_index "categories", ["permalink"], :name => "index_categories_on_permalink", :unique => true
