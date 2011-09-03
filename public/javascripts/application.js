@@ -1,10 +1,13 @@
-var ANIMATE_ELEMENT =  "<span class='loader_animate'>&nbsp;<img alt='Loading' src='/images/ajax-loader.gif'></span>"
-
-$(function() {
-$(".ajax_animation").bind({
+function bindAnimation() {
+  $(".ajax_animation").bind({
       ajaxStart: function() { $(this).show(); },
       ajaxStop: function() { $(this).hide(); }
     });
+  return false;
+}
+
+$(function() {
+  bindAnimation();
 });
 
   $(function() {
@@ -15,35 +18,29 @@ $(".ajax_animation").bind({
     });
 
 $(function() {
-  $(".catalog_pages a").live("click", function() {
-    $(ANIMATE_ELEMENT).insertAfter('.article_t_p');
-	$.get(this.href, null, null, "script");
+  $(".pager a").live("click", function() {
+	$.getScript(this.href, function(){ bindAnimation();});
     return false;
   });
 
- $(".pagination_per_page select").live("change", function() {
-    $(ANIMATE_ELEMENT).insertAfter('.pagination_per_page');
-    $.get($(this).attr('href')+'?per_page='+this.value, null, null, "script");
-    return false;
-  }); 
   
-  $('a.toggle-category').click(function(){
+$('a.toggle-category').click(function(){
       $(this).next().toggle();
    });
 });
 
 
-function add_animate(element_id,replace){ 
-    remove_animate();
-    if (replace==true) { $('#'+element_id).html(animate_element);}
-    else {$(ANIMATE_ELEMENT).insertAfter('#'+element_id); }
-    return false;
-}
+//function add_animate(element_id,replace){ 
+//    remove_animate();
+//    if (replace==true) { $('#'+element_id).html(animate_element);}
+//    else {$(ANIMATE_ELEMENT).insertAfter('#'+element_id); }
+//    return false;
+//}
 
-function remove_animate() {
-   $('.loader_animate').remove();
-   return false;
-}
+//function remove_animate() {
+//   $('.loader_animate').remove();
+//   return false;
+//}
 
 
 function changeImage(img_nr) {	    

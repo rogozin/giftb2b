@@ -6,7 +6,7 @@ class Lk::AccountsController < Lk::BaseController
   
   def index
     if current_user.firm_id.present?
-      @users = User.find_all_by_firm_id(current_user.firm_id)
+      @users = User.where(:firm_id => current_user.firm_id)
     else 
       @users = []
        not_firm_assigned!
