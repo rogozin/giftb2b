@@ -26,8 +26,8 @@ class Lk::FirmsController < Lk::BaseController
 
   def update
     if @firm.update_attributes(params[:lk_firm])
-      flash[:notice] = "Фирма изменена!"
-      redirect_to (params[:back_url] ? params[:back_url] : edit_lk_firm_path(@firm))      
+      flash[:notice] = "Клиент изменен!"
+      redirect_to (params[:back_url].present? ? params[:back_url] : edit_lk_firm_path(@firm))      
     else
       render :edit
     end
@@ -35,12 +35,12 @@ class Lk::FirmsController < Lk::BaseController
 
   def destroy
     if @firm.destroy
-      flash[:notice] = "Фирма удалена!"  
+      flash[:notice] = "Клиент удален!"  
     else
-      flash[:alert] = "Невозможно удалить фирму! " + @firm.errors.full_messages.join(' <br />')  
+      flash[:alert] = "Невозможно удалить клиента! " + @firm.errors.full_messages.join(' <br />')  
     end  
     rescue => err
-      flash[:alert] = "Невозможно удалить фирму! " 
+      flash[:alert] = "Невозможно удалить клиента! " 
       flash[:alert] += "Имеются коммерческие предложения!" if err.message.index('commercial_offers')
     ensure
       redirect_to lk_firms_path 
@@ -49,7 +49,7 @@ class Lk::FirmsController < Lk::BaseController
   def create
     @firm = LkFirm.new(params[:lk_firm])
     if @firm.save
-      flash[:notice] = "Фирма создана!"
+      flash[:notice] = "Клиент создан!"
       redirect_to (params[:back_url] ? params[:back_url] : lk_firms_path)
     else
       render :new  
