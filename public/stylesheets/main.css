@@ -120,7 +120,7 @@ input[type="text"],  input[type="email"], input[type="url"], input[type="passwor
 
 }
 
-.content p, .content div, .commercial_offer label {
+.content p, .commercial_offer label {
     color:#999999;
     text-align:left;
     font-size:10pt;

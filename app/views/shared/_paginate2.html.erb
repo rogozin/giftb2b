@@ -3,7 +3,7 @@
 <%= will_paginate @products, :class=>"article_t_p paginate2" %>
 <div class="ajax_animation"><img src="/images/ajax-loader.gif" alt="loading..." /></div>
 </div>
-<div class="products-per-page">
+<p class="products-per-page">
 <span class="article_s">
 <% if @products.total_entries >20 -%>
 По <%= link_to_unless (params[:per_page] ||"20") == "20", '20', url_for(params.merge({:per_page => 20})) %>
@@ -12,7 +12,7 @@
  товаров на странице
  <% end -%>
 </span>
-</div>
+</p>
 <div class="clear"></div>
 </div>
 
