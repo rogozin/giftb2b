@@ -220,8 +220,9 @@ a:hover.article_a {
 }
 
 a.menu_left {
-	color:#999999;
+	color:#177E99;
 	text-decoration:none;
+	line-height:1.3;
 }
 
 a:hover.menu_left {
@@ -292,9 +293,17 @@ a:hover.menu_left {
 	display:block;
 	position:relative;
 	padding:20px;
+	padding-bottom:5px;
 	line-height:1.6em;
   color: #fff;
 }
+
+.search-w {float:left;width:100%;margin-left:-80px;}
+.search-c {margin-left:80px;line-height:1.5;}
+.search-n {float:right;width:60px;}
+
+p.search-a {text-align:right;}
+p.search-a a {color:#82D269;font-weight:bold;font-size:0.9em}
 
 .search-form h1, .search-form a, .search-form p {  color: #fff;}
 
@@ -310,7 +319,7 @@ a:hover.menu_left {
 .search-form input#name { width:55%; }
 
 .search-form input#request {
-	width:85%;
+width:100%
 }
 
 .b-search-property {
@@ -325,12 +334,11 @@ a:hover.menu_left {
 }  
 
 .s_button {
-	background: url("../images/button_search.png") no-repeat scroll 0 0 transparent;
-    border: 0 none;
+	background: url("../images/button_search_V3.png") no-repeat scroll 0 0 transparent;
     cursor: pointer;
-    height: 26px;
-    width: 68px;
-	margin-left:15px;
+    height: 60px;
+    width: 60px;
+	border:none;
 }
 
 .b-filter-slider {
@@ -631,10 +639,10 @@ span.message {color:#C36;}
 }
 
 .one_line_form label {
-	color:#999;
+	color:#FFF;
 }
 
-.one_line_form {float: left;margin-top:20px;}
+.one_line_form {float: left;}
 
 .one_line_form  select {background-color: white;}
 
@@ -931,3 +939,8 @@ div.b-popup-info {
 
 div.b-popup-info h1 {
 padding-bottom: 0.8em;}
+
+h3.h3-lk {
+	border-bottom:1px solid #999;
+	padding-bottom:10px;
+}
