@@ -185,7 +185,7 @@ private
   
   def set_permalink
     if self.permalink.blank? 
-      self.permalink = (Category.find_all_by_permalink(self.name.parameterize).size>0 ? "#{self.parent_id || Time.now.strftime("%d-%m-%Y-%H-%M-%S")}-#{self.name.parameterize}" : self.name.parameterize )
+      self.permalink = (Category.where(:permalink => self.name.parameterize).size>0 ? "#{self.parent_id || Time.now.strftime("%d-%m-%Y-%H-%M-%S")}-#{self.name.parameterize}" : self.name.parameterize )
     else 
       self.permalink= self.permalink.parameterize
     end

@@ -115,3 +115,5 @@ ru:
       not_confirmed: "Ваша учетная запись не подтверждена"
       not_approved: "ваша учетная запись не одобрена"
       no_authentication_details: "You did not provide any details for authentication."
+  will_paginate:
+    page_gap: "..."

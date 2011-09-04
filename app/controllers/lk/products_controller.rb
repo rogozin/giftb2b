@@ -9,7 +9,7 @@ class Lk::ProductsController < Lk::BaseController
   
   def index
     if current_user.firm_id.present?
-      @products = LkProduct.active.find_all_by_firm_id(current_user.firm.id)
+      @products = LkProduct.active.where(:firm_id => current_user.firm.id)
     else 
       @products  = []
       not_firm_assigned!
@@ -54,7 +54,7 @@ class Lk::ProductsController < Lk::BaseController
     @object_type = params[:object_type]
     @object_id = params[:object_id]
     set_post_url
-    @lk_products =  params[:request] ?  LkProduct.active.search(params[:request]).find_all_by_firm_id(current_user.firm.id) : LkProduct.active.find_all_by_firm_id(current_user.firm.id)
+    @lk_products =  params[:request] ?  LkProduct.active.search(params[:request]).where(:firm_id => current_user.firm.id) : LkProduct.active.where(:firm_id => current_user.firm.id)
      @lk_products = @lk_products.paginate(:page => params[:page], :per_page => 5)
   end
  

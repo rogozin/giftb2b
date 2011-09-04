@@ -15,7 +15,15 @@ class Firm < ActiveRecord::Base
  def logo
    images.first.picture if images.present?
  end
- 
+
+ def foreign_access
+   ForeignAccess.accepted_clients.select{|x| x.firm_id = self.id }
+ end
+
+  def has_foreign_access?
+    foreign_access.present?
+  end
+   
  #Return Paperclip::Geometry instance
  def logo_geometry
    Paperclip::Geometry.from_file(images.first.picture.path) if images.present?

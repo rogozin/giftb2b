@@ -57,11 +57,11 @@ describe 'Роль менеджер фирмы' do
      context 'отправка писем' do
             
        it 'После создания заказа через апи письмо уходит заказчику и фирме ' do
-          
+          #see this spec in api/api_spec.rb
        end
        
        it 'после создания заказа через личный кабинет письмо уходит заказчику' do
-         
+          #see this spec in api/api_spec.rb
        end
      
        it 'После изменения статуса заказа заказчику отправляется уведомление' do
@@ -75,6 +75,24 @@ describe 'Роль менеджер фирмы' do
      end
      
    end
+
+    context 'Мои товары' do 
+      before(:each) do
+        @lk_product = Factory(:lk_product, :firm => @firm)        
+      end
+
+      it 'В моем товаре я вижу опцию Показывать на сайте только когда есть удаленный доступ к каталогу' do
+        Rails.cache.clear
+        @lk_product.firm.should_not have_foreign_access  
+        visit edit_lk_product_path(@lk_product)
+        page.should have_no_selector "#lk_product_show_on_site"
+        ForeignAccess.create(:name => "demo.giftb2b.ru", :param_key => "dsfds", :firm => @firm, :accepted_from => Date.yesterday, :accepted_to => Date.tomorrow)
+        @lk_product.firm.should have_foreign_access
+        visit edit_lk_product_path(@lk_product)
+        page.should have_selector "#lk_product_show_on_site"
+        page.should have_content "demo.giftb2b.ru"
+      end
+    end
     
    
 end

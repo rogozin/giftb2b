@@ -4,6 +4,8 @@
   <th>Изображение</th>
   <th>Артикул</th>
   <th>Наименование</th>
+  <th>Категории</th>
+  <th>Цена</th>
   <th></th>
 </tr>
 <% @products.each do |item| -%>
@@ -12,6 +14,8 @@
     <td><%= image_tag(item.picture.url, :width=>"120")  %></td>
     <td><%= item.article %></td>
     <td><%= item.short_name %></td>
+    <td><%= item.categories.map(&:name).join(', ') %></td>
+    <td><%= number_to_currency item.price %></td>
     <td><%= link_to image_tag('bin.png'), lk_product_path(item), :method => :delete, :confirm => "Удалить товар?" %></td>
   </tr>
 <% end -%>

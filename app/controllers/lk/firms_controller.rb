@@ -9,7 +9,7 @@ class Lk::FirmsController < Lk::BaseController
   
   def index
     if current_user.firm_id.present?
-      @firms = LkFirm.find_all_by_firm_id(current_user.firm.id)
+      @firms = LkFirm.where(:firm_id => current_user.firm.id)
     else 
       @firms  = []
       not_firm_assigned!

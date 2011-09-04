@@ -1,7 +1,11 @@
+<div class="pager">
+<div class="">
+<%= will_paginate @products, :class=>"article_t_p paginate2" %>
+<div class="ajax_animation"><img src="/images/ajax-loader.gif" alt="loading..." /></div>
+</div>
 <p class="products-per-page">
 <span class="article_s">
 <% if @products.total_entries >20 -%>
- 
 По <%= link_to_unless (params[:per_page] ||"20") == "20", '20', url_for(params.merge({:per_page => 20})) %>
 <%= link_to_unless params[:per_page] == "50", '50', url_for(params.merge({:per_page => 50})) %>
  <%= link_to_unless params[:per_page] == "100", '100', url_for(params.merge({:per_page => 100})) if @products.total_entries > 50 %>
@@ -9,4 +13,6 @@
  <% end -%>
 </span>
 </p>
+<div class="clear"></div>
+</div>
 

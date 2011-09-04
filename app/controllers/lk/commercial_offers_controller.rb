@@ -10,14 +10,14 @@ class Lk::CommercialOffersController < Lk::BaseController
   def index
     params[:page] ||=1
       if current_user.firm_id.present?
-      @commercial_offers = CommercialOffer.find_all_by_firm_id(current_user.firm.id, :order => "id desc").paginate(:page => params[:page])
+      @commercial_offers = CommercialOffer.where(:firm_id =>current_user.firm.id).order("id desc").paginate(:page => params[:page])
     else 
        not_firm_assigned!
     end
   end
  
   def show
-    @lk_firms = LkFirm.find_all_by_firm_id(current_user.firm_id)
+    @lk_firms = LkFirm.where(:firm_id => current_user.firm_id)
   end
   
   def export
