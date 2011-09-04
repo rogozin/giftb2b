@@ -17,7 +17,7 @@ class Lk::CommercialOffersController < Lk::BaseController
   end
  
   def show
-    @lk_firms = LkFirm.where(:firm_id => current_user.firm_id)
+    @lk_firms = LkFirm.where(:firm_id => current_user.firm_id).order("name")
   end
   
   def export
@@ -37,6 +37,7 @@ class Lk::CommercialOffersController < Lk::BaseController
   def calculate 
     flash_alert = ""
     @commercial_offer.sale = params[:sale]
+    @commercial_offer.lk_firm_id = params[:lk_firm_id]
     @commercial_offer.signature = params[:signature]
     flash_alert << "Ошибка при пересчете. " unless @commercial_offer.save
     
@@ -89,15 +90,15 @@ class Lk::CommercialOffersController < Lk::BaseController
 
   def create
     @cart = find_cart
-    @co = CommercialOffer.new(params[:commercial_offer])
-    @co.firm = current_user.firm
-    @co.user = current_user
+    @co = CommercialOffer.new(:firm => current_user.firm, :user => current_user)
     if @co.save
      flash[:notice] = "Коммерческое предложенеие сгенерировано на основе набора товаров Вашей корзины." 
      @cart.items.each do |item|
+       logger.info item.product.id
        lk_product = copy_product_to_lk(item.product, @co.firm_id, item.start_price)
        @co.commercial_offer_items.create({:lk_product=>lk_product, :quantity => item.quantity})
       end
+      @cart.items.clear
       redirect_to lk_commercial_offer_path(@co)
     else 
       flash[:alert] = "Коммерческое предложение не может быть сгенерировано!" 
@@ -140,7 +141,7 @@ class Lk::CommercialOffersController < Lk::BaseController
     rescue
         lk_product.picture = File.open(Rails.root.to_s + "/public/images/default_image.jpg")
     end    
-    lk_product.save 
+    lk_product.save
     lk_product
   end
   

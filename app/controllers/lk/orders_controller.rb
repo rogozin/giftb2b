@@ -16,16 +16,14 @@ class Lk::OrdersController < Lk::BaseController
   end
 
   def create
-    @order = LkOrder.new(params[:lk_order])
-    @order.firm = current_user.firm
-    @order.user = current_user
+    @order = LkOrder.new(:firm => current_user.firm, :user => current_user)
     flash[:notice] = "Заказ оформлен!" if @order.save
     @cart = find_cart
     @cart.items.each do |cart_item|
       @order.lk_order_items.create({:product => cart_item.product, :quantity => cart_item.quantity, :price => cart_item.start_price})
     end
     @cart.items.clear
-    redirect_to lk_orders_path
+    redirect_to edit_lk_order_path(@order) 
   end
    
   def update

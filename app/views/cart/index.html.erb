@@ -12,17 +12,10 @@
      <% if current_user && session[:cart] && session[:cart].total_items >0  -%>
         <% if current_user.is_firm_user? -%>
           
-        <p><%= link_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  
-        <div id="order" class="g-hidden">
-          <div class="spacer"></div>
-         <%= render :partial => "generate_order" %>
-        </div>
-        <div class="spacer clear"></div>
-        <p> <%= link_to_function "Преобразовать в коммерческое предложение", "$('#commercial_offer').toggle()" %></p>
+        <p><%= link_to "Оформить заказ", lk_orders_path, :method => :post   %></p>  
         <div class="spacer"></div>
-        <div id="commercial_offer" class = "g-hidden">
-         <%= render :partial => "generate_co" %>
-        </div>
+        <p> <%= link_to "Преобразовать в коммерческое предложение", lk_commercial_offers_path, :method => :post %></p>
+        <div class="spacer"></div>
         <% end -%>
         <% if current_user.is_simple_user? -%>
         <p><%= link_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  

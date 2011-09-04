@@ -47,7 +47,7 @@ ru:
         appoint: "Должность"
         cellphone: "Мобильный телефон"
       commercial_offer:
-        lk_firm_id: "Фирма"        
+        lk_firm_id: "Клиент"        
         email: "E-mail"
         sale: "Скидка, %"
         signature: "Комментарий"
@@ -56,7 +56,7 @@ ru:
         price: "Цена"
         description: "Описание" 
       lk_firm:
-        name: "Название фирмы"
+        name: "Название клиента"
         contact: "Контактное лицо"
         phone: "Телефон"
         email: "E-Mail"
@@ -79,7 +79,7 @@ ru:
         show_on_site: "Показывать на сайте"
       lk_order:
         status_id: "Статус"
-        lk_firm_id: "Фирма"
+        lk_firm_id: "Клиент"
         firm_id: "Фирма"   
         user_comment: "Комментарий"     
         user_email: "Контактный e-mail"

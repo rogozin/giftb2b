@@ -1,5 +1,5 @@
 <%= form_tag move_to_order_lk_commercial_offer_path(@commercial_offer) do %>
 <%= label_tag :lk_firm, "Фирма" %>: 
-<%= select_tag :lk_firm, options_for_select(@lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm.id) %>
+<%= select_tag :lk_firm, options_for_select(@lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm_id) %>
 <%= submit_tag "Преобразовать" %>
 <% end -%>

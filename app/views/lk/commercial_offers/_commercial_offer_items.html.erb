@@ -7,8 +7,9 @@ $(function(){
   });
 });
 </script>
-
 <%= form_tag calculate_lk_commercial_offer_path(@commercial_offer) do %>
+<p>Клиент: <%= select_tag :lk_firm_id, options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm_id) %></p>
+<div class="spacer"></div>
 <table width="100%">
   <tr>
     <th class="g-hidden"></th>
@@ -23,7 +24,7 @@ $(function(){
   </tr>
   <% @commercial_offer.commercial_offer_items.each do |item| -%>
     <tr>
-      <td class="checkbox g-hidden"><%= check_box_tag "co_items_ids[]", item.lk_product.id %></td>
+      <td class="checkbox g-hidden"><%= check_box_tag "co_items_ids[]", item.lk_product_id %></td>
       <td><%= link_to image_tag('edit.png'), edit_lk_commercial_offer_product_path(@commercial_offer, item)  %></td>
       <td><%= link_to_if item.lk_product.product, image_tag(item.lk_product && item.lk_product.picture ? item.lk_product.picture.url(:thumb) : "default_image.jpg"), product_path(item.lk_product.product), :target => "_blank" %></td>
       <td><%= item.lk_product.article %></td>

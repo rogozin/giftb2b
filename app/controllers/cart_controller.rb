@@ -8,7 +8,7 @@ require 'image'
 class CartController < ApplicationController
   before_filter :get_cart, :except => [:empty]
   def index
-    @lk_firms = LkFirm.where(:firm_id => current_user.firm_id) if current_user.is_firm_user?
+    #@lk_firms = LkFirm.where(:firm_id => current_user.firm_id) if current_user.is_firm_user?
     @firms = Firm.default_city if current_user.is_simple_user?
   end
   

@@ -6,7 +6,7 @@
    <div class="one_line_form">
      <div class="b-formfield-div">
       <%= f.label :lk_firm_id %>
-      <%= f.select :lk_firm_id, options_from_collection_for_select(@lk_firms, 'id', 'name', @order.lk_firm_id) %>
+      <%= f.select :lk_firm_id, options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @order.lk_firm_id) %>
     </div>
      <div class="b-formfield-div">
      <%= f.label :status_id %>
@@ -71,5 +71,5 @@
 <% end -%>
 </table>
 <div>
-  <%= link_to '<< Вернуться к списку заказов', lk_orders_path %>
+  <%= link_to '<< Перейти к списку заказов', lk_orders_path %>
 </div>
