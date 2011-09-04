@@ -966,6 +966,13 @@ h3.h3-lk {
   float:left;
 }
 
+.per-page { 
+  font-weight:900;
+  color: #c36;
+}
+
+.per-page a { font-weight:normal;}
+
 .ajax_animation {
   display:none;
   margin: 0 20px; 
