@@ -2,7 +2,17 @@
 <%= f.hidden_field :firm_id %>
 <%= hidden_field_tag :redirect, defined?(redirect) ? redirect : ""   %>
 <div><%= render :partial => 'admin/shared/error_messages', :locals => {:target => @product} %></div>
-<div class="one_line_form">
+
+<div id="tabs">
+  <ul>
+    <li><a href="#tab-1">Основная информация</a></li>
+    <li><a href="#tab-2">Изображение</a></li>
+    <li><a href="#tab-3">Категории</a></li>
+    <li><a href="#tab-4">Описание товара</a></li>
+  </ul>
+
+  <div id="tab-1">
+  <div class="one_line_form">
 
   <div class="b-formfield-div">
     <%= f.label :article %>
@@ -40,32 +50,31 @@
     <%= f.label :infliction %>
     <%= f.text_field :infliction %>
   </div>    
-  <div class="b-formfield-div">
-    <%= f.label :description %>
-    <%= f.text_area :description, :size => "25x5" %>
-  </div>      
-  <div class="b-formfield-div">
-    <%= f.submit %>
+  </div> <!-- .one_line_form -->
+
+  <div class="clear"></div>
+  <div class="b-submit">
+    <%= f.submit %>	
   </div>
-</div>
-<div class="margin-left4 b-float-left">
-  <div>
-     <h2>Изображение товара:</h2>
+
+  </div> <!-- #tab-1 -->
+
+  <div id="tab-2">
      <div>
       <%= image_tag(@product.picture.url, :width=>"120")   unless @product.new_record? %>
      </div>
      <div>
         <%= f.file_field :picture %>
      </div>
-  </div>  
-  <div class="spacer"></div>
-  <div>
-    <h2>Категории товара:</h2>
+  <div class="b-submit">
+    <%= f.submit %>	
+  </div>
+  </div> <!-- #tab-2 -->
+
+ <div id="tab-3">
   <% if current_user.firm.has_foreign_access? -%>    
-  <div class="b-formfield-div">
     <%= f.check_box :show_on_site %>
     <%= f.label :show_on_site, "Показывать товар на моем сайте (#{current_user.firm.foreign_access.first.name})" %>
-  </div>      
   <% end -%>
       <h3><%= link_to_function "Основной каталог", "$('#categories_tree').toggle();", :class=>"pseudo-link" %> </h3>
       <div id="categories_tree" class="g-hidden">
@@ -79,9 +88,16 @@
       <div id="analog_tree" class="g-hidden">
         <%= hashed_categories_tree(@analogs, @product.category_ids) %>
       </div>
-
+   <div class="b-submit">
+    <%= f.submit %>	
   </div>
-</div>
-<div class="clear"></div>
+  </div> <!-- #tab-3 -->
+  <div id="tab-4">
+    <%= f.text_area :description, :cols => 0, :rows => 18 %>      
+  <div class="b-submit">
+    <%= f.submit %>	
+  </div>
+  </div> <!-- #tab-4 -->
+</div> <!--end tabs -->
 <% end -%>
 

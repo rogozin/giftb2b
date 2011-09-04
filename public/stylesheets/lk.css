@@ -20,14 +20,15 @@
    padding: 0 10px;
 }
 
-.margin-left4 {margin-left:40px;margin-top:20px;}
+.margin-left4 {margin-left:40px;}
 
-.margin-left4 h2 {margin-bottom:20px;}
+/*.margin-left4 h2 {margin-bottom:20px;}*/
 
 a.a-text-blue {
 	color:#177E99;
 	text-decoration:none;
 }
+
 #filter {
 line-height:2em; 
 }
@@ -59,3 +60,12 @@ td.checkbox {
 }  
 
 td.right {text-align:right;}
+
+#lk_product_description {
+  width:100%;
+}
+
+.b-submit {
+ margin-top: 1em;
+/*  float:right;*/
+}

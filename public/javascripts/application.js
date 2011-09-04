@@ -8,6 +8,7 @@ function bindAnimation() {
 
 $(function() {
   bindAnimation();
+  $("#tabs").tabs();
 });
 
   $(function() {
@@ -26,6 +27,7 @@ $(function() {
   
 $('a.toggle-category').click(function(){
       $(this).next().toggle();
+      return false;
    });
 });
 
