@@ -82,10 +82,10 @@ input[type="text"],  input[type="email"], input[type="url"], input[type="passwor
   width: 200px;
 }
 
-.pagination_per_page select{ 
-  border: 1px solid #999;
-  width: 60px;
-}
+/*.pagination_per_page select{ */
+/*  border: 1px solid #999;*/
+/*  width: 60px;*/
+/*}*/
 
 #header_title {
 	display:block;
@@ -236,11 +236,11 @@ a:hover.menu_left {
 	font-size:9pt;
 	margin-bottom:15px;
 }
-.catalog_pages {
-	float:left;
-	margin-right:20px;
-	padding-top:2px;
-}
+/*.catalog_pages {*/
+/*	float:left;*/
+/*	margin-right:20px;*/
+/*	padding-top:2px;*/
+/*}*/
 .banner_left {
 	width:230px;
 	margin-left:15px;
@@ -958,3 +958,17 @@ h3.h3-lk {
 	line-height:1.5;
 	color:#666;
 }
+
+.paginate2 {
+  float:right;
+}
+.products-per-page {
+  float:left;
+}
+
+.ajax_animation {
+  display:none;
+  margin: 0 20px; 
+  float:left;
+} 
+

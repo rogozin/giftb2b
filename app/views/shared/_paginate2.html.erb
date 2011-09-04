@@ -1,8 +1,4 @@
 <div class="pager">
-<div class="">
-<%= will_paginate @products, :class=>"article_t_p paginate2" %>
-<div class="ajax_animation"><img src="/images/ajax-loader.gif" alt="loading..." /></div>
-</div>
 <p class="products-per-page">
 <span class="article_s">
 <% if @products.total_entries >20 -%>
@@ -13,6 +9,10 @@
  <% end -%>
 </span>
 </p>
+<div>
+<%= will_paginate @products, :class=>"article_t_p paginate2" %>
+<div class="ajax_animation"><img src="/images/ajax-loader.gif" alt="loading..." /></div>
+</div>
 <div class="clear"></div>
 </div>
 
