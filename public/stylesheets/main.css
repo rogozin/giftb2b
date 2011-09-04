@@ -116,6 +116,7 @@ input[type="text"],  input[type="email"], input[type="url"], input[type="passwor
 	margin-left:260px;
 	margin-right:260px;
 	text-align:left;
+	padding:0 6px;
 }
 .content_2{
 	margin-left:260px;
@@ -156,8 +157,6 @@ input[type="text"],  input[type="email"], input[type="url"], input[type="passwor
 	width:100%;
 	text-align:left;
 	margin-bottom:20px;
-	padding-right:20px;
-	padding-left:20px;
 }
 
 .center_block h1, .center_block h2 {
@@ -499,6 +498,7 @@ a:hover.text_n_z {
 	padding-top:5px;
     padding-left:0px;
 	list-style: disc;
+	
 }
 
 .text_c_ul li{
@@ -510,7 +510,7 @@ a:hover.text_n_z {
 .ul_v {
 	list-style-type:none;
 	width:100%;
-	margin:0 auto;
+	margin:0;
 }
 
 .li_v {
@@ -518,7 +518,7 @@ a:hover.text_n_z {
 	display:-moz-inline-box;
 	display:inline-block;
 	vertical-align:top;
-	margin-right:20px;
+	margin-right:15px;
     margin-bottom:20px;
 }
 
@@ -638,8 +638,12 @@ span.message {color:#C36;}
     padding: 4px 1px 4px 1px;
 }
 
+.login-form p label {
+	color:#fff;
+}
+
 .one_line_form label {
-	color:#FFF;
+	color:#999;
 }
 
 .one_line_form {float: left;}
@@ -943,4 +947,10 @@ padding-bottom: 0.8em;}
 h3.h3-lk {
 	border-bottom:1px solid #999;
 	padding-bottom:10px;
+}
+
+.f-block {
+	padding-top:10px;
+	line-height:1.5;
+	color:#999;
 }
