@@ -97,18 +97,21 @@ input[type="text"],  input[type="email"], input[type="url"], input[type="passwor
 #all_content{
 	float:left;
 	width:100%;
+	padding-bottom:97px;
 }
 
 #right_content {
 	float:left;
 	width:260px;
 	margin-left:-260px;
+	padding-bottom:97px;
 }
 
 #left_content  {
 	float:left;
 	width:260px;
 	margin-left:-100%;
+	padding-bottom:97px;
 	
 }
 
@@ -368,11 +371,12 @@ input.inp-quantity {width:30px;}
 
 
 #footer {
-	margin-top:20px;
+	margin-top:-90px;
 	width:100%;
 	height:90px;
 	text-align:center;
 	background:#ffecec;
+	position:absolute;left:0;bottom:0px;width:100%;
 }
 
 .left_block p   {
@@ -952,5 +956,5 @@ h3.h3-lk {
 .f-block {
 	padding-top:10px;
 	line-height:1.5;
-	color:#999;
+	color:#666;
 }
