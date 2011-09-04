@@ -71,6 +71,8 @@ td, th {vertical-align:middle;}
 .center_block table {width:100%;}
 .no-wrap {white-space: nowrap;}
 
+
+
 div.spacer {height:10px;}
 
 .clear{	clear:both;}
@@ -80,10 +82,10 @@ input[type="text"],  input[type="email"], input[type="url"], input[type="passwor
   width: 200px;
 }
 
-/*.pagination_per_page select{ */
-/*  border: 1px solid #999;*/
-/*  width: 60px;*/
-/*}*/
+.pagination_per_page select{ 
+  border: 1px solid #999;
+  width: 60px;
+}
 
 #header_title {
 	display:block;
@@ -111,8 +113,8 @@ input[type="text"],  input[type="email"], input[type="url"], input[type="passwor
 }
 
 .content{
-	margin-left:280px;
-	margin-right:280px;
+	margin-left:260px;
+	margin-right:260px;
 	text-align:left;
 }
 .content_2{
@@ -154,8 +156,8 @@ input[type="text"],  input[type="email"], input[type="url"], input[type="passwor
 	width:100%;
 	text-align:left;
 	margin-bottom:20px;
-/*	padding-right:20px;*/
-/*	padding-left:20px;*/
+	padding-right:20px;
+	padding-left:20px;
 }
 
 .center_block h1, .center_block h2 {
@@ -233,9 +235,9 @@ a:hover.menu_left {
 	margin-bottom:15px;
 }
 .catalog_pages {
-/*	float:left;*/
-/*	margin-right:20px;*/
-/*	padding-top:2px;*/
+	float:left;
+	margin-right:20px;
+	padding-top:2px;
 }
 .banner_left {
 	width:230px;
@@ -286,7 +288,7 @@ a:hover.menu_left {
 	-khtml-border-radius: 10px;
 	behavior: url(public/javascripts/PIE.htc);
 }
-
+ 
 .search-form {
 	display:block;
 	position:relative;
@@ -640,9 +642,7 @@ span.message {color:#C36;}
 	color:#FFF;
 }
 
-.one_line_form {
-  float: left;
-}
+.one_line_form {float: left;}
 
 .one_line_form  select {background-color: white;}
 
@@ -944,16 +944,3 @@ h3.h3-lk {
 	border-bottom:1px solid #999;
 	padding-bottom:10px;
 }
-
-.paginate2 {
-  float:left
-}
-.products-per-page {
-  float:right
-}
-
-.ajax_animation {
-  display:none;
-  margin: 0 20px; 
-  float:left;
-} 
