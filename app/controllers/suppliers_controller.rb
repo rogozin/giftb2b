@@ -5,7 +5,7 @@ class SuppliersController < ApplicationController
   end
   
   def show
-    @supplier = Supplier.find(params[:id])
+    @supplier = Supplier.find_by_permalink(params[:id])
   end
 
 end
