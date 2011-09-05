@@ -112,3 +112,9 @@ box-shadow: 0 0 5px #888;
 }  
 
 .b-info-popup p { color:#4D4D4D; padding:10px;}
+
+.b-product-thumbnail img {
+max-width:120px;
+max-height:120px;
+}
+

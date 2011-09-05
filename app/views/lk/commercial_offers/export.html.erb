@@ -75,7 +75,7 @@ div.article_img_2 {
     text-align: center;
     vertical-align: middle;
 }
-div.article_img_3 {
+div.article_img_3 img {
 }
 
 
@@ -92,7 +92,7 @@ div.article_img_3 {
 	<p class="t11"><%= @commercial_offer.firm.addr_f %></p> 
 	<p class="t11">Менеджер: <%= @commercial_offer.user.fio %> </p> 
 	<p class="t11"> Тел./факс: <%= @commercial_offer.firm.phone %> e-mail: <%= @commercial_offer.firm.email %> <%= @commercial_offer.firm.url %></p>
-	<p class="t11"> Специально для компании: <%= @commercial_offer.lk_firm.name %> </p>
+	<p class="t11"> Специально для компании: <%= @commercial_offer.lk_firm.name if @commercial_offer.lk_firm %> </p>
 	 </td> 
 	</tr> 
 </table>
@@ -102,8 +102,8 @@ div.article_img_3 {
 <table id="table_t"> 
 <tr> 
 <td width="90"><div class="article_img_1"><div class="article_img_2"> <div class="article_img_3">  
-   <%= image_tag(image_path("#{controller.request.protocol}#{controller.request.host}:#{controller.request.port}"+item.lk_product.picture.url), :width => "90" )%>
-  <%#= image_tag("#{controller.request.protocol}#{controller.request.host}:#{controller.request.port}/images/default_image.jpg") %>
+  <% picture_geometry = Paperclip::Geometry.from_file(item.lk_product.picture.path) -%>
+   <%= image_tag(image_path("#{controller.request.protocol}#{controller.request.host}:#{controller.request.port}"+item.lk_product.picture.url), :width => picture_geometry.width/3, :height => picture_geometry.height/3 )%>
  </div></div></div>
 </td> 
 <td class="td_descr"> 
