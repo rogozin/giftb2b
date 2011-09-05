@@ -13,11 +13,7 @@
 <p><%= link_to 'Добавить товар из моего списка', lk_load_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true  %></p>
 <div class="spacer"></div>
 <div id="add_lk_prodcut"></div>
-<p><%= link_to_function 'Преобразовать в заказ', "$('#move_to_order').toggle();"  %></p>
-<div class="spacer"></div>
-<div id="move_to_order" class="g-hidden">
-<%= render :partial => "move_to_order" %>
-</div>
+<p><%= link_to 'Преобразовать в заказ', move_to_order_lk_commercial_offer_path(@commercial_offer), :method => :post, :confirm => "Коммерческое предлоежние будет преобразовано в заказ. Продолжить?"  %></p>
 <div class="spacer"></div>
 <%= link_to '<< Перейти к списку коммерческих предложений', lk_commercial_offers_path %>
 

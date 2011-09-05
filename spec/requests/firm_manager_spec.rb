@@ -23,16 +23,13 @@ describe 'Роль менеджер фирмы' do
        @commercial_offer = Factory(:commercial_offer, :firm => @user.firm, :lk_firm => @lk_firm)
      end
      it 'могу преобразовать коммерческое предложение в заказ', :js => true do
-       new_firm = Factory(:lk_firm, :name => "Рога и копыта", :firm_id => @firm.id)         
        visit lk_commercial_offer_path(@commercial_offer)
+       page.evaluate_script('window.confirm = function() { return true; }')
        click_link "Преобразовать в заказ" 
-       page.should have_select "lk_firm", :selected => @commercial_offer.lk_firm.name
-       page.select new_firm.name, :from => "lk_firm"
-       page.click_button "Преобразовать"
        page.should have_selector("#flash_notice", :text => "Заказ успешно сгенерирован из коммерческого предложения")
        order = LkOrder.last
        order.lk_order_items.first.price.should == @commercial_offer.commercial_offer_items.first.lk_product.price
-       order.lk_firm_id.should == new_firm.id
+       order.lk_firm_id.should == @lk_firm.id
        page.current_path.should == edit_lk_order_path(order)
      end
      
