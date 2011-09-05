@@ -1,10 +1,9 @@
 <script type="text/javascript">
-$(function(){
-  $("#change_price").click(function(){   
-    $(this).hide().parents('td').attr("colspan",5);
-    $("#delta_value, table th.g-hidden, table td.g-hidden").show();
-    return false;
-  });
+$(function() {
+  $('.i-help-popup').bind({
+      mouseenter: function() { $(this).find('div').fadeIn(); },
+      mouseleave: function() { $(this).find('div').hide(); } 
+    });
 });
 </script>
 <%= form_tag calculate_lk_commercial_offer_path(@commercial_offer) do %>
@@ -12,7 +11,7 @@ $(function(){
 <div class="spacer"></div>
 <table width="100%">
   <tr>
-    <th class="g-hidden"></th>
+    <th></th>
     <th></th>
     <th>Изображение</th>
     <th>Артикул</th>
@@ -24,7 +23,7 @@ $(function(){
   </tr>
   <% @commercial_offer.commercial_offer_items.each do |item| -%>
     <tr>
-      <td class="checkbox g-hidden"><%= check_box_tag "co_items_ids[]", item.lk_product_id %></td>
+      <td class="checkbox"><%= check_box_tag "co_items_ids[]", item.lk_product_id %></td>
       <td><%= link_to image_tag('edit.png'), edit_lk_commercial_offer_product_path(@commercial_offer, item)  %></td>
       <td><%= link_to_if item.lk_product.product, image_tag(item.lk_product && item.lk_product.picture ? item.lk_product.picture.url(:thumb) : "default_image.jpg"), product_path(item.lk_product.product), :target => "_blank" %></td>
       <td><%= item.lk_product.article %></td>
@@ -35,34 +34,29 @@ $(function(){
       <td><%= link_to image_tag('bin.png'), lk_commercial_offer_product_path(@commercial_offer, item), :method => :delete, :confirm => "Удалить товар из коммерческого предложения?"  %></td>
     </tr>
   <% end -%>
-  <tr>
-    <td colspan="4">
-      <span style="margin-left:20px">
-      <%= link_to 'Изменить стоимость', "#", :title => "Введите числовое значение, на величину которого хотите изменить стоимость выбранных товаров и выполните пересчет коммерческого предложения", :id => "change_price", :class => "pseudo-link"  %>
-      </span>
-      <span style="margin-left:20px" class="g-hidden" id="delta_value">
-        <%= label_tag :delta, "Изменить стоимость на:" %> <%= text_field_tag :delta, nil, :class => "inp-quantity" %> руб.
-        <%= submit_tag "ок" %>
-      </span>
-      <span style="margin-left:20px">
-        <%= label_tag :sale,"Скидка, %:" %> <%= text_field_tag :sale, @commercial_offer.sale, :class => "inp-quantity" %>
-      </span>
-      </td>
-      
-    
-    <td class="no-wrap" colspan="4">Итого: <%= @commercial_offer.commercial_offer_items.sum(:quantity) %> шт. 
-    на сумму <%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
-  </tr>
-  <tr>
-    <td colspan="9">
-      <%= text_area_tag :signature,  @commercial_offer.signature, :rows => 5, :style => "width:100%" %>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="9" class="right">
-      <%= submit_tag "Cохранить изменения" %>
-    </td>
+  <tr>              
+    <td class="right" colspan="6"><strong>Итого:</strong></td>
+    <td class="no-wrap"><%= @commercial_offer.commercial_offer_items.sum(:quantity) %> шт. </td>
+    <td class="no-wrap" colspan="2"><%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
   </tr>
 </table>
+     <h3>Комментарий к коммерческому предложению:</h3> 
+      <div class="b-co-description">
+        <%= text_area_tag :signature,  @commercial_offer.signature, :rows => 5 %>
+      </div>
+      <div class="b-co-delta">
+        <div class="b-co-delta-inner">
+          <%= help_popup("Поле \"Размер скидки\" определяет величину скидки в процентах для всего коммерческого предложения. \nЗначение может находится в пределах от 0 до 99 %") %>
+          <%= label_tag :sale,"Размер скидки:" %> <%= text_field_tag :sale, @commercial_offer.sale, :class => "inp-quantity" %> %     
+        </div>      
+        <div class="b-co-delta-inner">
+        <%= help_popup("Функция \"Изменить стоимость\" позволяет увеличить или уменьшить цену выбранных товаров коммерческого предложения. \n\n Отметье товары, для которых необходимо изменить стоимость, введите значение в рублях (отрицательное значение уменьшит стоимость) и нажмите кнопку \"Сохранить\" ") %>
+          <%= label_tag :delta, "Изменить стоимость на:" %> <%= text_field_tag :delta, nil, :class => "inp-quantity" %> руб.
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="b-submit">
+        <%= submit_tag "Cохранить" %>
+      </div>
 <% end %>
 

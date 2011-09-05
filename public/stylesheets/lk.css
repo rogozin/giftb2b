@@ -67,5 +67,48 @@ td.right {text-align:right;}
 
 .b-submit {
  margin-top: 1em;
+ text-align:right;
 /*  float:right;*/
 }
+
+.b-co-description {
+  float:left;
+  width:50%;
+}
+
+.b-co-description textarea { width:95%;}
+
+.b-co-delta {
+  float:left;
+  width:50%
+}
+
+.b-co-delta-inner {padding: 5px 0 5px 25px;}
+
+.i-help-popup img{
+  background: url("images/help.png") no-repeat top left;
+  width:16px;
+  height:16px;
+  padding-left:5px;
+ }
+ 
+.b-info-popup {
+ font-size:.97em;
+ line-height:1.2em;
+ position:absolute;
+ z-index:999;
+ border:solid 1px #AFAF00;
+ display:none;
+ background-color:#FFFFDC;
+ width:250px;
+ 	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	behavior: url("/javascripts/PIE.htc");
+-moz-box-shadow: 0 0 5px #888;
+-webkit-box-shadow: 0 0 5px#888;
+box-shadow: 0 0 5px #888;
+}  
+
+.b-info-popup p { color:#4D4D4D; padding:10px;}

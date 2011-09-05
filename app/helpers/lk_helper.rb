@@ -16,5 +16,12 @@ module LkHelper
     raw res
   end
 
+
+  def help_popup text
+    content_tag :span, :class => "i-help-popup" do
+      concat image_tag("pix.gif")
+      concat content_tag(:div, simple_format(text), :class => "b-info-popup")      
+    end    
+  end
   
 end
