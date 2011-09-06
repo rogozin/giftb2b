@@ -1,39 +1,22 @@
+<div class="spacer"></div>
 <h3>Мои товары:</h3>
 <div class="spacer"></div>
 <div class="gray-block">
-<%= form_tag lk_load_products_path(:id => @object_id, :object_type => @object_type ), :remote => true, :method => :get do %>
+<%= form_tag lk_load_products_path(:id => params[:id], :object_type => @object_type ), :remote => true, :method => :get, :id => "filter" do %>
 Поиск:
-<%= text_field_tag :request, params[:request] %>
-<%= submit_tag "Найти" %>
+<span><%= text_field_tag :request, params[:request], :placeholder => "Название" %></span>
+<span><%= link_to 'Выбрать категорию товара', "#", :id => "select_category", :class => "pseudo-link" %></span>
+<span id="category_ids"></span>
+<div id="categories_dialog" title="Выбор категории" class="g-hidden">
+<%= min_categories_tree(@catalog, @category_ids, params[:category_ids] ? params[:category_ids].map(&:to_i) : []) %>
+</div>
+<span><%= submit_tag "Найти" %></span>
 <% end %>
 </div>
 <%= form_tag post_url do -%>
-<table>
-<tr>
-  <th></th>
-  <th>Изображение</th>
-  <th>Артикул</th>
-  <th>Название</th>
-  <th>Цена</th>
-  <th>Размер</th>
-  <th>Материал</th>
-  <th>Упаковка</th>
-</tr>
-<% @lk_products.each do |item| -%>
-<tr>
-  <td><%= check_box_tag "lk_product_ids[]", item.id, false, :id => "lk_product_ids_#{item.id}" %></td>
-  <td><%= image_tag(item.picture.url, :width=>"120") %></td>
-  <td><%= item.article %></td>
-  <td><%= item.short_name %></td>
-  <td><%= price_ru_label item.price %></td>
-  <td><%= item.size %></td>
-  <td><%= item.factur %></td>
-  <td><%= item.box %></td>
-</tr>
-<% end -%>
-</table>
-<div class="gray-block"><%= submit_tag "Добавить" if @lk_products.present? %></div>
+<%= render :partial => 'products', :locals => {:products => @lk_products, :should_check => true} %>
+<div class="b-submit"><%= submit_tag "Добавить" if @lk_products.present? %></div>
 <% end -%>
 <div class="spacer"></div>
-<%= will_paginate @lk_products, :class => "pager" %>
+<%= render :partial => 'shared/paginate2', :locals => {:products => @lk_products} %>
 

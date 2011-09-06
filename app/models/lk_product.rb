@@ -14,6 +14,8 @@ class LkProduct < ActiveRecord::Base
    
    scope :search, lambda { |search_text|
     where("(short_name like :search) or (article like :search)", { :search => '%' + search_text + '%'}) }
+   scope :by_category, lambda { |category_ids|
+    joins(:lk_product_categories).where("lk_product_categories.category_id" => category_ids) }    
    scope :for_my_site, lambda { |firm_id|
     active.where(:show_on_site => true, :firm_id => firm_id) }
    validates :article, :presence => true

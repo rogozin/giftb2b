@@ -43,10 +43,12 @@ $(document).ready(function() {
     default:
       clear_group_form();
     }
+    return false;
   });
   
   $('.group-ops form').bind('submit', function() {
     $('#product_ids').val($.map($("#products_list input:checked"), function(n){return n.value }).join(','));
+    return false;
   });
 
   $('#property_name').live('change', function() {
@@ -68,6 +70,7 @@ $(document).ready(function() {
   else {
     $('#group_property_id').hide(); 
     }
+    return false;
   });
   
   
@@ -76,6 +79,7 @@ $(document).ready(function() {
       $('#group_property_values').html("<div id='group_property_" + this.value + "'>Выберите значение:<div class='filter-property-values'></div></div>");
       $.getScript('/admin/properties/' + this.value + '/load_filter_values?check_box_name=property_values[]&prefix=group');
     }
+    return false;
   });
 
   
@@ -87,6 +91,7 @@ $(document).ready(function() {
      else {
        $(this).parentsUntil('.ext-search').find('a').removeClass('has-selected-items');
      }     
+     return false;
   });
   
   $('.ajax-load a.pseudo-link').toggle( 
@@ -99,8 +104,5 @@ $(document).ready(function() {
          $(this).parent().find('.filter-property-values').show();
         }},
     function() { $(this).parent().find('.filter-property-values').hide();}
-  );
-  
- 
-
+  );  
 })

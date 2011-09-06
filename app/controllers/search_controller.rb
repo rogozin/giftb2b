@@ -30,8 +30,10 @@ class SearchController < ApplicationController
       elsif params[:store_from].to_i > 0
          s_options.merge!(:store => params[:store_from]) 
        end
+      s_options.delete_if{ |k, v| v.blank?}
       
-      res = Product.find_all(s_options, "ext-search")
+      res = s_options.empty? ? [] :  Product.find_all(s_options, "ext-search")
+      
       @products = res.paginate(:page => params[:page], :per_page => params[:per_page])
       @properties = Property.active.for_search
       @categories = Category.cached_catalog_categories

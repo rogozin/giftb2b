@@ -1,19 +1,19 @@
 <div class="pager">
 <p class="products-per-page">
 <span class="article_t_p">
-<% if @products.total_entries >20 -%>
+<% if products.total_entries >20 -%>
 По 
 <span class="per-page">
 <%= link_to_unless (params[:per_page] ||"20") == "20", '20', url_for(params.merge({:per_page => 20})) %>
 <%= link_to_unless params[:per_page] == "50", '50', url_for(params.merge({:per_page => 50})) %>
- <%= link_to_unless params[:per_page] == "100", '100', url_for(params.merge({:per_page => 100})) if @products.total_entries > 50 %>
+ <%= link_to_unless params[:per_page] == "100", '100', url_for(params.merge({:per_page => 100})) if products.total_entries > 50 %>
 </span>
  товаров на странице
  <% end -%>
 </span>
 </p>
 <div>
-<%= will_paginate @products, :class=>"article_t_p paginate2" %>
+<%= will_paginate products, :class=>"article_t_p paginate2" %>
 <div class="ajax_animation"><img src="/images/ajax-loader.gif" alt="loading..." /></div>
 </div>
 <div class="clear"></div>

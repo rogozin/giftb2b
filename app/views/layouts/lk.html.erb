@@ -4,8 +4,8 @@
   <title><%= @page_title || page_title %></title>
   <meta name="description" content="<%= yield :meta_description%>" /> 
   <meta name="keywords" content="<%= yield :meta_keywords %>" />
-  <%= stylesheet_link_tag  'main','lk','jquery-ui.css','jquery.treeview' %>
-  <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie', 'ui.datepicker-ru' %>
+  <%= stylesheet_link_tag  'jquery-ui.css','jquery.treeview','main','lk' %>
+  <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie', 'ui.datepicker-ru', 'lk' %>
   <%= csrf_meta_tag %>
   <script>
   $(document).ready(function()
@@ -81,9 +81,8 @@
 </div> <!--end left_content --> 
 <div class="clear"></div> 
 <div id="footer">	<div class="f-block">
-	<p>109316, Москва, Волгоградский проспект, 43, корп.3, БЦ "АВИЛОН ПЛАЗА"</p>
 	<p>+7 (495) 741-0695 e-mail:info@giftb2b.ru</p>
-	<p>© 2011 Giftb2b - удобный каталог корпоративных подарков</p>
+	<p>© 2011 Giftb2b - Все сувениры для бизнеса.</p>
 	</div></div> <!-- end footer --> 
 </body> 
 </html>

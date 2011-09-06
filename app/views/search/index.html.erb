@@ -1,24 +1,6 @@
 <% page_title "Поиск сувениров" -%>
 <%= javascript_include_tag 'search' %>
-<% if @products.present? -%>          
-<div class="content"> 
-<div class="center_block"> 
-<%= render :partial => "shared/paginate2" %>
-</div> <!-- end center_block --> 
- 
-<div class="center_block" id="catalog_items"> 
-  <% for product  in @products do -%>
-    <%= render :partial => 'shared/product', :object=>product %>  
-  <% end -%>
-  	
-  <div class="clear"></div> 
-</div> <!-- end center_block --> 
- 
-<div class="center_block"> 
-
-<div class="spacer"></div>
-<%= render :partial => "shared/paginate2" %>
-</div> <!-- end center_block --> 
+<div class="content" id="content"> 
+<%= render :partial => "search_results" %>
 </div>
- <% end -%>
 

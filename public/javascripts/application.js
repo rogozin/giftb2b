@@ -3,32 +3,21 @@ function bindAnimation() {
       ajaxStart: function() { $(this).show(); },
       ajaxStop: function() { $(this).hide(); }
     });
-  return false;
 }
 
 $(function() {
   bindAnimation();
-  $("#tabs").tabs();
-});
+  $("#tabs").tabs();  
 
-  $(function() {
-    $('.pagination-ajax a').live('click', function(e) {
-      $.getScript(this.href);
-      e.preventDefault();
-      });
-    });
-
-$(function() {
-  $(".pager a").live("click", function() {
-	$.getScript(this.href, function(){ bindAnimation();});
-    return false;
+  $('.pagination-ajax a').live('click', function(e) {
+    $.getScript(this.href);
+   e.preventDefault();
   });
 
-  
-$('a.toggle-category').click(function(){
-      $(this).next().toggle();
-      return false;
-   });
+  $(".pager a").live("click", function() {
+	$.getScript(this.href, function(){ bindAnimation();});  
+  });
+    
 });
 
 

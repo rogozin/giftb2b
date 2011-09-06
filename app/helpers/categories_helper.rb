@@ -5,19 +5,42 @@ module CategoriesHelper
   end
   
   def hashed_categories_tree(categories_hash,  checked_items, init = true, expand_block = false,  field_name = "lk_product[category_ids]")
-
     res = init ? "<ul class='treeview'>\n" : (expand_block ? "<ul>\n" : "<ul style='display:none;'>\n")
       categories_hash.each do |category|
        res << "<li>"
-       res += check_box_tag("#{field_name}[]", category[:id],checked_items.include?(category[:id]), :id => "#{ field_name.parameterize('_') }_cat_#{category[:id]}" ) +" " + 
-       (category[:children].present? ? link_to(category[:name], "#", :class => "toggle-category pseudo-link") : label_tag("#{field_name}_cat_#{category[:id]}", category[:name]))
-       res << hashed_categories_tree(category[:children], checked_items, false, find_value(category, checked_items).present?, field_name) if category[:children].present?
+       if category[:children].present? 
+         res << link_to(category[:name], "#", :class => "toggle-category pseudo-link")         
+         res << hashed_categories_tree(category[:children], checked_items, false, find_value(category, checked_items).present?, field_name)
+       else
+         res << check_box_tag("#{field_name}[]", category[:id],checked_items.include?(category[:id]), :id => "#{ field_name.parameterize('_') }_cat_#{category[:id]}" )
+         res << " "
+         res << label_tag("#{field_name}_cat_#{category[:id]}", category[:name])
+       end
        res << "</li>\n"
       end
     res << "</ul>\n"
     raw res  
   end  
   
+  def min_categories_tree(categories_hash, used_values, checked_items, init = true, expand_block = false )
+    #res = init ? "<ul class='treeview'>\n" : (expand_block ? "<ul>\n" : "<ul style='display:none;'>\n")
+    content_tag(:ul, :class => init ? "treeview" : nil, :style => !init && !expand_block ?  "display:none" : nil) do
+      categories_hash.each do |category|
+        if find_value(category, used_values).present?
+          concat raw("<li>")
+          if category[:children].present?
+            concat link_to(category[:name], "#", :class => "toggle-category pseudo-link")
+            concat min_categories_tree(category[:children], used_values, checked_items, false, false )          
+          else
+            concat check_box_tag("category_ids[]", category[:id],checked_items.include?(category[:id]), :id => "lk_product_cat_#{category[:id]}" )
+            concat " "
+            concat label_tag("lk_product_cat_#{category[:id]}", category[:name])         
+          end
+       concat  raw("</li>\n")
+       end
+     end
+    end
+  end
   
   def find_value(root_item, search, path=[], level=0)
     if search.include?(root_item[:id])

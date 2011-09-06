@@ -11,64 +11,9 @@ $(function() {
      else {
        $(this).parentsUntil('#search_properties').find('a').removeClass('has-selected-items');
      }     
-    }); 
-       
-       
-    $("#price_slider").slider({
-        	range: true,
-			min: 0,
-			max: 10000,
-			step:10,
-			values: [ 1000, 3000 ],
-			slide: function( event, ui ) {
-			  input_elem_1 = $(this).parent().find(':text.value-from');
-			  input_elem_2 = $(this).parent().find(':text.value-to');
-			  if ( (ui.values[0] == ui.values[1]) && (ui.values[0] == 0) ) {
-			    $(input_elem_1).val('по запросу');
-			    $(input_elem_2).val('');
-			  }
-			  else {
-  				$( input_elem_1 ).val( ui.values[ 0 ] );
-  				$( input_elem_2 ).val( ui.values[ 1 ] );
-				}
-			}
-		});
-        
-    $( "#store_count_slider" ).slider({
-			range: false,
-			min: 0,
-			max: 1000,
-			step:10,
-			values: [ 100 ],
-			slide: function( event, ui ) {
-			  input_elem = $(this).parent().find(':text');
-			  if ( (ui.values[0] == 0) ) {
-			    $(input_elem).val('по запросу');
-			  }
-			  else {
-  				$( input_elem ).val( ui.values[ 0 ] );
-				}
-			}
-		});
-		
-		$( ".b-filter-slider :text" ).each(function(index) {
-           slider = $(this).parentsUntil('.b-filter-slider').parent().find('.slider-range');
-           val = 0;
-		   if ( $(this).val() == "по запросу" ) 
-             $(slider).slider({values: [0,0]});		           		    
-		   else  {		   
-		    if ( $(this).hasClass('value-from') && ($(this).val().length > 0) ) {		
-        	  $(slider).slider("values", 0, $(this).val());
-		     } 
-		    if ($(this).hasClass('value-to')) {
-		     
-		     if ( ($(this).val() == "") || ( parseInt($(this).val()) < parseInt($(slider).slider("values",0)) ) )
-        	  $(slider).slider("values", 1, $(slider).slider("option", "max"));		   
-		     else 
-        	  $(slider).slider("values", 1, $(this).val());		      
-        	  
-		    }
-		   } 
-
-		});
+    });               
+ $('a.toggle-category').click(function(){
+   $(this).next().toggle();
+   return false;
+  });      
 });

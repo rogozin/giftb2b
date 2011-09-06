@@ -4,7 +4,7 @@
 <div><%= link_to 'Добавить новый товар', new_lk_product_path  %></div>
 <div class="spacer"></div>
 <% if @products.present? -%>
-<%= render :partial => "products" %>
+<%= render :partial => "products", :locals => {:products => @products, :should_check => false} %>
 <% else -%>
 <p>Товары отсутствуют</p>
 <% end -%>
