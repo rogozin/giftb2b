@@ -28,7 +28,7 @@ class Lk::UserOrdersController < Lk::BaseController
       end
       @cart.items.clear
       UserMailer.new_order_notification(current_user, @order).deliver if @current_user.email.present?
-      FirmMailer.new_user_order_notification(@order.firm, current_user, @order).deliver if @order.firm && @order.firm.email.present?
+      FirmMailer.new_user_order_notification(current_user, @order).deliver if @order.firm && @order.firm.email.present?
     else  
       flash[:alert] = "Ошибка при оформлении заказа"
     end

@@ -27,7 +27,10 @@
     <%= f.label :draft, 'Черновик' %>
     <%= f.check_box :draft %>
   </div>    
-  
+  <div class="b-formfield-div">
+    <%= f.label :show_title, 'Показывать заголовок' %>
+    <%= f.check_box :show_title %>
+  </div>      
   <div class="b-formfield-div">
     <%= f.submit "Сохранить", :class => "wymupdate" %>
   </div>
