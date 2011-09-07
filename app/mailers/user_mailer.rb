@@ -1,6 +1,6 @@
 #encoding: utf-8;
 class UserMailer < ActionMailer::Base
-   default :from => "giftb2b.ru - Сувениры для бизнеса notification@giftb2b.ru", :charset => "UTF-8"
+   default :from => "giftb2b.ru - Сувениры для бизнеса <notification@giftb2b.ru>", :charset => "UTF-8"
    layout "/layouts/mailers/users"
   
 
