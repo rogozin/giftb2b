@@ -1,8 +1,44 @@
 <h1>Уважаемый партнер! </h1>
 
+<p>
+  К Вам поступил новый <%= link_to "заказ", edit_lk_order_url(@order) %>  (№ <%= @order.id %>) на сумму <%= @order.sum %> руб. от пользователя 
+<%= @user.fio ? @user.fio : @user.username -%> <br />
+  Пожалуйста, в ближайшее время свяжитесь с заказчиком для уточнения деталей.
+</p>
+
+<h2>Информация о заказчике:</h2>
+<table width="350px" style="border-collapse:collapse; border:none;">
+<tr>
+  <td>Имя</td>
+  <td><%= @user.fio ?  @user.fio : @user.username %></td>
+</tr>
+<tr>
+  <td>Контактный тел.</td>
+  <td><%= @user.phone || "-" %></td>
+</tr>
+<tr>
+  <td>E-mail:</td>
+  <td><%= @user.email %></td>
+</tr>
+</table>
+
+<div style="text-align:left">
+
+
+<h2>Информация о заказе:</h2>
+<%= render :partial => "user_mailer/order_details" %>
+
+<% if @order.user_comment.present? -%>
+<div style="text-align:left; font-size:0.9em; color:#999;margin:10px 0;">
+Комментарий к заказу: <%= @order.user_comment %>  
+</div>
+<% end -%>
+
+</div>
+
 
 <p>
-  К Вам поступил заказ № <%= @order.id %> от пользователя 
-<% @user.fio ? @user.fio : @user.username -%>
+<%= link_to "Перейти в личный кабинет", edit_lk_order_url(@order) %> для просмотра информации по заказу.
 </p>
+
 

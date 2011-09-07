@@ -28,10 +28,8 @@ class Lk::UserOrdersController < Lk::BaseController
         @order.lk_order_items.create({:product => cart_item.product, :quantity => cart_item.quantity, :price => cart_item.start_price})
       end
       @cart.items.clear
-      unless Rails.env == 'test'
-        AccountMailer.new_order_notification(current_user, @order).deliver if @current_user.email.present?
-        FirmMailer.new_user_order_notification(@order.firm, current_user, @order).deliver if @order.firm && @order.firm.email.present?
-      end
+      UserMailer.new_order_notification(current_user, @order).deliver if @current_user.email.present?
+      FirmMailer.new_user_order_notification(@order.firm, current_user, @order).deliver if @order.firm && @order.firm.email.present?
     else  
       flash[:alert] = "Ошибка при оформлении заказа"
     end

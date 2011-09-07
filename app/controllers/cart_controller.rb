@@ -6,7 +6,9 @@ require 'attach_image'
 require 'image'
 
 class CartController < ApplicationController
+  before_filter :require_user
   before_filter :get_cart, :except => [:empty]
+  
   def index
     #@lk_firms = LkFirm.where(:firm_id => current_user.firm_id) if current_user.is_firm_user?
     @firms = Firm.default_city if current_user.is_simple_user?

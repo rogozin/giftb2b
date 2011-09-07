@@ -9,6 +9,20 @@ describe 'Роль менеджер фирмы' do
      @lk_firm = Factory(:lk_firm, :firm_id => @firm.id)         
   end
   
+  
+   it 'Видимость пунктов меню личного кабинета' do
+    visit lk_index_path
+    within "#user_menu" do
+      save_and_open_page
+      page.should have_content("Список заказов")
+      page.should have_content("Коммерческие предложения")
+      page.should have_content("Клиенты")
+      page.should have_content("Список товаров")
+      page.should have_content("Пользователи")
+      page.should have_content("Профиль")
+    end
+  end  
+  
   context 'учет образцов' do   
    it 'я могу поставить признак возврата денег на странице образца' do
      @user.has_role! "Учет образцов"

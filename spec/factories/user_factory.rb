@@ -85,5 +85,7 @@ Factory.define :firm do |f|
   f.url "http://www.example.com"
   f.addr_f "Москва, ул. Льва Толстого д.12 стр. 1"
   f.addr_u "Москва, хата с краю"
+  f.city "Москва"
+  f.subway "Текстильщики"
 end
 

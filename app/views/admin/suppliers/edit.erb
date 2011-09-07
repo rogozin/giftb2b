@@ -5,7 +5,7 @@
 </div>
 
 <div class="grid_4 omega">
-<%= link_to 'Удалить все товары этого поставщика', truncate_products_admin_supplier_path(@supplier) if current_user.is_admin?  %>
+<%= link_to 'Удалить все товары этого поставщика', truncate_products_admin_supplier_path(@supplier.id) if current_user.is_admin?  %>
 </div>
 
 <div class="clear"></div>

@@ -18,7 +18,8 @@
         <div class="spacer"></div>
         <% end -%>
         <% if current_user.is_simple_user? -%>
-        <p><%= link_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  
+        <div class="spacer"></div>
+        <p><%= button_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  
         <div id="order" class="g-hidden">
           <div class="spacer"></div>
          <%= render :partial => "generate_order_from_user" %>

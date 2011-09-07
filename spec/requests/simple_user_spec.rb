@@ -11,10 +11,9 @@ describe "Работа обычного пользователя" do
   it 'Видимость пунктов меню личного кабинета' do
     visit lk_index_path
     within "#user_menu" do
-      page.should have_content("Мои заказы")
-      page.should have_content("Мой профиль")
-      page.should have_content("Подписки")
-      page.should have_no_content("Список заказов")
+      page.should have_content("Список заказов")
+      page.should have_content("Профиль")
+#      page.should have_content("Подписки")
       page.should have_no_content("Коммерческие предложения")
       page.should have_no_content("Мои фирмы")
       page.should have_no_content("Мои товары")
@@ -39,12 +38,19 @@ describe "Работа обычного пользователя" do
       visit product_path(@product)
       click_link "Добавить в корзину"
       visit cart_index_path
-      click_link "Оформить заказ"
-      save_and_open_page
-      #select @firm.short_name, :from => "lk_firm_id"
-      fill_in "Комментарий", :with => "Примечание к заказу"
-      click_button "Оформить"
+      click_button "Оформить заказ"
+      fill_in "Комментарий", :with => "Комментарий к заказу"
+      within "#firms" do
+        page.should have_content @firm.subway    
+        page.should have_content @firm.city
+        page.should have_content @firm.addr_f        
+        click_button "Отправить заказ"
+      end            
       page.should have_content "Заказ оформлен!"  
+      @order = LkOrder.where(:firm_id => @firm.id).first
+      ActionMailer::Base.deliveries.should have(2).items
+      ActionMailer::Base.deliveries.map(&:to).should include([@order.firm.email])      
+      ActionMailer::Base.deliveries.map(&:to).should include([@order.user.email])      
       within "#cart" do
         page.should have_content "пусто"
       end
@@ -54,7 +60,7 @@ describe "Работа обычного пользователя" do
   it 'в личном кабинете я вижу свои заказы' do
     @lk_order = Factory(:lk_order, :user => @user)
     visit lk_index_path
-    click_link "Мои заказы" 
+    click_link "Список заказов" 
     page.should have_content "Список заказов"
   end
 
@@ -62,7 +68,7 @@ describe "Работа обычного пользователя" do
     order2= Factory(:lk_order, :user_id => @user.id + 1)
     visit lk_user_order_path(order2)
     #page.should have_content "Заказ не найден!"
-    page.status_code.should eq "404"
+    page.status_code.should eq 404
   end
 
 
