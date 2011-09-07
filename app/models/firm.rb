@@ -17,7 +17,7 @@ class Firm < ActiveRecord::Base
  end
 
  def foreign_access
-   ForeignAccess.accepted_clients.select{|x| x.firm_id = self.id }
+   ForeignAccess.accepted_clients.select{|x| x.firm_id == self.id }
  end
 
   def has_foreign_access?
