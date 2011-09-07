@@ -4,6 +4,6 @@ module UsersHelper
   end
   
   def user_name(user)
-    user.fio ? user.fio : user.username
+   user ?  (user.fio ? user.fio : user.username) : "-"
   end
 end
