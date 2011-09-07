@@ -242,11 +242,11 @@ a:hover.menu_left {
 /*	padding-top:2px;*/
 /*}*/
 .banner_left {
-	width:230px;
+  background: #999999 url("images/banner.png") no-repeat top left;
+	width:234px;
 	margin-left:15px;
-	height:150px;
-	background:#999999;
-	border:1px solid black;
+	height:154px;
+/*	border:1px solid black;*/
 }
 
 .banner_center {
