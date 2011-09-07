@@ -18,9 +18,8 @@ class Lk::UserOrdersController < Lk::BaseController
   end
   
     def create
-    @order = LkOrder.new(params[:lk_order])
+    @order = LkOrder.new(params[:lk_order].merge(:user => current_user, :user_name => current_user.fio ? current_user.fio : current_user.username, :user_email => current_user.email, :user_phone => current_user.phone, :is_remote => true) )
     @order.firm_id = params.invert["Отправить заказ"].to_i
-    @order.user = current_user
     if @order.save
       flash[:notice] = "Заказ оформлен!" 
       @cart = find_cart

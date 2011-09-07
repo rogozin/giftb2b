@@ -6,7 +6,7 @@
 <tr>
   <th></th>
   <th>№ заказа</th>
-  <th>Фирма</th>
+  <th>Клиент</th>
   <th>Заказчик</th>
   <th>Статус</th>
   <th>Сумма</th>
@@ -23,7 +23,7 @@
     <td><%= item.status %></td>
     <td><%= price_ru_label item.sum %></td>
     <td><%= I18n.l(item.updated_at, :format => :long) %></td>
-    <td><%= item.is_remote? ? "с сайта" : (item.user ? item.user.fio : "-") %></td>
+    <td><%= order_source(item) %></td>
     <td><%= link_to image_tag('bin.png'), lk_order_path(item), :method => :delete, :confirm => "Удалить заказ?" %></td>
   </tr>
 <% end -%>

@@ -48,6 +48,7 @@ describe "Работа обычного пользователя" do
       end            
       page.should have_content "Заказ оформлен!"  
       @order = LkOrder.where(:firm_id => @firm.id).first
+      @order.should be_is_remote
       ActionMailer::Base.deliveries.should have(2).items
       ActionMailer::Base.deliveries.map(&:to).should include([@order.firm.email])      
       ActionMailer::Base.deliveries.map(&:to).should include([@order.user.email])      

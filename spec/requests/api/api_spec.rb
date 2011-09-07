@@ -32,7 +32,7 @@ describe 'api testing' do
     it 'index' do
       get 'api/categories', {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       hash = ActiveSupport::JSON.decode(response.body)
-      hash.should ==Category.cached_catalog_categories.as_json
+      hash.should.as_json ==Category.cached_catalog_categories.as_json
     end
 
     it 'analogs' do

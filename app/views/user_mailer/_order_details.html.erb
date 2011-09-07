@@ -8,7 +8,7 @@
 </tr>
 <% @order.lk_order_items.each do |item| %>
   <tr>
-    <td style="border:1px solid #ccc"><%= item.product.article %></td>
+    <td style="border:1px solid #ccc"><%= item.product.is_a?(LkProduct) ? item.product.article : item.product.unique_code %></td>
     <td style="border:1px solid #ccc"><%= item.product.short_name %></td>
     <td style="border:1px solid #ccc; white-space: nowrap;"><%= number_to_currency item.price %></td>
     <td style="border:1px solid #ccc"><%= item.quantity %></td>    
