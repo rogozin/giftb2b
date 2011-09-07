@@ -48,7 +48,7 @@ $(document).ready(function() {
   
   $('.group-ops form').bind('submit', function() {
     $('#product_ids').val($.map($("#products_list input:checked"), function(n){return n.value }).join(','));
-    return false;
+//    return false;
   });
 
   $('#property_name').live('change', function() {
