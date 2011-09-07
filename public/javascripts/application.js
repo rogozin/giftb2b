@@ -7,17 +7,19 @@ function bindAnimation() {
 
 $(function() {
   bindAnimation();
-  $("#tabs").tabs();  
 
   $('.pagination-ajax a').live('click', function(e) {
     $.getScript(this.href);
    e.preventDefault();
   });
 
-  $(".pager a").live("click", function() {
-	$.getScript(this.href, function(){ bindAnimation();});  
+  $(".pager a").live("click", function(e) {
+  	$.getScript(this.href, function(){ bindAnimation();});  
+  	return false;
   });
     
+    
+  $("#tabs").tabs();  
 });
 
 
