@@ -1,0 +1,39 @@
+<script type="text/javascript">
+$(function() { 
+  setValues("#categories_dialog"); 
+  $('.radio-buttons a').click(function() {
+    $('#radio_button_control > div').hide()
+    $(this).siblings().removeClass('selected');
+    $(this).addClass('selected');
+    $('#' + this.href.split('#')[1]).show();
+    return false
+  });
+});
+</script>
+
+<%= form_tag path, :remote => remote, :method => :get, :id => "filter" do %>
+Поиск:
+<span><%= text_field_tag :request, params[:request], :placeholder => "Название" %></span>
+<span><%= link_to 'Выбрать категорию товара', "#", :id => "select_category", :class => "pseudo-link" %></span>
+<span id="category_ids"></span>
+<div id="categories_dialog" title="Выбор категории" class="g-hidden">
+
+  <div class="radio-buttons">
+    <a href="#catalog" class="selected">Каталог</a>
+    <a href="#thematic">Тематические</a>
+    <a href="#analogs">Праздники</a>
+  </div>
+  <div id="radio_button_control">
+    <div id="catalog">
+      <%= min_categories_tree(@catalog, @category_ids, params[:category_ids] ? params[:category_ids].map(&:to_i) : []) %>
+    </div>
+    <div id="thematic" class="g-hidden">
+      <%= min_categories_tree(@thematic, @category_ids, params[:category_ids] ? params[:category_ids].map(&:to_i) : []) %>
+    </div>
+    <div id="analogs" class="g-hidden">
+      <%= min_categories_tree(@analogs, @category_ids, params[:category_ids] ? params[:category_ids].map(&:to_i) : []) %>
+    </div>    
+  </div>  
+</div>
+<span><%= submit_tag "Найти", :name => nil %></span>
+<% end %>

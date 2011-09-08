@@ -1,0 +1,3 @@
+<% if @property_value.destroyed? -%>
+  $("#<%= dom_id(@property_value) %>").effect('highlight', function(){$(this).remove(); } );
+<% end -%>

@@ -1,7 +1,9 @@
 <% page_title "Клиенты" -%>
 <h2>Клиенты</h2>
 <div class="spacer"></div>
-<%= link_to 'Новый клиент', new_lk_firm_path %>
+<div class="b-command-menu">
+  <%= link_to 'Новый клиент', new_lk_firm_path %>
+</div>
 <div class="spacer"></div>
 <% if @firms.present? -%>
   <table width="100%">

@@ -23,14 +23,13 @@ module CategoriesHelper
   end  
   
   def min_categories_tree(categories_hash, used_values, checked_items, init = true, expand_block = false )
-    #res = init ? "<ul class='treeview'>\n" : (expand_block ? "<ul>\n" : "<ul style='display:none;'>\n")
     content_tag(:ul, :class => init ? "treeview" : nil, :style => !init && !expand_block ?  "display:none" : nil) do
       categories_hash.each do |category|
         if find_value(category, used_values).present?
           concat raw("<li>")
           if category[:children].present?
             concat link_to(category[:name], "#", :class => "toggle-category pseudo-link")
-            concat min_categories_tree(category[:children], used_values, checked_items, false, false )          
+            concat min_categories_tree(category[:children], used_values, checked_items, false, find_value(category, checked_items).present? )          
           else
             concat check_box_tag("category_ids[]", category[:id],checked_items.include?(category[:id]), :id => "lk_product_cat_#{category[:id]}" )
             concat " "

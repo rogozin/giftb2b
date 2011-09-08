@@ -29,11 +29,6 @@ a.a-text-blue, a.navi {
 	text-decoration:none;
 }
 
-#filter {
-line-height:2em; 
-}
-
-#filter select {max-width:160px}
 
 tr.disabled-row {
  color:#999;
@@ -94,7 +89,7 @@ td.right {text-align:right;}
 
 .ui-widget-content { text-align:left;}
  
- .b-info-popup, .ui-dialog, .ui-dialog-buttonpane, .ui-dialog-content { 
+ .b-info-popup, .ui-dialog, .ui-dialog-buttonpane, .ui-dialog-content, #filter { 
   border:solid 1px #AFAF00;
 /*  background-color:#FFFFDC;*/
   background: #ffffdc url(images/ui-bg_flat_75_ffffdc_40x100.png) 50% 50% repeat-x  
@@ -124,7 +119,24 @@ max-width:120px;
 max-height:120px;
 }
 
-
 #filter span {
-margin:0 10px;
+  margin:0 10px;
 }
+
+#filter {
+  line-height:2em; 
+  padding:5px;
+}
+
+#filter select {max-width:160px}
+
+#filter input[type="text"] {width:160px;}
+
+div.radio-buttons {margin-bottom:5px;}
+
+.radio-buttons a {
+  text-decoration:none;
+  border-bottom:dotted 1px;
+ }
+ 
+.radio-buttons a.selected { color:#004276; font-weight:bold;}

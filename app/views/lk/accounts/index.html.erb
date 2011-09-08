@@ -1,7 +1,8 @@
 <% page_title "Пользователи" -%>
 <h3>Пользователи  компании <%= current_user.firm.name  if current_user.firm%></h3>
 <div class="spacer"></div>
-<div><%= link_to 'Новый пользователь', new_lk_account_path if current_user.firm %></div>
+
+<div class="b-command-menu"><%= link_to 'Новый пользователь', new_lk_account_path if current_user.firm %></div>
 <div class="spacer"></div>
 <table width="100%">
 <tr>

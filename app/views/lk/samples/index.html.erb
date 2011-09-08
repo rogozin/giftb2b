@@ -1,5 +1,8 @@
-<% title "Учет образцов" -%>
 <% page_title "Учет образцов" -%>
+<h1>Учет образцов</h1>
+<div class="b-command-menu">
+  <%= link_to "Новая запись", new_lk_sample_path %>
+</div>
 
 <div id="filter">
 <%= form_tag "/lk/samples", :method => :get do -%>
@@ -7,14 +10,10 @@
 <%= select_tag :supplier, options_from_collection_for_select(@suppliers, 'id', 'name', params[:supplier]), :include_blank => "<= Поставщик =>" %>
 <%= select_tag :client, options_from_collection_for_select(@firms, 'id', 'name', params[:client]), :include_blank => "<= Фирма =>" %>
 <%= select_tag :responsible, options_from_collection_for_select(@responsibles, 'id', 'fio', params[:responsible]), :include_blank => "<= Ответственный =>" %>
-<%= submit_tag "Применить", :name => nil %> <br />
+<%= submit_tag "Найти", :name => nil %> <br />
 <%= check_box_tag :only_my, "1", params[:only_my].blank? || params[:only_my] == "1" %> <%= label_tag :only_my, "Только мои", :title => "Показывать только те образцы, которые я создал или назначен ответственным." %> 
 <%= check_box_tag :hide_closed, "1", params[:hide_closed].blank? || params[:hide_closed] == "1" %> <%= label_tag :hide_closed, "Спрятать закрытые", :title => "Скрывать образцы, отмеченные менеджером как закрытые" %> 
 <% end -%>
-</div>
-
-<div class="b-command-menu">
-  <%= link_to "Новая запись", new_lk_sample_path %>
 </div>
 
 <div id="samples_list">
@@ -25,11 +24,9 @@
   <th>Ответственный</th>  
   <th>Поставщик</th>
   <th>Сумма покупки</th>
-  <th>Дата покупки</th>
   <th>Срок до</th>
   <th>Клиент</th>
   <th>Сумма продажи</th>
-  <th>Дата продажи</th>
   <th>Срок до</th>
   <th></th>
 </tr>
@@ -40,11 +37,9 @@
     <td><%= item.responsible.fio if item.responsible %></td>
     <td><%= item.supplier.name if item.supplier %></td>
     <td><%= price_ru_label item.buy_price %></td>
-    <td><%= I18n.l(item.buy_date, :format => :short_year) if item.buy_date %></td>
     <td><%= I18n.l(item.supplier_return_date, :format => :short_year) if item.supplier_return_date %></td>    
     <td><%= item.lk_firm.name if item.lk_firm %></td>
     <td><%= price_ru_label item.sale_price %></td>
-    <td><%= I18n.l(item.sale_date, :format => :short_year)  if item.sale_date %></td>    
     <td><%= I18n.l(item.client_return_date, :format => :short_year) if item.client_return_date %></td>        
     <td><%= link_to image_tag('bin.png'), lk_sample_path(item), :method => :delete, :confirm => "Удалить?" if can_edit_sample?(item) %></td>    
   <% end -%>

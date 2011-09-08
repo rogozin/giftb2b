@@ -36,7 +36,7 @@ describe 'Роль учет образцов' do
     
     page.should have_content "Образец создан"
     page.should have_content "Редактирование записи"  
-    click_link "Назад к списку образцов"    
+    click_link "<< К списку образцов"
     page.should have_content "Мой первый образец"
     
     within "#samples_list" do
@@ -47,7 +47,7 @@ describe 'Роль учет образцов' do
     page.should have_no_selector "#sample_closed"
     fill_in "sample_name", :with => "Мой второй образец"
     click_button "Сохранить"    
-    click_link "Назад к списку образцов"
+    click_link "<< К списку образцов"
     page.should have_content "Мой второй образец"
     
     within "#samples_list" do
@@ -79,13 +79,13 @@ describe 'Роль учет образцов' do
     
     fill_in "name", :with => "Руч"
     uncheck "only_my"
-    click_button "Применить"  
+    click_button "Найти"  
     page.should have_selector "table tr", :count => 2    
     
     visit lk_samples_path
     uncheck "hide_closed"
     uncheck "only_my"
-    click_button "Применить"  
+    click_button "Найти"  
     page.should have_content "Карандаш"
     
   end
@@ -128,7 +128,7 @@ describe 'Роль учет образцов' do
       fill_in "lk_firm_name", :with => "OOO Firma"
       fill_in "lk_firm_contact", :with => "Вася"
       click_button "Сохранить"
-      page.should have_content "Фирма создана"
+      page.should have_content "Клиент создан"
       page.should have_select "sample_firm_id", :options => [@sample.lk_firm.name, "OOO Firma"]    
     end
   
@@ -136,7 +136,7 @@ describe 'Роль учет образцов' do
       click_link "edit_firm_link"
       fill_in "lk_firm_name", :with => "Рога без копыт"
       click_button "Сохранить"                
-      page.should have_content "Фирма изменена"
+      page.should have_content "Клиент изменен"
       page.should have_select "sample_firm_id", :options => ["Рога без копыт"]          
     end
   end

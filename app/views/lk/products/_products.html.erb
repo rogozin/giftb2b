@@ -1,3 +1,5 @@
+<% should_remove = true unless defined?(should_remove) -%>
+
 <table width="100%">
 <tr>
   <th></th>
@@ -7,7 +9,7 @@
   <th>Наименование</th>
   <th>Категории</th>
   <th>Цена</th>
-  <th></th>
+  <%= content_tag(:th) if  should_remove  %>
 </tr>
 <% products.each do |item| -%>
   <tr>
@@ -18,7 +20,7 @@
     <td><%= item.short_name %></td>
     <td><%= item.categories.map(&:name).join(', ') %></td>
     <td class="no-wrap"><%= number_to_currency item.price %></td>
-    <td><%= link_to image_tag('bin.png'), lk_product_path(item), :method => :delete, :confirm => "Удалить товар?" %></td>
+    <%= content_tag(:td, link_to(image_tag('bin.png'), lk_product_path(item), :method => :delete, :confirm => "Удалить товар?")) if should_remove %>
   </tr>
 <% end -%>
 </table>

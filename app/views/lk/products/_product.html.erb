@@ -75,22 +75,34 @@
   </div> <!-- #tab-4 -->
 
  <div id="tab-3">
+  <div>
   <% if current_user.firm.has_foreign_access? -%>    
     <%= f.check_box :show_on_site %>
     <%= f.label :show_on_site, "Показывать товар на моем сайте (#{current_user.firm.foreign_access.first.name})" %>
   <% end -%>
+  </div>
+  <div class="spacer"></div>
+    <div class="b-search-property">
       <h3><%= link_to_function "Основной каталог", "$('#categories_tree').toggle();", :class=>"pseudo-link" %> </h3>
       <div id="categories_tree" class="g-hidden">
         <%= hashed_categories_tree(@catalog, @product.category_ids) %>
       </div>
+    </div>
+    
+    <div class="b-search-property">
       <h3><%= link_to_function "Тематический каталог", "$('#thematic_tree').toggle();", :class=>"pseudo-link" %> </h3>
       <div id="thematic_tree" class="g-hidden">
         <%= hashed_categories_tree(@thematic, @product.category_ids) %>
       </div>
+    </div>
+    
+    <div class="b-search-property">
       <h3><%= link_to_function "Праздники", "$('#analog_tree').toggle();", :class=>"pseudo-link" %> </h3>
       <div id="analog_tree" class="g-hidden">
         <%= hashed_categories_tree(@analogs, @product.category_ids) %>
       </div>
+    </div>
+    <div class="clear"></div>
    <div class="b-submit">
     <%= f.submit %>	
   </div>
