@@ -726,8 +726,6 @@ span.message {color:#C36;}
     min-height:16px;
 }
 
-#novice_animation img {display:none;}
-
 .article_t_p {
 	font-size:10pt;
 	color:#999999;
@@ -963,7 +961,7 @@ h3.h3-lk {
 .paginate2 {
   float:right;
 }
-.products-per-page {
+.products-per-page, .b-left {
   float:left;
 }
 
@@ -977,7 +975,6 @@ h3.h3-lk {
 .ajax_animation {
   display:none;
   margin: 0 20px; 
-  float:left;
 } 
 
 .page_content p {

@@ -52,8 +52,8 @@ function changeImage(img_nr) {
 function run_scrollable() {
 $("#scrollable").smoothDivScroll({ autoScroll: "onstart", autoScrollDirection: "backandforth", autoScrollStep: 1, autoScrollInterval: 15, startAtElementId: "startAtMe", visibleHotSpots: "always"});
  $("div#scrollable").bind({
-      ajaxStart: function() { $(this).empty(); $('#novice_animation img').show(); },
-      ajaxStop: function() { $('#novice_animation img').hide(); }
+      ajaxStart: function() { $(this).find('.scrolling').hide(); },
+      ajaxStop: function() { $(this).find('.scrolling').show(); }
     });
 return false;
 }

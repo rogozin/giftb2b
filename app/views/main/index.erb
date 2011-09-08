@@ -5,12 +5,20 @@
 <div class="content">
   <div class="scrollable-control">
     <%= link_to 'Новинки!', change_scrollable_main_index_path, :remote => true, :id => "novelty_link", :class => "selected"  %>
-   <%= link_to "Распродажа!", change_scrollable_main_index_path(:sale => 1), :remote => true, :id => "sale_link" %> </div>
- <div id="novice_animation">
-	      <img alt='Loading' src='/images/loading.gif' widht="16px">
-	      </div>   
-	<%= render :partial => "scrollable" %>
-     
+   <%= link_to "Распродажа!", change_scrollable_main_index_path(:sale => 1), :remote => true, :id => "sale_link" %> 
+ <span class="ajax_animation">
+<img src="/images/loading.gif" alt="loading..." />
+	      </span>   
+ </div>
+  <div id="scrollable">	      
+	  <div class="scrolling scrollingHotSpotLeft"></div>
+	  <div class="scrolling scrollingHotSpotRight"></div>
+	  <div class="scrolling scrollWrapper">
+	  	<div id="scrollableArea" class="scrollableArea">
+        <%= render :partial => 'novelty' %>
+	  	</div>
+	  </div>
+  </div>
 <div class="spacer"></div>  
 <div class="spacer"></div>  
 <div class="spacer"></div>  
