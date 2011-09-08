@@ -37,7 +37,10 @@ end
 
   def destroy
     flash[:notice] = "Значение удалено!" if  @property_value.destroy
-    redirect_to admin_properties_path
+    respond_to do |format|
+      format.html {  redirect_to admin_properties_path }
+      format.js {}
+    end
   end
 
   def show
