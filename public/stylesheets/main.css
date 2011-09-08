@@ -304,7 +304,8 @@ a:hover.menu_left {
 .search-c {margin-left:80px;line-height:1.5;}
 .search-n {float:right;width:60px;}
 
-p.search-a {text-align:right;}
+p.search-count {float:left;font-size:0.9em;}
+p.search-a {text-align:right; float:right;}
 p.search-a a {color:#82D269;font-weight:bold;font-size:0.9em}
 
 .search-form h1, .search-form a, .search-form p {  color: #fff;}
