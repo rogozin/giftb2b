@@ -75,7 +75,7 @@ class Lk::CommercialOffersController < Lk::BaseController
      end
      params[:cart_product_ids].each do |cart_product_id|
        product = Product.find(cart_product_id)
-       lk_product = copy_product_to_lk(product, @commercial_offer.firm_id)
+       lk_product = LkProduct.copy_from_product(product, @commercial_offer.firm_id)
       cnt +=1 if @commercial_offer.commercial_offer_items.create({:lk_product=>lk_product, :quantity => 1})
      end
      
@@ -95,7 +95,7 @@ class Lk::CommercialOffersController < Lk::BaseController
      flash[:notice] = "Коммерческое предложенеие сгенерировано на основе набора товаров Вашей корзины." 
      @cart.items.each do |item|
        logger.info item.product.id
-       lk_product = copy_product_to_lk(item.product, @co.firm_id, item.start_price)
+       lk_product = LkProduct.copy_from_product(item.product, @co.firm_id, item.start_price)
        @co.commercial_offer_items.create({:lk_product=>lk_product, :quantity => item.quantity})
       end
       @cart.items.clear
@@ -116,34 +116,6 @@ class Lk::CommercialOffersController < Lk::BaseController
 
   private 
   
-  def copy_product_to_lk(product, firm_id, price=0, active=false)
-    lk_product = LkProduct.new({ 
-      :firm_id => firm_id, 
-      :product_id => product.id,
-      :article => product.unique_code,
-      :short_name => product.short_name,
-      :description => product.description,
-      :price => price == 0 ? product.price_in_rub : price,
-      :color => product.color, 
-      :size => product.size,
-      :factur => product.factur,
-      :box => product.box,
-      :active => active,
-      :store_count => product.store_count,
-      :infliction => product.property_values.select{|p| p.property.name=="Нанесение"}.map(&:value).join(' ,') })
-    img = product.main_image
-    begin
-    if img
-      File.open(img.picture.path) do  |file| 
-        lk_product.picture = file
-      end      
-    end
-    rescue
-        lk_product.picture = File.open(Rails.root.to_s + "/public/images/default_image.jpg")
-    end    
-    lk_product.save
-    lk_product
-  end
   
   def find_co
     @commercial_offer = CommercialOffer.find(params[:commercial_offer_id] || params[:id])

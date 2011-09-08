@@ -67,6 +67,38 @@ class LkProduct < ActiveRecord::Base
      lk_order_items.size == 0 && commercial_offer_items.size == 0 && !active?
    end
    
+   def self.copy_from_product(product, firm_id, price=0, active=false, copy_categories=false)
+       lk_product = LkProduct.new({ 
+      :firm_id => firm_id, 
+      :product_id => product.id,
+      :article => product.unique_code,
+      :short_name => product.short_name,
+      :description => product.description,
+      :price => price == 0 ? product.price_in_rub : price,
+      :color => product.color, 
+      :size => product.size,
+      :factur => product.factur,
+      :box => product.box,
+      :active => active,
+      :store_count => product.store_count,
+      :infliction => product.property_values.select{|p| p.property.name=="Нанесение"}.map(&:value).join(' ,') })
+    img = product.main_image
+    begin
+    if img
+      File.open(img.picture.path) do  |file| 
+        lk_product.picture = file
+      end      
+    end
+    rescue
+        lk_product.picture = File.open(Rails.root.to_s + "/public/images/default_image.jpg")
+    end    
+    lk_product.category_ids = product.category_ids if copy_categories
+    lk_product.save
+
+    lk_product
+   end
+   
+   
 #  before_destroy :drop_lk_product
 #  
 #  private 
