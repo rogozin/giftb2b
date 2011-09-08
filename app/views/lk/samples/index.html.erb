@@ -38,7 +38,7 @@
     <td><%= link_to image_tag('edit.png'), edit_lk_sample_path(item) if can_edit_sample?(item) %></td>
     <td><%= item.name %></td>
     <td><%= item.responsible.fio if item.responsible %></td>
-    <td><%= item.supplier.name %></td>
+    <td><%= item.supplier.name if item.supplier %></td>
     <td><%= price_ru_label item.buy_price %></td>
     <td><%= I18n.l(item.buy_date, :format => :short_year) if item.buy_date %></td>
     <td><%= I18n.l(item.supplier_return_date, :format => :short_year) if item.supplier_return_date %></td>    
