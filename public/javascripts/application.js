@@ -55,13 +55,8 @@ $("#scrollable").smoothDivScroll({ autoScroll: "onstart", autoScrollDirection: "
       ajaxStart: function() { $(this).find('.scrolling').hide(); },
       ajaxStop: function() { $(this).find('.scrolling').show(); }
     });
-return false;
-}
-
-$(function() {
-
   $('.scrollableArea div').mouseover(function(e) {
-    $("<div style='top:"+ e.clientY + "px; left:"+ e.clientX +"px;' class='b-popup' id='popup-img'></div>")
+     $("<div style='top:"+ e.clientY + "px; left:"+ e.clientX +"px;' class='b-popup' id='popup-img'></div>")
     .html($(this).find('div').html())
     .appendTo('body')
     .fadeIn();
@@ -72,8 +67,5 @@ $(function() {
     $("#popup-img").fadeOut().remove(); 
     $("#scrollable").smoothDivScroll("startAutoScroll");
    })
-   
-   
-});
-
-
+return false;
+}
