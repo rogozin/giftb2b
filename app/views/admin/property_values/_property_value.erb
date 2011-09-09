@@ -6,6 +6,18 @@
   <%= f.text_field :value %>
 </div>
 <div class="b-formfield-div">
+  <%= f.label :note, 'Примечание' %>
+  <%= f.text_field :note %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :sort_order, 'Порядок сортировки' %>
+  <%= f.text_field :sort_order %>
+</div>
+<div class="b-formfield-div">
+  <%= f.label :group_order, 'Порядок группировки' %>
+  <%= f.text_field :group_order %>
+</div>
+<div class="b-formfield-div">
   <%= f.submit "Сохранить" %>
 </div>
 <%  end %>

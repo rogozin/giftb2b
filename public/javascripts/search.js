@@ -12,8 +12,10 @@ $(function() {
        $(this).parentsUntil('#search_properties').find('a').removeClass('has-selected-items');
      }     
     });               
- $('a.toggle-category').click(function(){
-   $(this).next().toggle();
-   return false;
-  });      
+// $('a.toggle-category').click(function(){
+//    console.log($(this).next());
+//   $(this).next().toggle();
+//   
+//   return false;
+//  });      
 });

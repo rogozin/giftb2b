@@ -100,17 +100,17 @@
 <div class="grid_5">
   <h3><%= link_to_function "Категории", "$('#categories_tree').toggle();", :class=>"pseudo-link" %> </h3>
   <div id="categories_tree" class="g-hidden">
-    <%= hashed_categories_tree(@catalog, @product.category_ids, true, false, "product[category_ids]") %>
+    <%= hashed_categories_tree(@catalog, @product.category_ids, true, false, {:field_name => "product[category_ids]"}) %>
   </div>
 <div class="spacer"></div>
   <h3><%= link_to_function "Тематические", "$('#thematic_tree').toggle();", :class=>"pseudo-link" %> </h3>
   <div id="thematic_tree" class="g-hidden">
-     <%= hashed_categories_tree(@thematic, @product.category_ids, true, false, "product[category_ids]") %>
+     <%= hashed_categories_tree(@thematic, @product.category_ids, true, false, {:field_name => "product[category_ids]" }) %>
   </div>
 <div class="spacer"></div>
   <h3><%= link_to_function "Аналоги", "$('#analog_tree').toggle();", :class=>"pseudo-link" %> </h3>
   <div id="analog_tree" class="g-hidden">
-    <%= hashed_categories_tree(@analogs, @product.category_ids, true, false, "product[category_ids]") %>    
+    <%= hashed_categories_tree(@analogs, @product.category_ids, true, false, {:field_name => "product[category_ids]"}) %>    
   </div>
 </div>
 <div class="grid_4 omega">

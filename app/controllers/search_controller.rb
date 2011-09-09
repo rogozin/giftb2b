@@ -35,9 +35,11 @@ class SearchController < ApplicationController
       res = s_options.empty? ? [] :  Product.find_all(s_options, "ext-search")
       
       @products = res.paginate(:page => params[:page], :per_page => params[:per_page])
-      @properties = Property.active.for_search
       @categories = Category.cached_catalog_categories
-      @manufactors =  Manufactor.where("name != 'no_name' and exists (select null from products p where p.manufactor_id = manufactors.id and p.active=1)").order("name")
+      @suppliers = Supplier.order("name")
+      @manufactors =  Manufactor.cached_active_manufactors
+      @infliction = Property.where(:name => "Нанесение").first      
+      @material = Property.where(:name => "Материал").first      
     end      
   end
   

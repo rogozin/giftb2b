@@ -1,0 +1,123 @@
+<div class="b-ext-search">
+  <h3>Расширенный поиск</h3>  
+  <div class="b-ext-search-inner even">
+  
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner full-size">
+         <%= text_field_tag :name, params[:name] %>               
+       </div>
+     </div>
+     
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :name, "Название" %> 
+     </div>
+     
+     <div class="b-ext-search-right v-align">
+       <%= check_box_tag :eq, params[:eq] %> <%= label_tag :eq, "Искать точную фразу" %>              
+     </div>
+     <div class="clear"></div>     
+  </div>
+  <div class="b-ext-search-inner">
+
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+         <%= text_field_tag :article, params[:article] %>               
+       </div>
+     </div>
+     
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :article, "Артикул" %> 
+     </div>
+     <div class="clear"></div>
+  </div>
+  <div class="b-ext-search-inner even">
+    <h3>Поставщик</h3>
+    <ul class="supplier-items">
+    <% @suppliers.each do |item| -%>
+      <li>
+      <%= check_box_tag "supplier_ids[]", item.id, params[:supplier_ids] && params[:supplier_ids].include?(item.id), :id => dom_id(item) %> <%= label_tag dom_id(item), item.name %>
+      </li>
+    <% end -%>
+    </ul>
+    <div class="clear"></div>
+  </div>
+  <div class="b-ext-search-inner">
+  
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+          <%= select_tag :manufactor_id, options_for_select(@manufactors.map{|x| [x.name, x.id]}),  {:include_blank => "<- Выберите бренд ->" } %>
+       </div>
+     </div>
+     
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :manufactor_id, "Бренд" %> 
+     </div>
+     <div class="clear"></div>
+    
+  </div>
+  <div class="b-ext-search-inner even">
+  
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+         <span class="bold-label"><%= label_tag :store_from, "на складе от:" %> </span>
+         <%= text_field_tag :store_from, params[:store_from], :class => "inp-numeric value-from" %> шт.
+       </div>
+     </div>
+     
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :manufactor_id, "Наличие" %> 
+     </div>
+     <div class="b-ext-search-right v-align">
+      <span style="padding-right:10px;">        
+       <%= check_box_tag :on_demand %> <%= label_tag :on_demand, "по запросу" %>
+      </span>
+       <%= check_box_tag :in_order %> <%= label_tag :in_order, "под заказ" %>
+     </div>
+     
+     <div class="clear"></div>
+
+  </div>
+  <div class="b-ext-search-inner">
+    <h3>Материалу</h3>
+    <%#= prop_values_tree(@material) %>
+  </div>
+  <div class="b-ext-search-inner even">
+    <h3>Цвету</h3>
+  </div>
+  <div class="b-ext-search-inner">
+  
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+         <span class="bold-label"><%= label_tag :price_from, "от" %></span>
+          <%= text_field_tag :price_from, params[:price_from], :class => "inp-numeric value-from" %> руб.
+          <span class="bold-label" style="padding-left:10px;"><%= label_tag :price_to, "до" %></span>
+          <%= text_field_tag :price_to, params[:price_to], :class => "inp-numeric value-to" %> руб.          
+       </div>
+     </div>
+     
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :manufactor_id, "Цена" %> 
+     </div>
+          
+     <div class="clear"></div>
+  </div>
+  <div class="b-ext-search-inner even">
+
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+          <%= select_tag "pv_#{@infliction.id}[]", options_for_select(@infliction.property_values.map{|x| [x.value, x.id]}),  {:include_blank => "<- Выберите тип нанесения ->" } %>
+       </div>
+     </div>
+     
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :inflicftion, "Нанесение" %> 
+     </div>
+     <div class="clear"></div>
+
+  </div>
+  <div class="b-ext-search-inner">
+    <h3>Категория</h3>
+   <%= hashed_categories_tree(@categories, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], true, false,   {:field_name => "category_ids", :class => "category-items", :select_children => true} ) %>
+  </div>
+  
+</div>

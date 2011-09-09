@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110907094634) do
+ActiveRecord::Schema.define(:version => 20110909041011) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -330,6 +330,8 @@ ActiveRecord::Schema.define(:version => 20110907094634) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "note"
+    t.integer  "sort_order",  :default => 1
+    t.integer  "group_order", :default => 1
   end
 
   create_table "roles", :force => true do |t|

@@ -2,6 +2,7 @@
     <% property.property_values.each do |prop_value_item| -%>
     <%= content_tag_for :tr, prop_value_item do %>    
       <td style="padding-left:40px"><%= prop_value_item.value %></td>
+      <td class="no-wrap"><%= prop_value_item.group_order %> - <%= prop_value_item.sort_order %></td>
       <td><%= prop_value_item.products.size %></td>
       <td><%=  link_to image_tag('edit.png'), edit_admin_property_value_path(property.id,prop_value_item.id), :title =>'Редактировать'  %> <%=  link_to image_tag('bin.png'), admin_property_value_path(property.id,prop_value_item.id), :remote => true, :method=> :delete,  :confirm => "Вы уверены?",  :title => 'Удалить'  %></td>
 

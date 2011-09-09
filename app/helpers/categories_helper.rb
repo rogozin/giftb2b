@@ -4,23 +4,33 @@ module CategoriesHelper
     session[:category_location] && session[:category_location] == current_permalink ?  "selected" : nil 
   end
   
-  def hashed_categories_tree(categories_hash,  checked_items, init = true, expand_block = false,  field_name = "lk_product[category_ids]")
-    res = init ? "<ul class='treeview'>\n" : (expand_block ? "<ul>\n" : "<ul style='display:none;'>\n")
+  def hashed_categories_tree(categories_hash,  checked_items, init = true, expand_block = false,  options = {})
+    options[:class] ||= "treeview"
+    options[:field_name] ||= "lk_product[category_ids]"
+    options[:select_children] ||= false
+    content_tag(:ul, :class => init ? options[:class] : nil, :style => !init && !expand_block ?  "display:none" : nil) do
       categories_hash.each do |category|
-       res << "<li>"
+       concat raw("<li>")
+      
        if category[:children].present? 
-         res << link_to(category[:name], "#", :class => "toggle-category pseudo-link")         
-         res << hashed_categories_tree(category[:children], checked_items, false, find_value(category, checked_items).present?, field_name)
+         concat smart_check_box_tag(options[:field_name], category[:id],checked_items.include?(category[:id])) if options[:select_children]
+         concat link_to(category[:name], "#", :class => "toggle-category")         
+         concat hashed_categories_tree(category[:children], checked_items, false, find_value(category, checked_items).present?, options)
        else
-         res << check_box_tag("#{field_name}[]", category[:id],checked_items.include?(category[:id]), :id => "#{ field_name.parameterize('_') }_cat_#{category[:id]}" )
-         res << " "
-         res << label_tag("#{field_name}_cat_#{category[:id]}", category[:name])
+         concat smart_check_box_tag(options[:field_name], category[:id],checked_items.include?(category[:id])) 
+         concat " "
+         concat label_tag( "cat_#{category[:id]}", category[:name])
        end
-       res << "</li>\n"
+       concat raw("</li>\n")
       end
-    res << "</ul>\n"
-    raw res  
+    end
+    
   end  
+  
+  
+  def smart_check_box_tag field_name, id, checked
+    check_box_tag("#{field_name}[]", id ,checked, :id => "cat_#{id}" )
+  end
   
   def min_categories_tree(categories_hash, used_values, checked_items, init = true, expand_block = false )
     content_tag(:ul, :class => init ? "treeview" : nil, :style => !init && !expand_block ?  "display:none" : nil) do
@@ -40,6 +50,7 @@ module CategoriesHelper
      end
     end
   end
+
   
   def find_value(root_item, search, path=[], level=0)
     if search.include?(root_item[:id])

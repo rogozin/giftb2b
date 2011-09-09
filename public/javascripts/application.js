@@ -18,6 +18,10 @@ $(function() {
   	return false;
   });
     
+   $('a.toggle-category').bind('click', function(){
+   $(this).next().toggle();
+   return false;
+  });      
     
   $("#tabs").tabs();  
 });

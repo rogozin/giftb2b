@@ -36,7 +36,7 @@
 
 <div class="grid_8 omega">
 <h3>Категории</h3>
-    <%= hashed_categories_tree(@categories, @property.category_ids, true, false, "property[category_ids]") %>
+    <%= hashed_categories_tree(@categories, @property.category_ids, true, false, { :field_name => "property[category_ids]" }) %>
 </div>
 
 
