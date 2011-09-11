@@ -49,9 +49,10 @@ module XmlUpload
     end
   end
 
-  def process_file(path, bw_id, import_images = true, reset_images = false)
-    @process_images = import_images
-    @reset_images = reset_images
+  def process_file(path, bw_id, options={})
+    @process_images = options[:import_images] || true 
+    @reset_images = options[:reset_images] || false
+    @reset_properties = options[:reset_properties] || false
     @bw = BackgroundWorker.find(bw_id)    
     File.open(path, 'r') do |io|      
       process_stream(io)
@@ -162,8 +163,13 @@ module XmlUpload
   
   def find_property(product, name, type=0)
     p=Property.find_or_initialize_by_name_and_property_type(name,type)
-    @log_new_properties += 1 if p.new_record?
-    p.save
+    if p.new_record?    
+      @log_new_properties += 1 
+      p.save
+    else
+      #TODO - возможно вместо массива всех значений свойств нужно удалять только те, которые реально есть у товара.
+      ProductProperty.delete_all(:product_id => product.id, :property_value_id => p.property_value_ids) if @reset_properties
+    end
     p.category_ids += product.category_ids
     p    
   end
@@ -172,7 +178,7 @@ module XmlUpload
     pv = property.property_values.find_or_initialize_by_value(text_value)
     @log_new_property_values += 1 if pv.new_record?
     pv.save
-    product.property_values<< pv unless product.property_values.include?(pv)
+    product.property_values<< pv if @reset_properties || product.property_values.include?(pv) == false 
     rescue => error
       @log_errors<< "find_property_error: #{error}"
   end

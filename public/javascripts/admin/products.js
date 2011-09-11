@@ -91,7 +91,6 @@ $(document).ready(function() {
      else {
        $(this).parentsUntil('.ext-search').find('a').removeClass('has-selected-items');
      }     
-     return false;
   });
   
   $('.ajax-load a.pseudo-link').toggle( 

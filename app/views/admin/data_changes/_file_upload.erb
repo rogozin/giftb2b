@@ -7,6 +7,7 @@
       <legend>Опции</legend>
     <%= check_box_tag "import_data[reset_images]", "1", true %> <%= form.label :reset_images, "Удалять существующие картинки" %> <br />    
     <%= check_box_tag "import_data[process_images]", "1", true %> <%= form.label :process_images, "Загружать новые картинки" %> <br />    
+    <%= check_box_tag "import_data[reset_properties]", "1", false %> <%= form.label :reset_properties, "Сбрасывать значения свойств" %> <br />    
 <p>
     Деактивация всех товаров у поставщика: <br />
     <% @suppliers.each do |sup| -%>

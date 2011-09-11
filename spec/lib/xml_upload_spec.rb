@@ -20,7 +20,7 @@ describe XmlUpload do
 
     it "xml file should be processed" do
       @bw = BackgroundWorker.create({:task_name => "test_xml"})
-      XmlUpload.process_file(@xmlfile.path, @bw.id, false, false )
+      XmlUpload.process_file(@xmlfile.path, @bw.id, {:import_images => false, :reset_images => false, :reset_properties => false} )
       Product.should have(1).record
     end
   end
