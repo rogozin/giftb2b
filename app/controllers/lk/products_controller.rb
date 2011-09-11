@@ -9,8 +9,10 @@ class Lk::ProductsController < Lk::BaseController
   before_filter :load_my_category_ids, :only => [:index, :load_lk_products]
   
   def index
+    params[:page] ||= "1"
+    params[:per_page] ||= "20"
     if current_user.firm_id.present?
-      @products = set_filter
+      @products = set_filter.paginate(:page => params[:page], :per_page => params[:per_page])
     else 
       @products  = []
       not_firm_assigned!
