@@ -14,7 +14,7 @@ class SearchController < ApplicationController
       price[0] = params[:price_from].to_i
       price[1] = params[:price_to].to_i
       
-      s_options = {:article => params[:article], :search_text => params[:name],:category => params[:category_ids], :manufactor => params[:manufactor_ids]}
+      s_options = {:article => params[:article], :search_text => params[:name],:category => params[:category_ids], :manufactor => params[:manufactor_ids], :supplier => params[:supplier_ids], :eq => params[:eq]}
        
        s_options.merge!(params.select{ |k,v| k =~ /pv_\d+/ })
        if params[:price_from] == "по запросу"
@@ -25,21 +25,23 @@ class SearchController < ApplicationController
          s_options.merge!(:price_range => price)
        end
        
-       if params[:store_from] == "по запросу"
-         s_options.merge!(:store => "0") 
-      elsif params[:store_from].to_i > 0
-         s_options.merge!(:store => params[:store_from]) 
-       end
+       s_options.merge!(:store => params[:store_from]) if params[:store_from].to_i > 0
+      
+       s_options.merge!(:store => 0) if params[:on_demand]
+       s_options.merge!(:store => -1) if params[:in_order]
+        
+      
       s_options.delete_if{ |k, v| v.blank?}
       
       res = s_options.empty? ? [] :  Product.find_all(s_options, "ext-search")
       
-      @products = res.paginate(:page => params[:page], :per_page => params[:per_page])
+      @products = res.present? ? res.paginate(:page => params[:page], :per_page => params[:per_page]) : []
       @categories = Category.cached_catalog_categories
       @suppliers = Supplier.order("name")
       @manufactors =  Manufactor.cached_active_manufactors
       @infliction = Property.where(:name => "Нанесение").first      
       @material = Property.where(:name => "Материал").first      
+      @color = Property.where(:name => "Цвет").first      
     end      
   end
   

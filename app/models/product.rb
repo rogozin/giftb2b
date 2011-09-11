@@ -46,7 +46,7 @@ class Product < ActiveRecord::Base
   end
   
   def self.find_all(options={}, place= "admin")
-    puts options
+#    puts options
     sr = Product.scoped
     options[:per_page] ||=20
     
@@ -74,12 +74,14 @@ class Product < ActiveRecord::Base
 
     sr = sr.where(:manufactor_id => options[:manufactor]) if options[:manufactor].present? 
     
-    sr = sr.where(:supplier_id => options[:supplier]) if options[:supplier].present? && options[:supplier].to_i >= -1
+    sr = sr.where(:supplier_id => options[:supplier]) if options[:supplier].present?
   
     sr = sr.where("(products.article like :article) or (lpad(products.id,6,'0') = :code)", :article => '%'+options[:article]+'%', :code => options[:article]) unless options[:article].blank? 
 
-    sr = sr.where("products.short_name like :search_text or description like :search_text", :search_text => '%'+options[:search_text]+'%' )  unless options[:search_text].blank? 
+    sr = sr.where("products.short_name like :search_text or description like :search_text", :search_text => '%'+options[:search_text]+'%' )  if options[:search_text].present? && !options[:eq] 
     
+    sr = sr.where("products.short_name = :search_text or description = :search_text", :search_text => options[:search_text] )  if options[:search_text].present? && options[:eq].present?
+
     sr = sr.where("lpad(products.id,6,'0') = :code", :code => options[:code])      unless options[:code].blank? 
     
     sr = sr.where("products.active" => options[:active] == "0" ? false : true) unless options[:active].blank?
@@ -94,7 +96,7 @@ class Product < ActiveRecord::Base
 
     sr = sr.where("products.ruprice >= ?", options[:price]) if options[:price] && options[:price].to_i > 0
 
-    sr = sr.where("products.store_count" => 0) if options[:store] && options[:store]=="0"
+    sr = sr.where("products.store_count" =>  options[:store] ) if options[:store] && ["-1", "0"].include?(options[:store])
     
     sr = sr.where("products.store_count >= ?", options[:store]) if options[:store] && options[:store].to_i > 0
     
@@ -117,7 +119,13 @@ class Product < ActiveRecord::Base
 #  
   
     prop_keys = options.keys.select{|x| x =~ /property_values_\d+/ || x=~ /pv_\d+/ }
-    sr = sr.where(prop_keys.map{|x| "(exists (select null from product_properties pp where pp.product_id = products.id and pp.property_value_id in (#{options[x].join(',')})) ) " }.join(" AND ")) if prop_keys.present?
+#    sr = sr.where(prop_keys.map{|x| 
+#     ["(exists (select null from product_properties pp where pp.product_id = products.id and pp.property_value_id in (?)) )", options[x]] }.compact.join(" AND ")) if prop_keys.present? 
+    prop_keys.each do |k|
+      compact_values = options[k].delete_if{|prop_value_id| prop_value_id.blank?}  
+      sr = sr.where("(exists (select null from product_properties pp where pp.product_id = products.id and pp.property_value_id in (?)) )", compact_values) if compact_values.present?
+    end
+
 
     res= case place
       when "xml"

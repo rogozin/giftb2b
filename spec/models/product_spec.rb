@@ -89,7 +89,6 @@ describe Product do
     end
   end
 
-
   context 'Аналогичные товары' do
     before(:each) do
       5.times { Factory(:product)}
@@ -102,6 +101,23 @@ describe Product do
       Product.first.analogs.first.should be_a_kind_of(Product)
     end  
   end
+
+   context 'Расширенный поиск' do
+     before(:each) do
+       @product = Factory(:product, :short_name => "Ручка с брелком")
+       @product1 = Factory(:product, :short_name => "Ручка с фонариком")
+     end
+
+      it 'Поиск по имени' do
+        Product.find_all({:search_text => "Ручка"}).should have(2).item
+      end
+    
+      it 'Поиск по имени - точное совпадение' do
+        Product.find_all({:search_text => "Ручка", :eq => "1"}).should be_empty
+        Product.find_all({:search_text => "Ручка с брелком", :eq => "1"}).should have(1).item
+      end
+
+   end
   
   context 'Расширенный поиск (цвета и материалы)' do
     before(:each) do
@@ -132,8 +148,12 @@ describe Product do
       @product4.product_properties.create(:property_value => @val4)
     end
     
+    it 'Передаю пустой параметр' do
+      Product.find_all({"property_values_#{@material_prop.id}" => [""]}).should have(0).items      
+    end
+
     it "Ищу по материалу 'Пластик'" do
-      Product.find_all({"property_values_#{@material_prop.id}" => [@val1.id]}).should have(3).items
+      Product.find_all({"property_values_#{@material_prop.id}" => ["", @val1.id]}).should have(3).items
     end
     
     it "Ищу по материалу 'Пластик' и цвету 'Красный'" do

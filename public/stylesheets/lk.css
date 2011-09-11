@@ -108,7 +108,7 @@ td.right {text-align:right;}
 	-khtml-border-radius: 10px;
 	behavior: url("/javascripts/PIE.htc");
 -moz-box-shadow: 0 0 5px #888;
--webkit-box-shadow: 0 0 5px#888;
+-webkit-box-shadow: 0 0 5px #888;
 box-shadow: 0 0 5px #888;
 }  
 

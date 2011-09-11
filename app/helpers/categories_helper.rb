@@ -15,7 +15,7 @@ module CategoriesHelper
        if category[:children].present? 
          concat smart_check_box_tag(options[:field_name], category[:id],checked_items.include?(category[:id])) if options[:select_children]
          concat link_to(category[:name], "#", :class => "toggle-category")         
-         concat hashed_categories_tree(category[:children], checked_items, false, find_value(category, checked_items).present?, options)
+         concat hashed_categories_tree(category[:children], checked_items, false, expand_block && find_value(category, checked_items).present?, options)
        else
          concat smart_check_box_tag(options[:field_name], category[:id],checked_items.include?(category[:id])) 
          concat " "
