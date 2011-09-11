@@ -58,19 +58,20 @@
   <div class="b-ext-search-inner even">
      <div class="b-ext-search-center">     
        <div class="b-search-center-inner">
-         <span class="bold-label"><%= label_tag :store_from, "на складе от:" %> </span>
+         <span class="span-right-block"><%= label_tag :store_from, "на складе от: " %> 
          <%= text_field_tag :store_from, params[:store_from], :class => "inp-numeric value-from" %> шт.
+		 </span>
+		 <span class="span-right-block">        
+       <%= check_box_tag :on_demand, "1", params[:on_demand] %> <%= label_tag :on_demand, "по запросу" %>
+      </span><span class="span-right-block">        
+       <%= check_box_tag :in_order, "1", params[:in_order] %> <%= label_tag :in_order, "под заказ" %>
+      </span>
        </div>
      </div>
      <div class="b-ext-search-left bold-label v-align">
        <%= label_tag :manufactor_id, "Наличие" %> 
      </div>
-     <div class="b-ext-search-right v-align">
-      <span style="padding-right:10px;">        
-       <%= check_box_tag :on_demand, "1", params[:on_demand] %> <%= label_tag :on_demand, "по запросу" %>
-      </span>
-       <%= check_box_tag :in_order, "1", params[:in_order] %> <%= label_tag :in_order, "под заказ" %>
-     </div>
+
      <div class="clear"></div>
   </div>
 
