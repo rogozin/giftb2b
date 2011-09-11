@@ -500,8 +500,9 @@ a:hover.text_n_z {
 
 .text_c_ul {
 	padding-top:5px;
-    padding-left:0px;
+    padding-left:5px;
 	list-style: disc;
+	text-indent:-0.5em;
 	
 }
 
@@ -515,6 +516,7 @@ a:hover.text_n_z {
 	list-style-type:none;
 	width:100%;
 	margin:0;
+	padding:10px;
 }
 
 .li_v {
@@ -987,7 +989,8 @@ padding: 5px; 0}
 .b-ext-search .bold-label, .b-ext-search h3  {
   color:#332E2B;
   font-weight:bold;
-  font-size:1.1em;  
+  font-size:1.1em; 
+  line-height:1.2;
 }  
 
 
@@ -1006,6 +1009,8 @@ padding: 5px; 0}
 
 .b-ext-search-inner input[type="checkbox"] {
  margin-right:3px;
+ margin-top:5px;
+ vertical-align: text-bottom;
 }
 
 .b-ext-search-inner select {
@@ -1024,13 +1029,13 @@ padding: 5px; 0}
 }
 
 .b-search-center-inner {
-  margin:0 210px 0 100px;
+  margin:0 90px 0 100px;
 }
 
 .b-ext-search-right { 
   float:left;
-  width:200px;
-  margin-left:-200px;
+  width:50px;
+  margin-left:-70px;
 }
 
 
@@ -1048,7 +1053,7 @@ padding: 5px; 0}
 } 
 
 .material-items li {
-  width:130px;
+  width:100px;
   line-height:1.6
 }
 
@@ -1091,8 +1096,11 @@ a.toggle-category {
  behavior: url("/javascripts/PIE.htc");
 }
 
-#ext_search .s_button {
-  margin-left:30px;
+.b-ext-search-right .s_button{
+	background: url("../images/search_40.png") no-repeat scroll 0 0 transparent;
+}
+.span-right-block {
+	padding-right:20px;
 }
 
-label[for="eq"] { font-size: 0.9em; color:#999 }
+label[for="eq"] { font-size: 0.9em; color:#999;padding-top:5px;margin-top:5px}
