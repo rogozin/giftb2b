@@ -1076,8 +1076,8 @@ a.toggle-category {
   float:left;}
 
 .color-box {
-  width:20px;
-  height:20px;
+  width:18px;
+  height:18px;
   border:#7F7F7F 1px solid;
   float:left;
   margin: 0 5px 5px 3px;;
@@ -1105,4 +1105,12 @@ a.toggle-category {
 
 label[for="eq"] { font-size: 0.9em; color:#999;padding-top:5px;margin-top:5px}
 
+#color_12271, #color_12257, #color_12252, #color_12260, #color_12273
+{border:none; width:20px; height:20px;}
+
+#color_12271 {	background: url("images/multi.png") no-repeat scroll 0 0 transparent; }  
+#color_12257 {	background: url("images/transparent.png") no-repeat scroll 0 0 transparent;}  
+#color_12252 {	background: url("images/silver.png") no-repeat scroll 0 0 transparent;}  
+#color_12260 {	background: url("images/gold.png") no-repeat scroll 0 0 transparent;}  
+#color_12273 {	background: url("images/bronze.png") no-repeat scroll 0 0 transparent;}  
 
