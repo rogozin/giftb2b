@@ -87,7 +87,7 @@
         <%= content_tag(:div, "", :class => color_class, :style => color.note && color.note =~ /^#?(([a-fA-F0-9]){3}){1,2}$/ ? "background:#{color.note}" : nil, :title => color.value, :id => "color_#{color.id}") %>
       <% end -%>
       <div class="clear"></div>
-      <% content_tag :div, "", :class => "g-hidden", :id => "color_ids", :title => @color.id do 
+      <%= content_tag :div, "", :class => "g-hidden", :id => "color_ids", :title => @color.id do 
           if params[prop_name(@color)].present?
             params[prop_name(@color)].each do |color_id| %>
               <%= hidden_field_tag prop_name(@color, true), color_id -%>

@@ -13,27 +13,27 @@ class User < ActiveRecord::Base
   
   
   def is_admin?
-    Rails.cache.fetch('is_admin?', :expires_in=>10) {has_role? 'Администратор'}
+    Rails.cache.fetch("#{cache_key}.is_admin?", :expires_in=>60) {has_role? 'Администратор'}
   end
   
   def is_lk_user?
-     Rails.cache.fetch('is_lk_user?', :expires_in=>10) {role_objects.exists?(["roles.group>0"])}
+     Rails.cache.fetch("#{cache_key}.is_lk_user?", :expires_in=>60) {role_objects.exists?(["roles.group>0"])}
   end
   
   def is_admin_user?
-     Rails.cache.fetch('is_admin_user?', :expires_in=>10) {role_objects.exists?(["roles.group=0"])}
+     Rails.cache.fetch("#{cache_key}.is_admin_user?", :expires_in=>60) {role_objects.exists?(["roles.group=0"])}
   end
   
   def is_simple_user?
-     Rails.cache.fetch('is_simple_user?', :expires_in=>10) {role_objects.exists?(["roles.group=1"])}
+     Rails.cache.fetch("#{cache_key}.is_simple_user?", :expires_in=>60) {role_objects.exists?(["roles.group=1"])}
   end
   
   def is_firm_user?
-     Rails.cache.fetch('is_firm_user?', :expires_in=>10) {role_objects.exists?(["roles.group=2"])}
+     Rails.cache.fetch("#{cache_key}.is_firm_user?", :expires_in=>60) {role_objects.exists?(["roles.group=2"])}
   end
   
   def is_firm_manager?
-    Rails.cache.fetch('is_firm_manager?', :expires_in=>10) { has_role?("Менеджер фирмы")}    
+    Rails.cache.fetch("#{cache_key}.is_firm_manager?", :expires_in=>60) { has_role?("Менеджер фирмы")}    
   end
   
   def activate!

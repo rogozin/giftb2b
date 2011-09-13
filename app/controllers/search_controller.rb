@@ -16,7 +16,7 @@ class SearchController < ApplicationController
       
       s_options = {:article => params[:article], :search_text => params[:name],:category => params[:category_ids], :manufactor => params[:manufactor_ids], :supplier => params[:supplier_ids], :eq => params[:eq]}
        
-       s_options.merge!(params.select{ |k,v| k =~ /pv_\d+/ })
+       s_options.merge!(params.select{ |k,v| k =~ /pv_\d+/ && v.reject(&:blank?).present? })
        if params[:price_from] == "по запросу"
          s_options.merge!(:price => "0") 
        elsif  price[0] > price[1] 
@@ -32,7 +32,7 @@ class SearchController < ApplicationController
         
       
       s_options.delete_if{ |k, v| v.blank?}
-      
+      logger.info "=================== #{s_options}"
       res = s_options.empty? ? [] :  Product.find_all(s_options, "ext-search")
       
       @products = res.present? ? res.paginate(:page => params[:page], :per_page => params[:per_page]) : []

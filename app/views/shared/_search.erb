@@ -1,4 +1,4 @@
-	        	  <% if controller_name == "search" && params[:request].blank? && current_user  -%>
+	        	  <% if controller_name == "search" && params[:request].blank? && (current_user.is_firm_user? || current_user.is_admin?)  -%>
 	        	    <%= render :partial => 'search/ext_search2' %>
 	        	  <% else -%>
 	        	    <%= render :partial => 'search/light_search' %>	        	  

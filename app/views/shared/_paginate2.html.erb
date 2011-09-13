@@ -1,4 +1,4 @@
-<% content_tag :div, :class => defined?(no_ajax) && no_ajax ? "pager-no-ajax" : "pager" do %>
+<%= content_tag :div, :class => defined?(no_ajax) && no_ajax ? "pager-no-ajax" : "pager" do %>
 <p class="products-per-page">
 <span class="article_t_p">
 <% if products.total_entries >20 -%>
