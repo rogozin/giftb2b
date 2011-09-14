@@ -9,7 +9,7 @@ class SearchController < ApplicationController
       res = (current_user && (current_user.is_firm_user? || current_user.is_admin_user?) ? Product.search_with_article(params[:request]) : Product.search(params[:request]))
       res = res.where(:supplier_id =>  session[:flt_supplier_id]) if session[:flt_supplier_id]
       @products = res.paginate(:page => params[:page], :per_page => params[:per_page])
-    elsif current_user && (current_user.is_firm_user? || current_user.is_admin?)
+    elsif current_user && (current_user.is_lk_user? || current_user.is_admin?)
       price = []
       price[0] = params[:price_from].to_i
       price[1] = params[:price_to].to_i
@@ -32,7 +32,6 @@ class SearchController < ApplicationController
         
       
       s_options.delete_if{ |k, v| v.blank?}
-      logger.info "=================== #{s_options}"
       res = s_options.empty? ? [] :  Product.find_all(s_options, "ext-search")
       
       @products = res.present? ? res.paginate(:page => params[:page], :per_page => params[:per_page]) : []
@@ -41,8 +40,8 @@ class SearchController < ApplicationController
       @manufactors =  Manufactor.cached_active_manufactors
       @infliction = Property.where(:name => "Нанесение").first      
       @material = Property.where(:name => "Материал").first      
-      @color = Property.where(:name => "Цвет").first      
     end      
+      @color = Property.where(:name => "Цвет").first      
   end
   
   
