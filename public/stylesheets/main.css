@@ -82,6 +82,14 @@ input[type="text"],  input[type="email"], input[type="url"], input[type="passwor
   width: 200px;
 }
 
+input:focus,  select:focus,  textarea:focus{
+  -moz-box-shadow: 0 0 3px #888;
+  -webkit-box-shadow: 0 0 3px #888;
+  box-shadow: 0 0 3px #888;
+ behavior: url("/javascripts/PIE.htc");
+
+  }
+
 /*.pagination_per_page select{ */
 /*  border: 1px solid #999;*/
 /*  width: 60px;*/
@@ -1090,7 +1098,7 @@ a.toggle-category {
 }
 
 .shadow {
-  -moz-box-shadow: 0 0 7px #888;
+  -moz-box-shadow: 0 0 7px #000;
   -webkit-box-shadow: 0 0 7px #000;
   box-shadow: 0 0 7px #000;
  behavior: url("/javascripts/PIE.htc");

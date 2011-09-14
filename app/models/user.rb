@@ -40,4 +40,11 @@ class User < ActiveRecord::Base
     self.update_attribute :active, true
   end
     
+  def self.friendly_pass
+      fr_chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+        newpass = ""
+        1.upto(6) { |i| newpass << fr_chars[rand(fr_chars.size-1)] }
+        newpass
+   end
+    
 end

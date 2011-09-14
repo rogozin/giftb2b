@@ -18,7 +18,7 @@
      </div>
      <div class="clear"></div>     
   </div>
-<% if ext_search -%>
+<% if can_ext_search? -%>
   
   <div class="b-ext-search-inner">
      <div class="b-ext-search-center">     
@@ -56,7 +56,7 @@
      <div class="clear"></div>
   </div>
 <% end -%>
-  <%= content_tag :div, :class => ext_search ? "b-ext-search-inner even" : "b-ext-search-inner" do %>
+  <%= content_tag :div, :class => can_ext_search? ? "b-ext-search-inner even" : "b-ext-search-inner" do %>
      <div class="b-ext-search-center">     
        <div class="b-search-center-inner">
          <span class="span-right-block"><%= label_tag :store_from, "на складе от: " %> 
@@ -75,7 +75,7 @@
 
      <div class="clear"></div>
   <% end -%>
-  <% if ext_search -%>
+  <% if can_ext_search? -%>
   <div class="b-ext-search-inner">
     <h3>Материал</h3>
     <%= prop_values_tree(@material, params[prop_name(@material)].present? ? params[prop_name(@material)] : [] , {:class => "material-items", :grouped => true}) %>
@@ -122,7 +122,7 @@
      <div class="clear"></div>
   </div>
 
-<% if ext_search -%>
+<% if can_ext_search? -%>
   
   <div class="b-ext-search-inner even">
 

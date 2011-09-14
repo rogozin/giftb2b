@@ -4,26 +4,23 @@
 
 <%= form_tag "cart/calculate", :remote => true  do -%>
 <div id="cart_items">
-  <%= render :partial => "cart_items"  if @cart.total_items >0%>
+  <%= render :partial => "cart_items"  if @cart.total_items > 0 %>
 </div>
 
 <% end -%>
 
-     <% if current_user && session[:cart] && session[:cart].total_items >0  -%>
-        <% if current_user.is_firm_user? -%>
-          
+     <% if session[:cart] && session[:cart].total_items >0  -%>
+        <% if current_user && current_user.is_firm_user? -%>          
         <p><%= link_to "Оформить заказ", lk_orders_path, :method => :post   %></p>  
         <div class="spacer"></div>
         <p> <%= link_to "Преобразовать в коммерческое предложение", lk_commercial_offers_path, :method => :post %></p>
         <div class="spacer"></div>
         <% end -%>
-        <% if current_user.is_simple_user? -%>
         <div class="spacer"></div>
         <p><%= button_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  
         <div id="order" class="g-hidden">
           <div class="spacer"></div>
          <%= render :partial => "generate_order_from_user" %>
         </div>          
-        <% end -%>
       <% end -%>
 </div>

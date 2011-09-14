@@ -17,7 +17,7 @@ class AccountsController < BaseController
 
 
   def new
-    @account = User.new(:password=>friendly_pass, :firm_id => params[:firm_id])
+    @account = User.new(:password=>User.friendly_pass, :firm_id => params[:firm_id])
     select_firms
     select_suppliers
   end
@@ -71,12 +71,7 @@ class AccountsController < BaseController
 
   private
 
-  def friendly_pass
-      fr_chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
-        newpass = ""
-        1.upto(6) { |i| newpass << fr_chars[rand(fr_chars.size-1)] }
-        newpass
-   end
+  
 
   def select_firms
     @firms = Firm.all.collect{|f| [f.name, f.id]}

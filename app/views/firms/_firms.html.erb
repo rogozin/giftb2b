@@ -4,19 +4,20 @@
      <th>Станция метро</th>
      <th>Компания</th>
      <th>Адрес</th>
-      <%= content_tag :th if defined?(send_order) %>
+      <%= content_tag :th if defined?(send_order) && send_order %>
    </tr>
   <% @firms.each do |item| -%>
       <tr>
         <td><%= item.subway %></td>
         <td><%= item.short_name %></td>
         <td><%= item.addr_f %></td>
-        <%=content_tag :td,  submit_tag("Отправить заказ", :name => item.id) if defined?(send_order)  %></td>
+        <%=content_tag :td,  submit_tag("Отправить заказ", :name => item.id) if defined?(send_order) && send_order  %></td>
       </tr>
   <% end -%>
   </table>
-  </div>
 <div class="spacer"></div>               
 <p class="b-info">
   В этом списке может быть Ваше агентство. Подробнее по тел. +7 (495) 741-06-95
 </p>        
+  </div>
+
