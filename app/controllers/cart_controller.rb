@@ -12,6 +12,7 @@ class CartController < ApplicationController
   def index
     #@lk_firms = LkFirm.where(:firm_id => current_user.firm_id) if current_user.is_firm_user?
     @firms = Firm.default_city
+    @lk_order = LkOrder.new
   end
   
  def add

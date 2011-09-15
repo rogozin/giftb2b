@@ -19,23 +19,30 @@ class Lk::UserOrdersController < ApplicationController
   end
   
     def create
+      @lk_order = LkOrder.new(params[:lk_order])
+      @lk_order.firm_id = params.invert["Отправить заказ"].to_i
       user = current_user || create_new_user(params[:lk_order])
-    @order = LkOrder.new(params[:lk_order].merge(:user => user, :user_name => user.fio ? user.fio : user.username, :user_email => user.email, :user_phone => user.phone, :is_remote => true) )
-    @order.firm_id = params.invert["Отправить заказ"].to_i
-    if @order.save
-      flash[:notice] = "Заказ оформлен!" 
-      @cart = find_cart
-      @cart.items.each do |cart_item|
-        @order.lk_order_items.create({:product => cart_item.product, :quantity => cart_item.quantity, :price => cart_item.start_price})
+      if user.valid?
+        @lk_order.attributes.merge!(:user => user, :user_name => user.fio ? user.fio : user.username, 
+                                  :user_email => user.email, :user_phone => user.phone, :is_remote => true) 
+        if @order.save 
+          @cart = find_cart
+          @cart.items.each do |cart_item|
+          @lk_order.lk_order_items.create({:product => cart_item.product, :quantity => cart_item.quantity, :price => cart_item.start_price})
+        end
+        @cart.items.clear
+        # UserMailer.new_order_notification(user, @order).deliver if user.email.present?
+        # FirmMailer.new_user_order_notification(user, @order).deliver if @order.firm && @order.firm.email.present?
+        redirect_to lk_user_orders_path, :notice => "Заказ оформлен!"
+      else  
+        redirect_to cart_index_path, :alert => "Ошибка при оформлении заказа"
       end
-      @cart.items.clear
-      UserMailer.new_order_notification(user, @order).deliver if user.email.present?
-      FirmMailer.new_user_order_notification(user, @order).deliver if @order.firm && @order.firm.email.present?
+     @lk_order.errors.add(:user_name, "Укажите имя")
+     redirect_to cart_index_path, :alert => "Неверные контактные данные"
     else  
-      flash[:alert] = "Ошибка при оформ`лении заказа"
+      
     end
     #sending message to user and company
-    redirect_to lk_user_orders_path
   end
   
   private
