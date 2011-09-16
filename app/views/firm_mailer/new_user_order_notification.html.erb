@@ -14,11 +14,11 @@
 </tr>
 <tr>
   <td>Контактный тел.</td>
-  <td><%= @user.phone || "-" %></td>
+  <td><%= @phone %></td>
 </tr>
 <tr>
   <td>E-mail:</td>
-  <td><%= @user.email %></td>
+  <td><%= @user.active? ?  @user.email : "-" %></td>
 </tr>
 </table>
 

@@ -1,20 +1,22 @@
  <h3>Оформление нового заказа:</h3>      
-        <%= form_for @lk_order, :url => lk_user_orders_path do |f| -%>
+ 
+     <%= content_tag :div, flash[:alert], :id => "flash_alert", :class => "corner-all" if flash[:alert] %>
+            <%= form_for @lk_order, :url => lk_user_orders_path do |f| -%>
         <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @lk_order} %>
         <% unless current_user -%>
           <div class="one_line_form">
           <div class="b-formfield-div">
-            <%= f.label :user_name, "Ваше имя:" %><span>*</span>
+            <%= f.label :user_name, "Ваше имя:" %>
             <%= f.text_field :user_name %>  
+          </div>
+          <div class="b-formfield-div">
+            <%= f.label :user_email, "Email:" %>
+            <%= f.email_field :user_email %>  
           </div>
           <div class="b-formfield-div">
             <%= f.label :user_phone, "Контактный тел:" %>
             <%= f.text_field :user_phone %>  
-          </div>
-          <div class="b-formfield-div">
-            <%= f.label :user_email, "Email:" %><span>*</span>
-            <%= f.email_field :user_email %>  
-          </div>                       
+          </div>                                 
           </div>       
           <div class="clear"></div>
         <% end -%>            

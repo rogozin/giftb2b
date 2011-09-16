@@ -4,7 +4,7 @@
 
 <%= form_tag "cart/calculate", :remote => true  do -%>
 <div id="cart_items">
-  <%= render :partial => "cart_items"  if @cart.total_items > 0 %>
+  <%= render :partial => "cart/cart_items"  if @cart.total_items > 0 %>
 </div>
 
 <% end -%>
@@ -18,9 +18,9 @@
         <% end -%>
         <div class="spacer"></div>
         <p><%= button_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  
-        <div id="order" class="g-hidden">
+        <%= content_tag :div, :id => "order", :class => flash[:alert] ? nil : "g-hidden" do %>
           <div class="spacer"></div>
-         <%= render :partial => "generate_order_from_user" %>
-        </div>          
+         <%= render :partial => "cart/generate_order_from_user" %>
+        <% end -%>
       <% end -%>
 </div>

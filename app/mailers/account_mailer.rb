@@ -16,5 +16,11 @@ class AccountMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "Активация завершена")
   end
   
+  def new_account(user,password)
+    @password = password
+    @user = user
+    mail(:to => user.email, :subject => "Ваша учетная запись на сайте giftb2b.ru")
+  end
+  
   
 end

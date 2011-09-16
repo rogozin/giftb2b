@@ -79,6 +79,10 @@ class ApplicationController < ActionController::Base
   def find_cart    
     session[:cart] ||= Cart.new          
   end
+  
+  def get_cart
+    @cart = find_cart
+  end
 
 end
 

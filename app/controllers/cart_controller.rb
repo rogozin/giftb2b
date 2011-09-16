@@ -10,7 +10,6 @@ class CartController < ApplicationController
   before_filter :get_cart, :except => [:empty]
   
   def index
-    #@lk_firms = LkFirm.where(:firm_id => current_user.firm_id) if current_user.is_firm_user?
     @firms = Firm.default_city
     @lk_order = LkOrder.new
   end
@@ -54,9 +53,4 @@ class CartController < ApplicationController
     
   end
  
-  private
-  
-  def get_cart
-    @cart = find_cart
-  end
 end
