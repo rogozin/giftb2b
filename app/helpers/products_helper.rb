@@ -43,6 +43,6 @@ module ProductsHelper
     end
     
     def store_count product
-      product.store_count == 0 || product.store_count.blank? ? "по запросу"  : product.store_count
+      product.store_count == 0 || product.store_count.blank? ? "по запросу"  : (product.store_count == -1 ? "под заказ" : product.store_count)
     end
 end

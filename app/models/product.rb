@@ -46,7 +46,7 @@ class Product < ActiveRecord::Base
   end
   
   def self.find_all(options={}, place= "admin")
-#    puts options
+   puts options
     sr = Product.scoped
     options[:per_page] ||=20
     
@@ -96,7 +96,7 @@ class Product < ActiveRecord::Base
 
     sr = sr.where("products.ruprice >= ?", options[:price]) if options[:price] && options[:price].to_i > 0
 
-    sr = sr.where("products.store_count" =>  options[:store] ) if options[:store] && ["-1", "0"].include?(options[:store])
+    sr = sr.where("products.store_count" =>  options[:store] ) if options[:store] && [-1, 0].include?(options[:store])
     
     sr = sr.where("products.store_count >= ?", options[:store]) if options[:store] && options[:store].to_i > 0
     
