@@ -1,0 +1,20 @@
+<h2>
+Информация о Вашей учетной записи на сайте http://giftb2b.ru
+</h2>
+<p>
+<table style="border:1px solid #ccc; border-collapse:collapse;" cellpadding="5px">
+  <tr>
+    <td style="border:1px solid #ccc">Имя пользователя:</td>
+    <td style="border:1px solid #ccc"><%= @user.username %></td>
+  </tr>
+  <tr>
+    <td style="border:1px solid #ccc">Пароль:</td>
+    <td style="border:1px solid #ccc"><%= @password %></td>    
+  </tr>
+</table>
+</p>
+
+<p>
+Изменить эту информацию вы можете в <%= link_to 'личном кабинете', lk_user_orders_url  %>
+</p>
+

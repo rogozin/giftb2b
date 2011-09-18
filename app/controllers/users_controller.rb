@@ -31,7 +31,7 @@ def new
   end
   
   def activate
-    @user = User.find_using_perishable_token(params[:activation_code], 1.hour)
+    @user = User.find_using_perishable_token(params[:activation_code], 48.hours)
     if @user && @user.update_attribute(:active, true)
       flash[:notice] = "Учетная запись активирована"
       AccountMailer.activation_complete(@user).deliver

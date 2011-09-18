@@ -17,6 +17,7 @@ class AccountMailer < ActionMailer::Base
   end
   
   def new_account(user,password)
+    @firm = Firm.find(1)
     @password = password
     @user = user
     mail(:to => user.email, :subject => "Ваша учетная запись на сайте giftb2b.ru")

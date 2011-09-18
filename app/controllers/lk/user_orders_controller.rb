@@ -36,7 +36,7 @@ class Lk::UserOrdersController < ApplicationController
       @cart.items.clear
       FirmMailer.new_user_order_notification(user, @lk_order, user.active? ? user.phone : params[:lk_order][:user_phone]).deliver if @lk_order.firm && @lk_order.firm.email.present?
       UserMailer.new_order_notification(user, @lk_order).deliver if  user.active?  && user.email.present? 
-      redirect_to complete_lk_user_orders_path, :flash => {:order_id => @lk_order.id}, :layout =>  'application'
+      redirect_to complete_lk_user_orders_path, :flash => {:order_id => @lk_order.id}
     else  
       redirect_to cart_index_path, :alert => "Ошибка при оформлении заказа"
     end
@@ -45,6 +45,7 @@ class Lk::UserOrdersController < ApplicationController
   
   def complete
     @lk_order = LkOrder.find(flash[:order_id])
+    render 'complete', :layout => "application"
   end
   
   private
@@ -71,7 +72,7 @@ class Lk::UserOrdersController < ApplicationController
         end      
         user = User.new(:username => username , :email => opts[:user_email], :phone => opts[:user_phone], :password => User.friendly_pass, :active => true)
         user.password_confirmation = user.password
-        user.save    
+        AccountMailer.new_account(user, user.password).deliver if user.save    
         user.has_role! "Пользователь"
         user
       end
