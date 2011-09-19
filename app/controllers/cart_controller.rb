@@ -11,7 +11,7 @@ class CartController < ApplicationController
   
   def index
     @firms = Firm.default_city
-    @lk_order = LkOrder.new
+    @lk_order = LkOrder.new(flash[:lk_order])
   end
   
  def add

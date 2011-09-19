@@ -27,11 +27,12 @@ gem 'whenever'
 
  group :development, :test do
    gem "rspec-rails", "~> 2.4"
-   gem 'cucumber-rails'
+   #gem 'cucumber-rails'
    gem 'database_cleaner'
    gem 'autotest'
-   gem 'capybara'#, :git => "http://github.com/jnicklas/capybara.git"
+   gem 'capybara', "~> 1.1.1"  #:git => "http://github.com/jnicklas/capybara.git"
+   #gem "capybara-webkit",  :git => 'https://github.com/thoughtbot/capybara-webkit.git'
    gem 'factory_girl_rails'
    gem 'spork', '~> 0.9.0.rc'
-   gem 'launchy'
+   gem 'launchy', "~> 2.0.5"
  end

@@ -46,7 +46,8 @@ describe "Работа обычного пользователя" do
         page.should have_content @firm.addr_f        
         click_button "Отправить заказ"
       end            
-      page.should have_content "Заказ оформлен!"  
+      page.should have_content "Заказ оформлен"  
+      save_and_open_page
       @order = LkOrder.where(:firm_id => @firm.id).first
       @order.should be_is_remote
       ActionMailer::Base.deliveries.should have(2).items

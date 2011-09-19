@@ -21,13 +21,18 @@ class Lk::UserOrdersController < ApplicationController
   
     def create
       if !current_user && params[:lk_order][:user_email].blank? && params[:lk_order][:user_phone].blank?
+        flash[:lk_order] = params[:lk_order]
         return redirect_to cart_index_path, :alert => "Укажите контактную информацию: email или телефон"
+      end
+      if params[:lk_order][:user_email] && params[:lk_order][:user_email] !~ EmailValidator.email_pattern
+        flash[:lk_order] = params[:lk_order]
+        return redirect_to cart_index_path, :alert => "Введите корректный email"
       end
       @lk_order = LkOrder.new(params[:lk_order])
       @lk_order.firm_id = params.invert["Отправить заказ"].to_i
       user = current_user || create_new_user(params[:lk_order])
-      @lk_order.attributes.merge!(:user => user, :user_name => user.fio ? user.fio : user.username, 
-                                  :user_email => user.email, :user_phone => user.phone, :is_remote => true) 
+      @lk_order.attributes = {:user => user, :user_name => user.fio ? user.fio : user.username, 
+                                  :user_email => user.email, :user_phone => user.phone, :is_remote => true} 
       if @lk_order.save 
         @cart = find_cart
         @cart.items.each do |cart_item|
