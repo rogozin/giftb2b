@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
     Rails.cache.fetch("#{cache_key}.is_firm_manager?", :expires_in=>60) { has_role?("Менеджер фирмы")}    
   end
   
+  def is_supplier?
+    Rails.cache.fetch("#{cache_key}.is_supplier?", :expires_in=>60) { has_role?("Поставщик")}    
+  end
+  
   def activate!
     self.update_attribute :active, true
   end
