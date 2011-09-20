@@ -80,3 +80,22 @@ div.radio-buttons {margin-bottom:5px;}
  }
  
 .radio-buttons a.selected { color:#004276; font-weight:bold;}
+
+input[type="submit"], .b_button {
+  color:#e8eef4;
+  border: 1px solid #45682a;
+  background: #006389;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0080b2), to(#006389));
+  background: -webkit-linear-gradient(#0080b2, #006389);
+  background: -moz-linear-gradient(#0080b2, #006389);
+  background: -ms-linear-gradient(#0080b2, #006389);
+  background: -o-linear-gradient(#0080b2, #006389);
+  background: linear-gradient(#0080b2, #006389);
+  -pie-background: linear-gradient(#0080b2, #006389);
+}
+
+
+input[type="submit"], .b_button:active {
+  
+}
+
