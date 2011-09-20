@@ -1,3 +1,15 @@
 #gift_logo {
   background: url("images/logo_giftb2b_green.gif") no-repeat top left;
 }
+
+input[type="submit"], .g_button {
+  border: 1px solid #45682a;
+  background: #689f3d;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#a2db5a), to(#689f3d));
+  background: -webkit-linear-gradient(#a2db5a, #689f3d);
+  background: -moz-linear-gradient(#a2db5a, #689f3d);
+  background: -ms-linear-gradient(#a2db5a, #689f3d);
+  background: -o-linear-gradient(#a2db5a, #689f3d);
+  background: linear-gradient(#a2db5a, #689f3d);
+  -pie-background: linear-gradient(#a2db5a, #689f3d);
+}
