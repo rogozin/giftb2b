@@ -635,3 +635,9 @@ label[for="eq"] { font-size: 0.9em; color:#999;padding-top:5px;margin-top:5px}
 #color_12260 {	background: url("images/gold.png") no-repeat scroll 0 0 transparent;}  
 #color_12273 {	background: url("images/bronze.png") no-repeat scroll 0 0 transparent;}  
 
+.b-supplier-info, .b-supplier-terms {
+  line-height:1.4;
+}
+
+.b-supplier-terms  img{ padding-bottom:5px;}
+h2.c_b {color:#666;}
