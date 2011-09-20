@@ -435,4 +435,74 @@ a.toggle-category {
 }
 
 
+.b_button {
+margin:auto;
+font-size:9pt;
+border: 1px solid #45682a;
+padding: 4px 15px;
+text-align: center;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: #666 0px 2px 3px;
+-moz-box-shadow: #666 0px 2px 3px;
+box-shadow: #666 0px 2px 3px;
+background: #006389;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0080b2), to(#006389));
+background: -webkit-linear-gradient(#0080b2, #006389);
+background: -moz-linear-gradient(#0080b2, #006389);
+background: -ms-linear-gradient(#0080b2, #006389);
+background: -o-linear-gradient(#0080b2, #006389);
+background: linear-gradient(#0080b2, #006389);
+behavior: url("/javascripts/PIE.htc");
+-pie-background: linear-gradient(#0080b2, #006389);
+}
+
+*+html .b_button, *+html .g_button, *+html .r_button {
+padding: 2px 10px;
+}
+.g_button {
+margin:auto;
+font-size:9pt;
+border: 1px solid #45682a;
+padding: 4px 15px;
+text-align: center;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: #666 0px 2px 3px;
+-moz-box-shadow: #666 0px 2px 3px;
+box-shadow: #666 0px 2px 3px;
+background: #689f3d;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#a2db5a), to(#689f3d));
+background: -webkit-linear-gradient(#a2db5a, #689f3d);
+background: -moz-linear-gradient(#a2db5a, #689f3d);
+background: -ms-linear-gradient(#a2db5a, #689f3d);
+background: -o-linear-gradient(#a2db5a, #689f3d);
+background: linear-gradient(#a2db5a, #689f3d);
+behavior: url("/javascripts/PIE.htc");
+-pie-background: linear-gradient(#a2db5a, #689f3d);
+}
+
+.r_button {
+font-size:9pt;
+border: 1px solid #773841;
+padding: 4px 15px;
+text-align: center;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: #666 0px 2px 3px;
+-moz-box-shadow: #666 0px 2px 3px;
+box-shadow: #666 0px 2px 3px;
+background: #a91e4c;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#cc6666), to(#a91e4c));
+background: -webkit-linear-gradient(#cc6666, #a91e4c);
+background: -moz-linear-gradient(#cc6666, #a91e4c);
+background: -ms-linear-gradient(#cc6666, #a91e4c);
+background: -o-linear-gradient(#cc6666, #a91e4c);
+background: linear-gradient(#cc6666, #a91e4c);
+-pie-background: linear-gradient(#cc6666, #a91e4c);
+behavior: url("/javascripts/PIE.htc");
+}
 
