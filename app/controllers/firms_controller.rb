@@ -2,7 +2,7 @@
 class FirmsController < ApplicationController
 
   def index
-    @firms = Firm.default_city
+    @firms = Firm.where("city is not null").order("city")
   end
   
   def city    
