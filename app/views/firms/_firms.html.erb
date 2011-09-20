@@ -1,6 +1,7 @@
   <div id="firms">
   <table width="100%">
    <tr>
+      <th>Город</th>
      <th>Станция метро</th>
      <th>Компания</th>
      <th>Адрес</th>
@@ -8,6 +9,7 @@
    </tr>
   <% @firms.each do |item| -%>
       <tr>
+        <td><%= item.city %></td>
         <td><%= item.subway %></td>
         <td><%= item.short_name %></td>
         <td><%= item.addr_f %></td>
