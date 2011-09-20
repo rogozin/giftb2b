@@ -98,7 +98,7 @@ ru:
         sale_date: "Дата продажи"
         supplier_return_date: "Дата возврата поставщику"
         client_return_date: "Дата возврата от клиента"
-        firm_id: "Фирма"
+        lk_firm_id: "Компания"
         supplier_id: "Поставщик"
         user_id: "Автор"
         responsible_id: "Ответственный"

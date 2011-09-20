@@ -5,6 +5,7 @@ end
 
 Factory.define :sample do |f|
   f.name {Factory.next(:sample_seq) }
+  f.association :firm 
   f.association :supplier
   f.association :lk_firm 
   f.buy_price 100 

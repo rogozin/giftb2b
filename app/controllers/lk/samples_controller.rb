@@ -13,8 +13,9 @@ class Lk::SamplesController < Lk::BaseController
     params[:hide_closed] ="0"  if params[:hide_closed].blank? && params.has_key?(:name)
     params[:only_my] ="0"  if params[:only_my].blank? && params.has_key?(:name)
     @samples = Sample.scoped
+    @samples = @samples.where(:firm_id => current_user.firm_id || -1)
     @samples = @samples.where(:supplier_id => params[:supplier]) if params[:supplier].present?
-    @samples = @samples.where(:firm_id => params[:client]) if params[:client].present?
+    @samples = @samples.where(:lk_firm_id => params[:client]) if params[:client].present?
     @samples = @samples.where(:responsible_id => params[:responsible]) if params[:responsible].present?    
     @samples = @samples.where(:closed => false) if params[:hide_closed].blank? ||  params[:hide_closed] == "1"
     @samples = @samples.where("user_id = :user_id or responsible_id = :user_id", :user_id => current_user.id) if params[:only_my].blank? ||  params[:only_my] == "1"
@@ -28,6 +29,7 @@ class Lk::SamplesController < Lk::BaseController
   
   def create
     @sample = Sample.new(params[:sample])
+    @sample.firm_id = current_user.firm_id
     if @sample.save
       flash[:notice] = "Образец создан."
       redirect_to edit_lk_sample_path(@sample)
@@ -61,7 +63,7 @@ class Lk::SamplesController < Lk::BaseController
   end
 
   def find_sample
-    @sample = Sample.find(params[:id])
+    @sample = Sample.where(:firm_id => current_user.firm_id).find(params[:id])
     redirect_to lk_samples_path, :alert => "Нет доступа. Образец закрыт." unless can_edit_sample?(@sample)    
   end
   

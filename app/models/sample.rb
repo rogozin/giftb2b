@@ -1,13 +1,15 @@
 #encoding: utf-8;
 class Sample < ActiveRecord::Base
   belongs_to :supplier
-  belongs_to :lk_firm, :foreign_key => :firm_id
+  belongs_to :firm
+  belongs_to :lk_firm
   belongs_to :user
   belongs_to :responsible, :foreign_key => :responsible_id, :class_name => "User"
   validates :name, :presence => true
   validates :supplier_id, :presence => true
-  validates :firm_id, :presence => true
+  validates :lk_firm_id, :presence => true
   validates :user_id, :presence => true
+  validates :firm_id, :presence => true
   validates :sale_price, :buy_price, :numericality => {:allow_nil => true, :greater_than_or_equal_to => 0}
   validate :sale_date_validation
   validate :client_return_date_validation

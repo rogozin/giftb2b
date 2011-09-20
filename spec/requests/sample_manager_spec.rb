@@ -11,9 +11,9 @@ describe 'Роль учет образцов' do
   
   it 'я не вижу образец чужой фирмы' do
     @firm_1 = Factory(:firm)
-    @foreign_sample = Factory(:sample, :lk_firm => @firm_1)   
+    @foreign_sample = Factory(:sample, :firm => @firm_1)   
     visit edit_lk_sample_path(@foreign_sample)
-    save_and_open_page
+    page.status_code.should eq 404
   end
   
   
@@ -27,16 +27,16 @@ describe 'Роль учет образцов' do
   end
   
   it 'я могу добавить образец' do
-    Factory(:supplier)
+    sup = Factory(:supplier)
     visit '/lk/samples'
     click_link "Новая запись"
     fill_in "sample_name", :with => "Мой первый образец"
     select @user.fio, :from => "sample_responsible_id"
-    select "Supplier 1", :from => "sample_supplier_id"
+    select sup.name, :from => "sample_supplier_id"
     fill_in "sample_buy_date", :with => Date.today
     fill_in "sample_buy_price", :with => 100
     fill_in "sample_supplier_return_date", :with => Date.today + 3
-    select @lk_firm.name, :from => "sample_firm_id"
+    select @lk_firm.name, :from => "sample_lk_firm_id"
     fill_in "sample_sale_date", :with => Date.tomorrow
     fill_in "sample_sale_price", :with => 200
     fill_in "sample_client_return_date", :with => Date.today + 2
@@ -65,7 +65,7 @@ describe 'Роль учет образцов' do
   end
   
   it 'will_paginate' do
-    40.times { Factory(:sample, :user => @user)}
+    40.times { Factory(:sample, :user => @user, :firm => @firm)}
     visit "/lk/samples"
     page.should have_selector "table tr", :count => 31
     within ".pagination" do 
@@ -75,11 +75,11 @@ describe 'Роль учет образцов' do
   end
   
   it 'фильтр' do
-    @sample = Factory(:sample, :name => "Карандаш")
-    @sample2 = Factory(:sample, :name => "ручка")
-    @sample3 = Factory(:sample, :name => "закрытый образец", :closed => true)
-    @sample4 = Factory(:sample, :name => "созданный мной образец", :user => @user)
-    @sample5 = Factory(:sample, :name => "я отвечаю за этот образец", :responsible => @user)
+    @sample = Factory(:sample, :name => "Карандаш", :firm => @firm)
+    @sample2 = Factory(:sample, :name => "ручка", :firm => @firm)
+    @sample3 = Factory(:sample, :name => "закрытый образец", :closed => true, :firm => @firm)
+    @sample4 = Factory(:sample, :name => "созданный мной образец", :user => @user, :firm => @firm)
+    @sample5 = Factory(:sample, :name => "я отвечаю за этот образец", :responsible => @user, :firm => @firm)
     visit lk_samples_path
     page.should have_checked_field "hide_closed"
     page.should have_checked_field "only_my"
@@ -99,14 +99,14 @@ describe 'Роль учет образцов' do
   end
   
   it 'если не указаны даты, то все рабоатет' do    
-    @sample = Factory(:sample, :buy_date => nil, :client_return_date => nil, :supplier_return_date => nil, :sale_date => nil, :user => @user)
+    @sample = Factory(:sample, :buy_date => nil, :client_return_date => nil, :supplier_return_date => nil, :sale_date => nil, :user => @user, :firm => @firm)
     visit lk_samples_path
     page.should have_content @sample.name
   end
   
   context 'Признак возврата денег(закрытый образец)' do
     before(:each) do
-      @sample = Factory(:sample, :closed => true, :user => @user)
+      @sample = Factory(:sample, :closed => true, :user => @user, :firm => @firm)
     end
     
     it 'роль учет образцов не может отредактировать закрытый образец' do
@@ -127,7 +127,7 @@ describe 'Роль учет образцов' do
   
   context 'работа с фирмами' do
     before(:each) do
-       @sample = Factory(:sample)
+       @sample = Factory(:sample, :firm => @firm)
       visit edit_lk_sample_path(@sample)
     end
 
@@ -137,7 +137,7 @@ describe 'Роль учет образцов' do
       fill_in "lk_firm_contact", :with => "Вася"
       click_button "Сохранить"
       page.should have_content "Клиент создан"
-      page.should have_select "sample_firm_id", :options => [@sample.lk_firm.name, "OOO Firma"]    
+      page.should have_select "sample_lk_firm_id", :options => [@sample.lk_firm.name, "OOO Firma"]    
     end
   
     it 'я могу отредактировать фирму' do
@@ -145,7 +145,7 @@ describe 'Роль учет образцов' do
       fill_in "lk_firm_name", :with => "Рога без копыт"
       click_button "Сохранить"                
       page.should have_content "Клиент изменен"
-      page.should have_select "sample_firm_id", :options => ["Рога без копыт"]          
+      page.should have_select "sample_lk_firm_id", :options => ["Рога без копыт"]          
     end
   end
 end

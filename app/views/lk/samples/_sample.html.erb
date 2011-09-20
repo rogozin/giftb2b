@@ -15,7 +15,7 @@
     <% end -%>
    </div>
   </div>
-  <div class="b-float-left">
+  <div class="b-float-left margin-left2">
    <div class="one_line_form">
     <div class="b-formfield-div">
       <%= f.label :responsible_id  %>
@@ -45,14 +45,14 @@
   </div>
   </div>    
 </div>
-<div class="b-float-left">
+<div class="b-float-left margin-left2">
   <h3>Информация о клиенте:</h3>
     <div class="one_line_form">
   <div class="b-formfield-div">
-    <%= f.label :firm_id %>   
+    <%= f.label :lk_firm_id %>   
     <%= link_to image_tag("add.png"), new_lk_firm_path(:back_url => request.path), :id => "add_firm_link", :title => "Добвить нового клиента" %> 
     <%= link_to image_tag("edit.png"), edit_lk_firm_path(@firms.first.id, :back_url => request.path), :id => "edit_firm_link", :title => "Редактировать информацию о клиенте" if @firms.present? %>    
-    <%= f.select :firm_id, options_from_collection_for_select(@firms, 'id', 'name', @sample.firm_id) %>
+    <%= f.select :lk_firm_id, options_from_collection_for_select(@firms, 'id', 'name', @sample.lk_firm_id) %>
     <script type="text/javascript">
     $('#sample_firm_id').change(
       function(){

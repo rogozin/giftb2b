@@ -8,6 +8,7 @@ describe Sample do
     s.should have(1).error_on(:name)
     s.should have(1).error_on(:supplier_id)
     s.should have(1).error_on(:firm_id)
+    s.should have(1).error_on(:lk_firm_id)
     s.should have(1).error_on(:user_id)
   end
   

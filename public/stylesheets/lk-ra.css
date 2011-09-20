@@ -12,7 +12,6 @@ table th
 	color:#0080B2;
 }
 
-
 tr.disabled-row {
  color:#999;
 }
@@ -20,7 +19,6 @@ tr.disabled-row {
 #order {
 	font-size:9pt;
 }
-
 
 #order .b-user-comment textarea {
   min-width:200px;
@@ -52,6 +50,7 @@ tr.disabled-row {
 .b-co-delta-inner {padding: 5px 0 5px 25px;}
 
 .margin-left4 {margin-left:40px;}
+.margin-left2 {margin-left:20px;}
 
 .b-product-thumbnail img {
 max-width:120px;
