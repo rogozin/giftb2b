@@ -9,6 +9,14 @@ describe 'Роль учет образцов' do
     @lk_firm = Factory(:lk_firm, :firm_id => @firm.id)    
   end
   
+  it 'я не вижу образец чужой фирмы' do
+    @firm_1 = Factory(:firm)
+    @foreign_sample = Factory(:sample, :lk_firm => @firm_1)   
+    visit edit_lk_sample_path(@foreign_sample)
+    save_and_open_page
+  end
+  
+  
   it "я вижу ссылку Образцы" do
       visit "/lk"
       within "#user_menu" do

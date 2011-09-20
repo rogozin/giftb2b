@@ -20,10 +20,10 @@ class Product < ActiveRecord::Base
   scope :sorted, order("sort_order, ruprice")
  
   scope :search, lambda { |search_text|
-  active.where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code)", { :search => '%' + search_text + '%',:code => search_text}) }
+  active.sorted.where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code)", { :search => '%' + search_text + '%',:code => search_text}) }
   
   scope :search_with_article, lambda { |search_text|
-  active.where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code) or products.article like :search", 
+  active.sorted.where("(products.short_name like :search) or (lpad(products.id,6,'0')=:code) or products.article like :search", 
   {:search =>  '%' + search_text + '%', :code =>search_text}) } 
 
   scope :novelty, where({:is_new => true})
@@ -130,12 +130,12 @@ class Product < ActiveRecord::Base
     res= case place
       when "xml"
         sr.sorted
-  when "json", "ext-search"
+       when "json", "ext-search"
         sr.active.sorted
       else
         sr.sorted.paginate(:page=>options[:page], :per_page=>options[:per_page])
       end
-
+    
   end
   
   

@@ -36,6 +36,14 @@ describe 'Роль менеджер фирмы' do
      before(:each) do
        @commercial_offer = Factory(:commercial_offer, :firm => @user.firm, :lk_firm => @lk_firm)
      end
+     
+     it 'я не могу посмотреть КП другой фирмы' do
+       @firm_1 = Factory(:firm)
+       @co_1 = Factory(:commercial_offer, :firm => @firm_1)
+       visit lk_commercial_offer_path(@co_1)
+       page.status_code.should eq 404
+     end
+     
      it 'могу преобразовать коммерческое предложение в заказ', :js => true do
        visit lk_commercial_offer_path(@commercial_offer)
        page.evaluate_script('window.confirm = function() { return true; }')

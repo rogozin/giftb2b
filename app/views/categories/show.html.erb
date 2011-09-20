@@ -18,10 +18,6 @@
 <div class="center_block"> 
 <%= render :partial => 'shared/paginate2', :locals => {:products => @products} %>
 </div> <!-- end center_block --> 
-
-<div class="center_block filter">
-<%= render :partial => 'shared/filter' if is_firm_user? || (is_admin_user? && !current_user.has_role?("Редактор каталога"))  %>
-</div>
  
 <div class="center_block" id="catalog_items"> 
 <ul class="ul_c"> 

@@ -34,7 +34,7 @@ class Admin::FirmsController < Admin::BaseController
     @firm = Firm.find(params[:id])
     if @firm.update_attributes(params[:firm])
       flash[:notice] = "Атрибуты фирмы изменены"
-      redirect_to  (params[:back_url] ? params[:back_url] : edit_admin_firm_path(@firm))
+      redirect_to  (params[:back_url].present? ? params[:back_url] : edit_admin_firm_path(@firm))
     else
       render 'edit'
     end

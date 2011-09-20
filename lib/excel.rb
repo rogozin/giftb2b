@@ -15,7 +15,7 @@ module Gift
          worksheet.write(0, 2, commercial_offer.firm.short_name )  
          worksheet.set_row(0,85)
          worksheet.write_row 1,0, [["Адрес:", "Менеджер:", "Тел/факс:", "e-mail:", "веб-сайт:", "Специально для:"],
-        [commercial_offer.firm.addr_f, commercial_offer.user.fio, commercial_offer.firm.phone, commercial_offer.firm.email, commercial_offer.firm.url, commercial_offer.lk_firm.name]]
+        [commercial_offer.firm.addr_f, commercial_offer.user.fio, commercial_offer.firm.phone, commercial_offer.firm.email, commercial_offer.firm.url, commercial_offer.lk_firm ? commercial_offer.lk_firm.name : ""]]
          bold = workbook.add_format(:bold => 1)
          
          worksheet.write_row(7,2,["Артикул","Название товара","Цена","Кол-во","Сумма","Материал","Цвет","Размер", "Упаковка", "Нанесение", "Склад", "Описание"], bold)    
