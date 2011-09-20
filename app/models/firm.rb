@@ -11,6 +11,7 @@ class Firm < ActiveRecord::Base
   
   scope :clients, where(:is_supplier => false)
   scope :default_city, clients.where("upper(city) = 'МОСКВА'")
+  scope :where_city_present, clients.where("length(city) > 0").order("city")
   
  def logo
    images.first.picture if images.present?

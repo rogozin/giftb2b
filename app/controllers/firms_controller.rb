@@ -2,7 +2,7 @@
 class FirmsController < ApplicationController
 
   def index
-    @firms = Firm.where("length(city) > 0").order("city")
+    @firms = Firm.where_city_present
   end
   
   def city    

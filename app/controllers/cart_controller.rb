@@ -10,7 +10,7 @@ class CartController < ApplicationController
   before_filter :get_cart, :except => [:empty]
   
   def index
-    @firms = Firm.default_city
+    @firms = Firm.where_city_present
     @lk_order = LkOrder.new(flash[:lk_order])
   end
   
