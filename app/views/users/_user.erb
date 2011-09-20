@@ -14,16 +14,16 @@
       <%= form.password_field :password %>
     </div>
     <div class ="b-formfield-div">
-      <%= form.label :password_confirmation, "Подтверждение пароля" %>
+      <%= form.label :password_confirmation, "Подтверждение пароля" %> <span>*</span>
       <%= form.password_field :password_confirmation %>
+    </div>
+    <div class ="b-formfield-div">
+      <%= form.label :fio, "Имя, фамилия" %>
+      <%= form.text_field :fio %>
     </div>
     <div class ="b-formfield-div">
       <%= form.label :phone, "Телефон" %>
       <%= form.text_field :phone %>
-    </div>
-    <div class ="b-formfield-div">
-      <%= form.label :fio, "Фамилия, Имя, Отчество" %>
-      <%= form.text_field :fio %>
     </div>
     <div class ="b-formfield-div">
       <%= form.submit "Сохранить" %>
