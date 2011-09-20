@@ -1,0 +1,44 @@
+<%= stylesheet_link_tag '/admin/codemirror/lib/codemirror', '/admin/codemirror/theme/default' %>
+<%= javascript_include_tag '/admin/codemirror/lib/codemirror.js', '/admin/codemirror/mode/javascript/javascript.js', '/admin/codemirror/mode/xml/xml.js', '/admin/codemirror/mode/css/css.js', '/admin/codemirror/mode/htmlmixed/htmlmixed.js'    %>
+ <style type="text/css"> 
+      .CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}
+      .activeline {background: #f0fcff !important;}
+    </style>
+<%= form_for [:admin, @banner] do  |f| %>  
+  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @banner}  %>
+  <div class="one_line_form">
+  
+  <div class="b-formfield-div">
+    <%= f.label :firm_id, "Фирма" %>
+    <%= f.select :firm_id, options_from_collection_for_select(@firms, "id", "short_name") %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :type_id, "Тип" %>
+    <%= f.select :type_id, options_for_select(Banner.types) %>
+  </div>  
+  <div class="b-formfield-div">
+    <%= f.label :active, "Активен?" %>
+    <%= f.check_box :active %>
+  </div>    
+  </div>
+  <div class="clear"></div>
+   <div>
+    <%= f.label :text, "Текст", :style => "font-weight:bold" %> <br />
+    <%= f.text_area :text, :rows => 20, :style => "width:100%;" %>
+  </div>    
+  <div class="b-formfield-div"> 
+    <%= f.submit "Сохранить" %>
+  </div>
+<% end -%>
+
+ <script> 
+var editor = CodeMirror.fromTextArea(document.getElementById("banner_text"), {
+  mode: "text/html",
+  lineNumbers: true,
+  onCursorActivity: function() {
+    editor.setLineClass(hlLine, null);
+    hlLine = editor.setLineClass(editor.getCursor().line, "activeline");
+  }
+});
+var hlLine = editor.setLineClass(0, "activeline");
+</script> 

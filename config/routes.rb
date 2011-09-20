@@ -105,6 +105,9 @@ Giftr3::Application.routes.draw do
           put :activate
         end
       end
+    resources :banners do 
+      
+    end
     resources :main
     resources :categories  do    
       member do

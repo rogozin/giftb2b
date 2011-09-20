@@ -1,0 +1,29 @@
+<%= render :partial => 'admin/shared/sub_menu_content' %>
+<% title "Баннеры" -%>
+
+<div class="b-command-menu">
+<%= link_to 'Создать новый баннер', new_admin_banner_path  %>
+</div>
+
+<div id="banners_list">
+<table>
+<tr>
+  <th></th>
+  <th>Тип</th>
+  <th>Фирма</th>
+  <th>Статус</th>
+  <th>Изменен</th>
+  <th></th>
+</tr>
+  <% @banners.each do |item| -%>
+  <tr>
+    <td><%= link_to image_tag('edit.png'), edit_admin_banner_path(item) %></td>
+    <td><%= item.type %></td>
+    <td><%= item.firm.short_name %></td>
+    <td><%= checked_box_image(item.active) %></td>
+    <td><%= I18n.l(item.updated_at, :format => :short) %></td>
+    <td><%= link_to image_tag('bin.png'), admin_banner_path(item), :method => :delete, :confirm => "Удалить баннер?"  %></td>
+  </tr>
+  <% end -%>
+</table>
+</div>

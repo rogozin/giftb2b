@@ -15,3 +15,9 @@ end
 Factory.define :content_category do |f|
   f.name { "content category " + Factory.next(:content_category_seq)}
 end
+
+Factory.define :banner do |f|
+  f.firm_id 1
+  f.text  "<div id=\"test_banner\" style=\"font-size:2em\">БАННЕР</div>"
+  f.active true
+end
