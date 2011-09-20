@@ -1,0 +1,14 @@
+#gift_logo {
+  background: url("images/logo_giftb2b.gif") no-repeat top left;
+}
+
+table th
+{  
+  color:#EAF7E6;
+  background-color: #c36;
+}
+
+.center_block h1, .center_block h2, .lk-menu-title, .per-page {
+	color:#c36;
+}
+

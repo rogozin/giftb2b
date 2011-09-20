@@ -106,7 +106,7 @@ ru:
     error_messages:
       login_blank: "не может быть пустым"
       login_not_found: "не найден"
-      login_invalid: "используйте цифры, буквы, знаки '.-_' и '@'"
+      login_invalid: "должно состоять из цифр или латинских букв. Допустимы символы '.-_' и '@'"
       consecutive_failed_logins_limit_exceeded: "попытки для входа исчерпаны."
       email_invalid: "неверный формат электронной почты."
       password_blank: "пароль не может быть пустым"

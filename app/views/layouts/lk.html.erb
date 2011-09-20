@@ -4,7 +4,11 @@
   <title><%= @page_title || page_title %></title>
   <meta name="description" content="<%= yield :meta_description%>" /> 
   <meta name="keywords" content="<%= yield :meta_keywords %>" />
-  <%= stylesheet_link_tag  'jquery-ui.css','jquery.treeview','main','lk' %>
+  <%= stylesheet_link_tag 'lk' %>
+  <%= stylesheet_link_tag 'lk-ra' if current_user && current_user.is_firm_user? %>
+  <%= stylesheet_link_tag 'lk-sup' if current_user && current_user.is_supplier? %>
+  <%= stylesheet_link_tag 'lk-simple' if current_user && current_user.is_simple_user? %>
+  <%= stylesheet_link_tag  'jquery-ui.css','jquery.treeview','layout' %>
   <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie', 'ui.datepicker-ru', 'lk' %>
   <%= csrf_meta_tag %>
   <script>
@@ -29,7 +33,7 @@
 
 <div class="clear"></div>   
 <div class="content">
- <%= render :partial => 'lk/shared/happy_birthday' if current_user.is_firm_user? && is_birthday_today? %>    
+ <%#= render :partial => 'lk/shared/happy_birthday' if current_user.is_firm_user? && is_birthday_today? %>    
  <%- flash.each do |name, msg| -%>
     <%= content_tag :div, raw(msg), :id => "flash_#{name}", :class => "corner-all" if name.to_s.index("notice") or name.to_s.index("alert") %>
     <%- end -%>
@@ -49,14 +53,14 @@
 <div id="right_content"> 
  
  <div id="cart" class="basket_right">
-    <%= render :partial => "cart/cart"  if current_user %>
+    <%= render :partial => "cart/cart" %>
     </div>
 <div class="line"></div> 
 <div class="banner_left"></div>
 </div> <!--end right_content --> 
 
 <div id="left_content">
- <%= link_to image_tag("/images/logo_giftb2b.gif", :width => "208", :height => "86", :alt => "giftb2b.ru", :style => "margin-top:13px;margin-left:0px;" ), root_path  %>
+ <%= link_to  image_tag("pix.gif", :alt => "giftb2b.ru", :id => "gift_logo" ), root_path  %>
  <%= image_tag current_user.firm.logo.url(:thumb) if firm_logo_present? %>
      
 	<div class="lk" id="lk"> 
@@ -70,7 +74,7 @@
 	
 	<div class="line"></div> 
   <div id="user_menu" class="left_block">
-	<p class="b-header"><span><strong>Личный кабинет</strong></span></p> 
+	<p class="b-header"><span class="lk-menu-title">Личный кабинет</span></p> 
 	<%= render_lk_menu %>
   </div> <!-- end left_block --> 
 	
