@@ -6,12 +6,13 @@
 <div class="spacer"></div>
 
 <% if @supplier.terms.present? -%>
-<h2>Информация о компании</h2>
-<div class="b-supplier-info"><%=raw RedCloth.new(@supplier.terms).to_html  %></div>  
+<h2 class="c_b">Информация о компании</h2>
+<div class="b-supplier-terms"><%=raw RedCloth.new(@supplier.address).to_html  %></div>  
+ 
 <div class="spacer"></div>
   <% if @supplier.address -%>
-  <h2>Условия работы</h2>
-<div class="b-supplier-terms"><%=raw RedCloth.new(@supplier.address).to_html  %></div>    
+<h2 class="c_b">Условия работы</h2>
+<div class="b-supplier-info"><%=raw RedCloth.new(@supplier.terms).to_html  %></div>     
   <% end -%>
 <% else -%>
 <div>Страница на редактировании...</div>
