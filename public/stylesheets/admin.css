@@ -433,5 +433,39 @@ div.inline-property li {
 div.inline-property input[type="checkbox"]{
 margin:0px;
 }
+ 
+.treeview li span.selected a {color:#cc3366;}
 
+.treeview li a {
+	font-weight:normal;
+	font-size:11pt;
+	line-height:1.5;
+}
+
+.treeview li ul li a {
+	font-size:10.5pt;
+	line-height:1.2;
+	
+}
+
+.treeview li ul li ul li a {
+	font-size:10pt;
+	line-height:1.2;
+	color:#999;
+}
+
+.treeview li a:hover, .treeview ul a:hover {
+	color:#cc3366;
+}
+
+.treeview ul a {
+	color:#666;
+	font-weight:normal;
+}
+
+a.toggle-category {
+  color:#616F8F;
+  text-decoration:none;
+  border-bottom:dotted 1px;
+}   
 

@@ -10,7 +10,7 @@
   
   <div class="b-formfield-div">
     <%= f.label :firm_id, "Фирма" %>
-    <%= f.select :firm_id, options_from_collection_for_select(@firms, "id", "short_name") %>
+    <%= f.select :firm_id, options_from_collection_for_select(@firms, "id", "short_name", @banner.firm_id) %>
   </div>
   <div class="b-formfield-div">
     <%= f.label :type_id, "Тип" %>

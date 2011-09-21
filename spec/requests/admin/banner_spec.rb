@@ -5,7 +5,7 @@ require 'spec_helper'
 describe 'Работа с банерами' do
   before(:each) do
     login_as(:admin)
-    @firm = Factory(:firm)
+    @firm = Factory(:firm)        
     @banner = Factory(:banner, :firm => @firm)
   end
   
@@ -19,16 +19,18 @@ describe 'Работа с банерами' do
     check "Активен?"
     click_button "Сохранить"
     page.should have_content "Баннер успешно создан"  
-    page.current_path.should == edit_admin_banner_path(1)
+    page.current_path.should == edit_admin_banner_path(Banner.last)
   end
     
   
   it 'редактирование баннера' do
+    firm_1 = Factory(:firm)
     visit admin_banners_path
     within "#banners_list table" do 
       click_link "Edit"
     end
     page.should have_content "Редактирование баннера"
+    page.should have_select("Фирма", :selected => @banner.firm.short_name)
     fill_in "Текст", :with => "ОЛОЛО"
     click_button "Сохранить"
     page.should have_content "Баннер изменен"
