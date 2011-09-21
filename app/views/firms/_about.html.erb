@@ -5,8 +5,8 @@
          <li><a href="#map"><span>Месторасположение</span></a></li>
      </ul>
      <div id="firm_contact">
-         <p><%= image_tag @firm.logo.url(:thumb), :alt => @firm.short_name %></p>
-         <p><%= @firm.short_name %></p>
+         <p><%= image_tag @firm.logo.url(:thumb), :alt => @firm.short_name %>
+            <span><%= @firm.short_name %></span></p>
          <div class="clear"></div>
          <hr />
           <%= render :partial => "contacts" %>    

@@ -455,3 +455,13 @@ input[type="submit"], input[type="button"], .b_button, .r_button, .g_button {
 *+html input[type="submit"], *+html .b_button, *+html .g_button, *+html .r_button {
   padding: 2px 10px;
 }
+
+#firm_contact {padding:8px;}
+#firm_contact td, #firm_contact table {border:0;}
+#firm_contact hr {margin:10px 0;}
+#firm_contact  p{margin:10px 0;}
+#firm_contact  span{margin:0 10px;font-size:14pt;color:#333;}
+
+.ui-widget-content {
+border: 1px solid #eee;
+}
