@@ -469,3 +469,11 @@ a.toggle-category {
   border-bottom:dotted 1px;
 }   
 
+
+.b-description textarea {
+  width:100%;
+}
+
+.b-description label {
+  font-weight:bold;
+}

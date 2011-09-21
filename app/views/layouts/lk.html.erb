@@ -5,10 +5,10 @@
   <meta name="description" content="<%= yield :meta_description%>" /> 
   <meta name="keywords" content="<%= yield :meta_keywords %>" />
   <%= stylesheet_link_tag 'layout', 'lk' %>
-  <%= stylesheet_link_tag 'lk-ra' if current_user && current_user.is_firm_user? %>
-  <%= stylesheet_link_tag 'lk-sup' if current_user && current_user.is_supplier? %>
-  <%= stylesheet_link_tag 'lk-simple' if current_user && current_user.is_simple_user? %>
-  <%= stylesheet_link_tag  'jquery-ui.css','jquery.treeview' %>
+  <%= stylesheet_link_tag 'jquery-ui-ra', 'lk-ra' if current_user && current_user.is_firm_user? %>
+  <%= stylesheet_link_tag 'jquery-ui.css', 'lk-sup' if current_user && current_user.is_supplier? %>
+  <%= stylesheet_link_tag 'jquery-ui.css','lk-simple' if current_user && current_user.is_simple_user? %>
+  <%= stylesheet_link_tag  'jquery.treeview' %>
   <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie', 'ui.datepicker-ru', 'lk' %>
   <%= csrf_meta_tag %>
   <script>

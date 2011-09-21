@@ -1,0 +1,21 @@
+<div id="firm_tabs" class="page_content">
+     <ul>
+         <li><a href="#firm_contact"><span>Контакты</span></a></li>
+         <li><a href="#firm_description"><span>О компании</span></a></li>
+         <li><a href="#map"><span>Месторасположение</span></a></li>
+     </ul>
+     <div id="firm_contact">
+         <p><%= image_tag @firm.logo.url(:thumb), :alt => @firm.short_name %></p>
+         <p><%= @firm.short_name %></p>
+         <div class="clear"></div>
+         <hr />
+          <%= render :partial => "contacts" %>    
+        </div>
+    <div id="firm_description">
+       <%= simple_format(@firm.description) %>
+    </div>
+    <div id="map">
+
+    </div>
+
+</div>

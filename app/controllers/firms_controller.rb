@@ -12,6 +12,10 @@ class FirmsController < ApplicationController
   def select_town
     @towns = Firm.select("distinct city")
   end
+  
+  def show
+    @firm = Firm.clients.find_by_permalink(params[:id])
+  end
 
 end
 

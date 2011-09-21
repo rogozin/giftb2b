@@ -20,7 +20,7 @@ class Admin::FirmsController < Admin::BaseController
     @firm = Firm.new(params[:firm])
     if @firm.save
       flash[:notice] = "Новая фирма успешно создана"      
-      redirect_to (params[:back_url] ? params[:back_url] : admin_firms_path)
+      redirect_to (params[:back_url].present? ? params[:back_url] : admin_firms_path)
     else
       render 'new'  
     end

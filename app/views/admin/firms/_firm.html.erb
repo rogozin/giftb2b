@@ -1,4 +1,5 @@
-<%= form_for [:admin, @firm], :html => {:class=> "one_line_form"} do |f| -%>
+<%= form_for [:admin, @firm] do |f| -%>
+<div class="one_line_form">
   <%= hidden_field_tag :back_url, params[:back_url] %>
    <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @firm} %>
   <div class="b-formfield-div">
@@ -9,6 +10,10 @@
     <%= f.label :short_name, 'Псевдоним' %>
     <%= f.text_field :short_name %>
   </div>
+  <div class="b-formfield-div">
+    <%= f.label :permalink, 'Пермалинк' %>
+    <%= f.text_field :permalink %>
+  </div>  
   <div class="b-formfield-div">
     <%= f.label :city, 'Город' %>
     <%= f.text_field :city %>
@@ -38,9 +43,21 @@
     <%= f.url_field :url %>
   </div>        
   <div class="b-formfield-div">
+    <%= f.label :lat, 'Широта и долгота' %> <%= link_to "?", firm_path(@firm), :title => "Посмотреть карточку фирмы" %> 
+    <%= f.text_field :lat, :style => "width:98px;" %>
+    <%= f.text_field :long, :style => "width:97px;" %>
+  </div>          
+  <div class="b-formfield-div">
     <%= f.label :is_supplier, 'Это поставщик' %>
     <%= f.check_box :is_supplier %>
   </div>    
+</div>
+<div class="clear"></div>  
+  <div class="b-description">
+    <%= f.label :description, 'Описание' %> <br />
+    <%= f.text_area :description %>
+  </div>      
+  
   <div class="b-formfield-div">
     <%= f.submit "Сохранить" %>
   </div>

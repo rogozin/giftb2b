@@ -1,0 +1,20 @@
+$("#firm_info").html("<%= escape_javascript(render :partial => "about") %>").dialog({
+        create: function (event, ui) {
+        $(".ui-dialog-titlebar").hide();
+        },
+        autoOpen: true,
+        position: ["center",100],
+        resizeable    : false,
+        width        : 660,
+        modal        : true,
+        buttons: {
+          //  "Оформить": function() {},
+            "Закрыть": function() { $( this ).dialog( "close" );}
+        }
+    });
+    $("#firm_tabs").tabs();
+var la = <%= @firm.lat %>;
+var lo = <%= @firm.long %>;
+var title = "<%= @firm.short_name %>";       
+
+

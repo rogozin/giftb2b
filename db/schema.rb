@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110920171240) do
+ActiveRecord::Schema.define(:version => 20110921093040) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -154,6 +154,10 @@ ActiveRecord::Schema.define(:version => 20110920171240) do
     t.datetime "updated_at"
     t.string   "city",        :limit => 100
     t.string   "subway",      :limit => 100
+    t.text     "description"
+    t.float    "lat"
+    t.float    "long"
+    t.string   "permalink"
   end
 
   add_index "firms", ["city"], :name => "index_firms_on_city"
