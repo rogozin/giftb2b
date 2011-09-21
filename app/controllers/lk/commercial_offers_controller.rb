@@ -54,7 +54,9 @@ class Lk::CommercialOffersController < Lk::BaseController
       delta = params[:delta].to_i
       params[:co_items_ids].each do |lk_product_id|
          p = @commercial_offer.commercial_offer_items.where(:lk_product_id => lk_product_id).first.lk_product
-         p.update_attribute(:price, p.price + delta > 0 ?  p.price + delta : 0) if p
+         val = params[:unit] == "1" ? p.price + (p.price * (delta.to_f/100)) : p.price + delta if p 
+          logger.info "============ #{val}"
+         p.update_attribute(:price, val > 0 ?  val : 0) if p
       end
     end
     if flash_alert.present?

@@ -4,6 +4,17 @@ $(function() {
       mouseenter: function() { $(this).find('div').fadeIn(); },
       mouseleave: function() { $(this).find('div').hide(); } 
     });
+  $("#select_all").toggle(
+    function() { 
+      this.src="/images/checked.gif";
+      this.title="Снять выделение"
+      $('td.checkbox input:checkbox').attr('checked', true);
+    },
+    function() { 
+      this.src="/images/unchecked.gif";
+      this.title="Выбрать все";
+      $('td.checkbox input:checked').attr('checked', false);
+    });
 });
 </script>
 <%= form_tag calculate_lk_commercial_offer_path(@commercial_offer) do %>
@@ -11,7 +22,7 @@ $(function() {
 <div class="spacer"></div>
 <table width="100%">
   <tr>
-    <th></th>
+    <th><%= image_tag "unchecked.gif", :id => "select_all", :title => "Выбрать все"  %></th>
     <th></th>
     <th>Изображение</th>
     <th>Артикул</th>
@@ -47,11 +58,15 @@ $(function() {
       <div class="b-co-delta">
         <div class="b-co-delta-inner">
           <%= help_popup("Поле \"Размер скидки\" определяет величину скидки в процентах для всего коммерческого предложения. \nЗначение может находится в пределах от 0 до 99 %") %>
-          <%= label_tag :sale,"Размер скидки:" %> <%= text_field_tag :sale, @commercial_offer.sale, :class => "inp-quantity" %> %     
+          <%= label_tag :sale,"Размер скидки для всего КП:" %> <%= text_field_tag :sale, @commercial_offer.sale, :class => "inp-quantity" %> %     
         </div>      
         <div class="b-co-delta-inner">
-        <%= help_popup("Функция \"Изменить стоимость\" позволяет увеличить или уменьшить цену выбранных товаров коммерческого предложения. \n\n Отметье товары, для которых необходимо изменить стоимость, введите значение в рублях (отрицательное значение уменьшит стоимость) и нажмите кнопку \"Сохранить\" ") %>
-          <%= label_tag :delta, "Изменить стоимость на:" %> <%= text_field_tag :delta, nil, :class => "inp-quantity" %> руб.
+        <%= help_popup("Позволяет увеличить или уменьшить цену выбранных товаров коммерческого предложения. \n\n Отметье товары, для которых необходимо изменить стоимость, введите величину значения, на которое хотите изменить цену (рубли или проценты, отрицательное значение уменьшит стоимость) и нажмите кнопку \"Сохранить\" ") %>
+          <%= label_tag :delta, "Изменить стоимость на:" %> <%= text_field_tag :delta, nil, :class => "inp-quantity" %>
+          <select name="unit" style="width:70px">
+          <option value="0">рублей</option>
+          <option value="1">%</option>
+          </select>
         </div>
       </div>
       <div class="clear"></div>

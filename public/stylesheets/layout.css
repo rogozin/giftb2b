@@ -256,7 +256,7 @@ a:hover.menu_left {
 
 .one_line_form {float: left;}
 
-.one_line_form  select {background-color: white;}
+select {background-color: white;}
 
 .one_line_form label:first-child, .b-formfield-div span
 {
