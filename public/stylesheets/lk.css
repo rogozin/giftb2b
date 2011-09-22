@@ -48,11 +48,18 @@ td.right {text-align:right;}
 
 .ui-widget-content { text-align:left;}
  
- .b-info-popup, .ui-dialog, .ui-dialog-buttonpane, .ui-dialog-content, #filter { 
+ .b-info-popup, .b-control-panel, .ui-dialog, .ui-dialog-buttonpane, .ui-dialog-content, #filter { 
   border:solid 1px #AFAF00;
 /*  background-color:#FFFFDC;*/
   background: #ffffdc url(images/ui-bg_flat_75_ffffdc_40x100.png) 50% 50% repeat-x  
  }
+ 
+ .b-info-popup, .b-control-panel {
+  -moz-box-shadow: 0 0 5px #888;
+  -webkit-box-shadow: 0 0 5px #888;
+  box-shadow: 0 0 5px #888;
+	behavior: url("/javascripts/PIE.htc");
+} 
  
 .b-info-popup {
  font-size:.97em;
@@ -60,15 +67,21 @@ td.right {text-align:right;}
  position:absolute;
  z-index:999;
  display:none;
- width:250px;
- 	border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-khtml-border-radius: 10px;
-	behavior: url("/javascripts/PIE.htc");
--moz-box-shadow: 0 0 5px #888;
--webkit-box-shadow: 0 0 5px #888;
-box-shadow: 0 0 5px #888;
+ width:250px; 
+ border-radius: 10px;
+ -moz-border-radius: 10px;
+ -webkit-border-radius: 10px;
+ -khtml-border-radius: 10px;
+ 
 }  
 
 .b-info-popup p { color:#4D4D4D; padding:10px;}
+
+.b-control-panel {
+  padding:5px;
+ 	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+ 
+}

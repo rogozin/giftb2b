@@ -2,7 +2,7 @@
 module Gift
   module Export
     module Excel
-      def export_commercial_offer_with_pictures(commercial_offer)
+      def export_commercial_offer_with_pictures(commercial_offer, hide_article = false, hide_description = false)
          xls_stream = StringIO.new('')
          workbook = WriteExcel.new(xls_stream)
          worksheet  = workbook.add_worksheet()
@@ -18,12 +18,17 @@ module Gift
         [commercial_offer.firm.addr_f, commercial_offer.user.fio, commercial_offer.firm.phone, commercial_offer.firm.email, commercial_offer.firm.url, commercial_offer.lk_firm ? commercial_offer.lk_firm.name : ""]]
          bold = workbook.add_format(:bold => 1)
          
-         worksheet.write_row(7,2,["Артикул","Название товара","Цена","Кол-во","Сумма","Материал","Цвет","Размер", "Упаковка", "Нанесение", "Склад", "Описание"], bold)    
+         worksheet.write(7,2,"Артикул", bold) unless hide_article
+         worksheet.write_row(7,hide_article ? 2 : 3,["Название товара","Цена","Кол-во","Сумма","Материал","Цвет","Размер", "Упаковка", "Нанесение", "Склад"], bold)    
+         worksheet.write(7, hide_article ? 12 : 13, "Описание", bold) unless hide_description
          @index = 0
          commercial_offer.commercial_offer_items.each_with_index do |i, index|
-           worksheet.set_row(8+index, 100)
-           worksheet.insert_image(8 + index, 0, i.lk_product.picture.path(:thumb))
-           worksheet.write_row(8 + index, 2, [i.lk_product.article, i.lk_product.short_name, i.lk_product.price, i.quantity, i.quantity * i.lk_product.price, i.lk_product.factur, i.lk_product.color, i.lk_product.size, i.lk_product.box, i.lk_product.infliction, i.lk_product.store_count, i.lk_product.description],format1)
+           row_target = 8 + index
+           worksheet.set_row(row_target, 100)
+           worksheet.insert_image(row_target, 0, i.lk_product.picture.path(:thumb))
+           worksheet.write(row_target, 2, i.lk_product.article, format1) unless hide_article 
+           worksheet.write_row(row_target, hide_article ? 2 : 3, [i.lk_product.short_name, i.lk_product.price, i.quantity, i.quantity * i.lk_product.price, i.lk_product.factur, i.lk_product.color, i.lk_product.size, i.lk_product.box, i.lk_product.infliction, i.lk_product.store_count],format1)
+           worksheet.write(row_target, hide_article ? 12 : 13, i.lk_product.description, format1) unless hide_description
            @index = index
          end
          worksheet.write(9 + @index, 0, commercial_offer.signature )

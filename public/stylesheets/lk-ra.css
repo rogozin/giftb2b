@@ -98,3 +98,13 @@ input[type="submit"], .b_button:active {
   
 }
 
+
+#co_output a.pseudo-link {
+  font-size:0.8em;
+  color:#0080B2;
+}
+
+#co_settings{
+  font-size:0.8em;
+  display:none;
+}  

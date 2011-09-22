@@ -108,7 +108,9 @@ div.article_img_3 img {
 </td> 
 <td class="td_descr"> 
 		<p class="t9"><strong>Название товара: </strong><%= item.lk_product.short_name %></p> 
+		<% unless @hide_article -%>	  
 		<p class="t9"><strong>Артикул: </strong><%= item.lk_product.article %></p> 
+		<% end -%>
 		<p class="t9"><strong>Материал: </strong><%= item.lk_product.factur %></p> 
 		<p class="t9"><strong>Цвет: </strong><%= item.lk_product.color %></p> 
 		<p class="t9"><strong>Размер: </strong><%= item.lk_product.size %></p> 
@@ -124,7 +126,7 @@ div.article_img_3 img {
 		<% end -%>
 </td> 
 <td class="td_descr t9i"> 
-		<%= simple_format(item.lk_product.description) %>
+		<%= simple_format(item.lk_product.description) unless @hide_description %>
 </td> 
 </tr> 
 </table>

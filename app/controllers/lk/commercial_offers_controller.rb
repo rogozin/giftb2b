@@ -23,8 +23,10 @@ class Lk::CommercialOffersController < Lk::BaseController
   def export
     respond_to do |format|
     format.html {render  :layout => 'pdf'}
+    @hide_article = params[:sa] && params[:sa]== "0"
+    @hide_description = params[:sd] && params[:sd]== "0"
     format.xls { 
-       send_data(export_commercial_offer_with_pictures(@commercial_offer), :type => :xls, :filename => "commercial_offer_#{@commercial_offer.id}.xls")
+       send_data(export_commercial_offer_with_pictures(@commercial_offer, @hide_article, @hide_description), :type => :xls, :filename => "commercial_offer_#{@commercial_offer.id}.xls")
        }
    end
   end
@@ -55,7 +57,6 @@ class Lk::CommercialOffersController < Lk::BaseController
       params[:co_items_ids].each do |lk_product_id|
          p = @commercial_offer.commercial_offer_items.where(:lk_product_id => lk_product_id).first.lk_product
          val = params[:unit] == "1" ? p.price + (p.price * (delta.to_f/100)) : p.price + delta if p 
-          logger.info "============ #{val}"
          p.update_attribute(:price, val > 0 ?  val : 0) if p
       end
     end
