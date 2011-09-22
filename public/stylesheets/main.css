@@ -706,3 +706,8 @@ input[type="submit"], input[type="button"], .r_button {
   background: linear-gradient(#a2db5a, #689f3d);
   -pie-background: linear-gradient(#a2db5a, #689f3d);
 }
+
+#map {
+  width:600px;
+  height:400px;
+}

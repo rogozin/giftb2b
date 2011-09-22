@@ -12,8 +12,8 @@
       <tr>
         <td><%= item.city %></td>
         <td><%= item.subway %></td>
-        <td><%= link_to item.short_name, firm_path(item.permalink), :class => "firm-dialog" %></td>
-        <td><%= item.addr_f %></td>
+        <td><%= link_to item.short_name, firm_path(item.permalink), :class => "firm-dialog firm-name" %></td>
+        <td><%= link_to item.addr_f, firm_path(item.permalink, :anchor => "map"), :class => "firm-dialog firm-addr" %></td>
         <%=content_tag :td,  submit_tag("Отправить заказ", :name => item.id) if defined?(send_order) && send_order  %></td>
       </tr>
   <% end -%>

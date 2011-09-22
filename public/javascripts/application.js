@@ -23,23 +23,23 @@ $(function() {
    return false;
   });      
     
-   $('a.firm-dialog').bind('click', function(){ 
+   $('a.firm-dialog').bind('click', function(e){ 
+    var openMap = this.href.split('#').length ==2;    
     $.getScript(this.href, function() {       
-       $("#firm_tabs").bind('tabscreate', function(event, ui) {
-       });
-        
-       var map = null; 
+       var map = null;        
        $("#firm_tabs").bind('tabsshow', function(event, ui) {
        if (ui.panel.id == 'map' && !map) {  
           if (la && lo) {
             map = initializeMap(la,lo,title);
-            mapsize_fixed();   
+            mapsize_fixed();               
           }
-          }
+        }
+        return false
       });
-
-      });
+      if (openMap)  $('#firm_tabs').tabs('select',2);    
+      });   
     return false;
+    
     });
     
   $("#tabs").tabs();  
@@ -92,11 +92,11 @@ return false;
        map: map, 
        title: title
       });   
-    return map
+    return map;
   }
        
   function mapsize_fixed() {
-    document.getElementById("map").style.width = '600px';
-    document.getElementById("map").style.height = '400px';
-    google.maps.event.trigger(map, 'resize');
+    //document.getElementById("map").style.width = '600px';
+    //document.getElementById("map").style.height = '400px';
+    //google.maps.event.trigger(map, 'resize');
   }
