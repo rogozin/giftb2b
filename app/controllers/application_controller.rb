@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   # See ActionController::Base for details
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password").
-  helper_method :current_user
+  helper_method :current_user, :ext_user?
   cattr_reader :current_user
 
 
@@ -48,6 +48,10 @@ class ApplicationController < ActionController::Base
     @current_user = current_user_session && current_user_session.record
   end
 
+  #показывать информацию о поставщике, артикул_товара
+  def ext_user?
+    current_user && (current_user.is_firm_user? || current_user.is_admin?) 
+  end
 
   def require_user
     unless current_user

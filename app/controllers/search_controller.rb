@@ -47,7 +47,7 @@ class SearchController < ApplicationController
   protected
   
   def can_ext_search?
-    current_user && (current_user.is_firm_user? || current_user.is_admin?) 
+    ext_user?
   end
   
   private
