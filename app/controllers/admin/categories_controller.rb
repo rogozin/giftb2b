@@ -109,9 +109,9 @@ class Admin::CategoriesController < Admin::BaseController
   def show_products_list    
     @category= Category.find(params[:id])
     @products = if current_user.has_role?("Редактор каталога")
-      current_user.supplier ?  @category.products.where(:supplier_id => current_user.supplier_id) : []        
+      current_user.supplier ?  @category.products.sorted.where(:supplier_id => current_user.supplier_id) : []        
     else
-      @category.products
+      @category.products.sorted
     end
   end
      
