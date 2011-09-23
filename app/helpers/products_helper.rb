@@ -37,7 +37,7 @@ module ProductsHelper
       if ext_user? and  product.supplier
       content_tag(:p, :class => "article_name_2") do
        concat content_tag(:span, "Поставщик: ", :class => "article_t") 
-       concat (use_link ? link_to(product.supplier.name, supplier_path(product.supplier)) : product.supplier.name) 
+       concat (use_link ? link_to(product.supplier.name, supplier_path(product.supplier.permalink)) : product.supplier.name) 
        end
       end
     end

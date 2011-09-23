@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110921093040) do
+ActiveRecord::Schema.define(:version => 20110923061514) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -378,6 +378,24 @@ ActiveRecord::Schema.define(:version => 20110921093040) do
     t.integer  "responsible_id"
     t.boolean  "closed",                                              :default => false
     t.integer  "lk_firm_id"
+  end
+
+  create_table "store_units", :id => false, :force => true do |t|
+    t.integer "store_id",                  :null => false
+    t.integer "product_id",                :null => false
+    t.integer "count",      :default => 0
+    t.time    "updated_at"
+  end
+
+  add_index "store_units", ["store_id", "product_id"], :name => "index_store_units_on_store_id_and_product_id", :unique => true
+
+  create_table "stores", :force => true do |t|
+    t.integer  "supplier_id"
+    t.string   "name"
+    t.string   "location"
+    t.string   "delivery_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "suppliers", :force => true do |t|

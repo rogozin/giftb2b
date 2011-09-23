@@ -17,6 +17,9 @@ class Product < ActiveRecord::Base
 
   has_many :image_properties,  :through => :product_properties, :source => :property_value, :include => :property, :conditions => "properties.active=1 and properties.show_in_card=1 and properties.property_type = 3"
   
+  has_many :store_units, :dependent => :delete_all
+  has_many :stores, :through => :store_units
+  
   scope :sorted, order("sort_order, ruprice")
  
   scope :search, lambda { |search_text|

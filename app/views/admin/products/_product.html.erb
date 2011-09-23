@@ -57,20 +57,20 @@
       <%= form.check_box :active%>
     </div>            
     <div class="b-formfield-div">
-      <%= form.label :store_count, "Наличие на складе" %>
-      <%= form.text_field :store_count %>
+      <%#= form.label :store_count, "Наличие на складе" %>
+      <%#= form.text_field :store_count %>
     </div>    
     <div class="b-formfield-div">
-      <%= form.label :remote_store_count, "Наличие на удал. складе" %>
-      <%= form.text_field :remote_store_count %>
+      <%#= form.label :remote_store_count, "Наличие на удал. складе" %>
+      <%#= form.text_field :remote_store_count %>
     </div>        
      <div class ="b-formfield-div">
-      <%= form.label :from_store, "Поставка со склада" %>
-      <%= form.check_box :from_store%>
+      <%#= form.label :from_store, "Поставка со склада" %>
+      <%#= form.check_box :from_store%>
     </div>  
      <div class ="b-formfield-div">
-      <%= form.label :from_remote_store, "Поставка с удал. склада" %>
-      <%= form.check_box :from_remote_store%>
+      <%#= form.label :from_remote_store, "Поставка с удал. склада" %>
+      <%#= form.check_box :from_remote_store%>
     </div>    
      <div class ="b-formfield-div">
       <%= form.label :is_new, "Новинка" %>
@@ -114,6 +114,15 @@
   </div>
 </div>
 <div class="grid_4 omega">
+<h3>Склад</h3>
+  <% @product.store_units.each do |store_unit| -%>
+   <%= form.fields_for :store_units, store_unit do |su_field| %>
+  <p>
+   <%= su_field.select "store_id", options_for_select(@product.supplier.stores.map{|p| [p.name, p.id]}) %>
+   <%= su_field.text_field "count" %>
+  </p>
+  <% end -%>
+  <% end -%>
 <h3>Свойства</h3>
 <div class="ext-search b-product-properties">
  <% @properties.each do |item| -%>
