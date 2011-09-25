@@ -52,6 +52,7 @@ class Admin::ProductsController < Admin::BaseController
 
   def update
    params[:property_value_ids] ||=[]
+    @product.store_units.clear
     if @product.update_attributes params[:product]
       flash[:notice] = 'Продукт успешно изменен'
       redirect_to edit_admin_product_path(@product)
