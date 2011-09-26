@@ -12,11 +12,11 @@ class MainController < ApplicationController
   private
 
   def cached_novelty
-    Rails.cache.fetch('novelty_products', :expires_in =>24.hours) { Product.active.novelty.all }
+    Rails.cache.fetch('novelty_products', :expires_in =>24.hours) { Product.active.novelty.limit(100).all }
   end
   
   def cached_sale
-    Rails.cache.fetch('sale_products', :expires_in =>24.hours) { Product.active.sale.all }
+    Rails.cache.fetch('sale_products', :expires_in =>24.hours) { Product.active.sale.limit(100).all }
   end
 
 
