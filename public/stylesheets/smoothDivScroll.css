@@ -97,5 +97,14 @@ div.scrollableArea
 {
 /*    width:120px;	*/
     max-width:120px;	
-    max-height:120px
+    max-height:118px;
+}
+
+.scrollableArea div {
+  margin: 0 10px; 
+  }
+  
+.scrollable-item {
+  height:118px;
+  width:118px;
 }
