@@ -56,3 +56,9 @@ Factory.define :color_property, :class => Property do |f|
   f.active true
   f.show_in_card true
 end
+
+Factory.define :store do |f|
+  f.association :supplier
+  f.name  "основной"  
+  f.after_create { |store| store.update_attribute :name, "#{store.name}-#{store.id}"  }  
+end
