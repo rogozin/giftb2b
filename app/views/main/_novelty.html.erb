@@ -1,4 +1,4 @@
-<%# cache(ext_user? ? 'ext_user-novelty_products' : 'no_user-novelty_products', :expires_in =>24.hours) do -%>
+<% cache(ext_user? ? 'ext_user-novelty_products' : 'no_user-novelty_products', :expires_in =>24.hours) do -%>
   <% @scrollable_products.each do |product| -%>
     <div class="scrollable-item">
  	    <%= link_to product_image(product, false, false), product_path(product), :target => "_blank" %>		 
@@ -7,4 +7,4 @@
  	    </div>
  	  </div>
  	  <% end -%>		  
-<%# end -%>	  	  
+<% end -%>	  	  

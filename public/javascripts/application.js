@@ -64,7 +64,7 @@ $("#scrollable").smoothDivScroll({ autoScroll: "onstart", autoScrollDirection: "
       ajaxStart: function() { $(this).find('.scrolling').hide(); },
       ajaxStop: function() { $(this).find('.scrolling').show(); }
     });
-  $('.scrollableArea div').mouseover(function(e) {
+  $('div.scrollable-item').mouseover(function(e) {
      $("<div style='top:"+ e.clientY + "px; left:"+ e.clientX +"px;' class='b-popup' id='popup-img'></div>")
     .html($(this).find('div').html())
     .appendTo('body')
@@ -72,7 +72,7 @@ $("#scrollable").smoothDivScroll({ autoScroll: "onstart", autoScrollDirection: "
     $("#scrollable").smoothDivScroll("stopAutoScroll");
     
    })
-  $('.scrollableArea div').mouseleave( function() {
+  $('div.scrollable-item').mouseleave( function() {
     $("#popup-img").fadeOut().remove(); 
     $("#scrollable").smoothDivScroll("startAutoScroll");
    })
