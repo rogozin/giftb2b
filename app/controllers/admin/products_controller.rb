@@ -96,12 +96,16 @@ class Admin::ProductsController < Admin::BaseController
         params[:product_ids].split(',').each do |product_id|
           if params[:property_values].present?
             params[:property_values].each do |p_value_id|
-              ProductProperty.create(:property_value_id => p_value_id, :product_id => product_id)
+              begin
+                ProductProperty.create(:property_value_id => p_value_id, :product_id => product_id)
+                cnt += 1
+              rescue => err
+                logger.info("dublicate key #{err}")
+              end
             end          
-            cnt += 1
           else
             p = Product.find(product_id)
-            cnt +=1 if p && p.update_attribute(params[:property_name], params[:property_value])
+            cnt +=1 if p && p.respond_to?(params[:property_name]) && p.update_attribute(params[:property_name], params[:property_value])
           end
           flash[:notice] = "Операция выполнена! Изменено #{cnt} позиций."
         end
