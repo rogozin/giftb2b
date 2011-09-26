@@ -65,5 +65,18 @@ describe 'Тестирование складов' do
     page.should have_selector "#store_table tr", :count => 2
   end
   
+  context 'карточка товара ' do
+        
+      let(:product) { Factory(:product)}
+      it 'в товаре я могу проставить наличие на складе' do
+        visit edit_admin_product_path(product)        
+        page.should have_field "store_unit[count][]", :with => "0"
+        fill_in "store_unit[count][]", :with => "120"
+        click_button "Сохранить"
+        page.should have_field "store_unit[count][]", :with => "120"
+      end
+    
+  end
+  
   
 end
