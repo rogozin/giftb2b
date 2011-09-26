@@ -97,10 +97,13 @@ describe 'api testing' do
       ActiveSupport::JSON.decode(response.body).should have(2).item  
     end
 
-    it 'show' do
+    it 'наличие на складе у товара' do
+      @product.store_units.create(:store => Factory(:store, :supplier_id => @product.supplier.id), :count =>  123)
       get "api/products/#{@product.permalink}", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
-      ActiveSupport::JSON.decode(response.body).first.last["short_name"].should == @product.short_name
+      ActiveSupport::JSON.decode(response.body).first.last["store_items"].should == @product.store_items.as_json
     end
+    
+    
     
     it 'Запрашиваем несуществующий товар' do
       get "api/products/not-exist", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}

@@ -1,0 +1,17 @@
+<% if @product.store_items.empty? || @product.store_items.first[:count] == 0 -%>
+			<p class="article_t">Наличие на складе: <span class="article_s"><%= store_count @product %></span></p>
+<% else -%>
+			<p class="article_t">Наличие на складе:</p>
+     <% @product.store_items.each do |su| -%> 
+      <div class="b-product-store-units">
+       <% if su[:location] -%>
+        <p class="article_t">Склад: <span class="article_s"><%= su[:location] %></span></p>         
+       <% end -%>
+       <% if su[:delivery_time] -%>
+        <p class="article_t">Срок поставки: <span class="article_s"><%= su[:delivery_time] %></span></p>
+       <% end -%>
+        <p class="article_t">Количество: <span class="article_s"><%= su[:count] %> шт.</span></p>
+      </div>
+    <% end -%>
+<% end -%>
+

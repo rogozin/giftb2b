@@ -60,5 +60,7 @@ end
 Factory.define :store do |f|
   f.association :supplier
   f.name  "основной"  
+  f.delivery_time "2 недели"
+  f.location "Европа"
   f.after_create { |store| store.update_attribute :name, "#{store.name}-#{store.id}"  }  
 end

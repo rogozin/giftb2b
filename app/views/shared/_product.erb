@@ -8,7 +8,7 @@
 		<p class="article_t">Материал: <span class="article_s"><%= product.factur %></span></p> 
 		<p class="article_t">Цвет: <span class="article_s"><%= product.color %></span></p> 
 		<p class="article_t">Размер: <span class="article_s"><%= product.size %></span></p> 
-		<% if current_user and (current_user.is_firm_user? or current_user.is_admin_user?) -%>		  
+		<% if ext_user? -%>		  
     <p class="article_t">Кол-во на складе: <span class="article_s"><%= store_count product %></span></p>
 		<% end -%>
 		<p class="article_t product-price">Цена: <span class="article_name"><%= product_price(product) %></span>
