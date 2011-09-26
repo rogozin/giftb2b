@@ -72,7 +72,7 @@ $("#scrollable").smoothDivScroll({ autoScroll: "onstart", autoScrollDirection: "
     $("#scrollable").smoothDivScroll("stopAutoScroll");
     
    })
-  $('div.scrollable-item').mouseleave( function() {
+  $('div.scrollable-item').mouseout( function() {
     $("#popup-img").fadeOut().remove(); 
     $("#scrollable").smoothDivScroll("startAutoScroll");
    })
