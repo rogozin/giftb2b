@@ -118,13 +118,7 @@
  <span>[<%= link_to_function 'Добавить', "addStoreUnit()", :class => "pseudo-link"  %>]</span>
 </h3>
  <div id="store_units">
-  <% @product.store_units.each do |store_unit| -%>
-  <p class='b-store-unit'>
-   <%= select_tag "store_unit[store_id][]", options_for_select(@product.supplier.stores.map{|p| [p.name, p.id]}, store_unit.store_id), :style => "width:90px" %>
-   <%= text_field_tag "store_unit[count][]", store_unit.count, :style => "width:40px;" %>
-  </p>
-  <% end -%>
- </div>
+<%= render :partial => "store_units" %> </div>
 <h3>Свойства</h3>
 <div class="ext-search b-product-properties">
  <% @properties.each do |item| -%>

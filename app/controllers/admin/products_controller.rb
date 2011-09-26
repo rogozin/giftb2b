@@ -52,8 +52,17 @@ class Admin::ProductsController < Admin::BaseController
 
   def update
    params[:property_value_ids] ||=[]
-    @product.store_units.clear
+   @product.store_units.clear
     if @product.update_attributes params[:product]
+      if params[:store_unit].present?
+        added_stores = []
+        params[:store_unit][:store_id].each_with_index do |store_id, index|            
+            unless added_stores.include?(store_id)
+              @product.store_units.create(:store_id => store_id, :count => params[:store_unit][:count][index])    
+              added_stores << store_id
+            end
+        end
+      end
       flash[:notice] = 'Продукт успешно изменен'
       redirect_to edit_admin_product_path(@product)
     else
