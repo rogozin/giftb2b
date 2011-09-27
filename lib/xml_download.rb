@@ -27,11 +27,21 @@ module XmlDownload
             xml.product_box { xml.cdata product.box } if options.key? :box
             xml.product_price product.price if options.key? :price
             xml.product_currency product.currency_type if options.key? :price
-            xml.product_stock product.from_store ? 1:0 if options.key? :store
-            xml.product_in_stock product.store_count  if options.key? :store
+            #xml.product_stock product.from_store ? 1:0 if options.key? :store
+            #xml.product_in_stock product.store_count  if options.key? :store
             xml.meta_description { xml.cdata product.meta_description } if options.key? :meta
             xml.meta_keywords { xml.cdata product.meta_keywords }    if options.key? :meta
             xml.link product.permalink  if options.key? :permalink
+            if options.key? :store
+              xml.store {
+                product.store_units.each do |store_unit| 
+                  xml.store_item {
+                    xml.name { xml.cdata store_unit.store.name }
+                    xml.count  store_unit.count 
+                  }              
+                end
+              }
+            end
             if product.images and options.key? :images
                xml.product_full_image {
                  product.images.each do |image|

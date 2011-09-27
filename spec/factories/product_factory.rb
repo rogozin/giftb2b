@@ -8,7 +8,7 @@ Factory.define :product do |f|
   f.short_name { "product_" + Factory.next(:article_seq)}
   f.price 100 
   f.active true
-  f.store_count 100
+#  f.store_count 100
   f.association :manufactor
   f.association :supplier
   f.categories {|params| [params.association(:category)] }
@@ -55,4 +55,12 @@ Factory.define :color_property, :class => Property do |f|
   f.property_type 3
   f.active true
   f.show_in_card true
+end
+
+Factory.define :store do |f|
+  f.association :supplier
+  f.name  "основной"  
+  f.delivery_time "2 недели"
+  f.location "Европа"
+  f.after_create { |store| store.update_attribute :name, "#{store.name}-#{store.id}"  }  
 end

@@ -43,7 +43,7 @@
     <%= f.url_field :url %>
   </div>        
   <div class="b-formfield-div">
-    <%= f.label :lat, 'Широта и долгота' %> <%= link_to "?", firm_path(@firm), :title => "Посмотреть карточку фирмы" %> 
+    <%= f.label :lat, 'Широта и долгота' %> <%= link_to  "?", firm_path(@firm), :title => "Посмотреть карточку фирмы" unless @firm.new_record? %> 
     <%= f.text_field :lat, :style => "width:98px;" %>
     <%= f.text_field :long, :style => "width:97px;" %>
   </div>          

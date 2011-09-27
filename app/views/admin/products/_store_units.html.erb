@@ -1,0 +1,13 @@
+<% if @product.store_units.present? -%>  
+  <% @product.store_units.each do |store_unit| -%>
+  <div class='b-store-unit'>
+   <%= select_tag "store_unit[store_id][]", options_for_select(@product.supplier.stores.map{|p| [p.name, p.id]}, store_unit.store_id), :style => "width:90px" %>
+   <%= text_field_tag "store_unit[count][]", store_unit.count, :style => "width:40px;" %>
+  </div>
+  <% end -%>
+<% else -%>
+  <div class='b-store-unit'>
+   <%= select_tag "store_unit[store_id][]", options_for_select(@product.supplier.stores.map{|p| [p.name, p.id]}), :style => "width:90px" %>
+   <%= text_field_tag "store_unit[count][]", "0", :style => "width:40px;" %>
+  </div>
+<% end -%>

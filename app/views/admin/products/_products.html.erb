@@ -18,7 +18,7 @@
       <%= build_cell(:short_name, item.short_name) %>
       <%= build_cell(:price, product_price(item)) %>
       <%= build_cell(:active, link_to(checked_box_image(item.active,  "img_#{item.id}") ,   activate_admin_product_path(item.id), :remote => true, :method=>:put), {:class =>"center"} ) %>
-      <%= build_cell(:store_count, item.store_count) %> 
+      <%= build_cell(:store_count, item.store_units.map(&:count).join(' + ')) %> 
       <%= build_cell(:color, item.color) %> 
       <%= build_cell(:factur, item.factur) %> 
       <%= build_cell(:box, item.box) %> 

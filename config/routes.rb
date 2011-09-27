@@ -132,6 +132,7 @@ Giftr3::Application.routes.draw do
     end
     resources :manufactors
     resources :suppliers do 
+      resources :stores, :except => [:index, :show]
       member do 
         get :truncate_products
       end

@@ -56,22 +56,22 @@
       <%= form.label :acive, "Разрешить публикацию?" %>
       <%= form.check_box :active%>
     </div>            
-    <div class="b-formfield-div">
-      <%= form.label :store_count, "Наличие на складе" %>
-      <%= form.text_field :store_count %>
+    <!--<div class="b-formfield-div">
+      <%#= form.label :store_count, "Наличие на складе" %>
+      <%#= form.text_field :store_count %>
     </div>    
     <div class="b-formfield-div">
-      <%= form.label :remote_store_count, "Наличие на удал. складе" %>
-      <%= form.text_field :remote_store_count %>
+      <%#= form.label :remote_store_count, "Наличие на удал. складе" %>
+      <%#= form.text_field :remote_store_count %>
     </div>        
      <div class ="b-formfield-div">
-      <%= form.label :from_store, "Поставка со склада" %>
-      <%= form.check_box :from_store%>
+      <%#= form.label :from_store, "Поставка со склада" %>
+      <%#= form.check_box :from_store%>
     </div>  
      <div class ="b-formfield-div">
-      <%= form.label :from_remote_store, "Поставка с удал. склада" %>
-      <%= form.check_box :from_remote_store%>
-    </div>    
+      <%#= form.label :from_remote_store, "Поставка с удал. склада" %>
+      <%#= form.check_box :from_remote_store%>
+    </div> -->    
      <div class ="b-formfield-div">
       <%= form.label :is_new, "Новинка" %>
       <%= form.check_box :is_new %>
@@ -114,6 +114,11 @@
   </div>
 </div>
 <div class="grid_4 omega">
+<h3>Склад
+ <span>[<%= link_to_function 'Добавить', "addStoreUnit()", :class => "pseudo-link"  %>]</span>
+</h3>
+ <div id="store_units">
+<%= render :partial => "store_units" %> </div>
 <h3>Свойства</h3>
 <div class="ext-search b-product-properties">
  <% @properties.each do |item| -%>

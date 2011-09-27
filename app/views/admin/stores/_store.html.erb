@@ -1,0 +1,25 @@
+<%= form_for [:admin, @supplier,@store] do |f| %>
+<div class="one_line_form">
+  <div class="b-formfield-div">
+    <%= render :partial =>  'admin/shared/error_messages', :locals => {:target => @store} %>
+  </div>
+
+  <div class="b-formfield-div">
+    <%= f.label :name, "Название" %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :location, "Местонахождение" %>
+    <%= f.text_field :location %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :delivery_time, "Срок поставки" %>
+    <%= f.text_field :delivery_time %>
+  </div>  
+  <div class="b-formfield-div">
+    <%= f.submit "Сохранить" %>
+  </div>    
+  
+</div>
+<div class="clear"></div>
+<% end -%>

@@ -37,12 +37,13 @@ module ProductsHelper
       if ext_user? and  product.supplier
       content_tag(:p, :class => "article_name_2") do
        concat content_tag(:span, "Поставщик: ", :class => "article_t") 
-       concat (use_link ? link_to(product.supplier.name, supplier_path(product.supplier)) : product.supplier.name) 
+       concat (use_link ? link_to(product.supplier.name, supplier_path(product.supplier.permalink)) : product.supplier.name) 
        end
       end
     end
     
     def store_count product
-      product.store_count == 0 || product.store_count.blank? ? "по запросу"  : (product.store_count == -1 ? "под заказ" : product.store_count)
+      product.store_count == -1 ? "под заказ" : (product.store_items.empty? || product.store_items.first[:count] ==0 ? "по запросу"  : 
+          product.store_count )
     end
 end

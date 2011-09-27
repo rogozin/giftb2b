@@ -105,3 +105,9 @@ $(document).ready(function() {
     function() { $(this).parent().find('.filter-property-values').hide();}
   );  
 })
+
+function addStoreUnit() {
+  console.log('hr');
+    $('.b-store-unit:first').clone().appendTo('#store_units').find('input:text').val('');
+  return false;
+}

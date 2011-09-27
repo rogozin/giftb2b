@@ -17,6 +17,9 @@ class Product < ActiveRecord::Base
 
   has_many :image_properties,  :through => :product_properties, :source => :property_value, :include => :property, :conditions => "properties.active=1 and properties.show_in_card=1 and properties.property_type = 3"
   
+  has_many :store_units, :dependent => :delete_all
+  has_many :stores, :through => :store_units
+  
   scope :sorted, order("sort_order, ruprice")
  
   scope :search, lambda { |search_text|
@@ -162,13 +165,18 @@ class Product < ActiveRecord::Base
    end
    
    def as_json(options={})
+     #store_count is depricated and will be removed after 2012
      default_options = { :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count, :updated_at], 
-     :methods=>[ "pictures", "similar", "colors","properties", "unique_code", "price_in_rub" ] }
+     :methods=>[ "pictures", "similar", "colors","properties", "unique_code", "price_in_rub", "store_items" ] }
      super options.present? ? options.merge(default_options) : default_options
    end
    
    #########################
    ##API 
+   
+  def store_count
+    cached_store_units.sum{|x| x.count && x.count.integer? ? x.count : 0}     
+  end
    
   def pictures 
      res =  cached_attached_images.map do |attached_image|
@@ -197,6 +205,12 @@ class Product < ActiveRecord::Base
     end
   end
   
+  def store_items
+    cached_store_units.map do |su|
+      { :location => su.store.location, :delivery_time => su.store.delivery_time, :count => su.count }
+    end
+  end
+  
   def properties
      cached_properties
   end
@@ -215,6 +229,10 @@ class Product < ActiveRecord::Base
 
   def cached_color_variants
     Rails.cache.fetch("product_#{self[:id]}.color_variants", :expires_in =>24.hours){ color_variants }    
+  end
+  
+  def cached_store_units
+    Rails.cache.fetch("#{cache_key}/store_units"){ store_units.includes(:store).all }    
   end
   
   def cached_properties
@@ -254,7 +272,7 @@ class Product < ActiveRecord::Base
     analogs = analogs.limit(limit) if limit >0
     analogs
    end
-  
+   
   def additional_properties
     res = []
     card_properties.group_by{|x| x.property.name}.each do |property_name, property_values|

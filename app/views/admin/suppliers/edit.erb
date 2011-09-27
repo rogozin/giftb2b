@@ -1,12 +1,42 @@
 <% title 'Изменение данных поставщика' %>
 
-<div class="grid_12 alpha">
+<div class="grid_9 alpha">
 <%= render @supplier %>
 </div>
 
-<div class="grid_4 omega">
-<%= link_to 'Удалить все товары этого поставщика', truncate_products_admin_supplier_path(@supplier.id) if current_user.is_admin?  %>
+<div class="grid_7 omega">
+<h1>Склады</h1>
+<div class="b-command-menu">
+  <%= link_to 'Добавить новый склад', new_admin_supplier_store_path(@supplier)  %>
+</div>
+<div id="stores">
+  <table> 
+    <tr>
+      <th></th>
+      <th>Название</th>
+      <th>Место</th>
+      <th>Срок поставки</th>
+      <th>Поз</th>
+      <th></th>
+    </tr>
+    <% @supplier.stores.each do |store| -%>
+      <%= content_tag_for(:tr, store) do  %>
+        <td><%= link_to image_tag('edit.png'), edit_admin_supplier_store_path(@supplier, store) %></td>
+        <td><%= store.name %></td>
+        <td><%= store.location %></td>
+        <td><%= store.delivery_time %></td>
+        <td><%= store.store_units.size %></td>
+        <td><%= link_to_if @supplier.stores.size > 1, image_tag('bin.png'), admin_supplier_store_path(@supplier, store), :method => :delete,  :remote => true, :confirm => "Удалить склад и все товары на нем?"%></td>
+      <% end %>
+    <% end %>
+  </table>
+</div>
 </div>
 
-<div class="clear"></div>
+
+
+<div class="clear spacer"></div>
+<%= link_to 'Удалить все товары этого поставщика', truncate_products_admin_supplier_path(@supplier.id) if current_user.is_admin?  %>
+<div class="spacer"></div>
 <%= link_to 'Назад к списку производителей', admin_suppliers_path %>
+

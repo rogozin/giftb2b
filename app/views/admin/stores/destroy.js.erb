@@ -1,0 +1,3 @@
+<% if @store.destroyed? -%>
+  $("tr#store_<%= @store.id %>").effect('highlight',function() {$(this).remove()});
+<% end -%>

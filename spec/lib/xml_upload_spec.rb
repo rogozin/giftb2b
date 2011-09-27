@@ -3,10 +3,14 @@ require 'spec_helper'
 
 describe XmlUpload do
   context "Spec xml upload func" do
-   before(:each) do
-      @product = Factory.build(:product) 
+   before(:each) do      
+      @product = Factory(:product)       
+      @store =Factory(:store, :supplier => @product.supplier)
+      @store2 =Factory(:store, :supplier => @product.supplier)      
+      @product.store_units.create(:store_id => @store.id, :count => 1984)
+      @product.store_units.create(:store_id => @store2.id, :count => 1234)
       @xmlfile=Tempfile.new("test_xml.xml",  :encoding => 'us-ascii') 
-      @xmlfile.write  XmlDownload.get_xml([@product], {})
+      @xmlfile.write  XmlDownload.get_xml([@product], {:store => true})
       @xmlfile.close
     end
 
@@ -15,15 +19,30 @@ describe XmlUpload do
     end
 
     it 'xmlfile should be exists' do
+      #IO.binread(@xmlfile.path).should match(@store.name)
       File.should be_exists(@xmlfile.path)
     end
 
-    it "xml file should be processed" do
+    it "xml file should be processed when no-products in base" do
+      DatabaseCleaner.clean  
       @bw = BackgroundWorker.create({:task_name => "test_xml"})
       XmlUpload.process_file(@xmlfile.path, @bw.id, {:import_images => false, :reset_images => false, :reset_properties => false} )
       Product.should have(1).record
+      Product.first.store_units.should have(2).records
+      Product.first.store_units.map(&:count).should include(1984)
     end
+    
+    it "xml file should be processed when products present in base" do
+      @bw = BackgroundWorker.create({:task_name => "test_xml"})
+      StoreUnit.update_all("count=0")
+      XmlUpload.process_file(@xmlfile.path, @bw.id, {:import_images => false, :reset_images => false, :reset_properties => false} )
+      Product.should have(1).record
+      Product.first.store_units.should have(2).records
+      Product.first.store_units.map(&:count).should include(1984)
+    end
+    
   end
+
 
   context "Проверка массовой обработки файлов в директории" do
     

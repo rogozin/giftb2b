@@ -125,7 +125,7 @@ module XmlUpload
     end
      import_product(manufactor_id, supplier_id, category_ids,node_set) if manufactor_id>0
      rescue => error
-     @log_error<< "processing_xml_item error: #{error}"
+     @log_errors << "processing_xml_item error: #{error}"
   end
   
   def import_product(manufactor, supplier, categories, xml_nodes)    
@@ -146,6 +146,7 @@ module XmlUpload
     p.save
     p.images.clear if @reset_images    
     process_image_nodes(p, xml_nodes) if @process_images
+    process_store(p, xml_nodes)
     additional_props_nodes = xml_nodes.find { |i| i.name == "additional_properties"}
     if additional_props_nodes
     additional_props_nodes.children.select{|prop_item| prop_item.name == "property"}.select{|i| i.element?}.each do |property_branch|
@@ -183,9 +184,26 @@ module XmlUpload
       @log_errors<< "find_property_error: #{error}"
   end
 
+
+  def process_store(product, nodes)
+    store_element =  nodes.find{ |i| i.name=="store" && i.element?}
+    if store_element
+      store_element.xpath("//store_item").each do |store_unit|      
+        store_name =  store_unit.children.find{|i| i.name== "name"}.content 
+        store_count =  store_unit.children.find{|i| i.name== "count"}.content 
+        store = Store.find_or_create_by_name_and_supplier_id(store_name, product.supplier_id)
+        if product.store_units.where(:store_id => store.id).present?
+          product.store_units.find_by_store_id(store.id).update_attribute(:count, store_count)
+        else
+          product.store_units.create(:store => store, :count => store_count)
+        end
+      end
+    end
+  end
   
   def process_image_nodes(product,xml_nodes)
     image_nodes=xml_nodes.find{ |i| i.name=="product_full_image"}
+    if image_nodes
     for node in image_nodes.children do
       if node.element?
        # TODO: В дальнейшем нужно использовать URI.parse, URI.absolute?, URI.relative?
@@ -193,6 +211,7 @@ module XmlUpload
        @log_total_images +=1 if upload_image(product, url)
       end
     end  
+    end
     rescue => error
       @log_errors<< "process_image_nodes_error: #{error}"     
   end
@@ -233,7 +252,7 @@ module XmlUpload
      end
      prior_cat.id
      rescue => error
-      @log_errors<< "processing_categories_chain_error: #{error}"
+      @log_errors << "processing_categories_chain_error: #{error}"
   end
   
   def processing_manufactor(manufactor_name)
