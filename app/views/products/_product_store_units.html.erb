@@ -1,4 +1,4 @@
-<% if ext_user? && ( @product.store_items.present? || @product.store_items.first[:count] >0 ) -%>
+<% if ext_user? &&  @product.store_items.present?  -%>
 			<p class="article_t">Наличие на складе:</p>
      <% @product.store_items.each do |su| -%> 
       <div class="b-product-store-units">
