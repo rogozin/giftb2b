@@ -174,6 +174,10 @@ class Product < ActiveRecord::Base
    #########################
    ##API 
    
+  def store_count
+    cached_store_units.sum{|x| x.count && x.count.integer? ? x.count : 0}     
+  end
+   
   def pictures 
      res =  cached_attached_images.map do |attached_image|
        {:orig => attached_image.image.picture.url, :thumb => attached_image.image.picture.url(:thumb)}

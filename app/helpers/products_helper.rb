@@ -43,6 +43,7 @@ module ProductsHelper
     end
     
     def store_count product
-      product.store_count == -1 ? "под заказ" : (product.store_items.empty? || product.store_items.first[:count] ==0 ? "по запросу"  : product.store_items.map{|x| x[:count]}.join(' + ' ))
+      product.store_count == -1 ? "под заказ" : (product.store_items.empty? || product.store_items.first[:count] ==0 ? "по запросу"  : 
+          product.store_count )
     end
 end
