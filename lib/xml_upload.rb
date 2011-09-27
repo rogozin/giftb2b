@@ -188,14 +188,15 @@ module XmlUpload
   def process_store(product, nodes)
     store_element =  nodes.find{ |i| i.name=="store" && i.element?}
     if store_element
-      store_element.xpath("//store_item").each do |store_unit|      
+      store_element.children.select{|x| x.name =="store_item"}.each do |store_unit|      
         store_name =  store_unit.children.find{|i| i.name== "name"}.content 
         store_count =  store_unit.children.find{|i| i.name== "count"}.content 
+        option =  store_unit.children.find{|i| i.name== "option"}.content 
         store = Store.find_or_create_by_name_and_supplier_id(store_name, product.supplier_id)
         if product.store_units.where(:store_id => store.id).present?
-          product.store_units.find_by_store_id(store.id).update_attribute(:count, store_count)
+          product.store_units.find_by_store_id(store.id).update_attributes({:count => store_count, :option => option} )
         else
-          product.store_units.create(:store => store, :count => store_count)
+          product.store_units.create(:store => store, :count => store_count, :option => option)
         end
       end
     end

@@ -38,6 +38,7 @@ module XmlDownload
                   xml.store_item {
                     xml.name { xml.cdata store_unit.store.name }
                     xml.count  store_unit.count 
+                    xml.option store_unit.option
                   }              
                 end
               }

@@ -8,7 +8,7 @@ describe XmlUpload do
       @store =Factory(:store, :supplier => @product.supplier)
       @store2 =Factory(:store, :supplier => @product.supplier)      
       @product.store_units.create(:store_id => @store.id, :count => 1984)
-      @product.store_units.create(:store_id => @store2.id, :count => 1234)
+      @product.store_units.create(:store_id => @store2.id, :count => 1234, :option => -1)
       @xmlfile=Tempfile.new("test_xml.xml",  :encoding => 'us-ascii') 
       @xmlfile.write  XmlDownload.get_xml([@product], {:store => true})
       @xmlfile.close
@@ -30,6 +30,7 @@ describe XmlUpload do
       Product.should have(1).record
       Product.first.store_units.should have(2).records
       Product.first.store_units.map(&:count).should include(1984)
+      Product.first.store_units.map(&:option).should include(-1)      
     end
     
     it "xml file should be processed when products present in base" do
@@ -39,6 +40,7 @@ describe XmlUpload do
       Product.should have(1).record
       Product.first.store_units.should have(2).records
       Product.first.store_units.map(&:count).should include(1984)
+      Product.first.store_units.map(&:option).should include(-1)
     end
     
   end
