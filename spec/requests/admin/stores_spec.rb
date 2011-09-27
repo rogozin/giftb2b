@@ -57,12 +57,12 @@ describe 'Тестирование складов' do
   it 'я могу удалить склад', :js => true do
     store = supplier.stores.create(:name => "дополнительный")
     visit edit_admin_supplier_path(supplier.id)
-    page.should have_selector "#store_table tr", :count => 3
+    page.should have_selector "#stores table tr", :count => 3
     page.evaluate_script('window.confirm = function() { return true; }')
     within "#store_#{store.id}" do
       click_link "Bin"
     end    
-    page.should have_selector "#store_table tr", :count => 2
+    page.should have_selector "#stores table tr", :count => 2
   end
   
   context 'карточка товара ' do
@@ -72,8 +72,10 @@ describe 'Тестирование складов' do
         visit edit_admin_product_path(product)        
         page.should have_field "store_unit[count][]", :with => "0"
         fill_in "store_unit[count][]", :with => "120"
+        select "под заказ", :from => "store_unit[option][]"
         click_button "Сохранить"
         page.should have_field "store_unit[count][]", :with => "120"
+        page.should have_select "store_unit[option][]", :selected => "под заказ"
       end
     
   end

@@ -1,17 +1,17 @@
-<% if ext_user? &&  @product.store_items.present?  -%>
+<% if ext_user? &&  @product.cached_store_units.present?  -%>
 			<p class="article_t">Наличие на складе:</p>
-     <% @product.store_items.each do |su| -%> 
+     <% @product.cached_store_units.each do |su| -%> 
       <div class="b-product-store-units">
-       <% if su[:location].present? -%>
-        <p class="article_t">Склад: <span class="article_s"><%= su[:location] %></span></p>         
+       <% if su.store.location.present? -%>
+        <p class="article_t">Склад: <span class="article_s"><%= su.store.location %></span></p>         
        <% end -%>
-       <% if su[:delivery_time].present? -%>
-        <p class="article_t">Срок поставки: <span class="article_s"><%= su[:delivery_time] %></span></p>
+       <% if su.store.delivery_time.present? -%>
+        <p class="article_t">Срок поставки: <span class="article_s"><%= su.store.delivery_time %></span></p>
        <% end -%>
-        <p class="article_t">Количество: <span class="article_s"><%= su[:count] %> шт.</span></p>
+        <p class="article_t">Количество: <span class="article_s"><%= store_count su %></span></p>
       </div>
     <% end -%>
 <% else -%>
-			<p class="article_t">Наличие на складе: <span class="article_s"><%= store_count @product %> шт.</span></p>
+			<p class="article_t">Наличие на складе: <span class="article_s"><%= total_store_count @product %></span></p>
 <% end -%>
 

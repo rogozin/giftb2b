@@ -1,13 +1,15 @@
 <% if @product.store_units.present? -%>  
   <% @product.store_units.each do |store_unit| -%>
   <div class='b-store-unit'>
-   <%= select_tag "store_unit[store_id][]", options_for_select(@product.supplier.stores.map{|p| [p.name, p.id]}, store_unit.store_id), :style => "width:90px" %>
-   <%= text_field_tag "store_unit[count][]", store_unit.count, :style => "width:40px;" %>
+   <%= select_tag "store_unit[store_id][]", options_for_select(@product.supplier.stores.map{|p| [p.name, p.id]}, store_unit.store_id) %>
+   <%= text_field_tag "store_unit[count][]", store_unit.count %>
+   <%= select_tag "store_unit[option][]", options_for_select([["в наличии",1], ["по запросу",0], ["под заказ",-1]], store_unit.option) %>
   </div>
   <% end -%>
 <% else -%>
   <div class='b-store-unit'>
-   <%= select_tag "store_unit[store_id][]", options_for_select(@product.supplier.stores.map{|p| [p.name, p.id]}), :style => "width:90px" %>
-   <%= text_field_tag "store_unit[count][]", "0", :style => "width:40px;" %>
+   <%= select_tag "store_unit[store_id][]", options_for_select(@product.supplier.stores.map{|p| [p.name, p.id]}) %>
+   <%= text_field_tag "store_unit[count][]", "0" %>
+   <%= select_tag "store_unit[option][]", options_for_select([["в наличии",1], ["по запросу",0], ["под заказ",-1]]) %>
   </div>
 <% end -%>

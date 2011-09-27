@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110923061514) do
+ActiveRecord::Schema.define(:version => 20110927070306) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -385,6 +385,7 @@ ActiveRecord::Schema.define(:version => 20110923061514) do
     t.integer  "product_id",                :null => false
     t.integer  "count",      :default => 0
     t.datetime "updated_at"
+    t.integer  "option",     :default => 1
   end
 
   add_index "store_units", ["product_id"], :name => "index_store_units_on_product_id"

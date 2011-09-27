@@ -477,3 +477,6 @@ a.toggle-category {
 .b-description label {
   font-weight:bold;
 }
+
+.b-store-unit input[type="text"] { width:40px;}
+.b-store-unit select { width:85px;}

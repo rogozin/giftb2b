@@ -49,7 +49,6 @@ class Product < ActiveRecord::Base
   end
   
   def self.find_all(options={}, place= "admin")
-#   puts options
     sr = Product.scoped
     options[:per_page] ||=20
     
@@ -98,10 +97,16 @@ class Product < ActiveRecord::Base
     sr = sr.where("products.ruprice" => 0) if options[:price] && options[:price]=="0"
 
     sr = sr.where("products.ruprice >= ?", options[:price]) if options[:price] && options[:price].to_i > 0
-
-    sr = sr.where("products.store_count" =>  options[:store] ) if options[:store] && [-1, 0].include?(options[:store])
     
-    sr = sr.where("products.store_count >= ?", options[:store]) if options[:store] && options[:store].to_i > 0
+
+    if options[:store].present?     
+      options[:store_option] ||= [1]
+      sr =  sr.where("exists (select sum(su.count) from store_units su where su.product_id = products.id and su.option in (:option) group by su.product_id, su.option having sum(su.count) >= :store)", { :store =>  options[:store], :option => options[:store_option] })
+    end
+
+#    sr = sr.where("products.store_count" =>  options[:store] ) if options[:store] && [-1, 0].include?(options[:store])
+    
+ #   sr = sr.where("products.store_count >= ?", options[:store]) if options[:store] && options[:store].to_i > 0
     
   
    if options[:price_range].present? && options[:price_range].is_a?(Array)
@@ -111,15 +116,7 @@ class Product < ActiveRecord::Base
        sr = sr.where("products.ruprice >= ?", options[:price_range].first)
      end
    end  
-   
-#  if options[:store_count_range].present? && options[:store_count_range].is_a?(Array)
-#     if options[:store_count_range].size == 2       
-#       sr = sr.where("products.store_count >= ? and products.store_count <= ?", options[:store_count_range].first, options[:store_count_range].last)
-#     else
-#       sr = sr.where("products.store_count >= ?", options[:store_count_range].first)
-#     end
-#   end     
-#  
+
   
     prop_keys = options.keys.select{|x| x =~ /property_values_\d+/ || x=~ /pv_\d+/ }
 #    sr = sr.where(prop_keys.map{|x| 
@@ -175,7 +172,7 @@ class Product < ActiveRecord::Base
    ##API 
    
   def store_count
-    cached_store_units.sum{|x| x.count && x.count.integer? ? x.count : 0}     
+    cached_store_units.sum{|x| x.option != 0 && x.count && x.count.integer? ? x.count : 0}     
   end
    
   def pictures 
@@ -205,11 +202,11 @@ class Product < ActiveRecord::Base
     end
   end
   
-  def store_items
-    cached_store_units.map do |su|
-      { :location => su.store.location, :delivery_time => su.store.delivery_time, :count => su.count }
-    end
-  end
+#  def store_items
+#    cached_store_units.map do |su|
+#      { :location => su.store.location, :delivery_time => su.store.delivery_time, :count => su.count }
+#    end
+#  end
   
   def properties
      cached_properties

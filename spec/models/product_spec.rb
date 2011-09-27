@@ -54,6 +54,7 @@ describe Product do
     it 'Поиск по производителю' do
       Product.find_all({:manufactor => Manufactor.all.map(&:id)}).should_not be_empty
     end
+      
   end
   
   context "sorting" do
@@ -116,6 +117,27 @@ describe Product do
         Product.find_all({:search_text => "Ручка", :eq => "1"}).should be_empty
         Product.find_all({:search_text => "Ручка с брелком", :eq => "1"}).should have(1).item
       end
+      
+      it 'поиск по категории' do
+        
+      end
+      
+     it 'наличие на складе' do
+      @product2 = Factory(:product)
+      @store1 = Factory(:store, :supplier => @product.supplier)
+      @store2 = Factory(:store, :supplier => @product.supplier)
+      @store3 = Factory(:store, :supplier => @product.supplier)
+      @store4 = Factory(:store, :supplier => @product.supplier)
+      @product.store_units.create(:store => @store1, :count => 5)
+      @product.store_units.create(:store => @store2, :count => 10)
+      @product1.store_units.create(:store => @store3, :count => 20, :option => 0)
+      @product2.store_units.create(:store => @store4, :count => 40, :option => -1)
+      Product.find_all({:store => 14}).should have(1).record
+      Product.find_all({:store => 15, :store_option => [1, 0]}).should have(2).record
+      Product.find_all({:store => 15, :store_option => [1, -1]}).should have(2).record
+      Product.find_all({:store => 20, :store_option => [0]}).should have(1).record
+      Product.find_all({:store => 40, :store_option => [-1]}).should have(1).record
+    end
 
    end
   

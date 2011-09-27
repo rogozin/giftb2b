@@ -42,8 +42,11 @@ module ProductsHelper
       end
     end
     
-    def store_count product
-      product.store_count == -1 ? "под заказ" : (product.store_items.empty? || product.store_items.first[:count] ==0 ? "по запросу"  : 
-          product.store_count )
+    def store_count store_unit_item
+      store_unit_item.option == 0 ? "по запросу" : "#{store_unit_item.count} шт."
+    end
+    
+    def total_store_count product
+       product.cached_store_units.present? && product.cached_store_units.count{ |x| x.option !=0 } > 0 ? "#{product.store_count} шт." : "по запросу"                     
     end
 end
