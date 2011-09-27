@@ -212,6 +212,13 @@ a:hover.menu_left {
   padding-top:5px;
   }
 
+.left_block p.b-header-2{
+  padding-bottom:5px;
+  padding-top:0px;
+  color: #C36;
+  font-size: 13pt;
+  background: #F6F5FF;
+  }
 
 #flash_alert, #flash_notice
 {
