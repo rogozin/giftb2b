@@ -14,7 +14,7 @@ class Firm < ActiveRecord::Base
   validates :long, :inclusion => { :in => -180..180, :allow_nil => true }
   scope :clients, where(:is_supplier => false)
   scope :default_city, clients.where("upper(city) = 'МОСКВА'")
-  scope :where_city_present, clients.where("length(city) > 0").order("city")
+  scope :where_city_present, clients.where(:show_on_site => true).where("length(city) > 0").order("city")
   before_validation :set_permalink
   
  def logo

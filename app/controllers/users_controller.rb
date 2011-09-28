@@ -2,18 +2,27 @@
 class UsersController < ApplicationController
 def new
     @can_register = flash[:can_register] || false
+    @user_type = flash[:user_type]
     @user = User.new
   end
 
-  def create
-    return redirect_to(register_user_path, :flash => {:can_register => true}) if params[:step].blank? ||  params[:step] == "step_1"       
-    @user = User.new(params[:user])
+  def create    
+    return redirect_to(register_user_path, :flash => {:can_register => true, :user_type => params["i_am"]}) if params[:step].blank? ||  params[:step] == "step_1"       
+    pass = User.friendly_pass
+    @user = User.new(params[:user].merge(:active => true, :password => pass, :password_confirmation => pass))
+    @user.username = @user.username_from_email
     if @user.save
-      AccountMailer.activation_email(@user).deliver
-      @user.has_role! "Пользователь"
-      flash[:notice] = "Учетная запись создана."
+      if params[:i_am] == "1"
+        @firm = Firm.create(:name => @user.company_name, :city => @user.city)        
+        @firm.users << @user
+        @user.has_role! "Пользователь фирмы"
+      else 
+        @user.has_role! "Пользователь"
+      end
+      AccountMailer.new_account(@user, pass).deliver
       render 'thanks'
     else
+      @user_type = params["i_am"]
       @can_register = true
       render 'new'
     end

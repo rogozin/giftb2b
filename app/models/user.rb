@@ -5,11 +5,13 @@ class User < ActiveRecord::Base
   acts_as_authorization_subject :role_class_name => 'Role'
   belongs_to :firm
   belongs_to :supplier
- validates :username, :exclusion => { :in => %w(admin superuser) }
+  validates :username, :exclusion => { :in => %w(admin superuser) }
   validates :appoint, :length => {:maximum => 100}
   validates :skype, :length => {:maximum => 25}
   validates :cellphone, :length => {:maximum => 25}
   validates :icq, :length => {:maximum => 25},  :numericality => {:allow_blank => true}
+  validates_presence_of :company_name, :city, :phone, :fio, :on => :create
+  after_create :notify_admins
   
   
   def is_admin?
@@ -50,5 +52,25 @@ class User < ActiveRecord::Base
         1.upto(6) { |i| newpass << fr_chars[rand(fr_chars.size-1)] }
         newpass
    end
+   
+  
+  def username_from_email
+    username =  email.split("@").first
+    if  User.exists?(:username => username)
+      username = username + "_1"
+      while User.exists?(:username => username)
+        username.succ!
+      end        
+    end      
+    username
+  end 
+   
+ private
+ 
+ def notify_admins
+   User.joins(:role_objects).where("roles.name='Администратор'").each do |admin|
+     AdminMailer.new_user_registered(self, admin).deliver
+   end
+ end  
     
 end

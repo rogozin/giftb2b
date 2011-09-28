@@ -48,6 +48,10 @@
     <%= f.text_field :long, :style => "width:97px;" %>
   </div>          
   <div class="b-formfield-div">
+    <%= f.label :show_on_site, 'Отображать в разделе Где купить' %>
+    <%= f.check_box :show_on_site %>
+  </div>      
+  <div class="b-formfield-div">
     <%= f.label :is_supplier, 'Это поставщик' %>
     <%= f.check_box :is_supplier %>
   </div>    

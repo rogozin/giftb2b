@@ -1,32 +1,51 @@
+<div class="">
+<% if @user_type == "1" -%>
+  <h1>Рекламное агенство</h1>
+  <p>
+    Мгновенная регистрация откроет вам доступ к расширенному параметрическому поиску, даст возможность создавать коммерческие предложения для Ваших клиентов по всей базе, возможность заказывать промо-сувениры напрямую у поставщиков и многое другое.
+  </p>
+<% else -%>  
+  <h1>Представитель компании</h1>
+  <p>
+    Мгновенная регистрация даст вам возможность оформлять заказ через корзину и выбирать рекламное агентство для размещения заказа.
+  </p>
+<% end -%>
+</div>
+
+<div class="spacer"></div>
+
+<h2>Регистрация</h2>
+
 <%= form_for @user,  :html => {:class => 'one_line_form'} do |form| %>
   <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @user} %>                
   <%= hidden_field_tag "step", "step_2" %>
-    <div class="b-formfield-div">
-      <%= form.label :username, "Имя пользователя" %><span>*</span>
-      <%= form.text_field :username %>
+  <%= hidden_field_tag "i_am", @user_type %>
+    <div class ="b-formfield-div">
+      <%= form.label :fio %><span>*</span>
+      <%= form.text_field :fio %>
+    </div>  
+    <div class ="b-formfield-div">
+      <%= form.label :company_name %><span>*</span>
+      <%= form.text_field :company_name %>
     </div>
+    <div class ="b-formfield-div">
+      <%= form.label :city %><span>*</span>
+      <%= form.text_field :city %>
+    </div>        
     <div class="b-formfield-div">
-      <%= form.label :email, "Email" %><span>*</span>
+      <%= form.label :email %><span>*</span>
       <%= form.text_field :email %>
     </div>
-    <div class ="b-formfield-div">
-      <%= form.label :password, "Пароль" %><span>* (не менее 4-х знаков)</span>
-      <%= form.password_field :password %>
-    </div>
-    <div class ="b-formfield-div">
-      <%= form.label :password_confirmation, "Подтверждение пароля" %> <span>*</span>
-      <%= form.password_field :password_confirmation %>
-    </div>
-    <div class ="b-formfield-div">
-      <%= form.label :fio, "Имя, фамилия" %>
-      <%= form.text_field :fio %>
-    </div>
-    <div class ="b-formfield-div">
-      <%= form.label :phone, "Телефон" %>
+     <div class ="b-formfield-div">
+      <%= form.label :phone %><span>*</span>
       <%= form.text_field :phone %>
-    </div>
+    </div>    
+     <div class ="b-formfield-div">
+      <%= form.label :appoint %>
+      <%= form.text_field :appoint %>
+    </div>     
     <div class ="b-formfield-div">
-      <%= form.submit "Сохранить" %>
+      <%= form.submit "Зарегистрироваться" %>
     </div>
   <% end %>
 

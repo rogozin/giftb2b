@@ -1,0 +1,43 @@
+<p>
+<h1>Зарегистрирован новый пользователь!</h1>
+</p>
+
+<p style="font-size:0.9em;">
+  <%=  I18n.l(Time.now, :format => :long) %>
+
+  <table style="border:1px solid #ccc; border-collapse:collapse;" cellpadding="5px">
+  <tr>
+    <td style="border:1px solid #ccc">Тип пользователя:</td>
+    <td style="border:1px solid #ccc"><%= @user.is_firm_user? ? "Рекламное агенство" : "Представитель компании (Юр. лицо)" %></td>
+  </tr>  
+  <tr>
+    <td style="border:1px solid #ccc">Логин:</td>
+    <td style="border:1px solid #ccc"><%= @user.username %></td>
+  </tr>
+  <tr>
+    <td style="border:1px solid #ccc">Email</td>
+    <td style="border:1px solid #ccc"><%= @user.email %></td>    
+  </tr>
+  <tr>
+    <td style="border:1px solid #ccc">ФИО</td>
+    <td style="border:1px solid #ccc"><%= @user.fio %></td>    
+  </tr>
+  <tr>
+    <td style="border:1px solid #ccc">Компания</td>
+    <td style="border:1px solid #ccc"><%= @user.company_name %></td>    
+  </tr>
+  <tr>
+    <td style="border:1px solid #ccc">Город</td>
+    <td style="border:1px solid #ccc"><%= @user.city %></td>    
+  </tr>      
+  <tr>
+    <td style="border:1px solid #ccc">Телефон</td>
+    <td style="border:1px solid #ccc"><%= @user.phone %></td>    
+  </tr>      
+  <tr>
+    <td style="border:1px solid #ccc">Должность</td>
+    <td style="border:1px solid #ccc"><%= @user.appoint %></td>    
+  </tr>          
+</table>
+</p>
+

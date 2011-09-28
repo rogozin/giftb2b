@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110927070306) do
+ActiveRecord::Schema.define(:version => 20110928104428) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -149,15 +149,16 @@ ActiveRecord::Schema.define(:version => 20110927070306) do
     t.string   "phone"
     t.string   "email"
     t.string   "url"
-    t.boolean  "is_supplier",                :default => false
+    t.boolean  "is_supplier",                 :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "city",        :limit => 100
-    t.string   "subway",      :limit => 100
+    t.string   "city",         :limit => 100
+    t.string   "subway",       :limit => 100
     t.text     "description"
     t.float    "lat"
     t.float    "long"
     t.string   "permalink"
+    t.boolean  "show_on_site",                :default => false
   end
 
   add_index "firms", ["city"], :name => "index_firms_on_city"
@@ -436,6 +437,8 @@ ActiveRecord::Schema.define(:version => 20110927070306) do
     t.string   "perishable_token",                :default => "",    :null => false
     t.integer  "supplier_id"
     t.date     "birth_date"
+    t.string   "company_name"
+    t.string   "city"
   end
 
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token"

@@ -17,14 +17,15 @@ class AccountsController < BaseController
 
 
   def new
-    @account = User.new(:password=>User.friendly_pass, :firm_id => params[:firm_id])
+    @account = User.new(:password=>User.friendly_pass, :firm_id => params[:firm_id], :company_name => "admin")
     select_firms
     select_suppliers
   end
 
   def create
     @account = User.new(params[:admin_account])
-    @account.password_confirmation = params[:admin_account][:password]
+    @account.password_confirmation = params[:admin_account][:password]    
+    @account.company_name = @account.firm.name if @account.firm_id
     if @account.save
       flash[:notice] = 'Пользователь успешно создан!'
       render :show

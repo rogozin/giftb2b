@@ -1,22 +1,26 @@
 <div class="g-left">
     <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @account} %>
-
+     <%= form.hidden_field :company_name %>
     <div class ="b-formfield-div">
       <%= form.label :username, "Имя пользователя" %>
       <%= form.text_field :username %>
     </div>
   <div class ="b-formfield-div">
-      <%= form.label :fio, "Фамилия, Имя, Отчество" %>
+      <%= form.label :fio %>
       <%= form.text_field :fio %>
     </div>    
     <div class ="b-formfield-div">
       <%= form.label :firm_id, "Фирма" %>
       <%= form.select :firm_id, @firms, {:include_blank => true} %>
-    </div>    
+    </div>        
     <div class ="b-formfield-div">
       <%= form.label :supplier_id, "Поставщик" %>
       <%= form.select :supplier_id, @suppliers, {:include_blank => true} %>
-    </div>      
+    </div>    
+    <div class ="b-formfield-div">
+      <%= form.label :appoint, "Должность" %>
+      <%= form.text_field :appoint %>
+    </div>          
     <div class ="b-formfield-div">
       <%= form.label :email, "Email" %>
       <%= form.text_field :email %>
@@ -26,9 +30,10 @@
       <%= form.password_field :password %>
     </div>   
     <div class ="b-formfield-div">
-      <%= form.label :appoint, "Должность" %>
-      <%= form.text_field :appoint %>
-    </div>       
+      <%= form.label :city %>
+      <%= form.text_field :city %>
+    </div>
+       
     <div class ="b-formfield-div">
       <%= form.label :phone, "Телефон" %>
       <%= form.text_field :phone %>
