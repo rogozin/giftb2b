@@ -4,10 +4,10 @@ class FirmMailer < ActionMailer::Base
    layout "/layouts/mailers/firms"
   
   
-  def new_user_order_notification(user, order, phone = nil)
+  def new_user_order_notification(user, order)
     @user = user
     @order = order    
-    @phone = phone ? phone : (user.phone ? user.phone : "-")
+    @phone = user.phone ? user.phone : "-"
     mail(:to => order.firm.email, :subject => "Поступил новый заказ (#{order.id})" )
   end
   
