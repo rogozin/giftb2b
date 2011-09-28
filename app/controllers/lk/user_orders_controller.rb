@@ -1,10 +1,10 @@
 #encoding: utf-8;
 class Lk::UserOrdersController < ApplicationController
   layout 'lk'
-
-#  access_control do
-#     allow "Пользователь", :except => [:create]
-#  end
+  before_filter :require_user
+  access_control do
+     allow "Пользователь"
+  end
 
   def index
       @orders = current_user.lk_orders.order("created_at desc")     
@@ -20,14 +20,14 @@ class Lk::UserOrdersController < ApplicationController
   end
   
     def create
-      if !current_user && params[:lk_order][:user_email].blank? && params[:lk_order][:user_phone].blank?
-        flash[:lk_order] = params[:lk_order]
-        return redirect_to cart_index_path, :alert => "Укажите контактную информацию: email или телефон"
-      end
-      if params[:lk_order][:user_email] && params[:lk_order][:user_email] !~ EmailValidator.email_pattern
-        flash[:lk_order] = params[:lk_order]
-        return redirect_to cart_index_path, :alert => "Введите корректный email"
-      end
+#      if !current_user && params[:lk_order][:user_email].blank? && params[:lk_order][:user_phone].blank?
+#        flash[:lk_order] = params[:lk_order]
+#        return redirect_to cart_index_path, :alert => "Укажите контактную информацию: email или телефон"
+#      end
+#      if params[:lk_order][:user_email] && params[:lk_order][:user_email] !~ EmailValidator.email_pattern
+#        flash[:lk_order] = params[:lk_order]
+#        return redirect_to cart_index_path, :alert => "Введите корректный email"
+#      end
       @lk_order = LkOrder.new(params[:lk_order])
       @lk_order.firm_id = params.invert["Отправить заказ"].to_i
       user = current_user || create_new_user(params[:lk_order])

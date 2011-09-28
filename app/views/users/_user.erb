@@ -1,6 +1,6 @@
 <%= form_for @user,  :html => {:class => 'one_line_form'} do |form| %>
-  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @user} %>    
-
+  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @user} %>                
+  <%= hidden_field_tag "step", "step_2" %>
     <div class="b-formfield-div">
       <%= form.label :username, "Имя пользователя" %><span>*</span>
       <%= form.text_field :username %>

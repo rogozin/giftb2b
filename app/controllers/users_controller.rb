@@ -1,10 +1,12 @@
 #encoding: utf-8;
 class UsersController < ApplicationController
 def new
+    @can_register = flash[:can_register] || false
     @user = User.new
   end
 
   def create
+    return redirect_to(register_user_path, :flash => {:can_register => true}) if params[:step].blank? ||  params[:step] == "step_1"       
     @user = User.new(params[:user])
     if @user.save
       AccountMailer.activation_email(@user).deliver
@@ -12,6 +14,7 @@ def new
       flash[:notice] = "Учетная запись создана."
       render 'thanks'
     else
+      @can_register = true
       render 'new'
     end
   end

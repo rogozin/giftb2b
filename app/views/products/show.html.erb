@@ -28,7 +28,8 @@
 			<br />
 			<p class="article_t">Цена: <span class="article_name"><%= product_price(@product) %></span></p>
 			
-			<p id="add_to_cart"><%= link_to 'Добавить в корзину', add_cart_path(@product.id), :remote => true, :method => :post %></p>
+			<p id="add_to_cart"><%= link_to 'Добавить в корзину', add_cart_path(@product.id), :remote => true, :method => :post if current_user%></p>
+			<p class="article_t"><%= link_to 'Спец. условия для рекламных агенств', content_path('agency-special') unless current_user %></p>
 			</div>
 		</div>
 	</div>

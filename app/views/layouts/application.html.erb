@@ -58,9 +58,11 @@
   </div>
   </div> <!-- end all_content --> 
   <div id="right_content"> 
+  <% if current_user -%>    
     <div id="cart" class="basket_right">
-    <%= render :partial => "cart/cart"   %>
+    <%= render :partial => "cart/cart"    %>
     </div>
+  <% end -%>
     <div class="left_block">
       <%= render :partial => 'shared/banner' %>
     </div>

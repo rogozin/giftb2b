@@ -6,7 +6,7 @@ require 'attach_image'
 require 'image'
 
 class CartController < ApplicationController
- # before_filter :require_user
+ before_filter :require_user
   before_filter :get_cart, :except => [:empty]
   
   def index

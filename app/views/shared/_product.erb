@@ -12,7 +12,7 @@
     <p class="article_t">Кол-во на складе: <span class="article_s"><%= total_store_count product %></span></p>
 		<% end -%>
 		<p class="article_t product-price">Цена: <span class="article_name"><%= product_price(product) %></span>
-	<%= link_to  image_tag("pix.gif"), add_cart_path(product.id), :remote => true, :method => :post %>	
+	<%= link_to  image_tag("pix.gif"), add_cart_path(product.id), :remote => true, :method => :post if current_user %>	
 		</p> 
 		<div class="article_t">
 		  <%= link_to 'Подробнее о товаре', product_path(product), :class => "article_a", :target => "_blank"  %>		  

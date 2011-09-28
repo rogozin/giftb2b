@@ -711,3 +711,34 @@ input[type="submit"], input[type="button"], .r_button {
 .b-product-store-units { 
   padding:5px 0 5px 5px;
 }
+
+.b-who_are_you {
+  width:330px;
+ }
+ 
+ .b-who_are_you p {
+  padding:5px 10px;
+ }
+ 
+ .b-who_are_you-next {margin-top:10px;}
+ 
+ 
+.gift_banner_bg {
+  border:#c36 1px solid;
+  margin:10px 0;
+  padding:5px;
+  background:red;
+  text-align:center;
+}
+.gift_banner_bg a{
+  color:#fff;
+  text-decoration:none;
+  text-align:center;
+}
+.content .gift_baner p {
+  color:#fff;
+  text-align:center;
+  
+  font-weight:bold;
+  line-height:1.5;
+} 

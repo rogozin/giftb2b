@@ -14,7 +14,7 @@
 <%= catalog_children @category %>
 </p> 
 </div> <!-- end center_block --> 
- 
+<%= render :partial => 'shared/promo' %> 
 <div class="center_block"> 
 <%= render :partial => 'shared/paginate2', :locals => {:products => @products} %>
 </div> <!-- end center_block --> 

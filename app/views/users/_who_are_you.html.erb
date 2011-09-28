@@ -1,0 +1,16 @@
+<div class="b-who_are_you">
+<%= form_for @user do |form| %>
+  <%= hidden_field_tag "step", "step_1" %>  
+    <p>
+      <%= radio_button_tag "i_am", "1" %>
+      <%= label_tag "i_am_1", "Рекламное агенство" %>
+    </p>
+    <p>
+      <%= radio_button_tag "i_am", "2" %>
+      <%= label_tag "i_am_2", "Представитель компании (Юридическое лицо)" %>
+    </p>    
+    <p class="b-who_are_you-next">
+      <%= form.submit "Далее" %>
+    </p>
+  <% end %>
+</div>

@@ -21,4 +21,18 @@ end
   it 'активация учетной записи' do
       pending
   end
+  
+  context "регистрация РА или ЮР лица" do
+    let(:product) {Factory(:product)}
+    
+      it 'регистрация при оформлении заказа из карточки товара' do
+        visit product_path(product)
+        click_button "Оформить заказ"
+        page.should have_content "Кто Вы?"
+        page.should have_checked_field "Рекламное агенство"
+        page.should have_checked_field "Представитель компании (Юридическое лицо)"
+      end
+    
+    end
+  
 end
