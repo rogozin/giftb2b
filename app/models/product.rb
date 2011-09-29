@@ -216,7 +216,7 @@ class Product < ActiveRecord::Base
    end
    
   def cached_attached_images
-    Rails.cache.fetch("product_#{self[:id]}.attached_images", :expires_in =>24.hours){ attach_images.all }
+    Rails.cache.fetch("#{cache_key}/attached_images"){ attach_images.all }
   end
   
   def cached_images

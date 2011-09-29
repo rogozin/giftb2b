@@ -20,6 +20,7 @@ def new
         @user.has_role! "Пользователь"
       end
       AccountMailer.new_account(@user, pass).deliver
+      User.notify_admins(@user)
       render 'thanks'
     else
       @user_type = params["i_am"]

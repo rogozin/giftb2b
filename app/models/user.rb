@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates :cellphone, :length => {:maximum => 25}
   validates :icq, :length => {:maximum => 25},  :numericality => {:allow_blank => true}
   validates_presence_of :company_name, :city, :phone, :fio, :on => :create
-  after_create :notify_admins
+
   
   
   def is_admin?
@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
   
   def username_from_email
     username =  email.split("@").first
+    username = username.ljust(3,'abc')
     if  User.exists?(:username => username)
       username = username + "_1"
       while User.exists?(:username => username)
@@ -65,11 +66,11 @@ class User < ActiveRecord::Base
     username
   end 
    
- private
  
- def notify_admins
+ 
+ def self.notify_admins(user)
    User.joins(:role_objects).where("roles.name='Администратор'").each do |admin|
-     AdminMailer.new_user_registered(self, admin).deliver
+     AdminMailer.new_user_registered(user, admin).deliver
    end
  end  
     

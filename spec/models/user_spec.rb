@@ -18,7 +18,9 @@ describe User do
     u.username_from_email.should eq "vasya_pupkin"    
     Factory(:user, :username => "vasya_pupkin")
     u = User.new(:email => "vasya_pupkin@gmail.com")
-    u.username_from_email.should eq "vasya_pupkin_1"      
+    u.username_from_email.should eq "vasya_pupkin_1"
+    u = User.new(:email => "v@gmail.com")      
+    u.username_from_email.should eq "vab"
   end
   
 end
