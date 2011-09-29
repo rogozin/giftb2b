@@ -100,8 +100,7 @@ class Product < ActiveRecord::Base
     
 
     if options[:store].present?     
-      options[:store_option] ||= [1]
-      sr =  sr.where("exists (select sum(su.count) from store_units su where su.product_id = products.id and su.option in (:option) group by su.product_id, su.option having sum(su.count) >= :store)", { :store =>  options[:store], :option => options[:store_option] })
+      sr =  sr.where("exists (select sum(su.count) from store_units su where su.product_id = products.id and su.option in (1, :option) group by su.product_id, su.option having sum(su.count) >= :store)", { :store =>  options[:store], :option => options[:store_option] })
     end
 
 #    sr = sr.where("products.store_count" =>  options[:store] ) if options[:store] && [-1, 0].include?(options[:store])

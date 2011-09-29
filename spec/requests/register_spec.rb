@@ -2,37 +2,49 @@
 require 'spec_helper'
 
 describe 'Регистрация пользователя' do
+
 before(:each) do
-  Factory(:firm)
+  Factory(:role_firm_user)
 end
+
   it 'регистрация с главной страницы' do
     visit "/register"
-    fill_in "Имя пользователя", :with => "demo"
-    fill_in "Email", :with => "no-name@giftb2b.ru"    
-    fill_in "Пароль", :with => "demo"    
-    fill_in "Подтверждение пароля", :with => "demo"
-#    save_and_open_page
-    click_button "Сохранить"
-    page.should have_content "На Ваш почтовый адрес отправлено письмо с кодом для активации учетной записи"
-    ActionMailer::Base.deliveries.should have(1).items
-    ActionMailer::Base.deliveries.map(&:to).should include(["no-name@giftb2b.ru"])      
+    page.should have_field "Рекламное агентство"
+    page.should have_field "Представитель компании (Юридическое лицо)"
   end
 
-  it 'активация учетной записи' do
-      pending
+
+  
+  it 'рекалмное агентство' do
+    visit "/register"
+    choose "Рекламное агентство"
+    click_button "Далее"
+    page.should have_selector "h1", :text => "Рекламное агентство"    
+    fill_in "Имя, фамилия", :with => "demo"
+    fill_in "Компания", :with => "Копыта"
+    fill_in "Город", :with => "Москва"
+    fill_in "E-mail", :with => "kopyta@giftb2b.ru"    
+    fill_in "Телефон", :with => "903 129-432-4"    
+    click_button "Зарегистрироваться"
+    page.should have_selector "h2", :text => "Благодарим за регистрацию"
+    page.should have_content "В течение двух минут будет отправлен пароль на указанный Вами e-mail."
+    page.should have_content "бесплатно в течение 3 дней"
+    Firm.first.name.should eq "Копыта"
+    Firm.first.city.should eq "Москва"    
+    Firm.first.users.should have(1).record
+    User.last.should be_is_firm_user
+#    ActionMailer::Base.deliveries.should have(1).items
+#    ActionMailer::Base.deliveries.map(&:to).should include(["kopyta@giftb2b.ru"])      
   end
+
   
   context "регистрация РА или ЮР лица" do
-    let(:product) {Factory(:product)}
-    
+    let(:product) {Factory(:product)}    
       it 'регистрация при оформлении заказа из карточки товара' do
         visit product_path(product)
         click_button "Оформить заказ"
         page.should have_content "Кто Вы?"
-        page.should have_checked_field "Рекламное агенство"
-        page.should have_checked_field "Представитель компании (Юридическое лицо)"
-      end
-    
+      end    
     end
   
 end

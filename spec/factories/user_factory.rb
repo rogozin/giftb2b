@@ -9,6 +9,10 @@ Factory.define :user, :class => User do |record|
   record.password "user"
   record.password_confirmation {|p| p.password }
   record.active true
+  record.fio "Василий"
+  record.company_name "Рога и Копытца"
+  record.city "Москва"
+  record.phone "+7 (495) 888-23-34"
   #record.role_objects {|role|  [role.association(:role_user)]}
   record.after_create { |user| add_role(user,:role_user) }  
 end
@@ -72,6 +76,10 @@ Factory.define :role_firm_manager, :class => Role do |f|
   f.group 2
 end
 
+Factory.define :role_firm_user, :class => Role do |f|
+  f.name "Пользователь фирмы"
+  f.group 2
+end
 
 Factory.sequence :firm_seq do |n|
    "ООО Рога и копыта, клон #{n}"
@@ -80,12 +88,13 @@ Factory.sequence :firm_seq do |n|
 
 Factory.define :firm do |f|
   f.name {Factory.next(:firm_seq)}
-  f.short_name "Рога и копыта"
   f.email "firm@example.com"
   f.url "http://www.example.com"
   f.addr_f "Москва, ул. Льва Толстого д.12 стр. 1"
   f.addr_u "Москва, хата с краю"
   f.city "Москва"
   f.subway "Текстильщики"
+  f.show_on_site true
+  f.after_create { |firm| firm.update_attribute :short_name, firm.name   }  
 end
 

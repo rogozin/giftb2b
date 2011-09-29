@@ -94,6 +94,19 @@ input[type="submit"], .b_button {
 }
 
 
+input[type="submit"]:hover, .b_button:hover {
+  color:#e8eef4;
+  border: 1px solid #45682a;
+  background: #006389;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0080b2), to(#1773AA));
+  background: -webkit-linear-gradient(#0080b2, #1773AA);
+  background: -moz-linear-gradient(#0080b2, #1773AA);
+  background: -ms-linear-gradient(#0080b2, #1773AA);
+  background: -o-linear-gradient(#0080b2, #1773AA);
+  background: linear-gradient(#0080b2, #1773AA);
+  -pie-background: linear-gradient(#0080b2, #1773AA);
+}
+
 input[type="submit"], .b_button:active {
   
 }

@@ -133,10 +133,10 @@ describe Product do
       @product1.store_units.create(:store => @store3, :count => 20, :option => 0)
       @product2.store_units.create(:store => @store4, :count => 40, :option => -1)
       Product.find_all({:store => 14}).should have(1).record
-      Product.find_all({:store => 15, :store_option => [1, 0]}).should have(2).record
-      Product.find_all({:store => 15, :store_option => [1, -1]}).should have(2).record
-      Product.find_all({:store => 20, :store_option => [0]}).should have(1).record
-      Product.find_all({:store => 40, :store_option => [-1]}).should have(1).record
+      Product.find_all({:store => 15, :store_option => []}).should have(1).record
+      Product.find_all({:store => 15, :store_option => []}).should have(1).record
+      Product.find_all({:store => 15, :store_option => [0]}).should have(2).record
+      Product.find_all({:store => 15, :store_option => [-1]}).should have(2).record
     end
 
    end
@@ -171,7 +171,7 @@ describe Product do
     end
     
     it 'Передаю пустой параметр' do
-      Product.find_all({"property_values_#{@material_prop.id}" => [""]}).should have(0).items      
+      Product.find_all({"property_values_#{@material_prop.id}" => [""]}).should have(4).items      
     end
 
     it "Ищу по материалу 'Пластик'" do

@@ -651,6 +651,17 @@ input[type="submit"], input[type="button"], .r_button {
   -pie-background: linear-gradient(#cc6666, #a91e4c);
 }
 
+
+input[type="submit"]:hover, input[type="button"]:hover, .r_button:hover { 
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#cc6666), to(#BD4656));
+  background: -webkit-linear-gradient(#cc6666, #BD4656);
+  background: -moz-linear-gradient(#cc6666, #BD4656);
+  background: -ms-linear-gradient(#cc6666, #BD4656);
+  background: -o-linear-gradient(#cc6666, #BD4656);
+  background: linear-gradient(#cc6666, #BD4656);
+  -pie-background: linear-gradient(#cc6666, #BD4656);
+}
+
 .ui-dialog .ui-dialog-content {
     padding:0;
 }
@@ -713,7 +724,7 @@ input[type="submit"], input[type="button"], .r_button {
 }
 
 .b-who_are_you {
-  width:330px;
+  width:350px;
  }
  
  .b-who_are_you p {

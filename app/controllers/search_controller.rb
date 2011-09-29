@@ -32,12 +32,13 @@ class SearchController < ApplicationController
          s_options.merge!(:price_range => price)
        end              
        
-       store_option = [1]
-       s_options.merge!(:store => params[:store_from]) if params[:store_from].to_i > 0      
-       store_option << 0 if params[:on_demand]
-       store_option << -1  if params[:in_order]
-       s_options.merge!(:store_option => store_option) if store_option.present?
-      
+       if params[:store_from].to_i > 0      
+         store_option = []
+         s_options.merge!(:store => params[:store_from]) 
+         store_option << 0 if params[:on_demand] 
+         store_option << -1  if params[:in_order]
+         s_options.merge!(:store_option => store_option) if store_option.present?
+      end      
       s_options.delete_if{ |k, v| v.blank?}
       res = s_options.empty? ? [] :  Product.find_all(s_options, "ext-search")
       
