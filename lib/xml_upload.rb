@@ -94,6 +94,8 @@ module XmlUpload
       end  
     end
     Category.enable_cache   
+    Rails.cache.delete('novelty_products')
+    Rails.cache.delete('sale_products')
     @bw.update_attributes( {:current_status => "finish", :task_end => Time.now})    
     #prepare_log_data    
     rescue => err

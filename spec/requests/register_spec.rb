@@ -72,7 +72,7 @@ end
     let(:product) {Factory(:product)}    
       it 'регистрация при оформлении заказа из карточки товара' do
         visit product_path(product)
-        click_link "Регистрация"
+        click_link "Оформить заказ"
         page.should have_content "Кто Вы?"
       end    
     end

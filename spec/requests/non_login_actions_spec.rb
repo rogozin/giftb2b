@@ -14,7 +14,7 @@ describe 'Действия для незарегистрированного п�
     page.should have_no_selector "#cart"
     visit product_path(@product)
     within "#product_#{@product.id}" do
-      page.should have_link "Регистрация"
+      page.should have_link "Оформить заказ"
       page.should have_link "Спец. условия для рекламных агентств"
     end      
         

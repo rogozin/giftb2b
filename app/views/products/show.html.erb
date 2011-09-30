@@ -30,8 +30,7 @@
 			
 			<p id="add_to_cart"><%= link_to 'Добавить в корзину', add_cart_path(@product.id), :remote => true, :method => :post if current_user%></p>
 			<% unless current_user -%>
-
-  			<div class="b-rgb"><%= link_to 'Регистрация', register_user_path, :class => "g_button"  %></div>			  
+  			<div class="b-rgb"><%= link_to 'Оформить заказ', register_user_path, :class => "g_button"  %></div>			  
   			<div class="spacer"></div>
   			<p class="article_t"><%= link_to 'Спец. условия для рекламных агентств', content_path('agency-special')  %></p>			  
 			<% end -%>

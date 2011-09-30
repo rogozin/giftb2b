@@ -44,9 +44,6 @@ class Product < ActiveRecord::Base
   before_save :set_permalink, :set_ruprice
   after_save :clear_cache
 
-  def self.cached_novelty
-    Rails.cache.fetch('novelty', :expires_in =>1.hours) { novelty}
-  end
   
   def self.find_all(options={}, place= "admin")
     sr = Product.scoped
@@ -228,7 +225,7 @@ class Product < ActiveRecord::Base
   end
   
   def cached_store_units
-    Rails.cache.fetch("#{cache_key}/store_units"){ store_units.includes(:store).all }    
+    Rails.cache.fetch("#{cache_key}/store_units",:expires_in =>24.hours){ store_units.all }    
   end
   
   def cached_properties
@@ -310,7 +307,7 @@ class Product < ActiveRecord::Base
    end
    
   def clear_cache
-    Rails.cache.delete('novelty')
+    
   end  
    
 end
