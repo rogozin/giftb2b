@@ -16,7 +16,7 @@ class Firm < ActiveRecord::Base
   scope :default_city, clients.where("upper(city) = 'МОСКВА'")
   scope :where_city_present, clients.where(:show_on_site => true).where("length(city) > 0").order("city")
   before_validation :set_permalink
-  
+  after_create :set_default_logo
  def logo
    images.first.picture if images.present?
  end
@@ -38,6 +38,13 @@ private
 
    def set_permalink
     self[:permalink] = (short_name || name).parameterize  unless self[:permalink]
+  end
+  
+  def set_default_logo
+   File.open(File.join(Rails.root, "/public/images/logo-default.jpg")) do |f|
+     i = Image.create(:picture => f)
+     self.images << i
+   end
   end
   
 end

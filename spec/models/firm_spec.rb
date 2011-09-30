@@ -22,4 +22,9 @@ describe Firm do
     f.should_not be_valid
   end
   
+  it 'after create should have default logo' do
+    f = Firm.create(:name => "test")
+    f.images.should have(1).record
+  end
+  
 end
