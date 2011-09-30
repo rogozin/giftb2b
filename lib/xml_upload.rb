@@ -50,9 +50,12 @@ module XmlUpload
   end
 
   def process_file(path, bw_id, options={})
-    @process_images = options[:import_images] || true 
-    @reset_images = options[:reset_images] || false
-    @reset_properties = options[:reset_properties] || false
+    #options[:import_images] ||= true
+    options[:reset_images] ||= false
+    options[:reset_properties] ||= false
+    @process_images = options[:import_images]
+    @reset_images = options[:reset_images]
+    @reset_properties = options[:reset_properties]
     @bw = BackgroundWorker.find(bw_id)    
     File.open(path, 'r') do |io|      
       process_stream(io)
