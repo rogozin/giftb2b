@@ -31,7 +31,7 @@ end
     fill_in "Телефон", :with => "903 129-432-4"    
     click_button "Зарегистрироваться"
     page.should have_selector "h2", :text => "Благодарим за регистрацию"
-    page.should have_content "В течение двух минут будет отправлен пароль на указанный Вами e-mail."
+    page.should have_content "в течение нескольких минут"
     page.should have_content "бесплатно в течение 3 дней"
     Firm.last.name.should eq "Копыта"
     Firm.last.city.should eq "Москва"    
@@ -56,7 +56,7 @@ end
     fill_in "Телефон", :with => "903 129-432-4"    
     click_button "Зарегистрироваться"
     page.should have_selector "h2", :text => "Благодарим за регистрацию"
-    page.should have_content "В течение двух минут будет отправлен пароль на указанный Вами e-mail."
+    page.should have_content "в течение нескольких минут"
     page.should have_no_content "бесплатно в течение 3 дней"
     Firm.all.should have(1).record
     User.last.should be_is_simple_user
@@ -76,5 +76,49 @@ end
         page.should have_content "Кто Вы?"
       end    
     end
+  
+  context 'восстановление пароля' do
+    
+    it 'я могу восстановить пароль' do
+      visit "/"
+      click_link "восстановить пароль"
+      page.should have_selector "h1", :text => "Восстановление пароля"
+      page.should have_field "Введите Ваш E-mail"
+    end
+
+    it 'валидность email' do
+      visit "/recovery"
+      fill_in "email", :with => 'aaa'
+      click_button "Восстановить пароль"
+      page.should have_selector "#flash_alert", :text => "Неправильный адрес Email"
+      fill_in "email", :with => 'aaaa@example.com'
+      click_button "Восстановить пароль"
+      page.should have_selector "#flash_alert", :text => "Пользователь с таким именем не найден!"
+    end
+    
+    it 'неактивированный пользователь не может запросить восстановление пароля' do
+       visit "/recovery"
+      user = Factory(:user, :active => false)
+      fill_in "email", :with => user.email
+      click_button "Восстановить пароль"
+      page.should have_selector "#flash_alert", :text => "Пользователь с таким именем не найден!"      
+    end
+
+    
+    it 'восстановление пароля' do
+      user = Factory(:user)
+      visit "/recovery"
+      fill_in "email", :with => user.email
+      click_button "Восстановить пароль"
+      page.should have_selector "h1", :text => "Ваш пароль изменен!"
+#      save_and_open_page
+      page.should have_selector "form#login_form"
+      ActionMailer::Base.deliveries.should have(1).item
+      ActionMailer::Base.deliveries.map(&:to).should include([user.email])      
+      ActionMailer::Base.deliveries.first.body.should match(user.username)      
+      ActionMailer::Base.deliveries.first.body.should match(user.password)
+    end
+    
+  end
   
 end

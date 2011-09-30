@@ -311,6 +311,7 @@ select {background-color: white;}
 
 .login-form {
   margin-left:10px;
+  width:200px;
 }
 .login-form h2 {
 	font-size:10pt;
@@ -321,6 +322,7 @@ select {background-color: white;}
 	font-size:9pt;
 	color:#fff;
 	clear:both;
+	width:100%;
 	text-align:right;
 	line-height: 20px;
 	margin-bottom: 5px;
@@ -328,7 +330,7 @@ select {background-color: white;}
 }
 
 .login-form input[type="text"], .login-form input[type="password"] {
-  width:120px;
+  width:119px;
 }
 
 /* Личный кабинет */
@@ -336,7 +338,7 @@ select {background-color: white;}
 	margin-top:20px;
 	margin-left:0px;
 	width:250px;
-	height:100px;
+	height:120px;
 	background:#999;
 	text-align:left;
 }
@@ -347,15 +349,20 @@ select {background-color: white;}
 	color:#CC3366;
 }
 
-.lk-reg {
-	padding-left:111px;
+
+.lk-rec { float:left; }
+
+.lk-reg { float:right; }
+
+.lk-links {
+  margin:10px;
 	font-weight:normal;
 	font-size:9pt;
 	padding-top:1px;
 	color:#999999
 }
 
-.lk-reg a {
+.lk-links a {
 	border-bottom:1px dotted #fff;
 	text-decoration:none;
 

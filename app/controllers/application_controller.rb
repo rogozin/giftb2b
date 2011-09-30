@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   # See ActionController::Base for details
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password").
-  helper_method :current_user, :ext_user?
+  helper_method :current_user, :ext_user?, :local_request?
   cattr_reader :current_user
 
 
@@ -86,6 +86,10 @@ class ApplicationController < ActionController::Base
   
   def get_cart
     @cart = find_cart
+  end
+
+  def local_request?
+    Rails.env.development? or request.remote_ip =~ /(::1)|(127.0.0.1)|((192.168).*)/
   end
 
 end

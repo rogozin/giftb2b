@@ -52,5 +52,25 @@ def new
       render 'activation_failed'
     end
   end
+  
+  def recovery
+    
+  end
+  
+  def change_password
+    return redirect_to recovery_password_path, :alert => "Неправильный адрес Email" if EmailValidator.email_pattern !~ params[:email] || params[:email].blank?
+    user = User.find_by_email(params[:email])
+    return redirect_to recovery_password_path, :alert => "Пользователь с таким именем не найден!" if user.nil? || (user.present? && !user.active)
+    pass = User.friendly_pass
+    if user.update_attributes(:password => pass, :password_confirmation => pass)
+      user_session  =  UserSession.find
+      user_session.destroy if user_session
+      AccountMailer.recovery_password(user, pass).deliver
+      render 'password_changed'
+    else
+      redirect_to recovery_password_path, :alert => "Просим прощения, пароль не может быть восстановлен по некоторым причинам."
+    end
+    
+  end
 
 end

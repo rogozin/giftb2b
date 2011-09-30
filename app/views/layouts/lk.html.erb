@@ -34,9 +34,7 @@
 <div class="clear"></div>   
 <div class="content">
  <%#= render :partial => 'lk/shared/happy_birthday' if current_user.is_firm_user? && is_birthday_today? %>    
- <%- flash.each do |name, msg| -%>
-    <%= content_tag :div, raw(msg), :id => "flash_#{name}", :class => "corner-all" if name.to_s.index("notice") or name.to_s.index("alert") %>
-    <%- end -%>
+  <%= render :partial => 'shared/flashes' %>
 </div>
  <div id="main_content" class="content">
    <%- if show_title? -%>
@@ -84,19 +82,8 @@
 	<p>+7 (495) 741-06-95 e-mail:info@giftb2b.ru</p>
 	<p>© 2011 Giftb2b - Все сувениры для бизнеса.</p>
 	</div></div> <!-- end footer --> 
-	<!-- Start of Zopim Live Chat Script -->
-<script type="text/javascript">
-window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=
-z.s=d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o
-){z.set._.push(o)};$.setAttribute('charset','utf-8');$.async=!0;z.set.
-_=[];$.src=('https:'==d.location.protocol?'https://ssl':'http://cdn')+
-'.zopim.com/?GYCeTQtKE2ivAZzlZesa3w8y083KNOMp';$.type='text/java'+s;z.
-t=+new Date;z._=[];e.parentNode.insertBefore($,e)})(document,'script');
-$zopim(function() {
-  $zopim.livechat.bubble.setColor('#CC3366');
-  $zopim.livechat.set({language: 'ru'});
-});
-</script>
-<!-- End of Zopim Live Chat Script -->
+	<% unless local_request? -%>
+    <%= render :partial => 'shared/zopim' %>	    
+	<% end -%>
 </body> 
 </html>

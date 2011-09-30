@@ -8,6 +8,7 @@ Giftr3::Application.routes.draw do
   match 'profile' => "profile#edit", :as => :profile
   match 'change_profile' => 'profile#update', :as => :change_profile
   match 'register' => "users#new", :as => :register_user
+  match 'recovery' => "users#recovery", :as => :recovery_password
   match 'activate/:activation_code' => "users#activate", :as => :activate_user
   match 'p/:id' => "content#show", :as => :content
   match 'c/:id' => "content_category#show", :as => :content_category
@@ -16,7 +17,9 @@ Giftr3::Application.routes.draw do
     get :change_scrollable, :on => :collection
   end
   resource :user_session
-  resources :users, :only => [:create, :edit, :update]
+  resources :users, :only => [:create, :edit, :update] do 
+    post :change_password, :on => :collection
+  end
   resources :products
   resources :categories do
     collection do 
