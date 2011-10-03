@@ -7,7 +7,7 @@ class FirmsController < ApplicationController
   end
   
   def city    
-    @firms = Firm.clients.where("upper(city) = upper(:city)", {:city => params[:id]})
+    @firms = Firm.clients.where_city_present.where("upper(city) = upper(:city)", {:city => params[:id]})
   end
   
   def select_town
