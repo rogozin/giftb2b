@@ -7,6 +7,7 @@ describe 'Роль менеджер фирмы' do
      @firm = Factory(:firm)
      @user.update_attributes(:firm => @firm, :fio => "Петр Иванов")    
      @lk_firm = Factory(:lk_firm, :firm_id => @firm.id)         
+     ActionMailer::Base.deliveries.clear
   end
   
   

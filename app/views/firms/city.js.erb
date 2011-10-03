@@ -1,2 +1,2 @@
-$('#firms').html("<%= escape_javascript render(:partial => "firms", :locals => {:send_order => params[:from_cart]}) %>");
+$('#firms').html("<%= escape_javascript render(:partial => "firms", :locals => {:send_order => params[:from_cart] == true}) %>");
 

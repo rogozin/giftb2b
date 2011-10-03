@@ -23,7 +23,7 @@ $(function() {
    return false;
   });      
     
-   $('a.firm-dialog').bind('click', function(e){ 
+   $('a.firm-dialog').live('click', function(e){ 
     var openMap = this.href.split('#').length ==2;    
     $.getScript(this.href, function() {       
        var map = null;        

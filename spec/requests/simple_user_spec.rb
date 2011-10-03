@@ -6,6 +6,7 @@ describe "Работа обычного пользователя" do
     login_as :user
     @product = Factory(:product)
     @firm = Factory(:firm)
+    ActionMailer::Base.deliveries.clear
   end
   
   it 'Видимость пунктов меню личного кабинета' do

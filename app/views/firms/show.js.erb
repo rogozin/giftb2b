@@ -1,6 +1,10 @@
 $("#firm_info").html("<%= escape_javascript(render :partial => "about") %>").dialog({
         create: function (event, ui) {
-        $(".ui-dialog-titlebar").hide();
+          $(".ui-dialog-titlebar").hide();
+        },
+        open: function(event,ui) {
+           $("#firm_tabs").tabs();
+           console.log('dfsd');
         },
         autoOpen: true,
         position: ["center",100],
@@ -12,7 +16,6 @@ $("#firm_info").html("<%= escape_javascript(render :partial => "about") %>").dia
             "Закрыть": function() { $( this ).dialog( "close" );}
         }
     });
-    $("#firm_tabs").tabs();
 var la = <%= @firm.lat %>;
 var lo = <%= @firm.long %>;
 var title = "<%= @firm.short_name %>";       

@@ -7,6 +7,7 @@ describe 'api testing' do
     @firm = Factory(:firm)
     @foreign_access = Factory(:foreign_access, :firm => @firm)    
     @token = @foreign_access.param_key
+    ActionMailer::Base.deliveries.clear
   end  
 
 
@@ -94,13 +95,13 @@ describe 'api testing' do
       cat = @product.categories.first
       @lk_product = Factory(:lk_product, :firm => @firm, :category_ids => [cat.id], :show_on_site => true, :active => true)
       get "api/products", {:format => :json, :category => cat.id}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
-      ActiveSupport::JSON.decode(response.body).should have(2).item  
+      ActiveSupport::JSON.decode(response.body).should have(2).items  
     end
 
     it 'наличие на складе у товара' do
       @product.store_units.create(:store => Factory(:store, :supplier_id => @product.supplier.id), :count =>  123)
       get "api/products/#{@product.permalink}", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
-      ActiveSupport::JSON.decode(response.body).first.last["store_count"].should eq 123
+      ActiveSupport::JSON.decode(response.body)["store_count"].should eq 123
     end
     
     

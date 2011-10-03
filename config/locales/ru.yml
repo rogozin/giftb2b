@@ -119,3 +119,6 @@ ru:
       no_authentication_details: "You did not provide any details for authentication."
   will_paginate:
     page_gap: "..."
+    next_label: "Вперед"
+    previous_label: "Назад"
+    

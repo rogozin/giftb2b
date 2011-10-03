@@ -1,8 +1,10 @@
 #encoding: utf-8;
 class User < ActiveRecord::Base
   has_many :lk_orders
-  acts_as_authentic
-  acts_as_authorization_subject :role_class_name => 'Role'
+  acts_as_authentic do |c| 
+    c.maintain_sessions = false
+  end
+  acts_as_authorization_subject :role_class_name => 'Role', :join_table_name => :roles_users
   belongs_to :firm
   belongs_to :supplier
   validates :username, :exclusion => { :in => %w(admin superuser) }

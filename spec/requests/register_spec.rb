@@ -60,6 +60,7 @@ end
     page.should have_no_content "бесплатно в течение 3 дней"
     Firm.all.should have(1).record
     User.last.should be_is_simple_user
+    page.should have_link "Личный кабинет"
     ActionMailer::Base.deliveries.should have(2).items
     ActionMailer::Base.deliveries.map(&:to).should include([@admin.email])      
     ActionMailer::Base.deliveries.map(&:to).should include(["kopyta@giftb2b.ru"])      

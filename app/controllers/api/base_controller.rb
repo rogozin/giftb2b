@@ -1,4 +1,5 @@
 #encoding: utf-8;
+require 'will_paginate/array'
 class Api::BaseController < ActionController::Base  
   respond_to :json
   before_filter :authorization  
