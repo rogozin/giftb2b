@@ -41,7 +41,7 @@ private
   end
   
   def set_default_logo
-   File.open(File.join(Rails.root, "/public/images/logo-default.jpg")) do |f|
+   File.open(File.join(Core::Engine.root, "/public/images/logo-default.jpg")) do |f|
      i = Image.create(:picture => f)
      self.images << i
    end
