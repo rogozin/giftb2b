@@ -22,4 +22,5 @@ class Supplier < ActiveRecord::Base
     stores.create(:name => "основной")    
   end
   
+  
 end

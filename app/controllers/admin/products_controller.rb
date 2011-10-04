@@ -15,15 +15,20 @@ class Admin::ProductsController < Admin::BaseController
   
   def index 
     set_default_fields
-    params[:page] || 1    
+    params[:page] ||= 1    
+    params[:per_page] ||=20
     @properties = Property.active.for_search
     if current_user.has_role?("Редактор каталога")  
       params[:supplier] = current_user.supplier ? current_user.supplier.id : -1
     end
     respond_to do |format|
-      format.html { @products  = Product.find_all(params) }
+      format.html { 
+        @products  = Product.find_all(params) 
+        @products = @products.paginate(:page => params[:page], :per_page => params[:per_page])
+        }
       format.xml {
         @products  = Product.find_all(params) 
+        @products = @products.paginate(:page => params[:page], :per_page => 1000)
         render :xml => XmlDownload.get_xml(@products)                  
       }
         end

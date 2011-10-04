@@ -26,7 +26,8 @@ describe "Supplier" do
   it 'после удаления поставщика удаляются все склады' do
     s = Factory(:supplier)
     s.destroy
-    Store.all.should be_empty
+    s.should be_destroyed
+    Store.where(:supplier_id => s.id).should be_empty
   end
     
 end
