@@ -12,6 +12,6 @@ class Store < ActiveRecord::Base
   private
   
   def check_supplier_stores
-     self.supplier.stores.size > 1
+    self.supplier.stores.size >= 1
   end
 end

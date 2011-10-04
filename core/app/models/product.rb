@@ -9,7 +9,7 @@ class Product < ActiveRecord::Base
   has_many :attach_images, :as => :attachable, :dependent => :delete_all, :foreign_key => :attachable_id, :order => "main_img desc"
   has_many :images, :through => :attach_images
   has_many :product_properties, :class_name=>"ProductProperty", :dependent => :delete_all
-  has_many :property_values, :through => :product_properties, :include => :property, :select => "property_values.*, properties.name property_name", :order => "value"
+  has_many :property_values, :through => :product_properties, :include => :property,  :order => "value"
 
   has_many :card_properties,  :through => :product_properties, :source => :property_value, :include => :property,  :conditions => "properties.active=1 and properties.show_in_card=1 and properties.property_type = 0", :order => "properties.sort_order"
 
@@ -126,10 +126,10 @@ class Product < ActiveRecord::Base
     res= case place
       when "xml"
         sr.sorted
-       when "json", "ext-search"
+     when "json", "ext-search", "categories"
         sr.active.sorted
       else
-        sr.sorted.paginate(:page=>options[:page], :per_page=>options[:per_page])
+        sr.sorted
       end
     
   end

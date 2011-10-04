@@ -7,7 +7,7 @@ class Admin::ImagesController < Admin::BaseController
     
   def all
     params[:page] ||=1
-    @images= Image.paginate(:all, :page=>params[:page])
+    @images= Image.paginate(:page=>params[:page])
   end
   
   def index
