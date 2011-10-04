@@ -27,7 +27,7 @@ class Api::BaseController < ActionController::Base
    #logger.info "==request auth=#{request.authorization.to_s}"
    authenticate_or_request_with_http_token do |t,o|
       access = ForeignAccess.accepted_clients.select{|x| x.param_key == t}
-      #logger.info "token=#{t} opts=#{o}"
+#      logger.info "token=#{t} opts=#{o}"
       @firm = access.first.firm if access.present?
       access.present?
     end
