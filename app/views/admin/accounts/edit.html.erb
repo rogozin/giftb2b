@@ -1,6 +1,6 @@
 <h1>Изменение профиля пользователя</h1>
 
-<%= form_for :admin_account,    @account,  :url=>admin_account_path(@account),   :html => {:method => :put, :class => 'one_line_form'} do |form| %>
+<%= form_for [:admin,@account], :as => :admin_account,  :url=>admin_account_path(@account), :method => :put,   :html => {:class => 'one_line_form'} do |form| %>
 
 <%= render :partial => 'account', :locals => {:form => form}%>
 
