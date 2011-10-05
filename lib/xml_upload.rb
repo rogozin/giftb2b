@@ -130,7 +130,7 @@ module XmlUpload
     end
      import_product(manufactor_id, supplier_id, category_ids,node_set) if manufactor_id>0
      rescue => error
-     @log_errors << "processing_xml_item (art:#{node_set.find{|i| i.name==XrmlSettings.fields_hash[:article]}}) error: #{error}"
+     @log_errors << "processing_xml_item (art:#{node_set.find{|i| i.name==XmlSettings.fields_hash[:article]}}) error: #{error}"
   end
   
   def import_product(manufactor, supplier, categories, xml_nodes)    

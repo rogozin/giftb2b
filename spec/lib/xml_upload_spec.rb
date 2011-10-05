@@ -5,7 +5,7 @@ describe XmlUpload do
   context "Spec xml upload func" do
    before(:each) do      
       @product = Factory(:product)       
-      File.open(File.join(Rails.root, "/public/images/logo-default.jpg")) do |f|
+      File.open(File.join(Rails.root, "/public/images/default_image.jpg")) do |f|
        i = Image.create(:picture => f)
        @product.images << i
      end
@@ -40,6 +40,7 @@ describe XmlUpload do
     it "xml file should be processed when products present in base" do
       @bw = BackgroundWorker.create({:task_name => "test_xml"})
       StoreUnit.update_all("count=0")
+      Product.first.store_units.map(&:count).should eq [0, 0]
       XmlUpload.process_file(@xmlfile.path, @bw.id, {:import_images => false, :reset_images => false, :reset_properties => false} )
       Product.should have(1).record
       Product.first.images.should have(1).record
