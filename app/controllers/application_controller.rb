@@ -14,10 +14,10 @@ class ApplicationController < ActionController::Base
   # See ActionController::Base for details
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password").
-  helper_method :current_user, :ext_user?, :local_request?
+  helper_method :current_user, :ext_user?, :local_request?, :foreign_helper
   cattr_reader :current_user
 
-  helper Lk::Engine::Lk::ApplicationHelper
+  #helper Lk::Engine::Lk::ApplicationHelper
 
   private
   def access_denied
@@ -46,6 +46,10 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
+  end
+
+  def foreign_helper
+    test_auth
   end
 
   #показывать информацию о поставщике, артикул_товара

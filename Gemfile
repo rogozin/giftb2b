@@ -8,9 +8,7 @@ gem 'rails', '3.1.0'
 #gem 'mysql'
 gem "mysql2", "~> 0.3.7"
 gem 'russian'
-gem 'authlogic'
 gem 'jquery-rails', "~> 1.0"
-gem 'acl9', :require => 'acl9'
 gem 'will_paginate', "~> 3.0.2"
 gem 'paperclip'
 gem 'dalli'
@@ -23,6 +21,9 @@ gem 'composite_primary_keys', '~> 4.0.0'
 #gem 'rake', '~> 0.8.7'
 gem 'unicorn'
 #gem 'rufus-scheduler'
+gem "authlogic"
+gem "acl9"
+gem "gift-auth", :path => "auth"
 gem 'whenever'
  group :development, :test do
    #gem 'enginex'

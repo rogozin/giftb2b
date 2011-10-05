@@ -7,7 +7,7 @@ module Lk
     end
     
       def lk_engine_helper  
-        "lk_enginge_helper"
+        "lk_enginge_helper!"
       end
       
   def firm_logo_present?
