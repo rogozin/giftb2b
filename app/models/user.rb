@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   
   def username_from_email
     username =  email.split("@").first
-    username = username.ljust(3,'abc')
+    username = (username|| "").ljust(3,'abc')
     if  User.exists?(:username => username)
       username = username + "_1"
       while User.exists?(:username => username)
