@@ -1,0 +1,26 @@
+<% should_remove = true unless defined?(should_remove) -%>
+
+<table width="100%">
+<tr>
+  <th></th>
+  <%= content_tag(:th) if should_check %>
+  <th>Изображение</th>
+  <th>Артикул</th>
+  <th>Наименование</th>
+  <th>Категории</th>
+  <th>Цена</th>
+  <%= content_tag(:th) if  should_remove  %>
+</tr>
+<% products.each do |item| -%>
+  <tr>
+    <%= content_tag(:td, check_box_tag("lk_product_ids[]", item.id, false, :id => "lk_product_ids_#{item.id}")) if should_check %>
+    <td><%= link_to image_tag('edit.png'), edit_product_path(item) %></td>
+    <td><%= image_tag(item.picture.url, :width=>"120")  %></td>
+    <td><%= item.article %></td>
+    <td><%= item.short_name %></td>
+    <td><%= item.categories.map(&:name).join(', ') %></td>
+    <td class="no-wrap"><%= number_to_currency item.price %></td>
+    <%= content_tag(:td, link_to(image_tag('bin.png'), product_path(item), :method => :delete, :confirm => "Удалить товар?")) if should_remove %>
+  </tr>
+<% end -%>
+</table>

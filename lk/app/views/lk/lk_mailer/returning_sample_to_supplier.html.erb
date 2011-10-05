@@ -1,0 +1,24 @@
+<h1>Возврат образца поставщику "<%= @sample.supplier.name if @sample.supplier %>"</h1>
+
+<p>
+<% if @sample.supplier_return_date == Date.today -%>
+  <h2 style="color:red">Внимание!</h2> Сегодня наступает срок возврата образца <strong>"<%= @sample.name %>"</strong>.  <br />
+
+В случае невозврата образца он будет оприходован, а его стоимость 
+(<span style="color:red"><%=  number_to_currency(@sample.buy_price, :unit => 'руб. ') %></span>) 
+ будет <strong>взыскана</strong> с Вас!
+<% else -%>  
+  Напоминаем Вам, что через <%= time_ago_in_words(@sample.supplier_return_date)  %> истекает срок возврата образца "<%= @sample.name %>". <br />
+  По истечению срока (<%= @sample.supplier_return_date %>), образец будет оприходован, а его возврат невозможен.
+<% end -%>
+</p>
+
+<h3>Информация о клиенте:</h3>
+<p>
+  Название: "<%= @sample.lk_firm.name if @sample.lk_firm %>" <br />
+  Дата возврата образца: <%= @sample.client_return_date %>
+</p>
+<p>
+<%= link_to "Перейти на страницу образца", edit_sample_url(@sample) %>
+</p>
+

@@ -18,8 +18,8 @@ gem 'delayed_job'
 gem 'nokogiri'
 gem 'RedCloth'
 gem 'composite_primary_keys', '~> 4.0.0'
-gem 'pdfkit', "0.4.6"
-gem 'writeexcel'
+#gem 'pdfkit', "0.4.6"
+#gem 'writeexcel'
 #gem 'rake', '~> 0.8.7'
 gem 'unicorn'
 #gem 'rufus-scheduler'

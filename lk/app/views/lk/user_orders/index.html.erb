@@ -1,0 +1,21 @@
+<% page_title "Ваши заказы" -%>
+<h2>Список заказов</h2>
+
+<table width="100%">
+<tr>
+  <th></th>
+  <th>№ заказа</th>
+  <th>Компания</th>
+  <th>Статус</th>
+  <th>Сумма</th>
+</tr>
+<% @orders.each do |item| -%>
+  <tr>
+    <td><%= link_to image_tag('edit.png'), user_order_path(item) %></td>
+    <td><%= item.id  %></td>
+    <td><%= item.firm.name if item.firm %></td>
+    <td><%= item.status %></td>
+    <td><%= price_ru_label item.sum %></td>
+  </tr>
+<% end -%>
+</table>

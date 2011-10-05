@@ -1,0 +1,6 @@
+<% page_title "Редактирование товара" -%>
+<h1>Редактирование товара</h1>
+
+<%= render :partial => "lk/products/product", :locals => {:redirect => commercial_offer_path(@commercial_offer)} %>
+<div class="spacer"></div>
+<%= link_to '<< Вернуться к коммерческому предложению', commercial_offer_path(@commercial_offer), :class => "navi" %>

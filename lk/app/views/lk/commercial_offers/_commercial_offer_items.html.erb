@@ -1,0 +1,77 @@
+<script type="text/javascript">
+$(function() {
+  $('.i-help-popup').bind({
+      mouseenter: function() { $(this).find('div').fadeIn(); },
+      mouseleave: function() { $(this).find('div').hide(); } 
+    });
+  $("#select_all").toggle(
+    function() { 
+      this.src="/images/checked.gif";
+      this.title="Снять выделение"
+      $('td.checkbox input:checkbox').attr('checked', true);
+    },
+    function() { 
+      this.src="/images/unchecked.gif";
+      this.title="Выбрать все";
+      $('td.checkbox input:checked').attr('checked', false);
+    });
+});
+</script>
+<%= form_tag calculate_commercial_offer_path(@commercial_offer) do %>
+<p>Клиент: <%= select_tag :lk_firm_id, options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm_id) %></p>
+<div class="spacer"></div>
+<table width="100%">
+  <tr>
+    <th><%= image_tag "unchecked.gif", :id => "select_all", :title => "Выбрать все"  %></th>
+    <th></th>
+    <th>Изображение</th>
+    <th>Артикул</th>
+    <th>Наименование</th>
+    <th>Цена за шт</th>
+    <th>Кол-во</th>
+    <th>Сумма</th>
+    <th></th>
+  </tr>
+  <% @commercial_offer.commercial_offer_items.each do |item| -%>
+    <tr>
+      <td class="checkbox"><%= check_box_tag "co_items_ids[]", item.lk_product_id %></td>
+      <td><%= link_to image_tag('edit.png'), edit_commercial_offer_product_path(@commercial_offer, item)  %></td>
+      <td><%= link_to_if item.lk_product.product, image_tag(item.lk_product && item.lk_product.picture ? item.lk_product.picture.url(:thumb) : "default_image.jpg"), product_path(item.lk_product.product), :target => "_blank" %></td>
+      <td><%= item.lk_product.article %></td>
+      <td><%= item.lk_product.short_name %></td>
+      <td class="no-wrap"><%= price_ru_label item.lk_product.price  %></td>
+      <td class="no-wrap"><%= text_field_tag "co_items[#{item.lk_product.id}]", item.quantity, :class => "inp-quantity" %></td>
+      <td class="no-wrap"><%= price_ru_label item.lk_product.price * item.quantity %></td>
+      <td><%= link_to image_tag('bin.png'), commercial_offer_product_path(@commercial_offer, item), :method => :delete, :confirm => "Удалить товар из коммерческого предложения?"  %></td>
+    </tr>
+  <% end -%>
+  <tr>              
+    <td class="right" colspan="6"><strong>Итого:</strong></td>
+    <td class="no-wrap"><%= @commercial_offer.commercial_offer_items.sum(:quantity) %> шт. </td>
+    <td class="no-wrap" colspan="2"><%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
+  </tr>
+</table>
+     <h3>Комментарий к коммерческому предложению:</h3> 
+      <div class="b-co-description">
+        <%= text_area_tag :signature,  @commercial_offer.signature, :rows => 5 %>
+      </div>
+      <div class="b-co-delta">
+        <div class="b-co-delta-inner">
+          <%= help_popup("Поле \"Размер скидки\" определяет величину скидки в процентах для всего коммерческого предложения. \nЗначение может находится в пределах от 0 до 99 %") %>
+          <%= label_tag :sale,"Размер скидки для всего КП:" %> <%= text_field_tag :sale, @commercial_offer.sale, :class => "inp-quantity" %> %     
+        </div>      
+        <div class="b-co-delta-inner">
+        <%= help_popup("Позволяет увеличить или уменьшить цену выбранных товаров коммерческого предложения. \n\n Отметье товары, для которых необходимо изменить стоимость, введите величину значения, на которое хотите изменить цену (рубли или проценты, отрицательное значение уменьшит стоимость) и нажмите кнопку \"Сохранить\" ") %>
+          <%= label_tag :delta, "Изменить стоимость на:" %> <%= text_field_tag :delta, nil, :class => "inp-quantity" %>
+          <select name="unit" style="width:70px">
+          <option value="0">рублей</option>
+          <option value="1">%</option>
+          </select>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="b-submit">
+        <%= submit_tag "Cохранить" %>
+      </div>
+<% end %>
+

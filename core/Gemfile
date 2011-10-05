@@ -20,5 +20,4 @@ gemspec
    gem 'factory_girl_rails'
    gem 'launchy', "~> 2.0.5"
    gem "mysql2"
-   gem 'composite_primary_keys', '~> 4.0.0'
  end

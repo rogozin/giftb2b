@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :ext_user?, :local_request?
   cattr_reader :current_user
 
-
+  helper Lk::Engine::Lk::ApplicationHelper
 
   private
   def access_denied

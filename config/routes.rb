@@ -5,14 +5,14 @@ Giftr3::Application.routes.draw do
   match 'logout' => 'user_sessions#destroy', :as => :logout
   match 'admin' => 'admin/products#index', :as => :admin
   match 'search' => 'search#index', :as => :search
-  match 'profile' => "profile#edit", :as => :profile
-  match 'change_profile' => 'profile#update', :as => :change_profile
   match 'register' => "users#new", :as => :register_user
   match 'recovery' => "users#recovery", :as => :recovery_password
   match 'activate/:activation_code' => "users#activate", :as => :activate_user
   match 'p/:id' => "content#show", :as => :content
   match 'c/:id' => "content_category#show", :as => :content_category
   match 's/:id' => "suppliers#show", :as => :supplier
+  mount Lk::Engine => "/lk", :as => :lk_engine
+
   resources :main, :only => [:index] do
     get :change_scrollable, :on => :collection
   end
@@ -50,51 +50,12 @@ Giftr3::Application.routes.draw do
       get :select_town
     end
   end
-  resources :foreign do
-    collection do
-      get :search
-      get :tree
-      get :analog_tree
-      get :thematic_tree
-      get :virtual  
-    end
-    member do
-      get :product
-    end 
-  end
+
   resources :cart, :only => [:index, :destroy] do
     post :add, :on => :member
     post :empty, :on => :collection
     post :calculate, :on => :collection
   end
-  resources :lk, :only =>[:index]
-  namespace :lk do
-    match 'load_cart_products' =>  'base#load_cart_products', :as => :cart_products    
-    resources :accounts
-    resources :firms
-    resources :products
-    match 'load_lk_products' =>  'products#load_lk_products', :as => :load_products    
-    resources :orders do
-      member do
-        post :calculate
-        post :add_product        
-      end
-    end    
-    resources :user_orders, :only => [:create, :index, :show] do
-      get :complete, :on => :collection
-    end
-    resources :commercial_offers do
-      member do 
-        post :calculate
-        post :add_product
-        post :move_to_order
-        get :export
-      end
-    resources :products, :controller => "commercial_offer_items", :only => [:edit, :destroy] 
-    end  
-    resources :samples    
-  end
-  
   
   namespace :admin do
     resources :firms do

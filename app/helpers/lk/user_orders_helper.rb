@@ -1,2 +1,0 @@
-module Lk::UserOrdersHelper
-end

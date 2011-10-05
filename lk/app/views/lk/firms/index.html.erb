@@ -1,0 +1,31 @@
+<% page_title "Клиенты" -%>
+<h2>Клиенты</h2>
+<div class="spacer"></div>
+<div class="b-command-menu">
+  <%= link_to 'Новый клиент', new_firm_path %>
+</div>
+<div class="spacer"></div>
+<% if @firms.present? -%>
+  <table width="100%">
+  <tr>
+    <th></th>
+    <th>Название</th>
+    <th>Контактное лицо</th>
+    <th>E-mail</th>
+    <th>Телефон</th>
+    <th></th>
+  </tr>
+   <% @firms.each do |item| -%>
+     <tr>
+       <td><%= link_to image_tag('edit.png'), edit_firm_path(item) %></td>
+       <td><%= item.name %></td>
+       <td><%= item.contact %></td>
+       <td><%= item.email %></td>
+       <td><%= item.phone %></td>
+       <td><%= link_to image_tag('bin.png'), firm_path(item), :method => :delete, :confirm => "Удалить данные о клиенте?"  %></td>
+     </tr>
+   <% end -%>
+</table>
+<% else -%>
+<p>В списке нет ни одного клиента</p>
+<% end -%>

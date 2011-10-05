@@ -1,3 +1,0 @@
-module Lk::ProductsHelper    
-  
-end
