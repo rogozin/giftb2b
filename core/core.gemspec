@@ -5,19 +5,19 @@ require "core/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "core"
+  s.name        = "gift-core"
   s.version     = Core::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Core."
-  s.description = "TODO: Description of Core."
+  s.authors     = ["Ilya Rogozin"]
+  s.email       = ["ilya.rogozin@gmail.com"]
+  s.homepage    = "http://giftb2b.ru"
+  s.summary     = "All core objects for project"
+  s.description = "Description of Core."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.1.0"
-  s.add_dependency "composite_primary_keys", "~> 4.0.0"
+  s.add_dependency "composite3_primary_keys", "~> 4.0.0"
   s.add_dependency "paperclip"
 
  # s.add_development_dependency "sqlite3"
