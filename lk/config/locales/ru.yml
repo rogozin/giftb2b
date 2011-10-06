@@ -1,0 +1,72 @@
+ru:
+  co_added_products:  
+    one: "В коммерческое предложение добавлен %{count} товар"
+    few: "В коммерческое предложение добавлены %{count} товара"  
+    many: "В коммерческое предложение добавлено %{count} товаров"  
+    other: "В коммерческое предложение добавлены %{count} товара" 
+  lk_order_added_products:  
+    one: "В заказ добавлен %{count} товар"
+    few: "В заказ добавлены %{count} товара"  
+    many: "В заказ добавлено %{count} товаров"  
+    other: "В заказ добавлены %{count} товара" 
+  activerecord:
+    models:
+      commercial_offer: "Коммерческое предложение"
+      commercial_offer_item: "Товар"
+      lk_firm: "Фирма"
+      lk_product: "Товар"
+      lk_order: "Заказ"
+      sample: "Образец"		
+    attributes:
+      commercial_offer:
+        lk_firm_id: "Клиент"        
+        email: "E-mail"
+        sale: "Скидка, %"
+        signature: "Комментарий"
+      commercial_offer_item:
+        quantity: "Количество" 
+        price: "Цена"
+        description: "Описание" 
+      lk_firm:
+        name: "Название клиента"
+        contact: "Контактное лицо"
+        phone: "Телефон"
+        email: "E-Mail"
+        url: "Веб-адрес"
+        addr_u: "Адрес юридический"
+        addr_f: "Адрес физический"
+        description: "Примечание"
+      lk_product:
+        article: "Артикул"
+        picture: "Изображение"
+        short_name: "Наименование"
+        price: "Цена"
+        color: "Цвет"
+        factur: "Материал"
+        box: "Упаковка"
+        size: "Размер"
+        infliction: "Нанесение"
+        description: "Описание"
+        store_count: "Кол-во на складе"
+        show_on_site: "Показывать на сайте"
+      lk_order:
+        status_id: "Статус"
+        lk_firm_id: "Клиент"
+        firm_id: "Фирма"   
+        user_comment: "Комментарий"     
+        user_email: "Контактный e-mail"
+        user_phone: "Контактный тел."
+        user_name: "Имя заказчика"
+      sample:
+        name: "Название"
+        buy_price: "Сумма покупки"
+        sale_price: "Сумма продажи"
+        buy_date: "Дата покупки"
+        sale_date: "Дата продажи"
+        supplier_return_date: "Дата возврата поставщику"
+        client_return_date: "Дата возврата от клиента"
+        lk_firm_id: "Компания"
+        supplier_id: "Поставщик"
+        user_id: "Автор"
+        responsible_id: "Ответственный"
+    

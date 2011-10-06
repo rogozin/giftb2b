@@ -1,0 +1,29 @@
+ru:
+  errors_cnt:
+    one: "Сохранение не удалось из-за 1 ошибки:"
+    few: "Сохранение не удалось из-за %{count} ошибок:"
+    many: "Сохранение не удалось из-за %{count} ошибок:"
+    other: "Сохранение не удалось из-за 1 ошибки:"
+  product:
+    one: "%{count} товар"
+    few: "%{count} товара"  
+    many: "%{count} товаров"  
+    other: "%{count} товара"            
+  helpers:
+    submit:
+      create: 'Создать %{model}'
+      update: 'Изменить %{model}'
+      submit: 'Сохранить %{model}'
+  activerecord:
+    models:
+      content: "Контент"
+    attributes:
+      content:
+        title: "Заголовок"
+        start: "Начало публикации"			
+        stop: "Окончание публикации"
+        draft: "Черновик"
+  will_paginate:
+    page_gap: "..."
+    next_label: "Вперед"
+    previous_label: "Назад"    

@@ -5,7 +5,9 @@ class ApplicationController < ActionController::Base
 
   rescue_from  'Acl9::AccessDenied',  :with => :access_denied
   rescue_from  'ActiveRecord::RecordNotFound',  :with => :not_found
-  helper :all # include all helpers, all the time
+ # helper :all # include all helpers, all the time
+  helper GiftHelper
+  helper UsersHelper
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -14,10 +16,7 @@ class ApplicationController < ActionController::Base
   # See ActionController::Base for details
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password").
-  helper_method :current_user, :ext_user?, :local_request?, :foreign_helper
-  cattr_reader :current_user
-
-  #helper Lk::Engine::Lk::ApplicationHelper
+  helper_method :current_user, :ext_user?, :foreign_helper
 
   private
   def access_denied
@@ -38,15 +37,15 @@ class ApplicationController < ActionController::Base
     render :file => 'public/404.html', :status => 404, :layout => false
   end  
 
-  def current_user_session
-    return @current_user_session if defined?(@current_user_session)
-    @current_user_session = UserSession.find
-  end
+#  def current_user_session
+#    return @current_user_session if defined?(@current_user_session)
+#    @current_user_session = UserSession.find
+#  end
 
-  def current_user
-    return @current_user if defined?(@current_user)
-    @current_user = current_user_session && current_user_session.record
-  end
+#  def current_user
+#    return @current_user if defined?(@current_user)
+#    @current_user = current_user_session && current_user_session.record
+#  end
 
   def foreign_helper
     test_auth
@@ -55,28 +54,6 @@ class ApplicationController < ActionController::Base
   #показывать информацию о поставщике, артикул_товара
   def ext_user?
     current_user && (current_user.is_firm_user? || current_user.is_admin?) 
-  end
-
-  def require_user
-    unless current_user
-      store_location
-      flash[:alert] = "Для доступа к этой странице необходимы права администратора!"
-      redirect_to new_user_session_url
-      return false
-    end
-  end
-
-  def require_no_user
-    if current_user
-      store_location
-      flash[:notice] = "You must be logged out to access this page"
-      redirect_to account_url
-      return false
-    end
-  end
-
-  def store_location
-    session[:return_to] = request.fullpath
   end
 
   def redirect_back_or_default(default)
@@ -90,10 +67,6 @@ class ApplicationController < ActionController::Base
   
   def get_cart
     @cart = find_cart
-  end
-
-  def local_request?
-    Rails.env.development? or request.remote_ip =~ /(::1)|(127.0.0.1)|((192.168).*)/
   end
 
 end

@@ -1,12 +1,6 @@
 #encoding: utf-8;
 module ProductsHelper
-    def product_price(product)
-      price_ru_label(product.price_in_rub)
-    end
-    
-    def price_ru_label val
-      val==0 ?  "по запросу" :  number_to_currency(val, :unit => 'руб. ')
-    end
+ 
     
     def product_image(product, thumb = true, title = true)
       pfi = product.main_image

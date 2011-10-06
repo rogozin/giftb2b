@@ -24,6 +24,9 @@ gem 'unicorn'
 gem "authlogic"
 gem "acl9"
 gem "gift-auth", :path => "auth"
+gem "gift-core", :path => "core"
+gem "gift-lk", :path => "lk"
+gem "gift-base", :path => "base"
 gem 'whenever'
  group :development, :test do
    #gem 'enginex'

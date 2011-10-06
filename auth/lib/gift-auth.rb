@@ -1,9 +1,8 @@
 require "auth/engine"
+require "controller_mix"
 
 module Auth
-  def test_auth
-    "module auth"
-  end
+
 end
 
-ActionController::Base.send(:include, Auth)
+ActionController::Base.send(:include, ControllerMix)

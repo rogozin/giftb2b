@@ -1,15 +1,7 @@
 #encoding: utf-8;
 module Lk
   module ApplicationHelper
-    def page_title(header=nil)
-      default = controller_path =~ /^lk\// ? "Личный кабинет giftb2b.ru"  :  "giftb2b.ru" 
-      @page_title = [header, default].compact.join(' | ')
-    end
-    
-      def lk_engine_helper  
-        "lk_enginge_helper!"
-      end
-      
+         
   def firm_logo_present?
     current_user && current_user.firm && current_user.firm.images.present?
   end

@@ -21,6 +21,9 @@ Gem::Specification.new do |s|
   s.add_dependency "composite_primary_keys", "~> 4.0.0"
   s.add_dependency "paperclip"
   s.add_dependency "gift-core"
+  s.add_dependency "gift-auth"
+  s.add_dependency "gift-base"
   s.add_dependency 'pdfkit'
   s.add_dependency 'writeexcel'
+  s.add_dependency "will_paginate"
 end

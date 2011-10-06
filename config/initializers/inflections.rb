@@ -7,5 +7,5 @@
 #   inflect.singular /^(ox)en/i, '\1'
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
-    inflect.uncountable %w( foreign_access )
+#    inflect.uncountable %w( foreign_access )
  end

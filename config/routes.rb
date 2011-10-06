@@ -1,25 +1,18 @@
 #encoding: utf-8;
 Giftr3::Application.routes.draw do
   root :to => 'main#index'
-  match 'login' => 'user_sessions#new', :as => :login
-  match 'logout' => 'user_sessions#destroy', :as => :logout
   match 'admin' => 'admin/products#index', :as => :admin
   match 'search' => 'search#index', :as => :search
-  match 'register' => "users#new", :as => :register_user
-  match 'recovery' => "users#recovery", :as => :recovery_password
-  match 'activate/:activation_code' => "users#activate", :as => :activate_user
   match 'p/:id' => "content#show", :as => :content
   match 'c/:id' => "content_category#show", :as => :content_category
   match 's/:id' => "suppliers#show", :as => :supplier
   mount Lk::Engine => "/lk", :as => :lk_engine
+#  mount Auth::Engine => "/auth", :as => :auth_engine
 
   resources :main, :only => [:index] do
     get :change_scrollable, :on => :collection
   end
-  resource :user_session
-  resources :users, :only => [:create, :edit, :update] do 
-    post :change_password, :on => :collection
-  end
+
   resources :products
   resources :categories do
     collection do 
@@ -150,7 +143,7 @@ Giftr3::Application.routes.draw do
     resources :foreign_access
   end
 
-  match '/:controller(/:action(/:id))'
+  #match '/:controller(/:action(/:id))'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
