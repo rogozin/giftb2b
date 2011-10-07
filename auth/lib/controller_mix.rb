@@ -15,7 +15,7 @@ module ControllerMix
     unless current_user
       store_location
       flash[:alert] = "Для доступа необходимо ввести имя пользователя и пароль"
-      redirect_to "/login"
+      redirect_to auth_engine.login_path
       return false
     end
   end
@@ -23,6 +23,10 @@ module ControllerMix
   
   def store_location
     session[:return_to] = request.fullpath
+  end
+  
+  def ext_user?
+    current_user && (current_user.is_firm_user? || current_user.is_admin?) 
   end
 
 end

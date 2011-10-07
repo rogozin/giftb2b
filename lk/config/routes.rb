@@ -1,4 +1,5 @@
 Lk::Engine.routes.draw do
+ # mount Auth::Engine => "/auth", :as => :auth_engine
   root :to => "base#index"
 #  resources :lk, :only =>[:index]
     match 'load_cart_products' =>  'base#load_cart_products', :as => :cart_products    

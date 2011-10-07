@@ -1,4 +1,4 @@
-<%= form_for :user_session, :url=> create_session_path , :html=>{:id=>"login_form", :name => "login_form"} do |form| %>
+<%= form_for :user_session, :url=> auth_engine.create_session_path , :html=>{:id=>"login_form", :name => "login_form"} do |form| %>
       <div class="login-form one_line_form">
       <h2>Личный кабинет:</h2>
         <p> <%= label_tag :username, "имя:" %> <%= form.text_field :username %></p>
@@ -12,8 +12,8 @@
       </div> 
      		<div class="clear"></div>
          <div class="lk-links">
-          <div class="lk-rec"><a href="/recovery">восстановить пароль</a></div>
-          <div class="lk-reg"><a href="/register">pегистрация</a></div> 
+          <div class="lk-rec"><%= link_to 'восстановить пароль', auth_engine.recovery_password_path  %> </div>
+          <div class="lk-reg"><%= link_to 'регистрация', auth_engine.register_user_path  %></div> 
           <div class="clear"></div>
          </div> 
          <%= submit_tag ".", :style=>"visibility:hidden; width:0px;" %>

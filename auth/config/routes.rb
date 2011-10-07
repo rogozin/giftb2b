@@ -1,4 +1,5 @@
-Rails.application.routes.draw do
+#Rails.application.routes.draw do
+Auth::Engine.routes.draw do
   match 'login' => 'user_session#new', :as => :login
   match 'logout' => 'user_session#destroy', :as => :logout
   match 'register' => "users#new", :as => :register_user

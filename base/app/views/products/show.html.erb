@@ -1,0 +1,64 @@
+<% content_for :meta_description, @product.meta_description -%>
+<% content_for :meta_keywords, @product.meta_keywords -%>
+<% page_title(@product.short_name) -%>
+<%= render :partial => "product_rubrika" %>
+<%= content_tag(:div, :id => "product_#{@product.id}", :class=>"center_block") do -%>
+	<div class="big_pict">
+		<div class="pict_2"><div class="pict_3" id="big_img">
+		<%= product_image(@product,false) %>
+		</div>
+		</div>
+	</div>
+	<div class="text_block">
+		<div class="text_bg">
+			<div class="margin_text">
+			<h1 class="article_t"><%= @product.short_name %></h1>
+			<p class="article_name_2"><span class="article_t">Артикул: </span><%= article @product %></p>						
+	  	<%= supplier @product %>				
+		  <div class="article_t">
+  			<p>Описание:</p><div class="article_s"><%=raw RedCloth.new(@product.description).to_html if @product.description %></div>
+			</div>
+		 <p class="article_t">Материал: <span class="article_s"><%= @product.factur %></span></p>
+      <p class="article_t">Цвет: <span class="article_s"><%= @product.color %></span></p>
+			<p class="article_t">Размер: <span class="article_s"><%= @product.size %></span></p>
+			<%= render :partial => "products/text_properties" %>
+      <%= render :partial => "product_store_units" %>
+      <p class="article_date">Обновлено: <span class="article_s"><%= @product.updated_at.strftime("%d.%m.%Y") %></span></p>
+			<br />
+			<p class="article_t">Цена: <span class="article_name"><%= product_price(@product) %></span></p>
+			
+			<p id="add_to_cart"><%= link_to 'Добавить в корзину', add_cart_path(@product.id), :remote => true, :method => :post if current_user%></p>
+			<% unless current_user -%>
+  			<div class="b-rgb"><%= link_to 'Оформить заказ', auth_engine.register_user_path, :class => "g_button"  %></div>			  
+  			<div class="spacer"></div>
+  			<p class="article_t"><%= link_to 'Спец. условия для рекламных агентств', content_path('agency-special')  %></p>			  
+			<% end -%>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="pict_block">
+		<div class="pict_float">
+		<% @product.attach_images.each do |attachable| -%>
+		 <% unless attachable.image == @product.main_image -%>
+		  <div class="article_img_1_float">
+		    <div class="article_img_2">
+    		  <div class="article_img_3" >
+    		    <%= link_to_function image_tag(attachable.image.picture.url(:thumb), :id=>"small_img_#{attachable.image_id}"), "return changeImage(#{attachable.image_id})" %>
+    		  </div>
+    	  </div>
+    	</div>
+    	<% end -%>
+		<% end -%>
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="pict_block">
+	  <%= render :partial => "products/image_properties" %>
+	</div>
+	<div class="pict_block">
+    <%= render :partial => "products/analog_products" %>
+	</div>
+
+<% end -%> <!-- end center_block -->

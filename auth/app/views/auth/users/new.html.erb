@@ -1,0 +1,8 @@
+<% page_title ("Новый пользователь") %>
+<div class="center_block"> 
+<% if @can_register -%>
+<%= render :partial =>'user' %>  
+<% else -%>
+<%= render :partial =>'who_are_you' %>
+<% end -%>
+</div>

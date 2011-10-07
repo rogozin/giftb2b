@@ -2,25 +2,14 @@
 Giftr3::Application.routes.draw do
   root :to => 'main#index'
   match 'admin' => 'admin/products#index', :as => :admin
-  match 'search' => 'search#index', :as => :search
-  match 'p/:id' => "content#show", :as => :content
-  match 'c/:id' => "content_category#show", :as => :content_category
-  match 's/:id' => "suppliers#show", :as => :supplier
   mount Lk::Engine => "/lk", :as => :lk_engine
-#  mount Auth::Engine => "/auth", :as => :auth_engine
+  mount Auth::Engine => "/auth", :as => :auth_engine
 
   resources :main, :only => [:index] do
     get :change_scrollable, :on => :collection
   end
 
-  resources :products
-  resources :categories do
-    collection do 
-      get :on_sale
-      get :best_price
-    end 
-  end
-  
+ 
   namespace :api do
     resources :categories, :only => [:index, :show] do
       collection do 
@@ -34,22 +23,7 @@ Giftr3::Application.routes.draw do
     resources :orders, :only => [:create]
     
   end
-  
-  resources :firms, :only => [:index, :show] do
-    member do 
-      get :city
-    end
-    collection do
-      get :select_town
-    end
-  end
-
-  resources :cart, :only => [:index, :destroy] do
-    post :add, :on => :member
-    post :empty, :on => :collection
-    post :calculate, :on => :collection
-  end
-  
+   
   namespace :admin do
     resources :firms do
       member do
@@ -140,7 +114,6 @@ Giftr3::Application.routes.draw do
         get :permalinks
       end        
     end
-    resources :foreign_access
   end
 
   #match '/:controller(/:action(/:id))'

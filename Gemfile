@@ -9,20 +9,20 @@ gem 'rails', '3.1.0'
 gem "mysql2", "~> 0.3.7"
 gem 'russian'
 gem 'jquery-rails', "~> 1.0"
-gem 'will_paginate', "~> 3.0.2"
-gem 'paperclip'
+#gem 'will_paginate', "~> 3.0.2"
+#gem 'paperclip'
 gem 'dalli'
 gem 'delayed_job'
 gem 'nokogiri'
-gem 'RedCloth'
-gem 'composite_primary_keys', '~> 4.0.0'
+#gem 'RedCloth'
+#gem 'composite_primary_keys', '~> 4.0.0'
 #gem 'pdfkit', "0.4.6"
 #gem 'writeexcel'
 #gem 'rake', '~> 0.8.7'
 gem 'unicorn'
 #gem 'rufus-scheduler'
-gem "authlogic"
-gem "acl9"
+#gem "authlogic"
+#gem "acl9"
 gem "gift-auth", :path => "auth"
 gem "gift-core", :path => "core"
 gem "gift-lk", :path => "lk"

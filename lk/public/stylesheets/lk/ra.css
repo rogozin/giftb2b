@@ -8,6 +8,12 @@ table th
   background-color: #0080B2;
 }
 
+.b-search-property {
+  width:220px;
+  float:left;
+  text-align:left;
+}  
+
 .center_block h1, .center_block h2, .lk-menu-title, .per-page {
 	color:#0080B2;
 }

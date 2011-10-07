@@ -1,0 +1,13 @@
+<% content_for :meta_description, @content.meta_description -%>
+<% content_for :meta_keywords, @content.meta_keywords -%>
+
+<div class="center_block">
+
+<%= content_tag :div, :class => "page_content #{@content.permalink}" do %>
+
+<%= content_tag :h1, @content.title, :class => "page_title" if @content.show_title? %>
+
+<%= raw @content.body %>
+
+<% end -%>
+</div>
