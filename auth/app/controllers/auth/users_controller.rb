@@ -21,7 +21,7 @@ def new
       end
       UserSession.create @user
       AccountMailer.new_account(@user, pass).deliver
-      User.notify_admins(@user)
+      notify_admins(@user)
       render 'thanks'
     else
       @user_type = params["i_am"]
@@ -73,5 +73,12 @@ def new
     end
     
   end
+  
+  private 
+  def notify_admins(user)
+   User.joins(:role_objects).where("active = 1 and roles.name='Администратор'").each do |admin|
+     AdminMailer.new_user_registered(user, admin).deliver
+   end
+ end  
 
 end

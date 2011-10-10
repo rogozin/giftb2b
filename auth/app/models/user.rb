@@ -67,13 +67,6 @@ class User < ActiveRecord::Base
     end      
     username
   end 
-   
- 
- 
- def self.notify_admins(user)
-   User.joins(:role_objects).where("roles.name='Администратор'").each do |admin|
-     AdminMailer.new_user_registered(user, admin).deliver
-   end
- end  
+  
     
 end
