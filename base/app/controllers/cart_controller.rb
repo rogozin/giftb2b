@@ -49,8 +49,13 @@ class CartController < ApplicationController
     respond_to do |format|
       format.js {render 'cart_items.js'}
       format.html {redirect_to cart_index_path}
-    end 
-    
+    end     
+  end
+  
+  private
+  
+  def get_cart
+    @cart = find_cart
   end
  
 end

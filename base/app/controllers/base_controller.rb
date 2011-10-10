@@ -15,7 +15,7 @@ class BaseController < ApplicationController
   end
 
   def load_search_data
-    if ext_user?
+    if ext_user? || giftpoisk?
       @categories = Category.cached_catalog_categories
       @suppliers = Supplier.order("name")
       @manufactors =  Manufactor.cached_active_manufactors

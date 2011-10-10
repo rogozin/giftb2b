@@ -1,7 +1,7 @@
 <% page_title "Авторизация" %>
 
 <div id="login">
-<h3>Авторизация</h3>
+<h1>Введите пароль</h1>
 <%= form_for @user_session, :url => auth_engine.create_session_path, :html => { :class => 'one_line_form'} do |form| %>
   <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @user_session} %>    
 
@@ -17,6 +17,12 @@
       <%= form.submit "Войти" %>
     </div>
 <% end %>
+<div class="clear"></div>
+</div>
 
-    </div>
+<div>
+<h1> или 
+<%= link_to 'зарегистрируйтесь', auth_engine.register_user_path  %>
+</h1>
+</div>
 

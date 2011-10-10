@@ -42,10 +42,12 @@ Giftr3::Application.routes.draw do
     resources :main
     resources :categories  do    
       member do
+        get :show_products_list
         post :move
         post :add_image
         delete :remove_image
         post :change_sort
+        get :child_items
       end    
       collection do
         get :catalog
@@ -114,6 +116,7 @@ Giftr3::Application.routes.draw do
         get :permalinks
       end        
     end
+    resources :foreign_access
   end
 
   #match '/:controller(/:action(/:id))'

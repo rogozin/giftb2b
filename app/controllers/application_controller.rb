@@ -42,14 +42,6 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
-
-  def find_cart    
-    session[:cart] ||= Cart.new          
-  end
   
-  def get_cart
-    @cart = find_cart
-  end
-
 end
 

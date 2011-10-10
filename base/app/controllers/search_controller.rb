@@ -3,6 +3,7 @@ class SearchController < BaseController
     helper_method :can_ext_search?
     
     before_filter :load_search_data
+    before_filter :require_ra_user  
   
     def index
      params[:per_page] ||="20"

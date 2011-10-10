@@ -4,6 +4,7 @@ module Lk
   helper_method :current_user
     
   helper GiftHelper
+  helper CartHelper
   helper UsersHelper
   helper CategoriesHelper  
 

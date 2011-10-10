@@ -7,7 +7,7 @@ module Lk
     end
    initializer "static assets" do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/public"
+      app.middleware.use ::PDFKit::Middleware
     end
-      #middleware.use ::PDFKit::Middleware
   end
 end

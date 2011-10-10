@@ -1,28 +1,4 @@
-function bindAnimation() {
-  $(".ajax_animation").bind({
-      ajaxStart: function() { $(this).show(); },
-      ajaxStop: function() { $(this).hide(); }
-    });
-}
-
 $(function() {
-  bindAnimation();
-
-  $('.pagination-ajax a').live('click', function(e) {
-    $.getScript(this.href);
-   e.preventDefault();
-  });
-
-  $(".pager a").live("click", function(e) {
-  	$.getScript(this.href, function(){ bindAnimation();});  
-  	return false;
-  });
-    
-   $('a.toggle-category').bind('click', function(){
-   $(this).next().toggle();
-   return false;
-  });      
-    
    $('a.firm-dialog').live('click', function(e){ 
     var openMap = this.href.split('#').length ==2;    
     $.getScript(this.href, function() {       

@@ -1,6 +1,6 @@
 #encoding: utf-8;
-class CategoriesController < ApplicationController
-
+class CategoriesController < BaseController
+ before_filter :require_ra_user  
 def show
     @category = Category.find_by_permalink(params[:id])
     return not_found unless @category

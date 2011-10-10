@@ -2,12 +2,12 @@
 module GiftHelper
 
   def page_title(header=nil)
-    default = controller_path =~ /^lk\// ? "Личный кабинет giftb2b.ru"  :  "giftb2b.ru" 
+    default = controller_path =~ /^lk\// ? "Личный кабинет giftpoisk.ru"  :  ActionMailer::Base.default_url_options[:host] 
     @page_title = [header, default].compact.join(' | ')
   end
 
   def title(page_title, show_title = true)    
-    @content_for_title = page_title.to_s
+    @page_title = page_title.to_s
     @show_title = show_title
   end
 

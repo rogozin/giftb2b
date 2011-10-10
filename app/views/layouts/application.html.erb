@@ -6,7 +6,7 @@
   <meta name="keywords" content="<%= yield :meta_keywords %>" />
   <meta name="google-site-verification" content="itTFr28n6WdLKxkGQIYGFvlBnPQYKNxd9Xj2oIwFS4g" />  
   <%= stylesheet_link_tag  'base/jquery.treeview.css','base/layout', 'base/jquery-ui.css', 'base/base.css', 'smoothDivScroll.css', 'application.css' %>
-  <%= javascript_include_tag :defaults, 'jquery.treeview.js', 'jquery.cookie.js', 'jquery.smoothDivScroll-1.1-min.js' %>
+  <%= javascript_include_tag :defaults, 'base/base.js', 'jquery-ui.min.js', 'jquery.treeview.js', 'jquery.cookie.js', 'jquery.smoothDivScroll-1.1-min.js' %>
   <script type="text/javascript">
  $(function()
   {
@@ -55,11 +55,11 @@
   <div class="clear"></div> 
  </div>
   <div class="clear"></div>       
-  <div id="main_content">
     <div class="content">
+      <div id="main_content">
        <%= yield :layout  %>
+      </div>
     </div>
-  </div>
   </div> <!-- end all_content --> 
   <div id="right_content"> 
   <% if current_user -%>    

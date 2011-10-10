@@ -22,7 +22,7 @@ class Lk::CommercialOffersController < Lk::BaseController
   
   def export
     respond_to do |format|
-    format.html {render  :layout => 'pdf'}
+    format.html {render  :layout => 'lk/pdf'}
     @hide_article = params[:sa] && params[:sa]== "0"
     @hide_description = params[:sd] && params[:sd]== "0"
     format.xls { 

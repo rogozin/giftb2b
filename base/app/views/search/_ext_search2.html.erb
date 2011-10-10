@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'search.js' %>
 <style type="text/css">
 #color_12271, #color_12257, #color_12252, #color_12260, #color_12273
 {border:none; width:20px; height:20px;}
@@ -28,7 +29,7 @@
      </div>
      <div class="clear"></div>     
   </div>
-<% if ext_user? -%>
+<% if ext_user? || giftpoisk? -%>
   
   <div class="b-ext-search-inner">
      <div class="b-ext-search-center">     
@@ -66,7 +67,7 @@
      <div class="clear"></div>
   </div>
 <% end -%>
-  <%= content_tag :div, :class => ext_user? ? "b-ext-search-inner even" : "b-ext-search-inner" do %>
+  <%= content_tag :div, :class => (ext_user? || giftpoisk?) ? "b-ext-search-inner even" : "b-ext-search-inner" do %>
      <div class="b-ext-search-center">     
        <div class="b-search-center-inner">
          <span class="span-right-block"><%= label_tag :store_from, "на складе от: " %> 
@@ -85,7 +86,7 @@
 
      <div class="clear"></div>
   <% end -%>
-  <% if ext_user? -%>
+  <% if ext_user? || giftpoisk? -%>
   <div class="b-ext-search-inner">
     <h3>Материал</h3>
     <%= prop_values_tree(@material, params[prop_name(@material)].present? ? params[prop_name(@material)] : [] , {:class => "material-items", :grouped => true}) %>
@@ -132,7 +133,7 @@
      <div class="clear"></div>
   </div>
 
-<% if ext_user? -%>
+<% if ext_user? || giftpoisk? -%>
   
   <div class="b-ext-search-inner even">
 
