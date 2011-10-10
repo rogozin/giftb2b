@@ -6,6 +6,7 @@ function bindAnimation() {
 }
 
 $(function() {
+  $("#tabs").tabs();  
  $('a.toggle-category').live('click', function(){
    $(this).next().toggle();
    return false;
