@@ -5,6 +5,7 @@ require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 require "rspec/rails"
 require 'factory_girl'
+require 'gift-core'
 require 'database_cleaner'
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
@@ -34,6 +35,7 @@ RSpec.configure do |config|
   
   config.before(:suite) do  
   DatabaseCleaner.strategy = :transaction  
+#  DatabaseCleaner.strategy = :truncation  
 end  
   
 config.before(:each) do  

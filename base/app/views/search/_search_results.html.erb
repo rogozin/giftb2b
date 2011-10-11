@@ -1,6 +1,7 @@
 <% if @products.present? -%>          
   
   <div class="center_block"> 
+  <h1>Результаты поиска:</h1>
   <%= render :partial => 'shared/paginate2', :locals => {:products => @products} %>
   </div> <!-- end center_block --> 
  

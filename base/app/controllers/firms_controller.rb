@@ -1,6 +1,6 @@
 #encoding: utf-8;
 class FirmsController < ApplicationController
-  before_filter :require_user
+#  before_filter :require_user
 
   def index
     @firms = Firm.where_city_present

@@ -27,15 +27,10 @@ class ApplicationController < ActionController::Base
      else
        ## In this case user has not even logged in. Might be OK after login.
      flash[:alert] = 'Доступ запрещен. Попробуйте выполнить вход в систему'
-     redirect_to login_path
+     redirect_to auth_engine.login_path
     end
   end
 
-  def not_found(message=nil)    
-    #flash[:alert] = message if message
-    #raise ActionController::RoutingError.new('Not Found')
-    render :file => 'public/404.html', :status => 404, :layout => false
-  end  
 
 
   def redirect_back_or_default(default)

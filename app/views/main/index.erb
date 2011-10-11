@@ -24,23 +24,7 @@
 <%= render :partial => 'shared/promo' unless current_user %>
 <div class="spacer"></div>
 <div class="center_block">
-<script type="text/javascript">
-  $(document).ready(function()
-  {
-    $('.all-list').toggle(function(){
-      $(this).prev().html('-');
-    }, function(){
-      $(this).prev().html('+');
-    });    
+<%= render :partial => 'shared/catalog_img' %>
 
-    $('.all-list').bind('click', function(){
-      $(this).prev().prev().parent().find('li.g-hidden').toggle();        
-      return false;     
-    });
-  })
-</script>
-<ul id="virtual_catalog" class="ul_v">
-<%= render :partial => 'catalog_img' %>
-</ul>
 </div> 
 

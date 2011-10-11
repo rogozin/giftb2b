@@ -21,18 +21,6 @@ $(function() {
   $("#tabs").tabs();  
 });
 
-function changeImage(img_nr) {	    
-   small_img_link= $('#small_img_'+img_nr).attr('src')	    
-   big_img_link = $('#big_img img').attr('src');
-   $('#big_img img').hide();
-//   add_animate('big_img');
-   $('#big_img img').load(function() {
-//       remove_animate('big_img');
-       $(this).fadeIn();
-        }).attr('src',small_img_link.replace(/thumb/g, 'original'));
-    $('#small_img_'+img_nr).attr('src',big_img_link.replace(/original/g, 'thumb'));
-   return false;
-}	 
 
 function run_scrollable() {
 $("#scrollable").smoothDivScroll({ autoScroll: "onstart", autoScrollDirection: "backandforth", autoScrollStep: 1, autoScrollInterval: 15, startAtElementId: "startAtMe", visibleHotSpots: "always"});

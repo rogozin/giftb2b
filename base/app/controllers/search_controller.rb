@@ -45,6 +45,7 @@ class SearchController < BaseController
       
       @products = res.present? ? res.paginate(:page => params[:page], :per_page => params[:per_page]) : []      
     end      
+    render :index
   end
   
   protected

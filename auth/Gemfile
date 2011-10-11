@@ -17,3 +17,14 @@ gem 'jquery-rails'
 gem "mysql2"
 gem 'authlogic'
 gem 'acl9', :require => 'acl9'
+
+group :test do
+   gem "rspec-rails"
+   gem 'database_cleaner'
+   gem 'capybara', "~> 1.1.1"  #:git => "http://github.com/jnicklas/capybara.git"
+   gem 'factory_girl_rails'
+   gem 'launchy', "~> 2.0.5"
+   gem 'gift-core', :path => "../core"
+   gem 'gift-base', :path => "../base"
+   gem 'composite_primary_keys', '~> 4.0.0'
+ end

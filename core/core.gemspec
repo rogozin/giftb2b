@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 3.1.0"
   s.add_dependency "composite_primary_keys", "~> 4.0.0"
   s.add_dependency "paperclip"
+  s.add_dependency "russian"
 
  # s.add_development_dependency "sqlite3"
 end

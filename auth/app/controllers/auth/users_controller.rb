@@ -20,7 +20,7 @@ def new
         @user.has_role! "Пользователь"
       end
       UserSession.create @user
-      AccountMailer.new_account(@user, pass).deliver
+      Auth::AccountMailer.new_account(@user, pass).deliver
       notify_admins(@user)
       render 'thanks'
     else
@@ -48,9 +48,21 @@ def new
     @user = User.find_using_perishable_token(params[:activation_code], 48.hours)
     if @user && @user.update_attribute(:active, true)
       flash[:notice] = "Учетная запись активирована"
-      AccountMailer.activation_complete(@user).deliver
+      Auth::AccountMailer.activation_complete(@user).deliver
     else
       render 'activation_failed'
+    end
+  end
+  
+  def login_by_token
+    @user = User.find_using_perishable_token(params[:token],5.minutes)
+    if @user 
+      @user.reset_persistence_token!
+#      @user.reset_perishable_token!
+      UserSession.create(@user)
+      redirect_to main_app.root_path      
+    else
+      not_found
     end
   end
   
@@ -66,7 +78,7 @@ def new
     if user.update_attributes(:password => pass, :password_confirmation => pass)
       user_session  =  UserSession.find
       user_session.destroy if user_session
-      AccountMailer.recovery_password(user, pass).deliver
+      Auth::AccountMailer.recovery_password(user, pass).deliver
       render 'password_changed'
     else
       redirect_to recovery_password_path, :alert => "Просим прощения, пароль не может быть восстановлен по некоторым причинам."
@@ -77,7 +89,7 @@ def new
   private 
   def notify_admins(user)
    User.joins(:role_objects).where("active = 1 and roles.name='Администратор'").each do |admin|
-     AdminMailer.new_user_registered(user, admin).deliver
+     Auth::AdminMailer.new_user_registered(user, admin).deliver
    end
  end  
 

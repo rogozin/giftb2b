@@ -9,7 +9,7 @@
 #color_12260 {	background: url("images/gold.png") no-repeat scroll 0 0 transparent;}  
 #color_12273 {	background: url("images/bronze.png") no-repeat scroll 0 0 transparent;} 
 </style>
- <%= form_tag search_path, :method=> :get do  -%>
+ <%= form_tag search_path(:anchor => "results"), :method=> :get do  -%>
 <div class="b-ext-search" id="ext_search">
   <h3>Расширенный поиск</h3>  
   <div class="b-ext-search-inner even">

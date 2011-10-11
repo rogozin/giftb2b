@@ -3,9 +3,6 @@ class BaseController < ApplicationController
   
   helper_method :giftpoisk?
   
-  def giftpoisk?
-    ActionMailer::Base.default_url_options[:host] == "giftpoisk.ru"
-  end
   
   
   protected

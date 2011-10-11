@@ -1,4 +1,6 @@
 Dummy::Application.routes.draw do
+   root :to => 'dummy#index'
+   mount Auth::Engine => "/auth", :as => :auth_engine
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

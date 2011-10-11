@@ -5,15 +5,22 @@ class Auth::UserSessionController < ApplicationController
   end
 
   def create
-    if params[:user_session][:username].blank? or params[:user_session][:username].blank?
-      flash[:login_error] = "Введите имя или пароль"      
-    else   
-       @user_session = UserSession.new(params[:user_session])
-       flash[:login_error]="Неправильное имя  или пароль" unless @user_session.save        
-    end
-      redirect_url = session[:return_to]
-      session[:return_to] = nil
-      redirect_to  redirect_url.present? ? redirect_url : "/"
+    redirect_url = session[:return_to]
+    session[:return_to] = nil
+    return redirect_to(login_path, :flash => {:login_error => "Введите имя или пароль" })  if params[:user_session][:username].blank? or params[:user_session][:username].blank?
+    @user_session = UserSession.new(params[:user_session])
+      if @user_session.save
+       user = @user_session.record 
+         if user && !giftpoisk? && user.is_firm_user? && !user.is_admin?
+            current_user_session.destroy
+            redirect_to(login_by_token_url(:token => user.perishable_token, :host =>  "giftpoisk.ru"))
+         else
+          redirect_to  redirect_url.present? ? redirect_url : "/"
+        end
+       else
+         redirect_to (redirect_url.present? ? redirect_url : "/"), :flash => {:login_error => "Неправильное имя или пароль"}
+       end
+
   end
 
   def destroy

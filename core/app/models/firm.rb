@@ -37,7 +37,7 @@ class Firm < ActiveRecord::Base
 private 
 
    def set_permalink
-    self[:permalink] = (short_name || name).parameterize  unless self[:permalink]
+    self[:permalink] = (short_name || name).parameterize  unless self[:permalink].present?
   end
   
   def set_default_logo
