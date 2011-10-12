@@ -16,9 +16,14 @@
         <div class="spacer"></div>
         <% end -%>
         <div class="spacer"></div>
-        <p><%= button_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  
-        <%= content_tag :div, :id => "order", :class => flash[:alert] ? nil : "g-hidden" do %>
-          <div class="spacer"></div>
-         <%= render :partial => "cart/generate_order_from_user" %>
+        
+        <% if current_user.is_simple_user? && giftb2b? -%>
+          
+          <p><%= button_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  
+          <%= content_tag :div, :id => "order", :class => flash[:alert] ? nil : "g-hidden" do %>
+            <div class="spacer"></div>
+           <%= render :partial => "cart/generate_order_from_user" %>
+          <% end -%>
         <% end -%>
+        
       <% end -%>

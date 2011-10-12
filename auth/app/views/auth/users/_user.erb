@@ -1,7 +1,7 @@
 <div class="">
 <% if @user_type == "1" -%>
   <h1>Рекламное агентство</h1>
-  <% if request.referer =~ /127.0.0.1:3000\/auth\/register/ %>
+  <% if request.referer =~ /giftb2b.ru\/auth\/register/ %>
     <p class="redirection">Вы перенаправлены на портал <a href="http://giftpoisk.ru">giftpoisk.ru</a> с расширенными возможностями для Рекламных Агентств.</p>   
   <% end -%>
   <p>
@@ -9,7 +9,7 @@
   </p>
 <% else -%>  
   <h1>Представитель компании</h1>
-   <% if request.referer =~ /127.0.0.1:3001\/auth\/register/ %>
+   <% if request.referer =~ /giftpoisk.ru\/auth\/register/ %>
     <p class="redirection">Вы перенаправлены на портал <a href="http://giftb2b.ru">giftb2b.ru</a> разработанный специально для Вашего удобства.</p>   
   <% end -%>
 

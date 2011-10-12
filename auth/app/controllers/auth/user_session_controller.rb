@@ -14,6 +14,9 @@ class Auth::UserSessionController < ApplicationController
          if user && !giftpoisk? && user.is_firm_user? && !user.is_admin?
             current_user_session.destroy
             redirect_to(login_by_token_url(:token => user.perishable_token, :host =>  "giftpoisk.ru"))
+         elsif user && giftpoisk? && user.is_simple_user?
+            current_user_session.destroy
+            redirect_to(login_by_token_url(:token => user.perishable_token, :host =>  "giftb2b.ru"))
          else
           redirect_to  redirect_url.present? ? redirect_url : "/"
         end
