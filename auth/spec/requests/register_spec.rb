@@ -20,6 +20,7 @@ end
 
   
   it 'рекалмное агентство' do
+    ActionMailer::Base.default_url_options[:host] = "giftpoisk.ru"
     visit "/auth/register"
     choose "Рекламное агентство"
     click_button "Далее"
@@ -29,12 +30,14 @@ end
     fill_in "Город", :with => "Москва"
     fill_in "E-mail", :with => "kopyta@giftb2b.ru"    
     fill_in "Телефон", :with => "903 129-432-4"    
+    fill_in "Сайт", :with => "http://dishouse.ru"    
     click_button "Зарегистрироваться"
     page.should have_selector "h2", :text => "Благодарим за регистрацию"
     page.should have_content "в течение нескольких минут"
     page.should have_content "бесплатно в течение 3 дней"
     Firm.where(:name =>  "Копыта").should have(1).record
     Firm.last.city.should eq "Москва"    
+    Firm.last.url.should eq "http://dishouse.ru"
     Firm.last.users.should have(1).records
     User.last.should be_is_firm_user
     ActionMailer::Base.deliveries.should have(2).items
@@ -44,7 +47,24 @@ end
     ActionMailer::Base.deliveries.first.body.should match(User.last.username)
   end
   
+  it 'рекламное агентство с гифта перенаправлено на гифтпоиск' do
+    ActionMailer::Base.default_url_options[:host] = "giftb2b.ru" 
+    visit "/auth/register"
+    choose "i_am_1"
+    click_button "Далее"
+    page.current_url.should eq("http://giftpoisk.ru/auth/register?step=2")
+  end
+  
+   it 'конечный клиент с гифтпоиска перенаправлен на гифт' do
+    ActionMailer::Base.default_url_options[:host] = "giftpoisk.ru" 
+    visit "/auth/register"
+    choose "i_am_2"
+    click_button "Далее"
+    page.current_url.should eq("http://giftb2b.ru/auth/register?step=2")
+  end
+  
    it 'Представитель компании' do
+    ActionMailer::Base.default_url_options[:host] = "giftb2b.ru" 
     visit "/auth/register"
     choose "i_am_2"
     click_button "Далее"
@@ -54,6 +74,7 @@ end
     fill_in "Город", :with => "Москва"
     fill_in "E-mail", :with => "kopyta@giftb2b.ru"    
     fill_in "Телефон", :with => "903 129-432-4"    
+    fill_in "Сайт", :with => "http://dishouse.ru"    
     click_button "Зарегистрироваться"
     page.should have_selector "h2", :text => "Благодарим за регистрацию"
     page.should have_content "в течение нескольких минут"

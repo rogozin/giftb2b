@@ -1,19 +1,27 @@
 #encoding: utf-8;
 class Auth::UsersController < ApplicationController
 def new
-    @can_register = flash[:can_register] || false
-    @user_type = flash[:user_type]
+    @can_register = params[:step] == "2"
+    @user_type = giftb2b? ? "2" : "1"
     @user = User.new
   end
 
+  def who_are_you
+    if params[:i_am]=="1" 
+       return giftb2b?  ? redirect_to(register_user_url(:step => 2, :host => "giftpoisk.ru")) :  redirect_to(register_user_path( :step => 2 ) )
+    else
+       return giftpoisk?  ? redirect_to(register_user_url(:step =>2, :host => "giftb2b.ru")) :  redirect_to(register_user_path( :step => 2 ) )
+    end
+      
+  end
+
   def create    
-    return redirect_to(register_user_path, :flash => {:can_register => true, :user_type => params["i_am"]}) if params[:step].blank? ||  params[:step] == "step_1"       
     pass = User.friendly_pass
     @user = User.new(params[:user].merge(:active => true, :password => pass, :password_confirmation => pass))
     @user.username = @user.username_from_email
     if @user.save
       if params[:i_am] == "1"
-        @firm = Firm.create(:name => @user.company_name, :city => @user.city)        
+        @firm = Firm.create(:name => @user.company_name, :city => @user.city, :url => @user.url)        
         @firm.users << @user
         @user.has_role! "Пользователь фирмы"
       else 

@@ -584,3 +584,6 @@ input[type="submit"]:hover, input[type="button"]:hover, .r_button:hover {
   font-weight:bold;
   line-height:1.5;
 } 
+
+.redirection
+{ margin-bottom:5px;}

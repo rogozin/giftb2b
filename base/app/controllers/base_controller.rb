@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class BaseController < ApplicationController
   
-  helper_method :giftpoisk?
+  helper_method :giftpoisk?, :giftb2b?
   
   
   

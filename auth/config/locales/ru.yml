@@ -15,6 +15,7 @@ ru:
         cellphone: "Мобильный телефон"
         city: "Город"
         company_name: "Компания"
+        url: "Сайт"
   authlogic:
     error_messages:
       login_blank: "не может быть пустым"
