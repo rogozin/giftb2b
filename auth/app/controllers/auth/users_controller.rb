@@ -63,7 +63,7 @@ def new
   end
   
   def login_by_token
-    @user = User.find_using_perishable_token(params[:token],5.minutes)
+    @user = User.find_using_perishable_token(params[:token], 5.hours)
     if @user 
       @user.reset_persistence_token!
 #      @user.reset_perishable_token!
