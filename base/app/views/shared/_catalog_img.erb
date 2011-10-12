@@ -1,0 +1,39 @@
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+    $('.all-list').toggle(function(){
+      $(this).prev().html('-');
+    }, function(){
+      $(this).prev().html('+');
+    });    
+
+    $('.all-list').bind('click', function(){
+      $(this).prev().prev().parent().find('li.g-hidden').toggle();        
+      return false;     
+    });
+  })
+</script>
+
+<ul id="virtual_catalog" class="ul_v">
+<% cache('virtual_categories_output') do -%>
+<% Category.cached_virtual_categories.each do |cat| -%>
+<li class="li_v">
+<div class="article_z">
+  <span class="article_img_4"><span class="article_img_1_z"><span class="article_img_2"><span class="article_img_3"> <%= image_tag cat[:logo], :width =>"120", :height =>"120", :alt => cat[:name], :title => cat[:name] if cat[:logo].present? %> </span></span></span></span> 
+    <p><%= link_to(cat[:name], category_path(cat[:permalink]), :class=> "text_b_z") %></p> 
+    <ul class="text_c_ul">
+    <% cat[:children].each_with_index do |child_cat, index| -%>
+      <% if index > 4  -%>
+        <%= content_tag(:li,link_to(child_cat[:name], category_path(child_cat[:permalink]), :class=>"text_n_z", :title => child_cat[:name]), :class => "g-hidden") %>              
+      <% else -%>
+        <%= content_tag(:li,link_to(child_cat[:name], category_path(child_cat[:permalink]),  :class=>"text_n_z", :title => child_cat[:name])) %>
+      <% end -%>
+    <% end -%>
+	</ul>
+    <%= content_tag(:span, "+", :class => "text_n_z") + link_to( "весь список", "#", :class=>"all-list text_n_z") if cat[:children].size >5 %>
+    
+</div>  
+</li>
+<% end -%>
+<% end -%>
+</ul>

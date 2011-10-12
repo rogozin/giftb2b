@@ -17,6 +17,8 @@ gem 'composite_primary_keys', '~> 4.0.0'
 gem 'pdfkit'
 gem 'writeexcel'
 #gem 'gift-core', :git => "git@github.com:rilya/giftb2b.git"
-gem 'gift-core', :path => "~/ROR/gift/core"
+gem 'gift-core', :path => "~/ROR/work/gift/core"
+gem 'gift-base', :path => "~/ROR/work/gift/base"
+gem 'gift-auth', :path => "~/ROR/work/gift/auth"
 gem 'paperclip'   
 gem "mysql2"

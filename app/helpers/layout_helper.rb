@@ -4,19 +4,7 @@
 # to do so you may need to add this line to your ApplicationController
 #   helper :layout
 module LayoutHelper
-  def title(page_title, show_title = true)    
-    @content_for_title = page_title.to_s
-    @show_title = show_title
-  end
 
-  def page_title(header=nil)
-    default = controller_path =~ /^lk\// ? "Личный кабинет giftb2b.ru"  :  "giftb2b.ru" 
-    @page_title = [header, default].compact.join(' | ')
-  end
-  
-  def show_title?
-    @show_title
-  end
 
   def stylesheet(*args)
     content_for(:head) { stylesheet_link_tag(*args.map(&:to_s)) }

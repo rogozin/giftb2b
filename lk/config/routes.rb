@@ -1,7 +1,6 @@
 Lk::Engine.routes.draw do
+ # mount Auth::Engine => "/auth", :as => :auth_engine
   root :to => "base#index"
-  match 'profile' => "profile#edit", :as => :profile
-  match 'change_profile' => 'profile#update', :as => :change_profile
 #  resources :lk, :only =>[:index]
     match 'load_cart_products' =>  'base#load_cart_products', :as => :cart_products    
     resources :accounts

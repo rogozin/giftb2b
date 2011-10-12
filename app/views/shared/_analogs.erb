@@ -1,9 +1,0 @@
-<p class="b-header"><span><strong>Праздники</strong></span></p> 
-<div style="margin-left:15px;">
- <%= tree_ul_from_hash(Category.cached_analog_categories) do |item|  %>   
-   <% content_tag(:span, 
-                  link_to(item[:name], category_path(item[:permalink]),:class => "menu_left", :title => item[:name]), 
-                 :id =>  "tree_item_#{item[:id]}",
-                 :class=> treeview_selected(item[:permalink]) )%>
-   <% end -%>    
-</div>

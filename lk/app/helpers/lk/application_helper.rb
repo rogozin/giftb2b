@@ -1,15 +1,7 @@
 #encoding: utf-8;
 module Lk
   module ApplicationHelper
-    def page_title(header=nil)
-      default = controller_path =~ /^lk\// ? "Личный кабинет giftb2b.ru"  :  "giftb2b.ru" 
-      @page_title = [header, default].compact.join(' | ')
-    end
-    
-      def lk_engine_helper  
-        "lk_enginge_helper"
-      end
-      
+         
   def firm_logo_present?
     current_user && current_user.firm && current_user.firm.images.present?
   end
@@ -25,7 +17,7 @@ module Lk
       res << content_tag(:p, link_to('Образцы', samples_path, :class => "menu_left"))  if current_user.has_role?(:Администратор) || current_user.has_role?("Учет образцов")
     end
     res << content_tag(:p, link_to('Пользователи', accounts_path, :class => "menu_left")) if current_user.is_admin_user? || current_user.is_firm_manager?
-    res << content_tag(:p, link_to('Профиль', profile_path, :class => "menu_left"))
+#    res << content_tag(:p, link_to('Профиль', profile_path, :class => "menu_left"))
     #res << content_tag(:p, link_to("Подписки", "",:class => "menu_left"))
     raw res
   end

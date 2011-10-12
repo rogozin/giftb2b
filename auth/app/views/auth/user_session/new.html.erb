@@ -1,0 +1,28 @@
+<% page_title "Авторизация" %>
+
+<div id="login">
+<h1>Введите пароль</h1>
+<%= form_for @user_session, :url => auth_engine.create_session_path, :html => { :class => 'one_line_form'} do |form| %>
+  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @user_session} %>    
+
+    <div class="b-formfield-div">
+      <%= form.label :username, "Имя пользователя" %>
+      <%= form.text_field :username %>
+    </div>
+    <div class="b-formfield-div">
+      <%= form.label :password, "Пароль" %>
+      <%= form.password_field :password %>
+    </div>
+    <div class="b-formfield-div">
+      <%= form.submit "Войти" %>
+    </div>
+<% end %>
+<div class="clear"></div>
+</div>
+
+<div>
+<h1> или 
+<%= link_to 'зарегистрируйтесь', auth_engine.register_user_path  %>
+</h1>
+</div>
+

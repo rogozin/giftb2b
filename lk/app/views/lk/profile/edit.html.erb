@@ -1,5 +1,0 @@
-<% page_title "Изменение профиля" -%>
-<h1>Изменение Вашего профиля</h1>
-<%= form_for  @account, :url => change_profile_path, :html => {:class => :one_line_form} do |form| -%>
-<%= render :partial => 'lk/accounts/account', :locals => {:form => form} %>
- <% end -%>

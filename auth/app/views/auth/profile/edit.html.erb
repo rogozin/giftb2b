@@ -1,0 +1,8 @@
+<div class="center_block"> 
+<%= render :partial => 'shared/flashes' %>
+<% page_title "Моя учетная запись" -%>
+<h1>Моя учетная запись</h1>
+<%= form_for  @account, :url => change_profile_path, :html => {:class => :one_line_form} do |form| -%>
+<%= render :partial => 'account', :locals => {:form => form} %>
+ <% end -%>
+ </div>

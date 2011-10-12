@@ -1,0 +1,22 @@
+<% page_title @title -%>
+<div class="center_block"> 
+<p class="r_text"><strong><%= @title %></strong></p> 
+</div> <!-- end center_block --> 
+ 
+<div class="center_block"> 
+<%= render :partial => 'shared/paginate2', :locals => {:products => @products} %>
+</div> <!-- end center_block --> 
+ 
+<div class="center_block" id="catalog_items"> 
+<ul class="ul_c"> 
+  <% for product  in @products do -%>
+    <%= render :partial => 'shared/product', :object=>product %>  
+  <% end -%>
+ </ul>
+ <div class="clear"></div> 
+</div> <!-- end center_block --> 
+ 
+<div class="center_block"> 
+<%= render :partial => 'shared/paginate2', :locals => {:products => @products} %>
+</div> <!-- end center_block --> 
+ 

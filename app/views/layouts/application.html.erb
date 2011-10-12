@@ -5,8 +5,8 @@
   <meta name="description" content="<%= yield :meta_description%>" /> 
   <meta name="keywords" content="<%= yield :meta_keywords %>" />
   <meta name="google-site-verification" content="itTFr28n6WdLKxkGQIYGFvlBnPQYKNxd9Xj2oIwFS4g" />  
-  <%= stylesheet_link_tag  'jquery.treeview','layout', 'jquery-ui.css', 'smoothDivScroll', 'main' %>
-  <%= javascript_include_tag :defaults, 'jquery.treeview', 'jquery.cookie', 'jquery.smoothDivScroll-1.1-min' %>
+  <%= stylesheet_link_tag  'base/jquery.treeview.css','base/layout', 'base/jquery-ui.css', 'base/base.css', 'smoothDivScroll.css', 'application.css' %>
+  <%= javascript_include_tag :defaults, 'base/base.js', 'jquery-ui.min.js', 'jquery.treeview.js', 'jquery.cookie.js', 'jquery.smoothDivScroll-1.1-min.js' %>
   <script type="text/javascript">
  $(function()
   {
@@ -53,12 +53,13 @@
  <div class="content">
    <%= render :partial => 'shared/search' %>
   <div class="clear"></div> 
-   <%= render :partial => 'shared/description' %>
  </div>
   <div class="clear"></div>       
-  <div id="main_content">
+    <div class="content">
+      <div id="main_content">
        <%= yield :layout  %>
-  </div>
+      </div>
+    </div>
   </div> <!-- end all_content --> 
   <div id="right_content"> 
   <% if current_user -%>    
@@ -116,15 +117,15 @@
     </div> <!-- end left_block -->     
   </div> <!--end right_content --> 
   <div id="left_content"> 
-   <%= link_to  image_tag("pix.gif", :alt => "giftb2b.ru", :id => "gift_logo" ), root_path  %>
+   <%= link_to  image_tag("pix.gif", :alt => "giftb2b.ru", :id => "gift_logo" ), main_app.root_path  %>
     <div class="b-get-more">
-      <%= link_to 'узнать больше...', content_path("get-more")  %>  
+      <%= link_to 'узнать больше...', main_app.content_path("get-more")  %>  
     </div> 
     <div class="lk" id="lk"> 
     <%  if current_user -%>
-      <%= render  :partial =>'layouts/lk' %>
+      <%= render  :partial =>'shared/lk' %>
     <% else -%>
-    <%= render :partial => "layouts/pass_input" %>
+    <%= render :partial => "shared/pass_input" %>
     <% end -%>
     </div> <!-- end lk --> 
     <div class="line line-margin"></div> 

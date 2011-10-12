@@ -1,0 +1,33 @@
+<% content_for :meta_description, @category.meta_description -%>
+<% content_for :meta_keywords, @category.meta_keywords -%>
+<% page_title(Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join(' | ')) -%>
+<div class="center_block"> 
+<p class="r_text">
+<strong>Рубрика: <%= link_to Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join('/'), category_path(@category), :class => "menu_left" %>
+</strong>
+<%= catalog_children @category %>
+</p> 
+</div> <!-- end center_block --> 
+<%= render :partial => 'shared/promo' unless current_user %> 
+<div class="center_block"> 
+<%= render :partial => 'shared/paginate2', :locals => {:products => @products} %>
+</div> <!-- end center_block --> 
+ 
+<div class="center_block" id="catalog_items"> 
+<ul class="ul_c"> 
+  <% for product  in @products do -%>
+    <%= render :partial => 'shared/product', :object=>product %>  
+  <% end -%>
+ </ul>
+ <div class="clear"></div> 
+</div> <!-- end center_block --> 
+ 
+<div class="center_block"> 
+<%= render :partial => 'shared/paginate2', :locals => {:products => @products} %>
+</div> <!-- end center_block --> 
+
+<div class="center_block"> 
+<div class="descript_category"><%= @category.description if @category.show_description %></div>
+</div> <!-- end center_block --> 
+ 
+ 

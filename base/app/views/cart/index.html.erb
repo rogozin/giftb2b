@@ -1,0 +1,24 @@
+<% page_title "Корзина" -%>
+<h1>Ваша корзина:</h1>
+
+<%= form_tag "cart/calculate", :remote => true  do -%>
+<div id="cart_items">
+  <%= render :partial => "cart/cart_items"  if @cart.total_items > 0 %>
+</div>
+
+<% end -%>
+
+     <% if session[:cart] && session[:cart].total_items >0  -%>
+        <% if current_user && current_user.is_firm_user? -%>          
+        <p><%= link_to "Оформить заказ", lk_engine.orders_path, :method => :post   %></p>  
+        <div class="spacer"></div>
+        <p> <%= link_to "Преобразовать в коммерческое предложение", lk_engine.commercial_offers_path, :method => :post %></p>
+        <div class="spacer"></div>
+        <% end -%>
+        <div class="spacer"></div>
+        <p><%= button_to_function "Оформить заказ", "$('#order').toggle()"  %></p>  
+        <%= content_tag :div, :id => "order", :class => flash[:alert] ? nil : "g-hidden" do %>
+          <div class="spacer"></div>
+         <%= render :partial => "cart/generate_order_from_user" %>
+        <% end -%>
+      <% end -%>

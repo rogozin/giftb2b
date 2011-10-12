@@ -1,6 +1,0 @@
-  <p class="lk-t">Вы вошли как   <strong><%=  current_user.username %><strong></p>
-      <p class="lk-t"><%= link_to "Администрирование", "/admin" if current_user.is_admin_user? %></p>
-      <p class="lk-t"><%= link_to "Личный кабинет", lk_engine.root_path if current_user.is_lk_user? %></p>
-      <p class="lk-t"><a class="lk-logout" href="/logout"> </a></p>
-
-

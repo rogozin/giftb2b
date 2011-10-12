@@ -1,0 +1,160 @@
+<%= javascript_include_tag 'search.js' %>
+<style type="text/css">
+#color_12271, #color_12257, #color_12252, #color_12260, #color_12273
+{border:none; width:20px; height:20px;}
+
+#color_12271 {	background: url("images/multi.png") no-repeat scroll 0 0 transparent; }  
+#color_12257 {	background: url("images/transparent.png") no-repeat scroll 0 0 transparent;}  
+#color_12252 {	background: url("images/silver.png") no-repeat scroll 0 0 transparent;}  
+#color_12260 {	background: url("images/gold.png") no-repeat scroll 0 0 transparent;}  
+#color_12273 {	background: url("images/bronze.png") no-repeat scroll 0 0 transparent;} 
+</style>
+ <%= form_tag search_path(:anchor => "results"), :method=> :get do  -%>
+<div class="b-ext-search" id="ext_search">
+  <h3>Расширенный поиск</h3>  
+  <div class="b-ext-search-inner even">
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+            <div class="full-size">
+             <%= text_field_tag :name, params[:name] %>               
+            </div>
+         <%= check_box_tag :eq, "1", params[:eq] %> <%= label_tag :eq, "Искать точную фразу" %>              
+       </div>
+     </div>
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :name, "Название" %> 
+     </div>
+     <div class="b-ext-search-right">
+       <button class="s_button" type="submit"></button>
+     </div>
+     <div class="clear"></div>     
+  </div>
+<% if ext_user? || giftpoisk? -%>
+  
+  <div class="b-ext-search-inner">
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+         <%= text_field_tag :article, params[:article] %>               
+       </div>
+     </div>
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :article, "Артикул" %> 
+     </div>
+     <div class="clear"></div>
+  </div>
+  <div class="b-ext-search-inner even">
+<!--    <h3></h3>
+    <ul class="supplier-items">
+    <%# @suppliers.each do |item| -%>
+      <li>
+      <%#= check_box_tag "supplier_ids[]", item.id, params[:supplier_ids] && params[:supplier_ids].include?(item.id.to_s), :id => dom_id(item) %> <%#= label_tag dom_id(item), item.name %>
+      </li>
+    <%# end -%>
+    </ul>
+    <div class="clear"></div> -->
+  </div>
+
+  <div class="b-ext-search-inner">
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+          <%= select_tag :manufactor_id, options_for_select(@manufactors.map{|x| [x.name, x.id]}, params[:manufactor_id]),  {:include_blank => "<- Выберите бренд ->" } %>
+       </div>
+     </div>
+     
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :manufactor_id, "Бренд" %> 
+     </div>
+     <div class="clear"></div>
+  </div>
+<% end -%>
+  <%= content_tag :div, :class => (ext_user? || giftpoisk?) ? "b-ext-search-inner even" : "b-ext-search-inner" do %>
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+         <span class="span-right-block"><%= label_tag :store_from, "на складе от: " %> 
+         <%= text_field_tag :store_from, params[:store_from], :class => "inp-numeric value-from" %> шт.
+		 </span>
+		 <span class="span-right-block">        
+       <%= check_box_tag :on_demand, "1", params[:on_demand] %> <%= label_tag :on_demand, "по запросу" %>
+      </span><span class="span-right-block">        
+       <%= check_box_tag :in_order, "1", params[:in_order] %> <%= label_tag :in_order, "под заказ" %>
+      </span>
+       </div>
+     </div>
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :store_from, "Наличие" %> 
+     </div>
+
+     <div class="clear"></div>
+  <% end -%>
+  <% if ext_user? || giftpoisk? -%>
+  <div class="b-ext-search-inner">
+    <h3>Материал</h3>
+    <%= prop_values_tree(@material, params[prop_name(@material)].present? ? params[prop_name(@material)] : [] , {:class => "material-items", :grouped => true}) %>
+    <div class="clear"></div>
+  </div>
+<% end -%> 
+
+  <div class="b-ext-search-inner even">
+    <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+        <% @color.property_values.each do |color| %>
+        <% color_class = (params[prop_name(@color)].present? && params[prop_name(@color)].include?(color.id.to_s)) ? "color-box shadow" : "color-box" -%>
+        <%= content_tag(:div, "", :class => color_class, :style => color.note && color.note =~ /^#?(([a-fA-F0-9]){3}){1,2}$/ ? "background:#{color.note}" : nil, :title => color.value, :id => "color_#{color.id}") %>
+        <% end -%>
+        </div>
+      </div>
+      <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :pv_color, "Цвет" %> 
+     </div>
+      <div class="clear"></div>
+      <%= content_tag :div, "", :class => "g-hidden", :id => "color_ids", :title => @color.id do 
+          if params[prop_name(@color)].present?
+            params[prop_name(@color)].each do |color_id| %>
+              <%= hidden_field_tag prop_name(@color, true), color_id -%>
+            <% end
+          end -%>     
+      <% end -%>
+  </div>
+  <div class="b-ext-search-inner">
+  
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+         <span class="bold-label"><%= label_tag :price_from, "от" %></span>
+          <%= text_field_tag :price_from, params[:price_from], :class => "inp-numeric value-from" %> руб.
+          <span class="bold-label" style="padding-left:10px;"><%= label_tag :price_to, "до" %></span>
+          <%= text_field_tag :price_to, params[:price_to], :class => "inp-numeric value-to" %> руб.          
+       </div>
+     </div>
+     
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :price_from, "Цена" %> 
+     </div>
+          
+     <div class="clear"></div>
+  </div>
+
+<% if ext_user? || giftpoisk? -%>
+  
+  <div class="b-ext-search-inner even">
+
+     <div class="b-ext-search-center">     
+       <div class="b-search-center-inner">
+          <%= select_tag prop_name(@infliction, true), options_for_select(@infliction.property_values.map{|x| [x.value, x.id]}, params[prop_name(@infliction)]),  {:include_blank => "<- Выберите тип нанесения ->" } %>
+       </div>
+     </div>
+     
+     <div class="b-ext-search-left bold-label v-align">
+       <%= label_tag :inflicftion, "Нанесение" %> 
+     </div>
+     <div class="clear"></div>
+
+  </div>
+  <div class="b-ext-search-inner">
+    <h3>Категория</h3>
+   <%= hashed_categories_tree(@categories, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], true, false,   {:field_name => "category_ids", :class => "category-items", :select_children => true} ) %>
+  </div>
+<% end -%>
+</div>
+<% end -%>  
+
+<%= render :partial => 'shared/promo' unless current_user %>

@@ -1,8 +1,0 @@
-      <p class="b-header"><span><strong>Продажа сувениров</strong></span></p> 
-      <p><%= link_to '- Поиск сувенира', search_path, :class => "menu_left"  %></p>
-      <p><a class="menu_left" href="/categories/vip-podarki">- VIP сувениры</a></p>	
-      <p><a class="menu_left" href="/categories/eksklyuzivnye-razrabotki">- Авторские сувениры</a></p>	
-      <% if current_user -%>
-        <%= content_tag(:p, link_to("- Где купить сувениры", firms_path, :class =>"menu_left") ) %>        
-      <% end -%>
-
