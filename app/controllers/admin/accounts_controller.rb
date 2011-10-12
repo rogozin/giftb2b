@@ -1,6 +1,6 @@
 #encoding: utf-8;
 module Admin
-class AccountsController < BaseController
+class AccountsController < Admin::BaseController
   access_control do
     allow :Администратор
   end
