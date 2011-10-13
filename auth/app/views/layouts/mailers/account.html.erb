@@ -8,6 +8,20 @@
         <%= yield :layout  %>
       </td> 
     </tr>  
+    <tr>
+      <td>
+        <p style="line-height:20px;">        
+            <% if @user.is_simple_user? -%>
+             <strong>Служба поддержки пользователей:</strong> <br />
+             <a href="mailto:help@giftb2b.ru" target="_blank">help@giftb2b.ru</a>
+           <% else -%>
+             <strong>Служба поддержки для рекламных агентств:</strong> <br />
+              <a href="mailto:ra@giftpoisk.ru" target="_blank">ra@giftpoisk.ru</a><br />
+            +7 (495) 741-06-95
+         <% end -%>
+        </p>
+      </td>
+    </tr>
     </table>
   </td>
   <td style="width:20px;"></td>
@@ -24,13 +38,11 @@
   <td/>
   <td align="left">
     <span style="font-family:Tahoma; font-size:12px; color:#404040;">
-   ©  <a href="<%= @firm.url %>"><%= @firm.name %></a>  <%= Date.current.year %></span>
+    <% if @user.is_simple_user? -%>
+     Gift Research (Гифт Ресерч) - IT решения для сувенирной отрасли. ©  <a href="http://giftb2b.ru">giftb2b.ru</a>  <%= Date.current.year %></span>                
+    <% else -%>
+     Gift Research (Гифт Ресерч) - IT решения для сувенирной отрасли. ©  <a href="http://giftpoisk.ru">giftpoisk.ru</a>  <%= Date.current.year %></span>            
+    <% end -%>
   </td>
-</tr>
-<tr>
-  <td width="20" height="20"></td>    
-  <td align="left"><span style="font-family:Tahoma; font-size:12px; color:#404040;">
-    <%= @firm.addr_u %>, тел. <%= @firm.phone %></span></td>
-  <td width="20" height="20"></td>
 </tr>
 </table>
