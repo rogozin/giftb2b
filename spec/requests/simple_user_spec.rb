@@ -9,19 +9,7 @@ describe "Работа обычного пользователя" do
     ActionMailer::Base.deliveries.clear
   end
   
-  it 'Видимость пунктов меню личного кабинета' do
-    visit lk_index_path
-    within "#user_menu" do
-      page.should have_content("Список заказов")
-      page.should have_content("Профиль")
-#      page.should have_content("Подписки")
-      page.should have_no_content("Коммерческие предложения")
-      page.should have_no_content("Мои фирмы")
-      page.should have_no_content("Мои товары")
-      page.should have_no_content("Пользователи")
-    end
-  end  
-    
+   
   it 'я могу добавить товар в корзину', :js => true do
     visit "/"
     within "ul.treeview span" do
@@ -62,14 +50,15 @@ describe "Работа обычного пользователя" do
 #  
   it 'в личном кабинете я вижу свои заказы' do
     @lk_order = Factory(:lk_order, :user => @user)
-    visit lk_index_path
-    click_link "Список заказов" 
+    visit root_path
+    click_link "Личный кабинет"
+    visit orders_path
     page.should have_content "Список заказов"
   end
 
   it 'я не могу посмотреть заказы, созданные другим пользователем' do
     order2= Factory(:lk_order, :user_id => @user.id + 1)
-    visit lk_user_order_path(order2)
+    visit order_path(order2)
     #page.should have_content "Заказ не найден!"
     page.status_code.should eq 404
   end

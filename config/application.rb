@@ -36,7 +36,7 @@ module Giftr3
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.time_zone = 'Moscow'
-    config.active_record.default_timezone = :local
+#    config.active_record.default_timezone = :local
     config.i18n.default_locale = :ru
 
     # Configure the default encoding used in templates for Ruby 1.9.

@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   end
   
   def is_lk_user?
-     Rails.cache.fetch("#{cache_key}.is_lk_user?", :expires_in=>60) {role_objects.exists?(["roles.group>0"])}
+     Rails.cache.fetch("#{cache_key}.is_lk_user?", :expires_in=>60) {role_objects.exists?(["roles.group>1"])}
   end
   
   def is_admin_user?

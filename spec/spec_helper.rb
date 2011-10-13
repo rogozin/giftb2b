@@ -9,6 +9,7 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
+
 end
 
 Spork.each_run do
@@ -58,6 +59,10 @@ require 'capybara/rspec'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 Dir[File.expand_path("core/spec/factories/*.rb", Rails.root)].each {|f| require f}
+Dir[File.expand_path("auth/spec/factories/*.rb", Rails.root)].each {|f| require f}
+Dir[File.expand_path("lk/spec/factories/*.rb", Rails.root)].each {|f| require f}
+
+Factory.find_definitions
 
 RSpec.configure do |config|
   # == Mock Framework
@@ -92,7 +97,7 @@ end
 
 def login_as user_role
     @user = Factory(user_role)
-    visit login_path
+    visit "/auth/login"
     within "#login" do
       fill_in "user_session[username]", :with => @user.username
       fill_in "user_session[password]", :with => @user.password

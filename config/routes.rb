@@ -8,7 +8,9 @@ Giftr3::Application.routes.draw do
   resources :main, :only => [:index] do
     get :change_scrollable, :on => :collection
   end
-
+  resources :orders, :only => [:create, :index, :show], :controller => :user_orders do
+    get :complete, :on => :collection
+  end
  
   namespace :api do
     resources :categories, :only => [:index, :show] do
@@ -43,6 +45,7 @@ Giftr3::Application.routes.draw do
     resources :categories  do    
       member do
         get :show_products_list
+        post :change_category_products
         post :move
         post :add_image
         delete :remove_image

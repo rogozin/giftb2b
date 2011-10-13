@@ -5,9 +5,7 @@
   <meta name="description" content="<%= yield :meta_description%>" /> 
   <meta name="keywords" content="<%= yield :meta_keywords %>" />
   <%= stylesheet_link_tag 'base/layout', 'lk/application' %>
-  <%= stylesheet_link_tag 'lk/jquery-ui', 'lk/ra' %>
-  <%#= stylesheet_link_tag 'jquery-ui.css', 'lk-sup' if current_user && current_user.is_supplier? %>
-  <%#= stylesheet_link_tag 'jquery-ui.css','lk-simple' if current_user && current_user.is_simple_user? %>
+  <%= stylesheet_link_tag 'lk/jquery-ui.css', 'lk/ra.css' %>
   <%= stylesheet_link_tag  'base/jquery.treeview' %>
   <%= javascript_include_tag :defaults, 'jquery-ui.min.js', 'jquery.treeview.js', 'jquery.cookie.js', 'ui.datepicker-ru.js', 'lk/application' %>
   <%= csrf_meta_tag %>

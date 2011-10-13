@@ -13,9 +13,7 @@ Lk::Engine.routes.draw do
         post :add_product        
       end
     end    
-    resources :user_orders, :only => [:create, :index, :show] do
-      get :complete, :on => :collection
-    end
+
     resources :commercial_offers do
       member do 
         post :calculate

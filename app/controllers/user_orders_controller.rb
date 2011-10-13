@@ -1,6 +1,6 @@
 #encoding: utf-8;
-class Lk::UserOrdersController < ApplicationController
-  layout 'lk'
+class UserOrdersController < ApplicationController
+#  layout 'lk'
   before_filter :require_user
   access_control do
      allow "Пользователь"
@@ -32,7 +32,7 @@ class Lk::UserOrdersController < ApplicationController
       end
       FirmMailer.new_user_order_notification(current_user,@lk_order ).deliver if @lk_order.firm && @lk_order.firm.email.present?
       UserMailer.new_order_notification(current_user, @lk_order).deliver if  current_user.active?  && current_user.email.present? 
-      redirect_to complete_user_orders_path, :flash => {:order_id => @lk_order.id}
+      redirect_to complete_orders_path, :flash => {:order_id => @lk_order.id}
     else  
       redirect_to cart_index_path, :alert => "Ошибка при оформлении заказа"
     end
@@ -41,6 +41,6 @@ class Lk::UserOrdersController < ApplicationController
   
   def complete
     @lk_order = LkOrder.find(flash[:order_id])
-    render 'complete', :layout => "application"
+    render 'complete'
   end    
 end

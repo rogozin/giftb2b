@@ -1,7 +1,7 @@
  <h3>Оформление нового заказа:</h3>      
  
      <%= content_tag :div, flash[:alert], :id => "flash_alert", :class => "corner-all" if flash[:alert] %>
-            <%= form_for @lk_order, :url => lk_engine.user_orders_path do |f| -%>
+            <%= form_for @lk_order, :url => orders_path do |f| -%>
         <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @lk_order} %>     
         <div class="order-comment">
             <p>
