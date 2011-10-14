@@ -7,7 +7,6 @@ describe 'Роль менеджер фирмы' do
      @firm = Factory(:firm)
      @user.update_attributes(:firm => @firm, :fio => "Петр Иванов")    
      @lk_firm = Factory(:lk_firm, :firm_id => @firm.id)         
-     ActionMailer::Base.deliveries.clear
   end
   
   
@@ -69,32 +68,6 @@ describe 'Роль менеджер фирмы' do
      end
    end
    
-   context 'Заказ' do
-     before(:each) do
-       @lk_order = Factory(:lk_order, :firm => @user.firm, :lk_firm => @lk_firm)
-     end
-     
-     context 'отправка писем' do
-            
-       it 'После создания заказа через апи письмо уходит заказчику и фирме ' do
-          #see this spec in api/api_spec.rb
-       end
-       
-       it 'после создания заказа через личный кабинет письмо уходит заказчику' do
-          #see this spec in api/api_spec.rb
-       end
-     
-       it 'После изменения статуса заказа заказчику отправляется уведомление' do
-        visit edit_order_path(@lk_order)
-        select "макет на утверждении", :from => "lk_order_status_id"
-        click_button "Сохранить"
-        ActionMailer::Base.deliveries.should have(1).item
-        ActionMailer::Base.deliveries.first.to.should include(@lk_order.contact_email)
-       end
-
-     end
-     
-   end
 
     context 'Мои товары' do 
       before(:each) do

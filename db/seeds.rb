@@ -8,13 +8,7 @@
 
 
     #Role.create(:name => "Администратор", :group => 0)
-    Role.create(:name => "Менеджер продаж", :group => 0)
-    Role.create(:name => "Редактор каталга", :group => 0)
-    Role.create(:name => "Редактор контента", :group => 0)
-    Role.create(:name => "Учет образцов", :group => 2)
-    Role.create(:name => "Пользователь", :group => 1)
-    Role.create(:name => "Менеджер фирмы", :group => 2)
-    Role.create(:name => "Пользователь фирмы", :group => 2)
+
     
     #admin = User.new(:username => "admin", :password => "admin", :password_confirmation => "admin",:active => true)
     #admin.save(false)

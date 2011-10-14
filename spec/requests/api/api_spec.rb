@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe 'api testing' do
   before(:each) do    
-    @product = Factory(:product)
+    @product = Factory(:product, :is_new => true, :is_sale => true)
     @firm = Factory(:firm)
     @foreign_access = Factory(:foreign_access, :firm => @firm)    
     @token = @foreign_access.param_key
@@ -104,7 +104,16 @@ describe 'api testing' do
       ActiveSupport::JSON.decode(response.body)["store_count"].should eq 123
     end
     
+    it 'Новинки' do
+      get "api/products/novelty", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}      
+      ActiveSupport::JSON.decode(response.body).should have(1).item
+    end
     
+        
+    it 'Распродажа' do
+      get "api/products/novelty", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}      
+       ActiveSupport::JSON.decode(response.body).should have(1).item
+    end
     
     it 'Запрашиваем несуществующий товар' do
       get "api/products/not-exist", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}

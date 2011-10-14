@@ -14,7 +14,11 @@ Factory.define :user, :class => User do |record|
   record.city "Москва"
   record.phone "+7 (495) 888-23-34"
   #record.role_objects {|role|  [role.association(:role_user)]}
-  record.after_create { |user| add_role(user,:role_user) }  
+end
+
+
+Factory.define :simple_user, :class =>User, :parent => :user do |record|
+  record.after_create { |user| add_role(user,:role_user) }    
 end
 
 Factory.define :admin, :class => User, :parent => :user do |record|    
@@ -37,6 +41,10 @@ end
 
 Factory.define :content_editor, :parent => :catalog_editor, :class => User do |record|    
   record.role_objects {|role|  [role.association(:role_content_editor)]}
+end
+
+Factory.define :web_store_manager, :class => User, :parent => :user do |record|    
+  record.after_create { |user| add_role(user,:web_store) }
 end
 
 def add_role(user, factory_name)
@@ -79,6 +87,11 @@ end
 Factory.define :role_firm_user, :class => Role do |f|
   f.name "Пользователь фирмы"
   f.group 2
+end
+
+Factory.define :web_store, :class => Role do |f|
+  f.name "Интернет магазин"
+  f.group 3
 end
 
 Factory.sequence :firm_seq do |n|

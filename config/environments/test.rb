@@ -39,4 +39,6 @@ Giftr3::Application.configure do
 
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
+  
+    config.cache_store = :dalli_store, '127.0.0.1',  { :namespace => :gift_test, :expires_in => 10}
 end

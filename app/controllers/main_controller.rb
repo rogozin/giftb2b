@@ -1,23 +1,13 @@
 #encoding: utf-8;
 class MainController < ApplicationController
   def index 
-    @scrollable_products = cached_novelty
+    @scrollable_products = Product.cached_novelty
   end
 
   def change_scrollable
-   @scrollable_products =  params[:sale] ? cached_sale : cached_novelty
+   @scrollable_products =  params[:sale] ? Product.cached_sale : Product.cached_novelty
   end
-  
 
-  private
-
-  def cached_novelty
-    Rails.cache.fetch('novelty_products', :expires_in =>24.hours) { Product.active.novelty.order('updated_at desc').limit(100).all }
-  end
-  
-  def cached_sale
-    Rails.cache.fetch('sale_products', :expires_in =>24.hours) { Product.active.sale.order('updated_at desc').limit(100).all }
-  end
 
 
 end

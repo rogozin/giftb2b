@@ -1,13 +1,13 @@
 #encoding: utf-8;
 class Lk::OrdersController < Lk::BaseController
   access_control do
-     allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
+     allow :Администратор, "Менеджер фирмы", "Пользователь фирмы", "Интернет магазин"
   end
 
   before_filter :find_order, :only => [:edit, :update, :destroy, :calculate, :add_product]
   
   def index
-    if (current_user.is_admin_user? || current_user.is_firm_user?) && current_user.firm_id.present? 
+    if (current_user.is_lk_user?) && current_user.firm_id.present? 
       @orders = LkOrder.where(:firm_id => current_user.firm.id).order("id desc")
     else 
       @orders  = []

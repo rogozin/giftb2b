@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe "Работа обычного пользователя" do 
   before(:each) do
-    login_as :user
+    login_as :simple_user
     @product = Factory(:product)
     @firm = Factory(:firm)
     ActionMailer::Base.deliveries.clear

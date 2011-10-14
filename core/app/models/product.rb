@@ -231,6 +231,14 @@ class Product < ActiveRecord::Base
   def cached_properties
     Rails.cache.fetch("product_#{self[:id]}.properties", :expires_in =>24.hours){ additional_properties }    
   end  
+  
+  def self.cached_novelty
+    Rails.cache.fetch('novelty_products', :expires_in =>24.hours) { Product.active.novelty.order('updated_at desc').limit(100).all }
+  end
+  
+  def self.cached_sale
+    Rails.cache.fetch('sale_products', :expires_in =>24.hours) { Product.active.sale.order('updated_at desc').limit(100).all }
+  end
 
    
    ########################

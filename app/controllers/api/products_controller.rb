@@ -27,5 +27,15 @@ class Api::ProductsController < Api::BaseController
     @product = is_lk_product? ? find_lk_product : Product.find(params[:id].to_i)
     respond_with(@product)
   end
+  
+  def novelty
+    @products = Product.cached_novelty
+    respond_with(@products)          
+  end
+  
+  def sale
+    @products = Product.cached_sale
+    respond_with(@products)          
+  end
 
 end

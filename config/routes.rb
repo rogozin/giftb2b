@@ -20,7 +20,12 @@ Giftr3::Application.routes.draw do
         get :virtuals        
       end
     end
-    resources :products, :only => [:index, :show]
+    resources :products, :only => [:index, :show] do
+      collection do 
+        get :novelty
+        get :sale
+      end
+    end
     resources :search, :only => [:index]
     resources :orders, :only => [:create]
     

@@ -27,7 +27,7 @@ describe 'Информация о наличии на складе' do
   
   context 'обычный пользователь' do
     before(:each) do
-      login_as(:user)
+      login_as(:simple_user)
     end
     it 'не видит кол-во на складе в списке товаров' do
       visit category_path(@product.categories.first)

@@ -54,7 +54,7 @@ describe Product do
     it 'Поиск по производителю' do
       Product.find_all({:manufactor => Manufactor.all.map(&:id)}).should_not be_empty
     end
-      
+          
   end
   
   context "sorting" do

@@ -8,14 +8,12 @@ module Lk
   
   def render_lk_menu
     res = ""
-    if current_user.is_admin_user? || current_user.is_firm_user?
-      res << content_tag(:p, link_to('Список заказов', orders_path, :class => "menu_left")) 
-    	res << content_tag(:p, link_to('Коммерческие предложения', commercial_offers_path, :class => "menu_left"))
-      res << content_tag(:p, link_to('Клиенты', firms_path, :class => "menu_left"))
-      res << content_tag(:p, link_to('Список товаров', products_path, :class => "menu_left"))
-      res << content_tag(:p, link_to('Образцы', samples_path, :class => "menu_left"))  if current_user.has_role?(:Администратор) || current_user.has_role?("Учет образцов")
-    end
-    res << content_tag(:p, link_to('Пользователи', accounts_path, :class => "menu_left")) if current_user.is_admin_user? || current_user.is_firm_manager?
+    res << content_tag(:p, link_to('Список заказов', orders_path, :class => "menu_left"))  if  current_user.is_lk_user?
+  	res << content_tag(:p, link_to('Коммерческие предложения', commercial_offers_path, :class => "menu_left")) if current_user.is_firm_user?
+    res << content_tag(:p, link_to('Клиенты', firms_path, :class => "menu_left")) if  current_user.is_lk_user?
+    res << content_tag(:p, link_to('Список товаров', products_path, :class => "menu_left")) if  current_user.is_lk_user?
+    res << content_tag(:p, link_to('Образцы', samples_path, :class => "menu_left"))  if current_user.has_role?(:Администратор) || current_user.has_role?("Учет образцов")
+    res << content_tag(:p, link_to('Пользователи', accounts_path, :class => "menu_left")) if  current_user.is_firm_manager?
     raw res
   end
 
