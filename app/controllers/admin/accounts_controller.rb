@@ -58,6 +58,12 @@ class AccountsController < Admin::BaseController
   end
 
   def destroy
+    @account = User.find(params[:id])
+    if @account.destroy
+      redirect_back admin_accounts_path, {:notice => "Пользователь удален!"}
+    else
+      redirect_back admin_accounts_path, {:alert => "Пользователь не может быть удален!"}
+    end       
   end
 
   def show
@@ -72,7 +78,7 @@ class AccountsController < Admin::BaseController
 
   private
 
-  
+
 
   def select_firms
     @firms = Firm.all.collect{|f| [f.name, f.id]}
