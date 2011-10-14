@@ -30,7 +30,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 Dir[File.expand_path("core/spec/factories/*.rb", Rails.root)].each {|f| require f}
 Dir[File.expand_path("auth/spec/factories/*.rb", Rails.root)].each {|f| require f}
 Dir[File.expand_path("lk/spec/factories/*.rb", Rails.root)].each {|f| require f}
-Factory.find_definitions
+#FactoryGirl.find_definitions
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.default_url_options[:host] = "giftb2b.ru"

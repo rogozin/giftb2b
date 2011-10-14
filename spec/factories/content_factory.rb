@@ -1,5 +1,5 @@
 #encoding: utf-8;
-Factory.sequence :content_seq do |n|
+Factory.sequence :c_seq do |n|
     n.to_s 
   end
 
@@ -8,8 +8,8 @@ Factory.sequence :content_category_seq do |n|
   end
 
 Factory.define :content do |f|
-  f.title { "title " + Factory.next(:content_seq)}
-  f.body { "Съешь еще #{Factory.next(:content_seq)} раз этих мягких француских булок!" }
+  f.title { "title " + Factory.next(:c_seq)}
+  f.body { "Съешь еще #{Factory.next(:c_seq)} раз этих мягких француских булок!" }
 end
 
 Factory.define :content_category do |f|

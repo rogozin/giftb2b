@@ -91,11 +91,18 @@ describe 'api testing' do
      response.code.should eq "404"
     end
     
-    it 'товар пользователя подмешивается в выдачу' do
+    it 'товар пользователя запрашивается отдельно' do
       cat = @product.categories.first
       @lk_product = Factory(:lk_product, :firm => @firm, :category_ids => [cat.id], :show_on_site => true, :active => true)
-      get "api/products", {:format => :json, :category => cat.id}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
-      ActiveSupport::JSON.decode(response.body).should have(2).items  
+      get "api/products/lk", {:format => :json, :category => cat.id}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+      ActiveSupport::JSON.decode(response.body).should have(1).item 
+    end
+
+    it 'если не указана категория, выводятся все товары пользователяt' do
+    @lk_product = Factory(:lk_product, :firm => @firm, :category_ids => [1], :show_on_site => true, :active => true)
+    @lk_product = Factory(:lk_product, :firm => @firm,  :show_on_site => true, :active => true)
+    get "api/products/lk", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+      ActiveSupport::JSON.decode(response.body).should have(2).items 
     end
 
     it 'наличие на складе у товара' do

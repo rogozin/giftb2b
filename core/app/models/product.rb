@@ -172,8 +172,8 @@ class Product < ActiveRecord::Base
   end
    
   def pictures 
-     res =  cached_attached_images.map do |attached_image|
-       {:orig => attached_image.image.picture.url, :thumb => attached_image.image.picture.url(:thumb)}
+     res =  cached_images.map do |image|
+       {:orig => image.picture.url, :thumb => image.picture.url(:thumb)}
      end
      res = [{:orig => Image.default_image, :thumb => Image.default_image}] if res.empty?
      res
@@ -183,7 +183,7 @@ class Product < ActiveRecord::Base
     cached_analogs(4).map do |analog|
       { :permalink => analog.permalink, 
         :thumb => 
-          analog.cached_attached_images.present? ? analog.cached_attached_images.first.image.picture.url(:thumb) : Image.default_image,
+          analog.cached_images.present? ? analog.cached_images.first.picture.url(:thumb) : Image.default_image,
         :short_name => analog.short_name
       }
     end                    
@@ -192,7 +192,7 @@ class Product < ActiveRecord::Base
   def colors
     cached_color_variants.map do |property_name, products|
          { :property_name =>property_name, :products => products.map{|p| {:permalink => p.permalink, 
-           :thumb => p.cached_attached_images.present? ? p.cached_attached_images.first.image.picture.url(:thumb) : Image.default_image,
+           :thumb => p.cached_images.present? ? p.cached_images.first.picture.url(:thumb) : Image.default_image,
            :short_name =>  p.short_name } } 
          } 
     end
@@ -213,11 +213,11 @@ class Product < ActiveRecord::Base
    end
    
   def cached_attached_images
-    Rails.cache.fetch("#{cache_key}/attached_images"){ attach_images.all }
+    Rails.cache.fetch("#{cache_key}/attached_images"){ attach_images.includes(:image).all }
   end
   
   def cached_images
-    Rails.cache.fetch("product_#{self[:id]}.images", :expires_in =>24.hours){ images.all }
+    Rails.cache.fetch("#{cache_key}/images"){ images.all }
   end
 
   def cached_color_variants

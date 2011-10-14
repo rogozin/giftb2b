@@ -10,7 +10,10 @@ class ForeignAccess < ActiveRecord::Base
     Rails.cache.fetch('accepted_clients', :expires_in =>1.hours) { ForeignAccess.find(:all, :conditions =>"accepted_from <= now()  and accepted_to >= now()")}
   end
  
- 
+  def cached_firm
+    Rails.cache.fetch("#{cache_key}/firm") { firm }
+  end 
+
 private
   
  def clear_cache

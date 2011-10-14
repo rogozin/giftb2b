@@ -24,6 +24,7 @@ Giftr3::Application.routes.draw do
       collection do 
         get :novelty
         get :sale
+        get :lk
       end
     end
     resources :search, :only => [:index]
