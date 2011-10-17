@@ -49,7 +49,7 @@ class Lk::ProductsController < Lk::BaseController
  end
  
  def find_lk_product
-   @product = LkProduct.find(params[:id])
+   @product = LkProduct.where(:firm_id => current_user.firm_id).find(params[:id])
  end
  
    def load_lk_products

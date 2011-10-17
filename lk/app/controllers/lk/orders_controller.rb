@@ -78,7 +78,7 @@ class Lk::OrdersController < Lk::BaseController
   private
   
   def find_order
-    @order = LkOrder.find(params[:id])
+    @order = LkOrder.where(:firm_id => current_user.firm_id).find(params[:id])
     @lk_firms = LkFirm.where(:firm_id => current_user.firm_id) if current_user.is_firm_user?
   end
 end

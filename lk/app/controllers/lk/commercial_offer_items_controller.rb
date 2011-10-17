@@ -21,7 +21,7 @@ class Lk::CommercialOfferItemsController < Lk::BaseController
   
   private
   def find_co
-    @commercial_offer = CommercialOffer.find(params[:commercial_offer_id])
+    @commercial_offer = CommercialOffer.where(:firm_id => current_user.firm_id).find(params[:commercial_offer_id])
   end
   
   def find_co_item

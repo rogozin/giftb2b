@@ -3,7 +3,8 @@ class Lk::AccountsController < Lk::BaseController
   access_control do
      allow :Администратор, "Менеджер фирмы"
   end
-  
+
+  before_filter :find_account, :only => [:edit, :update, :destroy, :activate]  
   def index
     if current_user.firm_id.present?
       @users = User.where(:firm_id => current_user.firm_id)
@@ -33,11 +34,9 @@ class Lk::AccountsController < Lk::BaseController
   end
 
   def edit
-    @account = User.find(params[:id])
   end
   
   def update
-    @account = User.find(params[:id])
     if @account.update_attributes(params[:user])
       flash[:notice] = "Учетная запись изменена"
       redirect_to accounts_path
@@ -47,14 +46,21 @@ class Lk::AccountsController < Lk::BaseController
   end
   
   def destroy
-    @account = User.find(params[:id])
     flash[:notice] = "Учетная запись пользователя удалена!" if @account.destroy
     redirect_to accounts_path
   end
   
   def activate
-    @account = User.find(params[:id])
     @account.toggle! :active
   end
+  
+  private 
+  
+  def find_account
+    @account = User.where(:firm_id => current_user.firm_id).find(params[:id])
+  end
+
+  
+  
   
 end

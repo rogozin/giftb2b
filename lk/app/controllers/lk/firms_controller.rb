@@ -26,7 +26,7 @@ class Lk::FirmsController < Lk::BaseController
 
   def update
     if @firm.update_attributes(params[:lk_firm])
-      flash[:notice] = "Клиент изменен!"
+      flash[:notice] = "Информация о клиенте изменена"
       redirect_to (params[:back_url].present? ? params[:back_url] : edit_firm_path(@firm))      
     else
       render :edit
@@ -35,7 +35,7 @@ class Lk::FirmsController < Lk::BaseController
 
   def destroy
     if @firm.destroy
-      flash[:notice] = "Клиент удален!"  
+      flash[:notice] = "Информация о клиенте удалена"  
     else
       flash[:alert] = "Невозможно удалить клиента! " + @firm.errors.full_messages.join(' <br />')  
     end  
@@ -49,7 +49,7 @@ class Lk::FirmsController < Lk::BaseController
   def create
     @firm = LkFirm.new(params[:lk_firm])
     if @firm.save
-      flash[:notice] = "Клиент создан!"
+      flash[:notice] = "Новый клиент создан"
       redirect_to (params[:back_url].present? ? params[:back_url] : firms_path)
     else
       render :new  
@@ -58,6 +58,6 @@ class Lk::FirmsController < Lk::BaseController
 
   private
   def find_firm
-    @firm = LkFirm.find(params[:id])
+    @firm = LkFirm.where(:firm_id => current_user.firm_id).find(params[:id])
   end
 end
