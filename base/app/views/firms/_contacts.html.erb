@@ -2,6 +2,6 @@
             <tr><td class="td_z">Адрес</td><td><%= @firm.addr_f %></td></tr>
             <tr><td class="td_z">Телефон</td><td><%= @firm.phone %></td></tr>
             <tr><td class="td_z">e-mail</td><td><%= @firm.email %></td></tr>
-            <tr><td class="td_z">сайт</td><td><%= link_to @firm.url, @firm.url %></td></tr>
+            <tr><td class="td_z">сайт</td><td><%= link_to @firm.url, @firm.url, :target => :blank %></td></tr>
         </table>
 
