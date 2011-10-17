@@ -48,8 +48,16 @@ $(function() {
   <tr>              
     <td class="right" colspan="6"><strong>Итого:</strong></td>
     <td class="no-wrap"><%= @commercial_offer.commercial_offer_items.sum(:quantity) %> шт. </td>
-    <td class="no-wrap" colspan="2"><%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
+    <td class="no-wrap" colspan="2"><%= price_ru_label @commercial_offer.total_price  %></td>
   </tr>
+  <% if @commercial_offer.sale > 0 -%>
+    
+  <tr>              
+    <td class="right" colspan="6"><strong>Со скидкой:</strong></td>
+    <td class="no-wrap" align="center">-</td>
+    <td class="no-wrap" colspan="2"><%= price_ru_label @commercial_offer.total_price_with_sale  %></td>
+  </tr>  
+  <% end -%>
 </table>
      <h3>Комментарий к коммерческому предложению:</h3> 
       <div class="b-co-description">

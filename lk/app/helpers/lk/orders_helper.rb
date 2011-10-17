@@ -9,4 +9,12 @@ module Lk::OrdersHelper
     order.user ? "c сайта giftb2b.ru" : order.firm.has_foreign_access? ? "с сайта #{order.firm.foreign_access.first.name}" : "c сайта"
   end
   
+  def product_supplier product
+    if product.is_a?(LkProduct)
+      current_user.firm.short_name
+    else
+      link_to product.supplier.name, main_app.supplier_path(product.supplier.permalink), :target => :blank
+    end
+  end
+  
 end
