@@ -108,7 +108,7 @@ describe 'api testing' do
     it 'наличие на складе у товара' do
       @product.store_units.create(:store => Factory(:store, :supplier_id => @product.supplier.id), :count =>  123)
       get "api/products/#{@product.permalink}", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
-      ActiveSupport::JSON.decode(response.body)["store_count"].should eq 123
+      ActiveSupport::JSON.decode(response.body)["product"]["store_count"].should eq 123
     end
     
     it 'Новинки' do
