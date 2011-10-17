@@ -6,13 +6,9 @@ class Api::ProductsController < Api::BaseController
     params[:per_page] ||=30
     params[:per_page] = 100 if params[:per_page].to_i > 100
     @products = if params[:category].to_i > 0
-
-     #res1 =  
-    Rails.cache.fetch("products_by_category_#{params[:category]}_per_page_#{params[:per_page]}_page_#{params[:page]}") { Product.active.sorted.all_by_category(Category.tree_childs(Category.cached_active_categories, params[:category].to_i)).paginate(:page => params[:page], :per_page => params[:per_page]).all}
-    # res2 = @firm.present? ? LkProduct.for_my_site(@firm.id) : []
-    # res1 + res2
+    cat = Category.find(params[:category])
+    Rails.cache.fetch("#{cat.cache_key}/products/per_page_#{params[:per_page]}/page_#{params[:page]}") { Product.active.sorted.all_by_category(Category.tree_childs(Category.cached_active_categories, params[:category].to_i)).paginate(:page => params[:page], :per_page => params[:per_page]).all}
     else
-      #Product.active.sorted
       []
     end
    respond_with @products

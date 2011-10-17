@@ -8,6 +8,7 @@ class Api::CategoriesController < Api::BaseController
   end
   
   def show
+    @category=[]
     @category = Category.find_by_permalink(params[:id])
     respond_with(@category)    
   end

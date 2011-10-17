@@ -4,6 +4,10 @@ class Api::BaseController < ActionController::Base
   respond_to :json
   before_filter :authorization  
   
+  rescue_from  'ActiveRecord::RecordNotFound' do |ex|
+    render :json => nil, :status => 404, :layout => false
+  end
+  
   protected
   
   def is_lk_product?(product_id = params[:id])

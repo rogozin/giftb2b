@@ -4,7 +4,10 @@
 class ApplicationController < ActionController::Base  
 
   rescue_from  'Acl9::AccessDenied',  :with => :access_denied
-  rescue_from  'ActiveRecord::RecordNotFound',  :with => :not_found
+  rescue_from  'ActiveRecord::RecordNotFound' do |ex|
+    render :file => 'public/404.html', :status => 404, :layout => false
+  end
+  
  # helper :all # include all helpers, all the time
   helper GiftHelper
   helper UsersHelper
@@ -18,6 +21,12 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password").
   helper_method :current_user, :ext_user?
 
+  protected
+  def not_found(message=nil)    
+    render :file => 'public/404.html', :status => 404, :layout => false
+  end  
+
+    
   private
   def access_denied
      if current_user
@@ -30,8 +39,6 @@ class ApplicationController < ActionController::Base
      redirect_to auth_engine.login_path
     end
   end
-
-
 
   def redirect_back_or_default(default)
     redirect_to(session[:return_to] || default)

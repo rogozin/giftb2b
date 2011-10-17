@@ -118,7 +118,7 @@ describe 'api testing' do
     
         
     it 'Распродажа' do
-      get "api/products/novelty", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}      
+      get "api/products/sale", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}      
        ActiveSupport::JSON.decode(response.body).should have(1).item
     end
     
