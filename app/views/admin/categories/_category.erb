@@ -1,5 +1,5 @@
 <%= form_for [:admin, @category], :html => {:class => 'one_line_form'}  do |f|%>
-  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @category} %>
+  <%= render :partial => 'shared/error_messages', :locals => {:target => @category} %>
 <div class="b-formfield-div">
   <%= f.label :name, 'Название категории' %>
   <%= f.text_field :name %>

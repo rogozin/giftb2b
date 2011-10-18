@@ -13,17 +13,4 @@ ru:
     submit:
       create: 'Создать %{model}'
       update: 'Изменить %{model}'
-      submit: 'Сохранить %{model}'
-  activerecord:
-    models:
-      content: "Контент"
-    attributes:
-      content:
-        title: "Заголовок"
-        start: "Начало публикации"			
-        stop: "Окончание публикации"
-        draft: "Черновик"
-  will_paginate:
-    page_gap: "..."
-    next_label: "Вперед"
-    previous_label: "Назад"    
+      submit: 'Сохранить %{model}' 

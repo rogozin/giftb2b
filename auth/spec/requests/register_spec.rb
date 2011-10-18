@@ -33,8 +33,7 @@ end
     fill_in "Сайт", :with => "http://dishouse.ru"    
     click_button "Зарегистрироваться"
     page.should have_selector "h2", :text => "Благодарим за регистрацию"
-    page.should have_content "в течение нескольких минут"
-    page.should have_content "бесплатно в течение 3 дней"
+    page.should have_content "giftpoisk.ru"
     Firm.where(:name =>  "Копыта").should have(1).record
     Firm.last.city.should eq "Москва"    
     Firm.last.url.should eq "http://dishouse.ru"
@@ -77,8 +76,7 @@ end
     fill_in "Сайт", :with => "http://dishouse.ru"    
     click_button "Зарегистрироваться"
     page.should have_selector "h2", :text => "Благодарим за регистрацию"
-    page.should have_content "в течение нескольких минут"
-    page.should have_no_content "бесплатно в течение 3 дней"
+    page.should have_content "giftb2b.ru"
     Firm.all.should have(1).record
     User.last.should be_is_simple_user
     ActionMailer::Base.deliveries.should have(2).items

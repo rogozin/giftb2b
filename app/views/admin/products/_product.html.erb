@@ -2,7 +2,7 @@
 <%= form_for [:admin,product],  :html => {:class => 'one_line_form'} do |form| %>
 <div class="grid_7 alpha">
 <h2>Основная информация</h2>
-    <%= render :partial => 'admin/shared/error_messages', :locals => {:target => product} %>
+    <%= render :partial => 'shared/error_messages', :locals => {:target => product} %>
     <div class="b-formfield-div">
      <%= form.label :manufactor, "Производитель товара" %>
     <%= form.collection_select(:manufactor_id, Manufactor.all, :id, :name, :prompt => '<Выберите значение>') %>

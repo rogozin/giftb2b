@@ -1,0 +1,15 @@
+ru:
+  activerecord:
+    models:
+      content: "Контент"
+      firm: "Клиент"
+    attributes:
+      content:
+        title: "Заголовок"
+        start: "Начало публикации"			
+        stop: "Окончание публикации"
+        draft: "Черновик"
+  will_paginate:
+    page_gap: "..."
+    next_label: "Вперед"
+    previous_label: "Назад"   

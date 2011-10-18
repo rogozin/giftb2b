@@ -30,7 +30,7 @@
 <h2>Регистрация</h2>
 
 <%= form_for @user,  :html => {:class => 'one_line_form'} do |form| %>
-  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @user} %>                
+  <%= render :partial => 'shared/error_messages', :locals => {:target => @user} %>                
   <%= hidden_field_tag "step", "step_2" %>
   <%= hidden_field_tag "i_am", @user_type %>
     <div class ="b-formfield-div">

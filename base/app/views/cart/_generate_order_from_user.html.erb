@@ -2,7 +2,7 @@
  
      <%= content_tag :div, flash[:alert], :id => "flash_alert", :class => "corner-all" if flash[:alert] %>
             <%= form_for @lk_order, :url => orders_path do |f| -%>
-        <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @lk_order} %>     
+        <%= render :partial => 'shared/error_messages', :locals => {:target => @lk_order} %>     
         <div class="order-comment">
             <p>
               <%= f.label :user_comment, "Комментарий к заказу:" %> 

@@ -1,5 +1,5 @@
 <%= form_for [:admin, @content], :html => {:class=> "one_line_form"} do |f| %>
-   <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @content} %>
+   <%= render :partial => 'shared/error_messages', :locals => {:target => @content} %>
   <div class="grid_8 alpha">
   <div class="b-formfield-div">
     <%= f.label :title, 'Заголовок*' %>

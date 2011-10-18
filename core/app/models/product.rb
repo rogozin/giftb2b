@@ -160,12 +160,16 @@ class Product < ActiveRecord::Base
    def as_json(options={})
      #store_count is depricated and will be removed after 2012
      default_options = { :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count, :updated_at], 
-     :methods=>[ "pictures", "similar", "colors","properties", "unique_code", "price_in_rub", "store_items" ] }
+     :methods=>[ "pictures", "similar", "colors","properties", "unique_code", "price_in_rub", "store_items", "categories_id" ] }
      super options.present? ? options.merge(default_options) : default_options
    end
    
    #########################
    ##API 
+   
+  def categories_id
+    cached_main_category_ids
+  end 
    
   def store_count
     cached_store_units.sum{|x| x.option != 0 && x.count && x.count.integer? ? x.count : 0}     
@@ -226,6 +230,10 @@ class Product < ActiveRecord::Base
   
   def cached_store_units
     Rails.cache.fetch("#{cache_key}/store_units",:expires_in =>24.hours){ store_units.all }    
+  end
+  
+  def cached_main_category_ids
+    Rails.cache.fetch("#{cache_key}/main_category_ids"){ main_category_ids }    
   end
   
   def cached_properties

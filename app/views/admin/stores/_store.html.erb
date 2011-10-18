@@ -1,7 +1,7 @@
 <%= form_for [:admin, @supplier,@store] do |f| %>
 <div class="one_line_form">
   <div class="b-formfield-div">
-    <%= render :partial =>  'admin/shared/error_messages', :locals => {:target => @store} %>
+    <%= render :partial =>  'shared/error_messages', :locals => {:target => @store} %>
   </div>
 
   <div class="b-formfield-div">

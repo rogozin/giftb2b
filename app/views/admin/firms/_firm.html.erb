@@ -1,7 +1,7 @@
 <%= form_for [:admin, @firm] do |f| -%>
 <div class="one_line_form">
   <%= hidden_field_tag :back_url, params[:back_url] %>
-   <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @firm} %>
+   <%= render :partial => 'shared/error_messages', :locals => {:target => @firm} %>
   <div class="b-formfield-div">
     <%= f.label :name, 'Юр. название*' %>
     <%= f.text_field :name %>

@@ -1,5 +1,5 @@
 <%= form_for @property_value, :url=> @property_value.new_record? ? admin_property_values_path : admin_property_value_path(params[:property_id],@property_value),  :html => {:class => 'one_line_form'}  do |f|%>
-  <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @property_value} %>  
+  <%= render :partial => 'shared/error_messages', :locals => {:target => @property_value} %>  
   <%= f.hidden_field :property_id%>
 <div class="b-formfield-div">
   <%= f.label :value, 'Значение' %>

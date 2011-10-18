@@ -2,7 +2,7 @@
      <%= form.hidden_field :firm_id %>
     <%= hidden_field_tag :back_url, params[:back_url] %>     
     <div class ="b-formfield-div">
-    <%= render :partial => 'admin/shared/error_messages', :locals => {:target => @firm} %>
+    <%= render :partial => 'shared/error_messages', :locals => {:target => @firm} %>
     </div>
     <div class ="b-formfield-div">
       <%= form.label :name %>
