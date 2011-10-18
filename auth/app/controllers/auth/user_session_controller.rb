@@ -10,8 +10,8 @@ class Auth::UserSessionController < ApplicationController
     return redirect_to(login_path, :flash => {:login_error => "Введите имя или пароль" })  if params[:user_session][:username].blank? or params[:user_session][:username].blank?
     @user_session = UserSession.new(params[:user_session])
       if @user_session.save
-        user = @user_session.record 
-        if user && defined?(giftpoisk?)
+        @user = @user_session.record 
+        if @user && defined?(giftpoisk?)
           redirect_to_giftpoisk
          else
           redirect_to  redirect_url.present? ? redirect_url : "/"
@@ -32,14 +32,14 @@ class Auth::UserSessionController < ApplicationController
   private
   
   def redirect_to_giftpoisk
-    if  !giftpoisk? && user.is_firm_user? && !user.is_admin?
+    if  !giftpoisk? && @user.is_firm_user? && !@user.is_admin?
       current_user_session.destroy
-      redirect_to(login_by_token_url(:token => user.perishable_token, :host =>  "giftpoisk.ru"))
-    elsif  giftpoisk? && user.is_simple_user?
+      redirect_to(login_by_token_url(:token => @user.perishable_token, :host =>  "giftpoisk.ru"))
+    elsif  giftpoisk? && @user.is_simple_user?
       current_user_session.destroy
-      redirect_to(login_by_token_url(:token => user.perishable_token, :host =>  "giftb2b.ru"))
+      redirect_to(login_by_token_url(:token => @user.perishable_token, :host =>  "giftb2b.ru"))
     else  
-      redirect to main_app.root_path
+      redirect_to main_app.root_path
     end
   end
 end
