@@ -1,0 +1,161 @@
+#gift_logo {
+  background: url("images/giftpoisk.png") no-repeat top left;
+  width:219px;
+  height:101px;
+}
+
+table th
+{  
+  color:#EAF7E6;
+  background-color: #0080B2;
+}
+
+.b-search-property {
+  width:220px;
+  float:left;
+  text-align:left;
+}  
+
+.center_block h1, .center_block h2, .lk-menu-title, .per-page {
+	color:#0080B2;
+}
+
+tr.disabled-row {
+ color:#999;
+}
+
+#order {
+	font-size:9pt;
+}
+
+#order .b-user-comment textarea {
+  min-width:200px;
+  width: 80%;
+}  
+
+.b-bg {
+  background:#ccc;
+  padding:15px;
+  color:#193839;
+}
+
+#lk_product_description {
+  width:100%;
+}
+
+.b-co-description {
+  float:left;
+  width:50%;
+}
+
+.b-co-description textarea { width:95%;}
+
+.b-co-delta {
+  float:left;
+  width:50%
+}
+
+.b-co-delta-inner {padding: 5px 0 5px 25px;}
+
+.margin-left4 {margin-left:40px;}
+.margin-left2 {margin-left:20px;}
+
+.b-product-thumbnail img {
+max-width:120px;
+max-height:120px;
+}
+
+#filter span {
+  margin:0 10px;
+}
+
+#filter {
+  line-height:2em; 
+  padding:5px;
+}
+
+
+#filter select {max-width:160px}
+
+#filter input[type="text"] {width:160px;}
+
+div.radio-buttons {margin-bottom:5px;}
+
+.radio-buttons a {
+  text-decoration:none;
+  border-bottom:dotted 1px;
+ }
+ 
+.radio-buttons a.selected { color:#004276; font-weight:bold;}
+
+input[type="submit"], .b_button {
+  color:#e8eef4;
+  border: 1px solid #45682a;
+  background: #006389;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0080b2), to(#006389));
+  background: -webkit-linear-gradient(#0080b2, #006389);
+  background: -moz-linear-gradient(#0080b2, #006389);
+  background: -ms-linear-gradient(#0080b2, #006389);
+  background: -o-linear-gradient(#0080b2, #006389);
+  background: linear-gradient(#0080b2, #006389);
+  -pie-background: linear-gradient(#0080b2, #006389);
+}
+
+
+input[type="submit"]:hover, .b_button:hover {
+  color:#e8eef4;
+  border: 1px solid #45682a;
+  background: #006389;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0080b2), to(#1773AA));
+  background: -webkit-linear-gradient(#0080b2, #1773AA);
+  background: -moz-linear-gradient(#0080b2, #1773AA);
+  background: -ms-linear-gradient(#0080b2, #1773AA);
+  background: -o-linear-gradient(#0080b2, #1773AA);
+  background: linear-gradient(#0080b2, #1773AA);
+  -pie-background: linear-gradient(#0080b2, #1773AA);
+}
+
+input[type="submit"], .b_button:active {
+  
+}
+
+
+#co_output a.pseudo-link {
+  font-size:0.8em;
+  color:#0080B2;
+}
+
+#co_settings{
+  font-size:0.8em;
+  display:none;
+}  
+
+.treeview li span.selected a {color:#cc3366;}
+
+.treeview li a {
+	color:#333;
+	font-weight:normal;
+	font-size:11pt;
+	line-height:1.5;
+}
+
+.treeview li ul li a {
+	font-size:10.5pt;
+	line-height:1.2;
+	
+}
+
+.treeview li ul li ul li a {
+	font-size:10pt;
+	line-height:1.2;
+	color:#999;
+}
+
+.treeview li a:hover, .treeview ul a:hover {
+	color:#cc3366;
+}
+
+.treeview ul a {
+	color:#666;
+	font-weight:normal;
+}
