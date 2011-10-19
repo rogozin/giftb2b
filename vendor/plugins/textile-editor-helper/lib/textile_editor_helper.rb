@@ -49,8 +49,8 @@ module ActionView
       
       def textile_editor_support
         output = []
-        output << stylesheet_link_tag('textile-editor') 
-        output << javascript_include_tag('textile-editor')
+        output << stylesheet_link_tag('/stylesheets/textile-editor') 
+        output << javascript_include_tag('/javascripts/textile-editor')
         output.join("\n")
       end
       

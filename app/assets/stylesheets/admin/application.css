@@ -8,8 +8,6 @@
  *= require_self
  */
 
-  <%= stylesheet_link_tag  'base/reset','admin/960', 'admin/admin', 'base/jquery-ui.css' %>
-
  .content
 {
   -moz-border-radius:5px;

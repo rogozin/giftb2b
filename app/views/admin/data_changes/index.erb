@@ -1,6 +1,6 @@
 <%= render 'admin/shared/sub_menu_data_changes' %>
 <% title "Импорт данных" -%>
-<%= javascript_include_tag 'jquery.form.js' -%>
+<%#= javascript_include_tag 'jquery.form.js' -%>
  <%= javascript_tag :defer => 'defer' do -%>
     $(function() {
       $('form').ajaxForm({dataType: 'script'});
