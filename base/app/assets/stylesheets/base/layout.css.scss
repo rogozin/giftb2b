@@ -166,7 +166,7 @@ a:hover.menu_left {
 }  
 
 .banner_left {
-  background: #999999 url("images/banner.png") no-repeat top left;
+  background: #999999 image-url("base/images/banner.png") no-repeat top left;
 	width:234px;
 	margin-left:15px;
 	height:154px;
@@ -376,7 +376,7 @@ select {background-color: white;}
 }
 
 .lk-login {
-	background: url("images/lock.png") no-repeat scroll 0 0 transparent;
+	background: image-url("base/images/lock.png") no-repeat scroll 0 0 transparent;
 	cursor:pointer;
 /*	margin-left:145px;*/
 	width:24px;
@@ -386,11 +386,11 @@ select {background-color: white;}
 }
 
 a:hover.lk-login {
-	background: url("images/lock_hover.png") no-repeat scroll 0 0 transparent;
+	background: image-url("base/images/lock_hover.png") no-repeat scroll 0 0 transparent;
 }
 
 .lk-logout  {
-	background: url("images/unlock.png") no-repeat scroll 0 0 transparent;
+	background: image-url("base/images/unlock.png") no-repeat scroll 0 0 transparent;
 	width:24px;
 	height:24px;
 	cursor:pointer;
@@ -398,7 +398,7 @@ a:hover.lk-login {
 }
 
 a:hover.lk-logout {
-	background: url("images/unlock_hover.png") no-repeat scroll 0 0 transparent;
+	background: image-url("base/images/unlock_hover.png") no-repeat scroll 0 0 transparent;
 		width:24px;
 	height:24px;
 	cursor:pointer;

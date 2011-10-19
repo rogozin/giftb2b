@@ -9,9 +9,9 @@
 	height:300px;
 }
 
-div.article_img_1 {display: table; height: 120px; width:120px; position: relative; overflow: hidden; border: solid 1px #e5e5e5;background:white;}
-div.article_img_2 {position: absolute; top: 50%; left:50%; display: table-cell; vertical-align: middle; text-align:center;}
-div.article_img_3 {position: relative; top: -50%; #left:-50%}
+div.article_img_1 {text-align:center; display: table; height: 120px; width:120px; position: relative; overflow: hidden; border: solid 1px #e5e5e5;background:white;}
+div.article_img_2 {position: absolute; #top: 50%; display: table-cell; vertical-align: middle;}
+div.article_img_3 {position: relative; #top: -50%;}
 
 .article_name, #add_to_cart a {
 	margin:0px;

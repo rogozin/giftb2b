@@ -4,16 +4,16 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *require_tree .
  *= require base/jquery.treeview
- *= require base/layout
  *= require base/jquery-ui
- *= require base/base
  *= require smoothDivScroll
+ *= require base/layout
+ *= require base/base
  *= require_self
  
 */
 
 #gift_logo {
-  background: url("images/logo_giftb2b.png") no-repeat top left;
+  background: image-url("images/logo_giftb2b.png") no-repeat top left;
 }
 
 table
