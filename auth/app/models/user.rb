@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   validates :icq, :length => {:maximum => 25},  :numericality => {:allow_blank => true}
   validates_presence_of :company_name, :city, :phone, :fio, :on => :create
 
+
   
   
   def is_admin?

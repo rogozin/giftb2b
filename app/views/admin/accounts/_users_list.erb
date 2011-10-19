@@ -6,6 +6,7 @@
     <th>E-Mail</th>
     <th>Последний вход</th>
     <th>Кол-во входов</th>    
+    <th>last_request_at</th>
     <th></th>
     <th></th>
   </tr>
@@ -17,6 +18,7 @@
     <td><%= user.email %></td>
     <td><%= I18n.l(user.current_login_at, :format => :long)  if user.current_login_at %></td>
     <td><%= user.login_count %></td>
+    <td><%= I18n.l(user.last_request_at, :format => :long) if user.last_request_at %></td>
     <td><%=  link_to(user.active? ? "Закрыть доступ":"Активировать" , activate_admin_account_path(user.id), :method => :put )  %></td>
     <td><%= link_to image_tag("bin.png"), admin_account_path(user, :return_to => request.fullpath ), :method => :delete, :confirm => "Удалить пользователя???" %></td>
   </tr>

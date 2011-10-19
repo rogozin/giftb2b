@@ -7,7 +7,9 @@ class AccountsController < Admin::BaseController
 
   def index
     params[:group] ||="0"
+    direction = ["asc", "desc"].include?(params[:direction]) ? params[:direction] : "asc"
     @users = User.joins(:role_objects).where("roles.group" => params[:group])
+    @users = @users.order("#{params[:sort]} #{direction}") if params[:sort].present?
     if params[:group] == "1"
       render 'simple'
     else

@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class UserSession < Authlogic::Session::Base
   #before_validation :check_if_expired
-
+  self.last_request_at_threshold(10.minutes)
 
   def before_validation
     usr = User.find_by_username(self.username)

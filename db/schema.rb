@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111012130224) do
+ActiveRecord::Schema.define(:version => 20111019084953) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -383,14 +383,16 @@ ActiveRecord::Schema.define(:version => 20111012130224) do
   end
 
   create_table "store_units", :id => false, :force => true do |t|
-    t.integer "store_id",                  :null => false
-    t.integer "product_id",                :null => false
-    t.integer "count",      :default => 0
-    t.time    "updated_at"
-    t.integer "option",     :default => 1
+    t.integer  "store_id",                  :null => false
+    t.integer  "product_id",                :null => false
+    t.integer  "count",      :default => 0
+    t.datetime "updated_at"
+    t.integer  "option",     :default => 1
   end
 
+  add_index "store_units", ["product_id"], :name => "index_store_units_on_product_id"
   add_index "store_units", ["store_id", "product_id"], :name => "index_store_units_on_store_id_and_product_id", :unique => true
+  add_index "store_units", ["store_id"], :name => "index_store_units_on_store_id"
 
   create_table "stores", :force => true do |t|
     t.integer  "supplier_id"
@@ -439,6 +441,7 @@ ActiveRecord::Schema.define(:version => 20111012130224) do
     t.string   "company_name"
     t.string   "city"
     t.string   "url"
+    t.datetime "last_request_at"
   end
 
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token"
