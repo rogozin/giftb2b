@@ -18,7 +18,7 @@ class SearchController < BaseController
       price[1] = params[:price_to].to_i
       
       s_options =  if can_ext_search?    
-       opts =  {:article => params[:article].strip, :search_text => params[:name],:category => params[:category_ids], :manufactor => params[:manufactor_id], :supplier => params[:supplier_ids], :eq => params[:eq]}
+       opts =  {:article => params[:article].present? ? params[:article].strip : "", :search_text => params[:name],:category => params[:category_ids], :manufactor => params[:manufactor_id], :supplier => params[:supplier_ids], :eq => params[:eq]}
        opts.merge!(params.select{ |k,v| k =~ /pv_\d+/ && v.reject(&:blank?).present? })
      else
        opts = {:search_text => params[:name], :eq => params[:eq]}
