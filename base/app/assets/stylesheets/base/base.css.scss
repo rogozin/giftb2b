@@ -329,7 +329,7 @@ span.message {color:#C36;}
     vertical-align:middle;
     width:32px;
     height:32px;
-    background-image: image_url("base/images/cart_add.png");
+    //background-image: image_url("base/images/cart_add.png");
 }	
     
 .b-get-more {
@@ -447,17 +447,25 @@ padding: 5px 0;
 .color-box {
   width:18px;
   height:18px;
-  border:#7F7F7F 1px solid;
+  border: 1px solid #7F7F7F;
   float:left;
-  margin: 0 5px 5px 3px;;
+  margin: 0 5px 5px 3px;
   cursor:pointer;
-  border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
-	-khtml-border-radius: 2px;
-	behavior: url("/javascripts/PIE.htc");
+	border-radius: 2px;
+	behavior: url(/javascripts/PIE.htc);
 }
 
+
+#color_12271, #color_12257, #color_12252, #color_12260, #color_12273
+{border:none; width:20px; height:20px;}
+
+#color_12271 {	background: image-url("multi.png") no-repeat scroll 0 0 transparent; }  
+#color_12257 {	background: image-url("transparent.png") no-repeat scroll 0 0 transparent;}  
+#color_12252 {	background: image-url("silver.png") no-repeat scroll 0 0 transparent;}  
+#color_12260 {	background: image-url("gold.png") no-repeat scroll 0 0 transparent;}  
+#color_12273 {	background: image-url("bronze.png") no-repeat scroll 0 0 transparent;} 
 
 .b-ext-search-right .s_button{
 	background: image-url("base/images/search_40.png") no-repeat scroll 0 0 transparent;
@@ -519,7 +527,7 @@ input[type="submit"]:hover, input[type="button"]:hover, .r_button:hover {
 
 .ui-dialog .ui-dialog-buttonpane button, .ui-dialog .ui-dialog-buttonpane button:hover {
   text-align: center;
-  behavior: url(/javasctipts/PIE.htc);
+	behavior: url(/javascripts/PIE.htc);
   -webkit-box-shadow: #666 0px 2px 3px;
   -moz-box-shadow: #666 0px 2px 3px;
   box-shadow: #666 0px 2px 3px;

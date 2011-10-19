@@ -4,7 +4,7 @@ class Image < ActiveRecord::Base
    has_attached_file :picture, :styles => {:thumb => "120x120" }
    
    def self.default_image
-     "images/default_image.jpg"
+     "/assets/default_image.jpg"
    end
 end
 

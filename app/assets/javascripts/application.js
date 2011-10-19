@@ -11,7 +11,7 @@
 //= require base/base
 //= require jquery.cookie
 //= require jquery.smoothDivScroll-1.1-min
-
+//= require search
 //require_tree .
 
 $(function() {

@@ -11,7 +11,7 @@ module Lk
     res << content_tag(:p, link_to('Список заказов', orders_path, :class => "menu_left"))  if  current_user.is_lk_user?
   	res << content_tag(:p, link_to('Коммерческие предложения', commercial_offers_path, :class => "menu_left")) if current_user.is_firm_user?
     res << content_tag(:p, link_to('Клиенты', firms_path, :class => "menu_left")) if  current_user.is_lk_user?
-    res << content_tag(:p, link_to('Список товаров', products_path, :class => "menu_left")) if  current_user.is_lk_user?
+    res << content_tag(:p, link_to('Мой список товаров', products_path, :class => "menu_left")) if  current_user.is_lk_user?
     res << content_tag(:p, link_to('Образцы', samples_path, :class => "menu_left"))  if current_user.has_role?(:Администратор) || current_user.has_role?("Учет образцов")
     res << content_tag(:p, link_to('Пользователи', accounts_path, :class => "menu_left")) if  current_user.is_firm_manager?
     raw res

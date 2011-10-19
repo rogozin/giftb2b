@@ -95,7 +95,7 @@ class Lk::CommercialOffersController < Lk::BaseController
     @cart = find_cart
     @co = CommercialOffer.new(:firm => current_user.firm, :user => current_user)
     if @co.save
-     flash[:notice] = "Коммерческое предложенеие сгенерировано на основе набора товаров Вашей корзины." 
+     flash[:notice] = "Коммерческое предложение сохранено. Вы можете внести в него правки." 
      @cart.items.each do |item|
        logger.info item.product.id
        lk_product = LkProduct.copy_from_product(item.product, @co.firm_id, item.start_price)

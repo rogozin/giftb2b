@@ -1,14 +1,4 @@
 <%#= javascript_include_tag 'search.js' %>
-<style type="text/css">
-#color_12271, #color_12257, #color_12252, #color_12260, #color_12273
-{border:none; width:20px; height:20px;}
-
-#color_12271 {	background: url("images/multi.png") no-repeat scroll 0 0 transparent; }  
-#color_12257 {	background: url("images/transparent.png") no-repeat scroll 0 0 transparent;}  
-#color_12252 {	background: url("images/silver.png") no-repeat scroll 0 0 transparent;}  
-#color_12260 {	background: url("images/gold.png") no-repeat scroll 0 0 transparent;}  
-#color_12273 {	background: url("images/bronze.png") no-repeat scroll 0 0 transparent;} 
-</style>
  <%= form_tag search_path(:anchor => "results"), :method=> :get do  -%>
 <div class="b-ext-search" id="ext_search">
   <h3>Расширенный поиск</h3>  

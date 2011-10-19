@@ -1,8 +1,7 @@
-<%= form_for @product, :url => @product.new_record? ? products_path : product_path(@firm), :method => @product.new_record? ? "post" : "put", :html => {:multipart => true} do |f| -%>
+<%= form_for @product, :url => @product.new_record? ? products_path : product_path(@product), :method => @product.new_record? ? "post" : "put", :html => {:multipart => true} do |f| -%>
 <%= f.hidden_field :firm_id %>
 <%= hidden_field_tag :redirect, defined?(redirect) ? redirect : ""   %>
 <div><%= render :partial => 'shared/error_messages', :locals => {:target => @product} %></div>
-
 <div id="tabs">
   <ul>
     <li><a href="#tab-1">Информация о товаре</a></li>

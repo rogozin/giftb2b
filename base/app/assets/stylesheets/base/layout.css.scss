@@ -143,7 +143,7 @@ input:focus,  select:focus,  textarea:focus{
   -moz-box-shadow: 0 0 3px #888;
   -webkit-box-shadow: 0 0 3px #888;
   box-shadow: 0 0 3px #888;
- behavior: url("/javascripts/PIE.htc");
+	behavior: url(/javascripts/PIE.htc);
 }
   
 a.menu_left {
@@ -292,18 +292,20 @@ select {background-color: white;}
 .basket_right img {
     position:relative;
     top:5px;
-    left:60px;
+//    left:60px;
 }
 .basket_50 a {
     color:#999999;
 }
 
 .basket_50 {
-    width:49%;
-    font-size:8pt;
-    margin-top:5px;
+    width:120px;
     float:left;
-
+    font-size:9pt;
+    margin-top:5px;
+    div {margin:10px 0;}
+    .blank_cart { margin-top:30px;}
+    .full_cart { margin-top:25px}
 }
 
 .login-form {
@@ -437,15 +439,16 @@ a.toggle-category {
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	-khtml-border-radius: 10px;
-	behavior: url("/javascripts/PIE.htc");
+	behavior: url(/javascripts/PIE.htc);
 }
 
 .shadow {
-  -moz-box-shadow: 0 0 7px #000;
-  -webkit-box-shadow: 0 0 7px #000;
-  box-shadow: 0 0 7px #000;
- behavior: url("/javascripts/PIE.htc");
+  -moz-box-shadow: #000 0px 0px 7px;
+  -webkit-box-shadow: #000 0px 0px 7px;
+  box-shadow: #000 0px 0px 7px;
+	behavior: url(/javascripts/PIE.htc);
 }
+
 
 input[type="submit"], input[type="button"], .b_button, .r_button, .g_button {
   cursor:pointer;
@@ -459,7 +462,7 @@ input[type="submit"], input[type="button"], .b_button, .r_button, .g_button {
   -webkit-box-shadow: #666 0px 2px 3px;
   -moz-box-shadow: #666 0px 2px 3px;
   box-shadow: #666 0px 2px 3px;
-  behavior: url("/javascripts/PIE.htc");
+	behavior: url(/javascripts/PIE.htc);
 }  
 
 
