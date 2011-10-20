@@ -13,7 +13,7 @@ module CartHelper
   end
   
   def cart_name
-    giftpoisk? ? "Коммерческое предложение" : "Корзина"
+    giftpoisk? ? "Коммерческое предложение" : "Ваша корзина"
   end
   
   def cart_name_r
@@ -29,12 +29,12 @@ module CartHelper
   end
   
   def add_to_cart_url(product)
-     	 link_to  add_to_cart_icon, add_cart_path(product.id), :remote => true, :method => :post, :title => "Добавить в #{cart_name_r}" 
+    content_tag(:p, link_to(raw(add_to_cart_icon), add_cart_path(product.id), :remote => true, :method => :post, :title => "Добавить в #{cart_name_r}"), :class=> "add-to-cart")
   end
   
   private
   def add_to_cart_icon
-        giftpoisk? ? image_tag("addtokp.png") : image_tag("cart_add.png")     
+        giftpoisk? ? "добавить в ком.предл." + image_tag("addtokp.png") : "Добавить в корзину" + image_tag("cart_add.png")     
   end
 
   

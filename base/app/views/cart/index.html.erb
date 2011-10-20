@@ -7,12 +7,12 @@
 </div>
 
 <% end -%>
-
+<div id="cart_control_menu">
      <% if session[:cart] && session[:cart].total_items >0  -%>
         <% if current_user && current_user.is_firm_user? -%>          
-        <p><%= link_to "Преобразовать в заказ", lk_engine.orders_path, :method => :post   %></p>  
+        <p><%#= link_to "Преобразовать в заказ", lk_engine.orders_path, :method => :post   %></p>  
         <div class="spacer"></div>
-        <p> <%= link_to "Сохранить и продолжить работу с коммерческим предложением", lk_engine.commercial_offers_path, :method => :post %></p>
+        <p> <%= link_to "Сохранить и продолжить работу с коммерческим предложением", lk_engine.commercial_offers_path, :method => :post, :class => "r_button" %></p>
         <div class="spacer"></div>
         <% end -%>
         <div class="spacer"></div>
@@ -27,3 +27,5 @@
         <% end -%>
         
       <% end -%>
+</div>
+

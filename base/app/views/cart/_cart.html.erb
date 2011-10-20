@@ -1,9 +1,10 @@
   <% if full_cart? -%>
 	<div class="basket_50">
     	<div class="full_cart">
-    	  <%= (link_to "#{cart_name}: \n #{cart_items}", main_app.cart_index_path) %>
+        <div id="cart_name"><%= link_to "#{cart_name}:", main_app.cart_index_path %></div>
+        <div id="cart_count"><%= link_to cart_items, main_app.cart_index_path %></div>
 	    </div>
-	    <div>	    
+	    <div id="empty">	    
     	  <%= link_to 'Очистить', main_app.empty_cart_index_path, :remote => true, :method => :post %>
 	    </div>
 	</div>
@@ -14,7 +15,8 @@
 
 	<div class="basket_50">
 	  <div class="blank_cart">
-  	  <a href="#"><%= cart_name %> (пусто)</a>
+        <div id="cart_name"><%= link_to "#{cart_name}:", "#" %></div>
+        <div id="cart_count"><%= link_to "(пусто)", "#" %></div>  	  
 	  </div>
  </div>  
 	<div class="basket_50"><%= big_cart_icon %></div>

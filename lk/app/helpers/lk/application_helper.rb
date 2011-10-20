@@ -14,6 +14,8 @@ module Lk
     res << content_tag(:p, link_to('Мой список товаров', products_path, :class => "menu_left")) if  current_user.is_lk_user?
     res << content_tag(:p, link_to('Образцы', samples_path, :class => "menu_left"))  if current_user.has_role?(:Администратор) || current_user.has_role?("Учет образцов")
     res << content_tag(:p, link_to('Пользователи', accounts_path, :class => "menu_left")) if  current_user.is_firm_manager?
+    res << content_tag(:div, nil, :class => "line")
+    res << content_tag(:p, link_to('На главную страницу', main_app.root_path, :class => "menu_left"))
     raw res
   end
 

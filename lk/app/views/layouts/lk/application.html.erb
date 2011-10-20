@@ -48,9 +48,12 @@
  
  <div id="cart" class="basket_right">
     <%= render :partial => "cart/cart" %>
-    </div>
-<div class="line"></div> 
-<div class="banner_left"></div>
+  </div>
+	<div class="line"></div> 
+  <div id="user_menu" class="left_block">
+	<p class="b-header"><span class="lk-menu-title">Личный кабинет</span></p> 
+	<%= render_lk_menu %>
+  </div> <!-- end left_block -->   
 </div> <!--end right_content --> 
 
 <div id="left_content">
@@ -63,14 +66,9 @@
     <% else -%>
     <%= render :partial => "shared/pass_input" %>
     <% end -%>
-
     </div> <!-- end lk -->
-	
-	<div class="line"></div> 
-  <div id="user_menu" class="left_block">
-	<p class="b-header"><span class="lk-menu-title">Личный кабинет</span></p> 
-	<%= render_lk_menu %>
-  </div> <!-- end left_block --> 
+<div class="line"></div> 
+<div class="banner_left"></div>
 	
 </div> <!--end left_content --> 
 <div class="clear"></div> 

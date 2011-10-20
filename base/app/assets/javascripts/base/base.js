@@ -1,3 +1,12 @@
+$(function(){
+    $('input').keydown(function(e){
+        if (e.keyCode == 13) {
+            $(this).parents('form').submit();
+            return false;
+        }
+    });
+});
+
 function bindAnimation() {
   $(".ajax_animation").bind({
       ajaxStart: function() { $(this).show(); },

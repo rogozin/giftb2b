@@ -13,6 +13,18 @@ div.article_img_1 {text-align:center; display: table; height: 120px; width:120px
 div.article_img_2 {position: absolute; #top: 50%; display: table-cell; vertical-align: middle;}
 div.article_img_3 {position: relative; #top: -50%;}
 
+#add_to_cart { margin-top:5px}
+
+.add-to-cart {  
+  img {
+       display:inline-block;
+       vertical-align:middle;
+       width:32px;
+       height:32px;
+       margin-left:5px;
+  }
+}
+
 .article_name, #add_to_cart a {
 	margin:0px;
 	color:#cc3366;

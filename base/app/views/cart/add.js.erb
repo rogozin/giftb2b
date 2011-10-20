@@ -1,5 +1,9 @@
 $('#cart').html("<%= escape_javascript render(:partial => 'cart/cart') %>");
-$('#cart_items').html('Ваша корзина пуста');
+$('#cart_count a').effect("highlight");
+<% if action_name == "empty" -%>
+  $('#cart_items').html('Товары отсутствуют.');
+  $('#cart_control_menu').empty();  
+<% end -%>
 <% if @current_item -%>
   msg=$('<span class="message g-hidden"> ok</span>');
   $('div#product_<%= @current_item.product.id %> #add_to_cart').append(msg);

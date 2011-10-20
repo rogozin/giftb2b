@@ -305,7 +305,10 @@ select {background-color: white;}
     margin-top:5px;
     div {margin:10px 0;}
     .blank_cart { margin-top:30px;}
-    .full_cart { margin-top:25px}
+    .full_cart { margin-top:10px;}
+    #cart_name, #cart_count {font-size:10pt;}
+    #cart_name a { text-decoration:none;}
+    #empty a {font-size:8pt; text-decoration:none; border-bottom:1px dotted #999; }  
 }
 
 .login-form {
@@ -340,10 +343,10 @@ select {background-color: white;}
 	height:120px;
 	background:#999;
 	text-align:left;
+	a {color:#fff;}
 }
-.lk a {
-	color:#fff;
-}
+
+
 .lk a:hover {
 	color:#CC3366;
 }
@@ -358,14 +361,13 @@ select {background-color: white;}
 	font-weight:normal;
 	font-size:9pt;
 	padding-top:1px;
-	color:#999999
+	color:#999999;
+	a {
+  	border-bottom:1px dotted #fff;
+	  text-decoration:none;
+	}
 }
 
-.lk-links a {
-	border-bottom:1px dotted #fff;
-	text-decoration:none;
-
-}
 
 .lk-t {
 	color:#fff;
@@ -485,7 +487,7 @@ input[type="submit"], input[type="button"], .b_button, .r_button, .g_button {
 
 div.b-rgb {margin:10px 0;}
 
-a.r_buttona, a.b_button, a.g_button {color:#fff; text-decoration:none;}
+a.r_button, a.b_button, a.g_button {color:#e8eef4; text-decoration:none;}
 
 .g_button:hover { 
   background: -webkit-gradient(linear, 0 0, 0 bottom, from(#a2db5a), to(#79A93B));
