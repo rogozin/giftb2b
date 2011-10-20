@@ -81,10 +81,24 @@ h3 {font-size:1.1em;}
 }
 
 .line {
-	width:240px;
+	width:250px;
 	height:5px;
 	background:#999999;
 	margin:10px;
+}
+
+.line-no-margin {
+	margin:0;
+}
+
+.line-top-margin {
+	margin:0;
+	margin-top:10px;
+	width:250px;
+}
+
+.line-left-margin {
+  margin-left:10px;
 }
 
 .left_block {
@@ -305,7 +319,7 @@ select {background-color: white;}
     margin-top:5px;
     div {margin:10px 0;}
     .blank_cart { margin-top:30px;}
-    .full_cart { margin-top:10px;}
+    .full_cart { margin-top:5px;}
     #cart_name, #cart_count {font-size:10pt;}
     #cart_name a { text-decoration:none;}
     #empty a {font-size:8pt; text-decoration:none; border-bottom:1px dotted #999; }  

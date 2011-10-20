@@ -13,7 +13,7 @@ module CartHelper
   end
   
   def cart_name
-    giftpoisk? ? "Коммерческое предложение" : "Ваша корзина"
+    giftpoisk? ? "ВАШЕ коммерческое предложение" : "Ваша корзина"
   end
   
   def cart_name_r
@@ -34,7 +34,7 @@ module CartHelper
   
   private
   def add_to_cart_icon
-        giftpoisk? ? "добавить в ком.предл." + image_tag("addtokp.png") : "Добавить в корзину" + image_tag("cart_add.png")     
+        giftpoisk? ? "Добавить в предложение" + image_tag("addtokp.png") : "Добавить в корзину" + image_tag("cart_add.png")     
   end
 
   
