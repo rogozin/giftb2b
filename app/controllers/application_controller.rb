@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   # See ActionController::Base for details
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password").
-  helper_method :current_user, :ext_user?, :giftpoisk?
+  helper_method  :ext_user?, :giftpoisk?
 
   protected
   def not_found(message=nil)    

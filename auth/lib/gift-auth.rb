@@ -7,4 +7,10 @@ module Auth
 
 end
 
-ActionController::Base.send(:include, Auth::ControllerMix)
+#ActionController::Base.send(:include, Auth::ControllerMix)
+
+ActionController::Base.instance_eval do
+  include Auth::ControllerMix
+  helper_method :current_user
+end
+
