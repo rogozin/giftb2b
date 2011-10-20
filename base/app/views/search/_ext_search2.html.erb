@@ -1,4 +1,3 @@
-<%#= javascript_include_tag 'search.js' %>
  <%= form_tag search_path(:anchor => "results"), :method=> :get do  -%>
 <div class="b-ext-search" id="ext_search">
   <h3>Расширенный поиск</h3>  
@@ -86,7 +85,7 @@
 
   <div class="b-ext-search-inner even">
     <div class="b-ext-search-center">     
-       <div class="b-search-center-inner">
+       <div class="b-search-center-inner-no-right">
         <% @color.property_values.each do |color| %>
         <% color_class = (params[prop_name(@color)].present? && params[prop_name(@color)].include?(color.id.to_s)) ? "color-box shadow" : "color-box" -%>
         <%= content_tag(:div, "", :class => color_class, :style => color.note && color.note =~ /^#?(([a-fA-F0-9]){3}){1,2}$/ ? "background:#{color.note}" : nil, :title => color.value, :id => "color_#{color.id}") %>

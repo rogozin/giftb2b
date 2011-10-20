@@ -379,7 +379,7 @@ padding: 5px 0;
   clear: both;
 }
 
-.b-ext-search-inner:nth-child(even), .b-ext-search .even {
+.b-ext-search .even {
   background-color:#fff;
 }
 
@@ -407,6 +407,11 @@ padding: 5px 0;
 .b-search-center-inner {
   margin:0 90px 0 100px;
 }
+
+.b-search-center-inner-no-right {
+  margin:0 0 0 100px;
+}
+
 
 .b-ext-search-right { 
   float:left;
@@ -454,6 +459,8 @@ padding: 5px 0;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
+  z-index:10;
+  position:relative;
 	behavior: url(/javascripts/PIE.htc);
 }
 
