@@ -1,8 +1,6 @@
 module Base
-  module ControllerMix
-
-
   
+  module ControllerMix  
   def giftpoisk?
     ActionMailer::Base.default_url_options[:host] == "giftpoisk.ru"
   end

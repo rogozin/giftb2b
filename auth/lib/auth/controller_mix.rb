@@ -1,5 +1,6 @@
 #encoding: utf-8;
 module Auth
+
   module ControllerMix
 
     def current_user_session

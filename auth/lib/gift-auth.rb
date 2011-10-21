@@ -12,5 +12,6 @@ end
 ActionController::Base.instance_eval do
   include Auth::ControllerMix
   helper_method :current_user
+  helper_method :ext_user?
 end
 

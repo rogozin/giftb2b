@@ -2,7 +2,6 @@
 class Lk::BaseController < Lk::ApplicationController
   before_filter :require_user
   layout 'lk/application'
-  helper_method :current_user
  
   def index
     

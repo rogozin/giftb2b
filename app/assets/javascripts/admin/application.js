@@ -3,9 +3,9 @@
 //= require jquery-ui
 //= require ui.datepicker-ru
 //= require wymeditor/jquery.wymeditor.min
+//= require wymeditor/init
 //= require_tree .
 //= require jquery.form
-
 
 
 $(function() {
