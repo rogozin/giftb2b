@@ -46,7 +46,7 @@ module XmlDownload
             if product.images and options.key? :images
                xml.product_full_image {
                  product.images.each do |image|
-                  xml.image image.picture.url
+                  xml.image image.picture.url.split("?").first
                  end                 
                }
 

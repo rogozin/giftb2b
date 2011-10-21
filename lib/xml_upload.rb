@@ -213,7 +213,7 @@ module XmlUpload
     for node in image_nodes.children do
       if node.element?
        # TODO: В дальнейшем нужно использовать URI.parse, URI.absolute?, URI.relative?
-       url =  node.content.index('http://') ? node.content : "http://81.176.236.100#{ node.content }"
+       url =  node.content.index('http://') ? node.content : "http://#{ActionMailer::Base.default_url_options[:host]}#{ node.content }"
        @log_total_images +=1 if upload_image(product, url)
       end
     end  
@@ -224,10 +224,10 @@ module XmlUpload
   
   def upload_image(product, url)
     filename = url.split('/').last 
-    img = Image.find_or_initialize_by_picture_file_name(filename)
-    img.picture= upload_file(url) if img.new_record?
+    new_img = upload_file(url)  
+    images = Image.where(:picture_file_name => filename, :picture_file_size => new_img.size)
+    img = images.present? ? images.first :  Image.create(:picture => new_img)
     product.images<< img unless product.images.include?(img)
-    img.save
    rescue => img_error
    @log_errors<< "image_error for article #{product.article}, url=#{url} :#{img_error}"    
   end
