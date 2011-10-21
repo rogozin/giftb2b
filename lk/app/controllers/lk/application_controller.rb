@@ -7,6 +7,8 @@ module Lk
   helper CartHelper
   helper UsersHelper
   helper CategoriesHelper  
+  helper ProductsHelper  
+  
   rescue_from  'Acl9::AccessDenied',  :with => :access_denied
   rescue_from  'ActiveRecord::RecordNotFound' do |ex|
     render :file => 'public/404.html', :status => 404, :layout => false
