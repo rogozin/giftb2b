@@ -1,54 +1,25 @@
 <%= render 'admin/shared/sub_menu_data_changes' %>
 <% title "Импорт данных" -%>
-<%#= javascript_include_tag 'jquery.form.js' -%>
  <%= javascript_tag :defer => 'defer' do -%>
     $(function() {
       $('form').ajaxForm({dataType: 'script'});
     })
-function processing_in_progress() {
-$('#cancel').show(); 
-$(document).ready(
-  function(){
-    setInterval(function(){
-      $('#progress').load('/admin/data_changes/get_status');
-    }, 3000);
-  });
-return false;
-}
-  <% end -%>
-
+<% end -%>    
 <% unless @can_upload -%>
   <script>processing_in_progress();</script>
+ <div id="cancel">
+<%= link_to 'Отмена', stop_admin_data_change_path(@bw), :remote => true %>
+</div>
+  
 <% else -%>
   <%= render :partial => "file_upload"%> 
 <% end -%>
 
-<div id="cancel" class="g-hidden">
-<%= link_to 'Отмена',  {:action => "cancel_thread"  }, :remote => true %>
-</div>
+
 
 <div id="progress"></div>
 
 <div class="spacer"></div>
-<div class="last_workers">
-<h3>Последние задания:</h3>
-<table>
-<tr>
-  <th>Имя файла</th>
-  <th>Статус</th>
-  <th>Обработано</th>
-  <th>Старт</th>
-  <th>Финиш</th>
-</tr>
-<% @workers.each do |item| -%>
-  <tr>
-    <td><%= item.task_name %></td>
-    <td><%= item.current_status %></td>
-    <td><%= item.current_item %>/<%= item.total_items %></td>
-    <td><%= item.created_at %></td>
-    <td><%= item.task_end %></td>
-  </tr>  
-<% end -%>
-
-</table>
+<div id="last_workers">
+<%= render :partial => 'job_items' %>
 </div>

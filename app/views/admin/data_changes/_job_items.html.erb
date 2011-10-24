@@ -1,0 +1,22 @@
+<h3>Последние задания:</h3>
+<table>
+<tr>
+  <th>Имя файла</th>
+  <th>Статус</th>
+  <th>Обработано</th>
+  <th>Старт</th>
+  <th>Финиш</th>
+  <th></th>
+</tr>
+<% @workers.each do |item| -%>
+  <tr>
+    <td><%= item.task_name %></td>
+    <td><%= item.current_status %></td>
+    <td><%= item.current_item %>/<%= item.total_items %></td>
+    <td><%= item.created_at %></td>
+    <td><%= item.task_end %></td>
+    <td><%= link_to "Cтоп", stop_admin_data_change_path(item), :remote => true unless %w(stop finish).include?(item.current_status) %></td>
+  </tr>  
+<% end -%>
+
+</table>

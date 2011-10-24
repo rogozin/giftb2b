@@ -116,8 +116,10 @@ Giftr3::Application.routes.draw do
       collection do
         post :import
         get :get_status
-        get :cancel_thread
       end    
+      member do 
+        get :stop
+      end
     end
     resources :export_data do
       collection do

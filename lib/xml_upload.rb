@@ -78,24 +78,21 @@ module XmlUpload
     reader = Nokogiri::XML(io)
     @log_total  = reader.root.xpath('//item').size
     @bw.update_attributes({:total_items => @log_total, :current_status => "working"})
-    @log_exec_time = Benchmark.ms do
-      reader.root.xpath('//item').each do |node_set|          
-          begin
-            processing_xml_item( node_set.children.select{|child_nodes| child_nodes.element? })     
-            rescue => error
-              @log_errors<< "processing error #{error} "            
+    reader.root.xpath('//item').each do |node_set|          
+        begin
+          processing_xml_item( node_set.children.select{|child_nodes| child_nodes.element? })     
+          rescue => error
+            @log_errors<< "processing error #{error} "            
           end
-          @log_current +=1
-          @bw.update_attribute(:current_item, @log_current)
-          @bw.update_attributes({:current_item => @log_current, :log_errors => @log_errors.reverse.join('<br />') } )
-          @bw.reload
-          if @bw.current_status == "stoping"
-            @bw.update_attributes( {:current_status => "stop", :task_end => Time.now})
-            Category.enable_cache  
-            return
-          end
-      end  
-    end
+        @log_current +=1
+        @bw.update_attributes({:current_item => @log_current, :log_errors => @log_errors.reverse.join('<br />') } )
+        @bw.reload
+        if @bw.current_status == "stoping"
+          @bw.update_attributes( {:current_status => "stop", :task_end => Time.now})
+          Category.enable_cache  
+          return
+        end
+    end  
     Category.enable_cache   
     Rails.cache.delete('novelty_products')
     Rails.cache.delete('sale_products')

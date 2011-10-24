@@ -1,6 +1,6 @@
 <fieldset style="width:300px;">
 <legend>Загрузить каталог товаров из xml-файла:</legend>
- <%= form_for :import_data,  :url => admin_data_changes_path, :html => { :multipart => true } do |form| %>
+ <%= form_for :import_data,  :url => admin_data_changes_path , :html => { :multipart => true } do |form| %>
   <%= hidden_field_tag :format, 'js' %>
     <%= form.file_field :xml_file %> 
     <fieldset>
