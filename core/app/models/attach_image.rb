@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class AttachImage < ActiveRecord::Base
   set_primary_keys :attachable_id, :image_id, :attachable_type
-  belongs_to :attachable, :polymorphic => true, :touch => true
+  belongs_to :attachable, :polymorphic => true
   belongs_to :image
   before_save :main_img_rule
   
