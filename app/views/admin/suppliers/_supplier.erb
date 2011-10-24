@@ -1,4 +1,4 @@
-<%= form_for [:admin,@supplier], :url => admin_supplier_path(@supplier.id), :html => {:class => 'one_line_form'}  do |f|%>
+<%= form_for [:admin,@supplier],  :html => {:class => 'one_line_form'}  do |f|%>
   <%= render :partial => 'shared/error_messages', :locals => {:target => @supplier} %>    
 <div class="b-formfield-div">
   <%= f.label :name, 'Название поставщика' %>
