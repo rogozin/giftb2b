@@ -2,7 +2,6 @@ ru:
   activerecord:
     models:
       user: "Учетная запись"
-      content: "Контент"
     attributes:
       user:
         email: "E-mail"
