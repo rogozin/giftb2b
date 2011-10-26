@@ -49,15 +49,14 @@ class Admin::FirmsController < Admin::BaseController
   def add_image
     @firm = Firm.find(params[:id])
     @firm.images.delete_all
-    image = @firm.images.new(params[:image])
-    @firm.save
+    flash[:notice] = "Логотип изменен" if AttachImage.create(:attachable => @firm, :image => Image.create(params[:image]))
     redirect_to edit_admin_firm_path(@firm)
   end
   
   def remove_image
      @firm = Firm.find(params[:id])   
      @firm.images.delete_all
-     redirect_to edit_admin_firm_path(@category)
+     redirect_to edit_admin_firm_path(@category), :notice => "Логотип удален"
   end
 
 end

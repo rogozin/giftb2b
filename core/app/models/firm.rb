@@ -1,6 +1,6 @@
 #encoding: utf-8;
 class Firm < ActiveRecord::Base
-  has_many :attach_images, :as => :attachable, :dependent => :destroy, :foreign_key => :attachable_id
+  has_many :attach_images, :as => :attachable, :conditions => {:attachable_type =>"Firm"}, :dependent => :destroy, :foreign_key => :attachable_id
   has_many :images, :through => :attach_images
   has_many :users
   validates :name, :presence => true, :uniqueness => true
@@ -41,10 +41,11 @@ private
   end
   
   def set_default_logo
-   File.open(File.join(Core::Engine.root, "/public/images/logo-default.jpg")) do |f|
-     i = Image.create(:picture => f)
-     self.images << i
-   end
+     f= File.open(File.join(Core::Engine.root, "/public/images/logo-default.jpg"))
+     images = Image.where(:picture_file_name => "logo-default.jpg", :picture_file_size => f.size)
+     img = images.present? ? images.first :  Image.create(:picture => f)
+     AttachImage.create(:attachable => self, :image => img)
+     f.close
   end
   
 end

@@ -4,11 +4,12 @@ require 'spec_helper'
 describe XmlUpload do
   context "Spec xml upload func" do
    before(:each) do      
+      ActionMailer::Base.default_url_options[:host] = "127.0.0.1:3000"
       @bw = BackgroundWorker.create({:task_name => "test_xml"})
       @product = Factory(:product)       
       File.open(File.join(Rails.root, "/app/assets/images/no_image.png")) do |f|
-       i = Image.create(:picture => f)
-       @product.images << i
+       #i = Image.create(:picture => f)
+       @product.images.create(:picture => f)
      end
       @store =Factory(:store, :supplier => @product.supplier)
       @store2 =Factory(:store, :supplier => @product.supplier)      
@@ -31,8 +32,10 @@ describe XmlUpload do
     it "xml file should be processed when no-products in base" do
       DatabaseCleaner.clean  
        @bw = BackgroundWorker.create({:task_name => "test_xml"})
-      XmlUpload.process_file(@xmlfile.path, @bw.id, {:import_images => false, :reset_images => false, :reset_properties => false} )
+      XmlUpload.process_file(@xmlfile.path, @bw.id, {:import_images => true, :reset_images => false, :reset_properties => false} )
       Product.should have(1).record
+      Product.first.images.should have(1).record
+      Product.first.attach_images.first.attachable_type.should eq "Product"      
       Product.first.store_units.should have(2).records
       Product.first.store_units.map(&:count).should include(1984)
       Product.first.store_units.map(&:option).should include(-1)      
@@ -51,7 +54,6 @@ describe XmlUpload do
     
     
     it 'Если имя изображения совпадает, но размеры файла отличаются, картинка закачается дважды' do
-      ActionMailer::Base.default_url_options[:host] = "127.0.0.1:3000"
       Image.all.should have(1).record
       Image.first.update_attribute(:picture_file_size, 1000)
       XmlUpload.process_file(@xmlfile.path, @bw.id, {:import_images => true, :reset_images => false, :reset_properties => false} )

@@ -18,8 +18,7 @@ class Admin::ImagesController < Admin::BaseController
 
   def create
     product = Product.find_by_permalink(params[:product_id])
-    image = product.images.new(params[:image])
-    if product.save
+    if AttachImage.create(:attachable => product, :image => Image.create(params[:image]))
       flash[:notice] = "Изображение успешно сохранено"
     else
       flash[:alert] = "Ошибка добавленя изображения!"
