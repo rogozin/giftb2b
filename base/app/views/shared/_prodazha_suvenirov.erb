@@ -1,5 +1,6 @@
       <p class="b-header"><span><strong>Продажа сувениров</strong></span></p> 
+        <%= content_tag(:p, link_to("- Где купить сувениры", main_app.firms_path, :class =>"menu_left magenta-link") ) %>     
       <p><%= link_to '- Поиск сувенира', main_app.search_path, :class => "menu_left"  %></p>
       <p><a class="menu_left" href="/categories/vip-podarki">- VIP сувениры</a></p>	
       <p><a class="menu_left" href="/categories/eksklyuzivnye-razrabotki">- Авторские сувениры</a></p>	
-        <%= content_tag(:p, link_to("- Где купить сувениры", main_app.firms_path, :class =>"menu_left magenta-link") ) %>     
+
