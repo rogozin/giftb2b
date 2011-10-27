@@ -9,7 +9,9 @@ my_engine/*
 config/database.yml
 config/initializers/session_store.rb
 config/environments/production.rb
+config/environments/development.rb
 config/initializers/mailer.rb
+config/initializers/secret_token.rb
 config/unicorn.rb
 Gemfile.lock
 public/system

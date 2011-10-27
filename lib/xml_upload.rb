@@ -224,7 +224,7 @@ module XmlUpload
     new_img = upload_file(url)  
     images = Image.where(:picture_file_name => filename, :picture_file_size => new_img.size)
     img = images.present? ? images.first :  Image.create(:picture => new_img)
-    product.images<< img unless product.images.include?(img)
+    AttachImage.create(:attachable => product, :image => img) unless product.images.include?(img)
    rescue => img_error
    @log_errors<< "image_error for article #{product.article}, url=#{url} :#{img_error}"    
   end

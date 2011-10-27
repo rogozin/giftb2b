@@ -6,7 +6,7 @@ class Product < ActiveRecord::Base
   has_many :main_categories, :through => :product_categories, :source => :category, :conditions => "categories.kind=1"  
   belongs_to :manufactor
   belongs_to :supplier
-  has_many :attach_images, :as => :attachable, :dependent => :delete_all, :foreign_key => :attachable_id, :order => "main_img desc"
+  has_many :attach_images, :as => :attachable, :conditions => {:attachable_type =>"Product"}, :dependent => :delete_all, :foreign_key => :attachable_id, :order => "main_img desc"
   has_many :images, :through => :attach_images
   has_many :product_properties, :class_name=>"ProductProperty", :dependent => :delete_all
   has_many :property_values, :through => :product_properties, :include => :property,  :order => "value"

@@ -39,6 +39,8 @@ end
     Firm.last.url.should eq "http://dishouse.ru"
     Firm.last.users.should have(1).records
     User.last.should be_is_firm_user
+    Firm.first.attach_images.first.attachable_type.should eq "Firm"
+    Firm.first.logo.path.split("/").last.should eq "logo-default.jpg"
     ActionMailer::Base.deliveries.should have(2).items
     ActionMailer::Base.deliveries.map(&:to).should include([@admin.email])      
     ActionMailer::Base.deliveries.map(&:to).should include(["kopyta@giftb2b.ru"])      
