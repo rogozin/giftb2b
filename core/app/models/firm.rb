@@ -5,6 +5,7 @@ class Firm < ActiveRecord::Base
   has_many :users
   validates :name, :presence => true, :uniqueness => true
   validates :email, :email => {:allow_blank => true},  :length => {:maximum => 40, :allow_nil => true}  
+  validates :email2, :email => {:allow_blank => true},  :length => {:maximum => 40, :allow_nil => true}  
   validates :permalink, :presence => true, :uniqueness => true
 #  validates :url,
 #  :format => { :with => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :allow_blank => true},
