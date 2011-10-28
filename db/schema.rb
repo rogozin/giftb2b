@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111019084953) do
+ActiveRecord::Schema.define(:version => 20111028043912) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -84,6 +84,26 @@ ActiveRecord::Schema.define(:version => 20111019084953) do
     t.integer  "lk_firm_id"
   end
 
+  create_table "contact_types", :force => true do |t|
+    t.string "name", :null => false
+  end
+
+  create_table "contacts", :force => true do |t|
+    t.integer  "firm_id",         :null => false
+    t.datetime "current_date",    :null => false
+    t.integer  "contact_type_id", :null => false
+    t.integer  "event_id",        :null => false
+    t.integer  "person_id"
+    t.string   "person_name"
+    t.string   "phone"
+    t.datetime "next_date"
+    t.text     "comment"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "content_categories", :force => true do |t|
     t.string   "name",       :null => false
     t.string   "permalink",  :null => false
@@ -142,6 +162,11 @@ ActiveRecord::Schema.define(:version => 20111019084953) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "events", :force => true do |t|
+    t.string  "name",   :null => false
+    t.integer "status"
+  end
+
   create_table "firms", :force => true do |t|
     t.string   "name"
     t.string   "short_name"
@@ -160,6 +185,10 @@ ActiveRecord::Schema.define(:version => 20111019084953) do
     t.float    "long"
     t.string   "permalink"
     t.boolean  "show_on_site",                :default => false
+    t.text     "comment"
+    t.string   "phone2"
+    t.string   "phone3"
+    t.string   "email2"
   end
 
   add_index "firms", ["city"], :name => "index_firms_on_city"
@@ -263,6 +292,23 @@ ActiveRecord::Schema.define(:version => 20111019084953) do
 
   create_table "manufactors", :force => true do |t|
     t.string   "name",       :limit => 80
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "people", :force => true do |t|
+    t.integer  "firm_id",    :null => false
+    t.integer  "user_id"
+    t.string   "fio"
+    t.string   "appoint"
+    t.string   "phone"
+    t.string   "phone2"
+    t.string   "phone3"
+    t.string   "email"
+    t.string   "email2"
+    t.text     "comment"
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

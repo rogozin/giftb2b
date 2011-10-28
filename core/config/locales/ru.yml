@@ -17,7 +17,10 @@ ru:
         addr_f: "Физич. адрес"
         subway: "Метро"
         phone: "Телефон"
+        phone2: "Телефон (2)"
+        phone3: "Телефон (3)"       
         email: "E-mail"
+        email2: "E-mail (2)"
         url: "Сайт"
       content:
         title: "Заголовок"
