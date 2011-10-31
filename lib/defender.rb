@@ -11,7 +11,7 @@ class Defender < Rack::Throttle::Hourly
       :ttl => ttl,
       :host => host,
       :cache => Dalli::Client.new(host, :namespace => "gift_#{Rails.env}_defender", :expires_in => ttl),
-      :max => 10
+      :max => 100
     }
     @app, @options = app, options
   end
