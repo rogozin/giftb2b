@@ -6,7 +6,7 @@ class Defender < Rack::Throttle::Hourly
   WHITELIST = %w(87.236.190.194)
 
   def initialize(app)
-    host, ttl = "localhost:11211", 3600
+    host, ttl = "127.0.0.1:11211", 3600
     options = {
       :ttl => ttl,
       :host => host,
