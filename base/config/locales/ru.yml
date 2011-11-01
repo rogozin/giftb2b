@@ -4,6 +4,11 @@ ru:
     few: "%{count} товара"  
     many: "%{count} товаров"  
     other: "%{count} товара"            
+  supplier:
+    one: "%{count} поставщик"
+    few: "%{count} поставщика"  
+    many: "%{count} поставщиков"  
+    other: "%{count} поставщика"                
   helpers:
     submit:
       create: 'Создать %{model}'
