@@ -8,6 +8,8 @@ module CategoriesHelper
     options[:class] ||= "treeview"
     options[:field_name] ||= "lk_product[category_ids]"
     options[:select_children] ||= false
+    options[:sort_parents] ||= false    
+    categories_hash = categories_hash.sort{|x,y| x[:name] <=> y[:name]} if init && options[:sort_parents]
     content_tag(:ul, :class => init ? options[:class] : nil, :style => !init && !expand_block ?  "display:none" : nil) do
       categories_hash.each do |category|
        concat raw("<li>")

@@ -140,7 +140,7 @@
   </div> -->
   <div class="b-ext-search-inner even">
     <h3>Категория</h3>
-   <%= hashed_categories_tree(@categories, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], true, false,   {:field_name => "category_ids", :class => "category-items", :select_children => true} ) %>
+   <%= hashed_categories_tree(@categories, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], true, false,   {:field_name => "category_ids", :class => "category-items", :select_children => true, :sort_parents => true} ) %>
   </div>
 <% end -%>
 </div>
