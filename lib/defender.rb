@@ -43,8 +43,8 @@ class Defender < Rack::Throttle::Hourly
       heders['X-RateLimit-Limit']     = max_per_window.to_s
       heders['X-RateLimit-Remaining'] = ([0, max_per_window - (cache.get(cache_key(request)).to_i rescue 1)].max).to_s
     end
-    #[status, heders, body]
-    allowed?(request) ? app.call(env) : rate_limit_exceeded
+    [status, heders, body]
+    #allowed?(request) ? app.call(env) : rate_limit_exceeded
   end
 
   # rack-throttle can use many backends for storing request counter.
