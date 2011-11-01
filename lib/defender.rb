@@ -3,7 +3,7 @@ require 'dalli'
 # we limit daily API usage
 class Defender < Rack::Throttle::Hourly
 
-  WHITELIST = %w(87.236.190.194 66.249.66.161 66.249.71.168 207.46.199.37 157.55.18.24 207.46.199.53 79.142.165.179 157.55.16.87 207.46.204.240 213.180.209.10 65.52.110.152 194.186.248.18 65.52.104.87 95.108.247.252 178.65.33.101)
+  WHITELIST = %w(87.236.190.194 66.249.66.161 66.249.71.168 207.46.199.37 157.55.18.24 207.46.199.53 79.142.165.179 157.55.16.87 207.46.204.240 213.180.209.10 65.52.110.152 194.186.248.18 65.52.104.87 95.108.247.252 178.65.33.101 217.69.133.31)
 
   def initialize(app)
     host, ttl = "127.0.0.1:11211", 3600
@@ -23,11 +23,11 @@ class Defender < Rack::Throttle::Hourly
      max_allowed = api_request?(request) ?  max_per_hour*3 : max_per_hour     
     if need_defense?(request)   
       req_count =  cache_incr(request)
-      write_log(request, "Warning: #{max_allowed} request for this ip") if req_count == max_allowed/2
+      write_log(request, "Warning: #{max_allowed/2} request for this ip") if req_count == max_allowed/2
       if req_count < max_allowed
         true
       else
-        write_log(request, "Error: #{max_allowed} (max) request for this ip")
+        write_log(request, "Error: #{max_allowed} (max) request for this ip. Blocked.") if req_count == max_allowed
         false
       end
     else 
