@@ -36,7 +36,7 @@ $(function() {
     <tr>
       <td class="checkbox"><%= check_box_tag "co_items_ids[]", item.lk_product_id %></td>
       <td><%= link_to image_tag('edit.png'), edit_commercial_offer_product_path(@commercial_offer, item)  %></td>
-      <td><%= link_to_if item.lk_product.product, image_tag(item.lk_product && item.lk_product.picture ? item.lk_product.picture.url(:thumb) : "default_image.jpg"), product_path(item.lk_product.product), :target => "_blank" %></td>
+      <td><%= link_to_if item.lk_product.product, image_tag(item.lk_product && item.lk_product.picture ? item.lk_product.picture.url(:thumb) : "default_image.jpg"), main_app.product_path(item.lk_product.product), :target => "_blank" %></td>
       <td><%= item.lk_product.article %></td>
       <td><%= item.lk_product.short_name %></td>
       <td class="no-wrap"><%= price_ru_label item.lk_product.price  %></td>
