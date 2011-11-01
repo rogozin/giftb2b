@@ -43,8 +43,8 @@ class Admin::ImagesController < Admin::BaseController
   
   def set_main
     @product = Product.find(params[:product_id])
-    attach_image = @product.attach_images.find_by_image_id(params[:id])
-    attach_image.toggle! :main_img
+    attach_image = @product.attach_images.find_by_image_id(params[:id])    
+    @product.touch if attach_image.toggle! :main_img    
     respond_to do |format|
       format.js {render 'reload_images'}
       format.html {redirect_to admin_product_images_path(@product)}

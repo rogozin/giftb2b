@@ -221,10 +221,15 @@ module XmlUpload
   
   def upload_image(product, url)
     filename = url.split('/').last 
+    need_touch  = false
     new_img = upload_file(url)  
     images = Image.where(:picture_file_name => filename, :picture_file_size => new_img.size)
     img = images.present? ? images.first :  Image.create(:picture => new_img)
-    AttachImage.create(:attachable => product, :image => img) unless product.images.include?(img)
+    if product.images.exclude?(img)
+      AttachImage.create(:attachable => product, :image => img) 
+      need_touch = true
+    end
+    product.touch if need_touch && !product.updated_at.today?
    rescue => img_error
    @log_errors<< "image_error for article #{product.article}, url=#{url} :#{img_error}"    
   end
