@@ -3,7 +3,7 @@ require 'dalli'
 # we limit daily API usage
 class Defender < Rack::Throttle::Hourly
 
-  WHITELIST = %w(87.236.190.194)
+  WHITELIST = %w(87.236.190.194 66.249.66.161 66.249.71.168 207.46.199.37 157.55.18.24 207.46.199.53 79.142.165.179 157.55.16.87 207.46.204.240 213.180.209.10 65.52.110.152 194.186.248.18 65.52.104.87 95.108.247.252 178.65.33.101)
 
   def initialize(app)
     host, ttl = "127.0.0.1:11211", 3600
@@ -11,7 +11,7 @@ class Defender < Rack::Throttle::Hourly
       :ttl => ttl,
       :host => host,
       :cache => Dalli::Client.new(host, :namespace => "gift_#{Rails.env}_defender", :expires_in => ttl),
-      :max => 100
+      :max => 300
     }
     @app, @options = app, options
   end
