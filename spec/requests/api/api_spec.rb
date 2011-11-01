@@ -126,6 +126,12 @@ describe 'api testing' do
       get "api/products/not-exist", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       response.code.should eq "404"      
     end
+    
+    it 'Запрашиваем неактивный товар' do
+      @product.update_attribute :active, false
+      get "api/products/#{@product.permalink}", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+      response.code.should eq "404"      
+    end    
 
   end
   

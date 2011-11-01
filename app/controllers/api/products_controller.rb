@@ -31,7 +31,7 @@ class Api::ProductsController < Api::BaseController
 
   def show
     @product = []
-    @product = is_lk_product? ? find_lk_product : Product.find_by_permalink(params[:id])
+    @product = is_lk_product? ? find_lk_product : Product.active.find_by_permalink(params[:id])
     respond_with(@product)
   end
   

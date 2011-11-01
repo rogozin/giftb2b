@@ -15,7 +15,7 @@ class Api::BaseController < ActionController::Base
   end
   
   def find_lk_product(product_id = params[:id])
-    LkProduct.find(product_id.match(/\d+/).to_s)
+    LkProduct.active.find(product_id.match(/\d+/).to_s)
   end
   
   def respond_with( object, options = {})
