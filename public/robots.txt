@@ -4,3 +4,6 @@
 User-Agent: *
 Disallow: /cart/
 Disallow: /users/
+
+User-agent: Yandex
+Host: giftb2b.ru
