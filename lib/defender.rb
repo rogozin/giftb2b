@@ -11,7 +11,7 @@ class Defender < Rack::Throttle::Hourly
       :ttl => ttl,
       :host => host,
       :cache => Dalli::Client.new(host, :namespace => "gift_#{Rails.env}_defender", :expires_in => ttl),
-      :max => 300
+      :max => 100
     }
     @app, @options = app, options
   end
@@ -20,13 +20,14 @@ class Defender < Rack::Throttle::Hourly
   # If so, it increases usage counter and compare it with maximum 
   # allowed API calls. Returns true if a request can be handled.
    def allowed?(request)
+     max_allowed = api_request?(request) ?  max_per_hour*3 : max_per_hour     
     if need_defense?(request)   
       req_count =  cache_incr(request)
-      write_log(request, "Warning: #{max_per_window/2} request for this ip") if req_count == max_per_window/2
-      if req_count < max_per_window
+      write_log(request, "Warning: #{max_allowed} request for this ip") if req_count == max_allowed/2
+      if req_count < max_allowed
         true
       else
-        write_log(request, "Error: #{max_per_window} (max) request for this ip")
+        write_log(request, "Error: #{max_allowed} (max) request for this ip")
         false
       end
     else 
@@ -62,7 +63,10 @@ class Defender < Rack::Throttle::Hourly
       1
     end
   
-    # only API calls should be throttled
+    def api_request?(request)
+        request.fullpath =~ /^\/api/
+    end  
+  
     def need_defense?(request)     
       WHITELIST.exclude?(request.ip) && request.fullpath =~ /^(\/api|\/products|\/categories)/
     end
