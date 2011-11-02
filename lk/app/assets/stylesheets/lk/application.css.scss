@@ -10,6 +10,14 @@
  *= require lk/jquery-ui
  *require_tree . 
 */
+
+#gift_logo {
+  background: image-url("base/images/giftpoisk_logo.png") no-repeat top left;
+  width:208px;
+  height:86px;
+}
+
+
 h3.h3-lk {
 	border-bottom:1px solid #999;
 	padding-bottom:10px;
