@@ -457,8 +457,10 @@ ul {
    }
   &.column-items  { 
     li { 
-        line-height:1.9; padding-right:5px;
-        a {margin-left:3px}  
+        line-height:1.9; 
+         margin-right:0%;
+         width:99%;
+        a {margin-left:3px;}  
       }     
     ul {margin-left:10px;}
    }
