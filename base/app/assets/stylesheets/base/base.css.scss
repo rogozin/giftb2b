@@ -429,7 +429,7 @@ padding: 5px 0;
 .v-align { padding-top:.3em; }
 .full-size input {width:100%}
 
-.supplier-items li, .category-items > li {
+.supplier-items li  {
   display:inline-block;
   font-size:1em;
 }
@@ -444,14 +444,22 @@ padding: 5px 0;
   line-height:1.6
 }
 
-.category-items > li { 
-  width:33% ;
-  line-height:1.9;
+ul {
+  &.b-column-container {
+    li {
+      &.li-column {
+        color:#616F8F;
+        min-width:30%;
+        display: inline-block;
+        vertical-align:top;
+        }
+       }
+   }
+  &.column-items  { 
+    li { line-height:1.9; padding-right:5px;}     
+    ul {margin-left:10px;}
+   }
 }
-
-.category-items li {   color:#616F8F;}
-
-.category-items ul { margin-left:10px;}
 
 .material-items {
   float:left;}

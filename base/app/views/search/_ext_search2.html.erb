@@ -140,15 +140,15 @@
   </div> -->
   <div class="b-ext-search-inner even">
     <h3>Категория каталога</h3>
-   <%= hashed_categories_tree(@categories, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], true, false,   {:field_name => "category_ids", :class => "category-items", :select_children => true, :sort_parents => true} ) %>
+   <%= categories_columns(@categories, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], 3,   {:field_name => "category_ids", :class => "column-items", :select_children => true, :sort_parents => true} ) %>
   </div>
   <div class="b-ext-search-inner">
     <h3>Категория тематических сувениров</h3>
-   <%= hashed_categories_tree(@thematic, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], true, false,   {:field_name => "category_ids", :class => "category-items", :select_children => true, :sort_parents => true} ) %>
+   <%= categories_columns(@thematic, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], 3,   {:field_name => "category_ids", :class => "column-items", :select_children => true, :sort_parents => true} ) %>
   </div>  
   <div class="b-ext-search-inner even">
     <h3>Категория праздника</h3>
-   <%= hashed_categories_tree(@analogs, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], true, false,   {:field_name => "category_ids", :class => "category-items", :select_children => true, :sort_parents => true} ) %>
+   <%= categories_columns(@analogs, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], 3,   {:field_name => "category_ids", :class => "column-items", :select_children => true, :sort_parents => true} ) %>
   </div>    
 <% end -%>
 </div>
