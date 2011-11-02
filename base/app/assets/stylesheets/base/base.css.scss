@@ -456,7 +456,10 @@ ul {
        }
    }
   &.column-items  { 
-    li { line-height:1.9; padding-right:5px;}     
+    li { 
+        line-height:1.9; padding-right:5px;
+        a {margin-left:3px}  
+      }     
     ul {margin-left:10px;}
    }
 }
