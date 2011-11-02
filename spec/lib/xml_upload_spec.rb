@@ -60,6 +60,14 @@ describe XmlUpload do
       Image.all.should have(2).records
     end
     
+    it 'При добавлении новой картинки у товара должно обновится поле updated_at' do
+
+      Image.first.update_attribute(:picture_file_size, 1000)
+      Product.first.update_attribute :updated_at, Date.yesterday
+      XmlUpload.process_file(@xmlfile.path, @bw.id, {:import_images => true, :reset_images => false, :reset_properties => false} )
+      Product.first.updated_at.should be_today
+    end
+    
     
     it "should have no images  when products present in base" do
       StoreUnit.update_all("count=0")

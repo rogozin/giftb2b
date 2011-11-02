@@ -5,7 +5,9 @@
 						<p>Поиск сувениров:</p>
 						<%= text_field_tag :request, params[:request] %>
 						<p class="search-count">
-						  в базе: 60 138 товаров, 31 поставщик
+						<%# cache 'search/products-count', :expires_in => 24.hours do -%>
+						  <!--в базе:--> <%#= I18n.t(:product, :count => Product.count) %><!--,--> <%#= I18n.t(:supplier, :count => Supplier.count) %>
+						  <%# end -%>
 						</p>
 						<p class="search-a"><a href="/search">расширенный поиск</a></p>
 						<div class="clear"></div>

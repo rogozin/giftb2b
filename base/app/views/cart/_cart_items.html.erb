@@ -16,7 +16,7 @@
       <td><%= product_price(item.product) %></td>
       <td><%= text_field_tag "cart_items[#{item.product.id}]", item.quantity, :class => "inp-quantity" %></td>
       <td><%= number_to_currency item.price, :unit => 'руб.' %></td>
-      <td><%= link_to image_tag('bin.png'), cart_path(item.product.id), :remote => true, :method => :delete, :confirm => "Удалить товар из корзины?" %></td>
+      <td><%= link_to image_tag('bin.png'), cart_path(item.product.id), :remote => true, :method => :delete, :confirm => "Удалить товар?" %></td>
     </tr>
   <% end -%>
   <tr>

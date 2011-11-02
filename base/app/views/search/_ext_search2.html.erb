@@ -32,15 +32,15 @@
      <div class="clear"></div>
   </div>
   <div class="b-ext-search-inner even">
-<!--    <h3></h3>
+    <h3>Поставщик</h3>
     <ul class="supplier-items">
-    <%# @suppliers.each do |item| -%>
+    <% @suppliers.each do |item| -%>
       <li>
-      <%#= check_box_tag "supplier_ids[]", item.id, params[:supplier_ids] && params[:supplier_ids].include?(item.id.to_s), :id => dom_id(item) %> <%#= label_tag dom_id(item), item.name %>
+      <%= check_box_tag "supplier_ids[]", item.id, params[:supplier_ids] && params[:supplier_ids].include?(item.id.to_s), :id => dom_id(item) %> <%= label_tag dom_id(item), item.name %>
       </li>
-    <%# end -%>
+    <% end -%>
     </ul>
-    <div class="clear"></div> -->
+    <div class="clear"></div> 
   </div>
 
   <div class="b-ext-search-inner">
@@ -124,11 +124,11 @@
 
 <% if ext_user? || giftpoisk? -%>
   
-  <div class="b-ext-search-inner even">
+<!--  <div class="b-ext-search-inner even">
 
      <div class="b-ext-search-center">     
-       <div class="b-search-center-inner">
-          <%= select_tag prop_name(@infliction, true), options_for_select(@infliction.property_values.map{|x| [x.value, x.id]}, params[prop_name(@infliction)]),  {:include_blank => "<- Выберите тип нанесения ->" } %>
+       <div class="b-search-center-inner"> 
+          <%#= select_tag prop_name(@infliction, true), options_for_select(@infliction.property_values.map{|x| [x.value, x.id]}, params[prop_name(@infliction)]),  {:include_blank => "<- Выберите тип нанесения ->" } %>
        </div>
      </div>
      
@@ -137,11 +137,19 @@
      </div>
      <div class="clear"></div>
 
+  </div> -->
+  <div class="b-ext-search-inner even">
+    <h3>Категория каталога</h3>
+   <%= categories_columns(@categories, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], 3,   {:field_name => "category_ids", :class => "column-items", :select_children => true, :sort_parents => true} ) %>
   </div>
   <div class="b-ext-search-inner">
-    <h3>Категория</h3>
-   <%= hashed_categories_tree(@categories, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], true, false,   {:field_name => "category_ids", :class => "category-items", :select_children => true} ) %>
-  </div>
+    <h3>Категория тематических сувениров</h3>
+   <%= categories_columns(@thematic, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], 3,   {:field_name => "category_ids", :class => "column-items", :select_children => true, :sort_parents => true} ) %>
+  </div>  
+  <div class="b-ext-search-inner even">
+    <h3>Категория праздника</h3>
+   <%= categories_columns(@analogs, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], 3,   {:field_name => "category_ids", :class => "column-items", :select_children => true, :sort_parents => true} ) %>
+  </div>    
 <% end -%>
 </div>
 <% end -%>  
