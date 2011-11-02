@@ -64,6 +64,13 @@
     </div>
   </div> <!-- end all_content --> 
   <div id="right_content"> 
+      <div class="lk" id="lk"> 
+    <%  if current_user -%>
+      <%= render  :partial =>'shared/lk' %>
+    <% else -%>
+    <%= render :partial => "shared/pass_input" %>
+    <% end -%>
+    </div> <!-- end lk --> 
   <% if current_user -%>    
     <div id="cart" class="basket_right">
     <%= render :partial => "cart/cart"    %>
@@ -93,14 +100,6 @@
 
     <div class="line"></div> 
     <div class="left_block"> 
-      <%= render :partial => 'shared/tematicheskie' %>       
-    </div> <!-- end left_block --> 
-    <div class="line"></div> 
-    <div class="left_block"> 
-    <%= render :partial => 'shared/analogs' %>
-    </div> <!-- end left_block --> 
-    <div class="line"></div> 
-    <div class="left_block"> 
       <%= render :partial => 'shared/predlozheniya' %> 
     </div> <!-- end left_block --> 
     <div class="line"></div> 
@@ -124,16 +123,33 @@
     <div class="b-get-more">
       <%= link_to 'узнать больше...', main_app.content_path("get-more")  %>  
     </div> 
-    <div class="lk" id="lk"> 
-    <%  if current_user -%>
-      <%= render  :partial =>'shared/lk' %>
-    <% else -%>
-    <%= render :partial => "shared/pass_input" %>
-    <% end -%>
-    </div> <!-- end lk --> 
+
     <div class="line line-top-margin"></div> 
     <div class="left_block b-background"> 
+
+      <div class="cat-name">
+        <p>Каталог сувениров</p>
+        <a id="catalog_0" href="#0" class="b-down"></a>
+      </div>
+      <div class="catalog-tree g-hidden">
        <%= render :partial => 'shared/catalog' %>
+      </div>
+      <div class="cat-name">
+        <p>Тематические сувениры</p>
+        <a  id="catalog_1" href="#1" class="b-down"></a>
+      </div>
+      <div class="catalog-tree g-hidden">
+       <%= render :partial => 'shared/tematicheskie' %>
+      </div>
+      <div class="cat-name">
+        <p>Сувениры к праздникам</p>
+        <a  id="catalog_2" href="#2" class="b-down"></a>
+      </div>
+      <div class="catalog-tree g-hidden">
+       <%= render :partial => 'shared/analogs' %>
+      </div>
+      
+      
     </div> <!-- end left_block --> 
   </div> <!--end left_content --> 
   <div class="clear"></div> 
