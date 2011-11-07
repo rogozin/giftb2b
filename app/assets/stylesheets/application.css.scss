@@ -214,3 +214,41 @@ padding-bottom: 0.8em;}
 	background: image-url("images/button_up.png") top center;
 }
 
+
+#lk {margin-left:10px;}
+
+.b-n-header {
+  margin:10px 0;
+	min-height:113px;
+	background: image-url("images/bg_block_repeat.png") top repeat-y;
+	position:relative;
+}
+
+
+.b-b-block {
+	background: image-url("images/bg_block.png") bottom center no-repeat;
+	position:relative;
+	border:1px solid #fff;
+	margin:auto;
+	min-height:113px;
+}
+
+.b-t-block {
+	border-left:2px dashed #333;	
+	margin-left:18px;
+	margin-top:10px;
+	margin-bottom:10px;
+	h3 {	
+	  color:#c36;
+  	font-size:12pt;
+	  margin-bottom:5px;
+	  margin-left:10px;
+  }
+  p {
+    padding:0;
+    margin:0;
+    margin-left: 10px;
+    a { font-size:9.5pt; font-weight:normal; }
+  }  
+}
+

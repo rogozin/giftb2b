@@ -8,7 +8,8 @@
 <%= catalog_children @category %>
 </p> 
 </div> <!-- end center_block --> 
-<%= render :partial => 'shared/promo' unless current_user %> 
+<%= render :partial => 'shared/banner', :locals => {:position => 1} %>
+<div class="spacer"></div>
 <div class="center_block"> 
 <%= render :partial => 'shared/paginate2', :locals => {:products => @products} %>
 </div> <!-- end center_block --> 

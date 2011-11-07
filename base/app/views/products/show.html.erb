@@ -2,6 +2,7 @@
 <% content_for :meta_keywords, @product.meta_keywords -%>
 <% page_title(@product.short_name) -%>
 <%= render :partial => "product_rubrika" %>
+  <%= render :partial => 'shared/banner', :locals => {:position => 1} %>
 <%= content_tag(:div, :id => "product_#{@product.id}", :class=>"center_block") do -%>
 	<div class="big_pict">
 		<div class="pict_2"><div class="pict_3" id="big_img">
