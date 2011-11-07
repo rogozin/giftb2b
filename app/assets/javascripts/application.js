@@ -36,7 +36,7 @@ function read_cat_cookie() {
 }
 
 $(function() {
-      
+   $('div.js-hidden').hide();
    
    $('.cat-name a').click(function() {
       $(this).parent().next().toggle();
