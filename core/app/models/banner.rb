@@ -2,7 +2,7 @@
 class Banner < ActiveRecord::Base
   belongs_to :firm
   validates :firm_id, :presence => true
-  scope :active, lambda {|pos|  where(:active => true, :position => pos) }
+  scope :active, lambda {|pos|  where(:site => Banner.site_no, :active => true, :position => pos) }
   after_save :clear_cahce
   
   def self.types
@@ -22,6 +22,10 @@ class Banner < ActiveRecord::Base
   end
   
   private 
+  
+  def self.site_no
+    ActionMailer::Base.default_url_options[:host] == "giftb2b.ru" ? 0 : 1
+  end
   
   def clear_cahce
    Rails.cache.delete("active_banners/#{self.position}")
