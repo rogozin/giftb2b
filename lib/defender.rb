@@ -3,7 +3,8 @@ require 'dalli'
 # we limit daily API usage
 class Defender < Rack::Throttle::Hourly
 
-  WHITELIST = %w(87.236.190.194 66.249.66.161 66.249.71.168 207.46.199.37 157.55.18.24 207.46.199.53 79.142.165.179 157.55.16.87 207.46.204.240 213.180.209.10 65.52.110.152 194.186.248.18 65.52.104.87 95.108.247.252 178.65.33.101 66.249.66.5 217.69.133.31 66.249.72.134)
+  IP_WHITELIST = %w(87.236.190.194 66.249.66.161 66.249.71.168 207.46.199.37 157.55.18.24 207.46.199.53 79.142.165.179 157.55.16.87 207.46.204.240 213.180.209.10 65.52.110.152 194.186.248.18 65.52.104.87 95.108.247.252 178.65.33.101 66.249.66.5 217.69.133.31 66.249.72.134)
+  LINKS_WHITELIST = %w(/api/categories.json /api/categories/analogs.json /api/categories/thematics.json)
 
   def initialize(app)
     host, ttl = "127.0.0.1:11211", 3600
@@ -20,7 +21,7 @@ class Defender < Rack::Throttle::Hourly
   # If so, it increases usage counter and compare it with maximum 
   # allowed API calls. Returns true if a request can be handled.
    def allowed?(request)
-     max_allowed = api_request?(request) ?  max_per_hour*3 : max_per_hour     
+     max_allowed = api_request?(request) ?  max_per_hour*1.2 : max_per_hour     
     if need_defense?(request)   
       req_count =  cache_incr(request)
       write_log(request, "Warning: #{max_allowed/2} request for this ip") if req_count == max_allowed/2
@@ -68,7 +69,7 @@ class Defender < Rack::Throttle::Hourly
     end  
   
     def need_defense?(request)     
-      WHITELIST.exclude?(request.ip) && request.fullpath =~ /^(\/api|\/products|\/categories)/
+      IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.exclude?(request.fullpath) && request.fullpath =~ /^(\/products|\/categories\/)/
     end
     
     def yandex?(request)
