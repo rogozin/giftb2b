@@ -32,6 +32,7 @@ describe Banner do
   it 'show_on_page' do
     b = Banner.new(:firm_id => 1, :text => "КУПИТЕ СУВЕНИРЫ", :active => true, :position => 1, :pages => "/categories/ruchki; /categories/brelki")
     b.show_on_page?("/categories/ruchki").should be_true
+    b.show_on_page?("/categories/ruchki?page=1").should be_true
     b.show_on_page?("/categories/plastik").should be_false
     b = Banner.new(:firm_id => 1, :text => "КУПИТЕ СУВЕНИРЫ", :active => true, :position => 1, :pages => nil)    
     b.should be_show_on_page

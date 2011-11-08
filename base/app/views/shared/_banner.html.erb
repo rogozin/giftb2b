@@ -1,5 +1,6 @@
-<% if Banner.cached_active_banners(position).present? -%>  
-  <% banner =  Banner.cached_active_banners(position)[rand(Banner.cached_active_banners(position).size)] %>
+<% banners = Banner.cached_active_banners(position).select{|x| x.show_on_page?(request.fullpath)} -%>
+<% if banners.present? -%>  
+  <% banner =  banners[rand(banners.size)] %>
   <% cache(banner.cache_key) do -%>
     <%= raw banner.text %>
   <% end -%>

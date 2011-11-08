@@ -18,7 +18,7 @@ class Banner < ActiveRecord::Base
   end
   
   def show_on_page?(page = "")
-    pages.blank? || pages.split(";").map(&:strip).include?(page)
+    pages.blank? || pages.split(";").map(&:strip).any?{|x| page.match(x) }
   end
   
   private 
