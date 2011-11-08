@@ -8,8 +8,8 @@ Giftr3::Application.configure do
   config.cache_classes = true
 
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
-  config.static_cache_control = "public, max-age=3600"
+#  config.serve_static_assets = true
+#  config.static_cache_control = "public, max-age=3600"
 
   # Log error messages when you accidentally call methods on nil
   config.whiny_nils = true
@@ -23,7 +23,12 @@ Giftr3::Application.configure do
 
   # Disable request forgery protection in test environment
   config.action_controller.allow_forgery_protection    = false
+  # Do not compress assets
+  config.assets.compress = false
+  config.assets.compile = true
 
+  # Expands the lines which load the assets
+  config.assets.debug = true
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.

@@ -23,10 +23,10 @@ describe Banner do
     Banner.active(1).should have(1).record
     b1 = Banner.create(:firm_id => 1, :text => "КУПИТЕ СУВЕНИРЫ1", :active => true, :position => 1)
     Banner.cached_active_banners(1).should have(2).record            
-    Rails.cache.fetch("active_banners/1").should have(2).items
+    Rails.cache.fetch("active_banners/1/#{Banner.site_no}").should have(2).items
     b1.toggle! :active
     Banner.cached_active_banners(1).should have(1).record
-    Rails.cache.fetch("active_banners/1").should have(1).item    
+    Rails.cache.fetch("active_banners/1/#{Banner.site_no}").should have(1).item    
   end
   
   it 'show_on_page' do
@@ -34,8 +34,11 @@ describe Banner do
     b.show_on_page?("/categories/ruchki").should be_true
     b.show_on_page?("/categories/ruchki?page=1").should be_true
     b.show_on_page?("/categories/plastik").should be_false
-    b = Banner.new(:firm_id => 1, :text => "КУПИТЕ СУВЕНИРЫ", :active => true, :position => 1, :pages => nil)    
+    b.pages = nil    
     b.should be_show_on_page
+    b.pages = "/; /products/ruchka"
+    b.show_on_page?("/").should be_true
+    b.show_on_page?("/categories/1-plastik").should be_false
   end
   
   

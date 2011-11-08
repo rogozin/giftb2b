@@ -10,7 +10,7 @@ class Banner < ActiveRecord::Base
   end
   
   def self.cached_active_banners(position)
-    Rails.cache.fetch("active_banners/#{position}") {  active(position).all }    
+    Rails.cache.fetch("active_banners/#{position}/#{Banner.site_no}") {  active(position).all }    
   end
   
   def type
@@ -18,7 +18,9 @@ class Banner < ActiveRecord::Base
   end
   
   def show_on_page?(page = "")
-    pages.blank? || pages.split(";").map(&:strip).any?{|x| page.match(x) }
+    pages_list = [] 
+    pages_list = pages.split(";").map(&:strip) if pages
+    pages.blank? || (pages_list.delete("/") == page) || pages_list.any?{|x| page.match(x) }
   end
   
   private 
@@ -28,6 +30,7 @@ class Banner < ActiveRecord::Base
   end
   
   def clear_cahce
-   Rails.cache.delete("active_banners/#{self.position}")
+    Rails.cache.delete("active_banners/#{self.position}/0")
+    Rails.cache.delete("active_banners/#{self.position}/1")
   end
 end

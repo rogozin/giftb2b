@@ -29,7 +29,7 @@ gem 'whenever'
    gem "rspec-rails"
    gem 'database_cleaner'
    gem 'autotest'
-   gem 'capybara', "~> 1.1.1"  #:git => "http://github.com/jnicklas/capybara.git"
+   gem 'capybara', :git => "http://github.com/jnicklas/capybara.git"
    #gem "capybara-webkit",  :git => 'https://github.com/thoughtbot/capybara-webkit.git'
    gem 'factory_girl_rails'
    gem 'spork'

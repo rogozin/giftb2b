@@ -7,8 +7,8 @@ def show
     return render "virtual" if @category.is_virtual?
     session[:category_location] = @category.permalink
 #    @ltp = url_for(:only_path => false, :controller => controller_name, :action => action_name, :id => @category.permalink, :page=>params[:page], :per_page=>params[:per_page])    
-    params[:page] ||=1
-    params[:per_page] ||= 20
+    params[:page] ||="1"
+    params[:per_page] ||= "20"
     @products = Product.find_all({:category=> @category.id }, "categories")
     @products = @products.paginate(:page => params[:page], :per_page=>params[:per_page])
     #render :template =>'categories/show', :layout => false if request.xhr?    
