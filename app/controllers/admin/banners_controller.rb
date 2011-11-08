@@ -8,7 +8,7 @@ class Admin::BannersController < Admin::BaseController
   before_filter :find_firms, :only => [:edit, :update, :new, :create]
   
   def index
-    @banners = Banner.all
+    @banners = Banner.order("updated_at desc")
   end
   
   def new
