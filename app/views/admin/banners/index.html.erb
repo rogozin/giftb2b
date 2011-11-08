@@ -12,7 +12,9 @@
   <th>Тип</th>
   <th>Фирма</th>
   <th>Статус</th>
-  <th>Изменен</th>
+  <th>Позиция</th>
+  <th>Сайт</th>
+  <th>Изменен</th>  
   <th></th>
 </tr>
   <% @banners.each do |item| -%>
@@ -21,9 +23,14 @@
     <td><%= item.type %></td>
     <td><%= item.firm.short_name %></td>
     <td><%= checked_box_image(item.active) %></td>
+    <td><%= item.position %></td>
+    <td><%= item.site %></td>
     <td><%= I18n.l(item.updated_at, :format => :short) %></td>
     <td><%= link_to image_tag('bin.png'), admin_banner_path(item), :method => :delete, :confirm => "Удалить баннер?"  %></td>
   </tr>
   <% end -%>
 </table>
 </div>
+
+
+

@@ -7,7 +7,7 @@
 <%= form_for [:admin, @banner] do  |f| %>  
   <%= render :partial => 'shared/error_messages', :locals => {:target => @banner}  %>
   <div class="one_line_form">
-  
+  <div class="grid_10 alpha">
   <div class="b-formfield-div">
     <%= f.label :firm_id, "Фирма" %>
     <%= f.select :firm_id, options_from_collection_for_select(@firms, "id", "short_name", @banner.firm_id) %>
@@ -20,6 +20,22 @@
     <%= f.label :active, "Активен?" %>
     <%= f.check_box :active %>
   </div>    
+  <div class="b-formfield-div">
+    <%= f.label :position, "Расположение" %> <%= link_to '?', "#", :title => "1 - по центру, 11-20 слева, 21-30 справа" %>
+    <%= f.number_field :position, :min => 0, :max => 30 %>
+  </div>    
+  <div class="b-formfield-div">
+    <%= f.label :site, "Сайт" %> <%= link_to '?', "#", :title => "(0-гифт, 1-гифтпоиск)" %>
+    <%= f.number_field :site, :min => 0, :max => 1 %>
+  </div>      
+  </div>  
+  <div class="grid_6 omega">
+  <div class="b-formfield-div">
+    <%= f.label :pages, "На каких страницах отображать" %> <%= link_to '?', "#", :title => "список страниц, разделенных ';' (/categories/metallicheskie; /categories/4-otkryvashki)" %>
+    <%= f.text_area :pages, :rows => 5 %>
+  </div>
+  </div>
+    
   </div>
   <div class="clear"></div>
    <div class="b-description">

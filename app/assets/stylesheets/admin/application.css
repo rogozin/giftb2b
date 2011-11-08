@@ -152,7 +152,7 @@ td img {vertical-align:middle;}
 a img {border:0 none;}
 
 .one_line_form {float: left;}
-.one_line_form input[type="text"], .one_line_form input[type="email"], .one_line_form input[type="url"], .one_line_form  input[type="password"], .one_line_form  select
+.one_line_form input[type="number"], .one_line_form input[type="text"], .one_line_form input[type="email"], .one_line_form input[type="url"], .one_line_form  input[type="password"], .one_line_form  select
 {
     width: 200px;
     border: 1px solid #CCC;

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111028043912) do
+ActiveRecord::Schema.define(:version => 20111107050202) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -45,6 +45,9 @@ ActiveRecord::Schema.define(:version => 20111028043912) do
     t.integer  "go_cnt"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position",   :default => 0
+    t.integer  "site",       :default => 0
+    t.text     "pages"
   end
 
   create_table "categories", :force => true do |t|
