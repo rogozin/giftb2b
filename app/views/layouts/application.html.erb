@@ -139,13 +139,8 @@
     </div>       
   </div> <!--end left_content --> 
   <div class="clear"></div> 
-  <div id="footer">
-  	<div class="f-block">
-    	<p>+7 (495) 741-06-95 e-mail:info@giftb2b.ru</p>
-    	<p>© 2011 Giftb2b - Все сувениры для бизнеса</p>
-  	</div>
-  </div> <!-- end footer --> 
-	<% unless local_request? %>
+  <%= render :partial => "footer" %>	
+  <% unless local_request? %>
  <!-- Yandex.Metrika counter -->
 <div style="display:none;"><script type="text/javascript">
 (function(w, c) {

@@ -252,3 +252,22 @@ padding-bottom: 0.8em;}
   }  
 }
 
+
+#footer {
+	background:#ffecec;
+  .f-links {
+    background-color: #C36;
+    text-align:left;
+    .f-links-inner {
+      width:90%;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    ul li {
+      display:inline-block;
+      width:24%;
+      line-height:2em;    
+      a {color:#000}
+    }
+  }
+}

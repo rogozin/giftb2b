@@ -1,4 +1,4 @@
-      <p class="lk-t">Вы вошли как  <strong><%= link_to  current_user.username, auth_engine.profile_path %><strong></p>
+      <p class="lk-t">Вы вошли как  <strong><%= link_to  current_user.username, auth_engine.profile_path %></strong></p>
       <p class="lk-t"><%= link_to "Администрирование", "/admin" if  current_user.is_admin_user?  %></p>
       <p class="lk-t"><%= link_to "Личный кабинет", lk_engine.root_path if current_user.is_lk_user? %></p>
       <p class="lk-t"><%= link_to "Личный кабинет", main_app.orders_path if current_user.is_simple_user? %></p>
