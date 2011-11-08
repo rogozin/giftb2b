@@ -3,7 +3,7 @@ class Banner < ActiveRecord::Base
   belongs_to :firm
   validates :firm_id, :presence => true
   scope :active, lambda {|pos|  where(:site => Banner.site_no, :active => true, :position => pos) }
-  after_save :clear_cahce
+  after_save :clear_cache
   
   def self.types
     [["HTML",0],["Image", 1]]
@@ -29,8 +29,13 @@ class Banner < ActiveRecord::Base
     ActionMailer::Base.default_url_options[:host] == "giftb2b.ru" ? 0 : 1
   end
   
-  def clear_cahce
-    Rails.cache.delete("active_banners/#{self.position}/0")
-    Rails.cache.delete("active_banners/#{self.position}/1")
+  def del_cache(position, site_no)
+    Rails.cache.delete("active_banners/#{position}/#{site_no}")        
+  end
+  
+  def clear_cache
+     del_cache(position, site)
+     del_cache(position_was, site) if position_changed?
+     del_cache(position, site.was) if site_changed?
   end
 end

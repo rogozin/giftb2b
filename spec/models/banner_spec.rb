@@ -23,10 +23,12 @@ describe Banner do
     Banner.active(1).should have(1).record
     b1 = Banner.create(:firm_id => 1, :text => "КУПИТЕ СУВЕНИРЫ1", :active => true, :position => 1)
     Banner.cached_active_banners(1).should have(2).record            
-    Rails.cache.fetch("active_banners/1/#{Banner.site_no}").should have(2).items
+    Rails.cache.fetch("active_banners/1/#{Banner.site_no}").should have(2).items    
     b1.toggle! :active
+    Rails.cache.fetch("active_banners/1/#{Banner.site_no}").should be_nil
     Banner.cached_active_banners(1).should have(1).record
-    Rails.cache.fetch("active_banners/1/#{Banner.site_no}").should have(1).item    
+    b1.update_attribute(:position, 2)
+    Rails.cache.fetch("active_banners/2/#{Banner.site_no}").should be_nil
   end
   
   it 'show_on_page' do
