@@ -225,7 +225,7 @@ class Product < ActiveRecord::Base
   end
 
   def cached_color_variants
-    Rails.cache.fetch("product_#{self[:id]}.color_variants", :expires_in =>24.hours){ color_variants }    
+    Rails.cache.fetch("#{cache_key}/color_variants", :expires_in =>24.hours){ color_variants }    
   end
   
   def cached_store_units
@@ -237,7 +237,7 @@ class Product < ActiveRecord::Base
   end
   
   def cached_properties
-    Rails.cache.fetch("product_#{self[:id]}.properties", :expires_in =>24.hours){ additional_properties }    
+    Rails.cache.fetch("#{cache_key}/properties", :expires_in =>24.hours){ additional_properties }    
   end  
   
   def self.cached_novelty
