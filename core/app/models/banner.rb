@@ -36,6 +36,6 @@ class Banner < ActiveRecord::Base
   def clear_cache
      del_cache(position, site)
      del_cache(position_was, site) if position_changed?
-     del_cache(position, site.was) if site_changed?
+     del_cache(position, site_was) if site_changed?
   end
 end
