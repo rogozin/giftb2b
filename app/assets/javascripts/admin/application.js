@@ -2,11 +2,11 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require ui.datepicker-ru
-//= require wymeditor/jquery.wymeditor.min
-//= require wymeditor/init
 //= require_tree .
 // require jquery.form
 //= require_self
+//= require tinymce-jquery
+//= require admin/tinymce_init
 
 $(function() {
    $('a.toggle-category').bind('click', function(){

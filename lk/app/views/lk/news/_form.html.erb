@@ -1,0 +1,21 @@
+<%= form_for  @news, :html => {:class=> "one_line_form", :id => "news_form"} do |f| %>
+   <%= render :partial => 'shared/error_messages', :locals => {:target => @news} %>
+  <div class="b-formfield-div">
+    <%= f.label :title, 'Заголовок*' %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :picture, 'Изображение' %>
+    <%= f.file_field :picture %>     
+  </div>  
+  <div class="clear"></div>
+  <div class="tinymce">
+    <%= f.label :body, "Текст новости:" %>
+    <%= f.text_area :body, :cols=>110, :rows=>25 %>
+  </div>  
+  <div class="spacer"></div>
+    <div class="b-formfield-div">
+    <%= f.submit "Сохранить" %>
+  </div>
+  <div class="clear"></div>
+<% end %>

@@ -113,16 +113,20 @@
         <p>Каталог сувениров</p>
         <a id="catalog_0" href="#0" class="b-down"></a>
       </div>
+     
       <div class="catalog-tree js-hidden">
        <%= render :partial => 'shared/catalog' %>
       </div>
+     
       <div class="cat-name">
         <p>Тематические сувениры</p>
         <a  id="catalog_1" href="#1" class="b-down"></a>
       </div>
-      <div class="catalog-tree js-hidden">
+     
+     <div class="catalog-tree js-hidden">
        <%= render :partial => 'shared/tematicheskie' %>
       </div>
+
       <div class="cat-name">
         <p>Сувениры к праздникам</p>
         <a  id="catalog_2" href="#2" class="b-down"></a>
@@ -130,11 +134,11 @@
       <div class="catalog-tree js-hidden">
        <%= render :partial => 'shared/analogs' %>
       </div>            
-    </div> <!-- end left_block --> 
+
+    </div>
     <div class="left_block">
       <%= render :partial => 'shared/banner', :locals => {:position => 12} %>
-    </div>    
-    <div class="left_block">
+       <div class="b-n-header latest-news"><div class="b-b-block"><div class="b-t-block"><%= render :partial => 'shared/latest_news' %></div></div></div>
       <%= render :partial => 'shared/banner', :locals => {:position => 13} %>
     </div>       
   </div> <!--end left_content --> 
