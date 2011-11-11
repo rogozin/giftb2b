@@ -1,0 +1,32 @@
+<%= render :partial => 'admin/shared/sub_menu_content' %>
+<% title "Управление новостями" -%>
+
+<div class="b-command-menu">
+<%= link_to 'Добавить новость', new_admin_news_path  %>
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Фирма</th>
+  <th>Заголовок</th>
+  <th>Ссылка</th>
+  <th>Состояние</th>
+  <th>Создано</th>
+  <th>Автор</th>
+  <th></th>
+</tr>
+<% @news.each do |news| -%>
+  <tr>
+    <td><%= link_to image_tag('edit.png'), edit_admin_news_path(news) %></td>
+    <td><%= news.firm.name  if news.firm%></td>    
+    <td><%= news.title %></td>
+    <td><%= news.permalink %></td>
+    <td><%= news.state %></td>    
+    <td><%= I18n.l(news.created_at, :format => :short) %></td>
+    <td><%= news.created_author.username if news.created_author %></td>
+    <td><%= link_to image_tag('bin.png'), admin_news_path(news), :method => :delete, :confirm => "Удалить новость?" %></td>
+  </tr>  
+<% end -%>
+</table>
+

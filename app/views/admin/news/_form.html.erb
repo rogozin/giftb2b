@@ -1,0 +1,32 @@
+<%= form_for [:admin, @news], :html => {:class=> "one_line_form"} do |f| %>
+   <%= render :partial => 'shared/error_messages', :locals => {:target => @news} %>
+  <div class="b-formfield-div">
+    <%= f.label :title, 'Заголовок*' %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :permalink, 'Permalink' %>
+    <%= f.text_field :permalink %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :firm_id, 'Фирма' %>
+    <%= f.select :firm_id, options_from_collection_for_select(@firms, "id", "name", @news.firm_id) %>
+  </div>  
+  <div class="b-formfield-div">
+    <%= f.label :state_id, 'Статус' %>
+    <%= f.select :state_id, options_for_select(@states, @news.state_id) %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :picture, 'Картинка' %>
+    <%= f.file_field :picture %>     
+  </div>  
+      
+  <div class="clear"></div>
+  <div class="tinymce">
+    <%= f.text_area :body, :cols=>110, :rows=>25 %>
+  </div>  
+    <div class="b-formfield-div">
+    <%= f.submit "Сохранить" %>
+  </div>
+  <div class="clear"></div>
+<% end %>

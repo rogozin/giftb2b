@@ -1,0 +1,31 @@
+<p>
+<h1>К Вам на модерацию поступила новость.</h1>
+</p>
+
+<p style="font-size:0.9em;">
+  <%=  I18n.l(Time.now, :format => :long) %>
+
+  <table style="border:1px solid #ccc; border-collapse:collapse;" cellpadding="5px">
+  <tr>
+    <td style="border:1px solid #ccc">Заголовок:</td>
+    <td style="border:1px solid #ccc"><%= @news.title %></td>
+  </tr>  
+  <tr>
+    <td style="border:1px solid #ccc">Фирма:</td>
+    <td style="border:1px solid #ccc"><%= @news.firm.name %></td>
+  </tr>
+  <tr>
+    <td style="border:1px solid #ccc">Автор:</td>
+    <td style="border:1px solid #ccc"><%= @news.created_author.username %></td>    
+  </tr>
+  <tr>
+    <td style="border:1px solid #ccc">Дата создания:</td>
+    <td style="border:1px solid #ccc"><%= I18n.l(@news.created_at, :format => :long)  %></td>    
+  </tr>
+  <tr>
+    <td style="border:1px solid #ccc">Текст:</td>
+    <td style="border:1px solid #ccc"><%= @news.body %></td>    
+  </tr>
+</table>
+</p>
+

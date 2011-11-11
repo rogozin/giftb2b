@@ -11,7 +11,7 @@ table th
   text-align:left;
 }  
 
-.center_block h1, .center_block h2, .lk-menu-title, .per-page {
+#title h1, .center_block h1, .center_block h2, .lk-menu-title, .per-page {
 	color:#0080B2;
 }
 

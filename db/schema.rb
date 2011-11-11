@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111107050202) do
+ActiveRecord::Schema.define(:version => 20111109043101) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -295,6 +295,22 @@ ActiveRecord::Schema.define(:version => 20111107050202) do
 
   create_table "manufactors", :force => true do |t|
     t.string   "name",       :limit => 80
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "news", :force => true do |t|
+    t.integer  "firm_id",                             :null => false
+    t.integer  "state_id",             :default => 0
+    t.string   "title"
+    t.text     "body"
+    t.text     "permalink"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
