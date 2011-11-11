@@ -11,6 +11,13 @@ module LoginSpecHelper
     end
   end
   
+  def direct_login_as(user_role)
+    @user = Factory(user_role)
+    activate_authlogic    
+    UserSession.create(@user)
+  end
+  
+  
   def gen_content(length=10)
     fr_chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
     data = ""

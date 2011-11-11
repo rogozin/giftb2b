@@ -1,0 +1,9 @@
+<div class="center_block">
+<h1><%= @news.title %></h1>
+
+<div id="news_content">
+<%= image_tag @news.picture.url(:thumb) if @news.picture %>
+
+</div>
+
+</div>

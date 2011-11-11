@@ -27,4 +27,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'pdfkit'
   s.add_dependency 'writeexcel'
   s.add_dependency "will_paginate"
+  s.add_dependency "tinymce-rails"
 end

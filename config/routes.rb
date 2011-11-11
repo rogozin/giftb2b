@@ -48,6 +48,7 @@ Giftr3::Application.routes.draw do
       
     end
     resources :main
+    resources :news
     resources :categories  do    
       member do
         get :show_products_list

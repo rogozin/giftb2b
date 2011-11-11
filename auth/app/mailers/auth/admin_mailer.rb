@@ -8,4 +8,10 @@ class Auth::AdminMailer < ActionMailer::Base
     @user = user
     mail(:to => admin.email, :subject => "Зарегистрирован новый пользователь" )
   end 
+  
+  def new_news_created(news, admin)
+    @news = news
+    mail(:to => admin.email, :subject => "На модерацию поступила новость" )    
+  end
+  
 end
