@@ -69,14 +69,9 @@ class Defender < Rack::Throttle::Hourly
         request.fullpath =~ /^\/api/
     end  
   
-<<<<<<< Updated upstream
-    def need_defense?(request)     
-      IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.exclude?(request.fullpath) && request.fullpath =~ /(\/products|\/categories\/)/
-=======
     def need_defense?(request) 
       p "===searchbot" if search_bot?(request)    
       IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.exclude?(request.fullpath) && request.fullpath =~ /^(\/products|\/categories\/)/
->>>>>>> Stashed changes
     end
     
     def search_bot?(request)
