@@ -1,5 +1,6 @@
 require 'rack/throttle'
 require 'dalli'
+require 'resolv'
 # we limit daily API usage
 class Defender < Rack::Throttle::Hourly
 
@@ -68,14 +69,24 @@ class Defender < Rack::Throttle::Hourly
         request.fullpath =~ /^\/api/
     end  
   
+<<<<<<< Updated upstream
     def need_defense?(request)     
       IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.exclude?(request.fullpath) && request.fullpath =~ /(\/products|\/categories\/)/
+=======
+    def need_defense?(request) 
+      p "===searchbot" if search_bot?(request)    
+      IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.exclude?(request.fullpath) && request.fullpath =~ /^(\/products|\/categories\/)/
+>>>>>>> Stashed changes
     end
     
-    def yandex?(request)
-      #TODO use it with memcache
-      #Socket.gethostbyaddr([request.ip.gsub(".", ",")].pack("CCCC")).first =~ /yandex/
-      request.user_agent =~ /yandex.com\/bots/
+    def search_bot?(request)
+      list = cache.get("bot_list") || []
+      if list.exclude?(request.ip) 
+        if Resolv.new.getname(request.ip) =~ /(googlebot.com|yandex.ru|msnbot)/
+          list << request.ip
+          cache.set("bot_list", list)
+        end
+      end
     end
     
     def write_log(request, message)
