@@ -71,10 +71,10 @@ class Defender < Rack::Throttle::Hourly
   
     def need_defense?(request) 
       begin
-      puts "===searchbot #{request.ip}" if search_bot?(request)    
-	rescue => err
-	puts "============================= err #{err}"
-	end
+       puts "#{request.ip} search_bot? #{search_bot?(request)}"    
+    	rescue => err
+    	 puts "============================= err #{err}"
+	    end
       IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.exclude?(request.fullpath) && request.fullpath =~ /^(\/products|\/categories\/)/
     end
     
@@ -83,11 +83,15 @@ class Defender < Rack::Throttle::Hourly
       if list.exclude?(request.ip) 
         if Resolv.new.getname(request.ip) =~ /(googlebot.com|yandex.ru|msnbot)/
           list << request.ip
-          cache.set("bot_list", list)
+          puts "saving #{request.ip} bot to cache" if cache.set("bot_list", list)                    
+          return true          
         end
+      else
+        puts "#{request.ip} is searchbot (from cache)"
+        true
       end
-      rescue Resolv::ResolvError
-	return false
+    rescue Resolv::ResolvError
+     	return false
     end
     
     def write_log(request, message)
