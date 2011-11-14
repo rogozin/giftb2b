@@ -257,7 +257,7 @@ $c_light_green: #82D269;
 .latest-news {margin-left:-17px;
 padding-left:8px;}
 .b-news-item { 
-  p {padding-bottom:5px;}
+  p {padding: 0 5px 5px 0;}
   padding: 5px 0;
 }
 .b-news-date { color:$c_light_green; }
@@ -308,7 +308,7 @@ $c_light_blue: #177E99;
       padding:10px;    
     }
     h2 { padding:5px; }
-    p { padding: 0 5px 5px 0; font-size:11pt; }
+    p { padding-bottom:5px; font-size:11pt; }
   }
   .footer {
     font-weight:bold;
