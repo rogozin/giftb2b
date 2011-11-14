@@ -1,6 +1,7 @@
 #encoding:utf-8;
     Role.find_or_create_by_name_and_group("Менеджер продаж", 0)
-    Role.find_or_create_by_name_and_group("Редактор каталга", 0)
+    Role.find_or_create_by_name_and_group("Главный менджер", 0)
+    Role.find_or_create_by_name_and_group("Редактор каталога", 0)
     Role.find_or_create_by_name_and_group("Редактор контента", 0)
     Role.find_or_create_by_name_and_group("Учет образцов", 2)
     Role.find_or_create_by_name_and_group("Пользователь", 1)
