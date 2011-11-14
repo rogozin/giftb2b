@@ -79,19 +79,25 @@ class Defender < Rack::Throttle::Hourly
     end
     
     def search_bot?(request)
+       bots_cache(request).include?(request.ip)
+    end
+          
+    private
+    
+    def bots_cache(request)
       list = cache.get("bot_list") || []
       if list.exclude?(request.ip) 
         if Resolv.new.getname(request.ip) =~ /(googlebot.com|yandex.ru|msnbot)/
           list << request.ip
-          puts "saving #{request.ip} bot to cache" if cache.set("bot_list", list)                    
-          return true          
+          cache.set("bot_list", list)                    
         end
-      else
-        puts "#{request.ip} is searchbot (from cache)"
-        true
       end
+      list
     rescue Resolv::ResolvError
-     	return false
+      write_log(request, "ResolvError")
+     	list
+    end
+
     end
     
     def write_log(request, message)
