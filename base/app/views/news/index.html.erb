@@ -4,10 +4,8 @@
 <div class="b-news-index">
   <h1>Новости</h1>
   <% @news.each do |item| -%>
-  <div class="b-news-header">
-  <div class="b-news-info"><%= I18n.l(item.created_at.to_date, :format => :long) %>  <span><%= item.firm.short_name %></span></div>    
-  <%= link_to item.title, news_path(item.permalink) %>
-  </div>
+  <div class="title"><%= I18n.l(item.created_at.to_date, :format => :long) %>  <span class="red-square"></span> <span><%= item.firm.short_name %></span></div>    
+  <div class="link"> <%= link_to item.title, news_path(item.permalink) %> </div>
   <% end -%>
 </div>
 </div>
