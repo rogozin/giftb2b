@@ -342,8 +342,11 @@ span.red-square {
   margin:0 5px 1px;
 }
 
+#left_content, #right_content {padding-bottom:140px}
+
 #footer {
 	background:#ffecec;
+	height:120px;
   .f-links {
     background-color: #C36;
     text-align:left;
