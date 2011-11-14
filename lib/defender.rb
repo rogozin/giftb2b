@@ -98,8 +98,6 @@ class Defender < Rack::Throttle::Hourly
      	list
     end
 
-    end
-    
     def write_log(request, message)
        File.open(File.join(Rails.root,'log/defender/defender.log'), 'a+') do |f|
         f.puts "#{Time.now}\t#{request.ip}\t#{request.fullpath}\t#{request.user_agent}\t#{message}"      
