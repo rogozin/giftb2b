@@ -70,7 +70,11 @@ class Defender < Rack::Throttle::Hourly
     end  
   
     def need_defense?(request) 
-      p "===searchbot" if search_bot?(request)    
+      begin
+      puts "===searchbot #{request.ip}" if search_bot?(request)    
+	rescue => err
+	puts "============================= err #{err}"
+	end
       IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.exclude?(request.fullpath) && request.fullpath =~ /^(\/products|\/categories\/)/
     end
     
@@ -82,6 +86,8 @@ class Defender < Rack::Throttle::Hourly
           cache.set("bot_list", list)
         end
       end
+      rescue Resolv::ResolvError
+	return false
     end
     
     def write_log(request, message)
