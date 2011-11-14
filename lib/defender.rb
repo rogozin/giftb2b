@@ -24,9 +24,10 @@ class Defender < Rack::Throttle::Hourly
    def allowed?(request)
      max_allowed = api_request?(request) ?  max_per_hour*1.2 : max_per_hour     
     if need_defense?(request)   
-      req_count =  cache_incr(request)
-      write_log(request, "Warning: #{max_allowed/2} request for this ip") if req_count == max_allowed/2
-      if req_count < max_allowed
+      req_count =  cache_incr(request)      
+      write_log(request, "Warning: #{max_allowed/2} request for this ip")  if req_count == max_allowed/2 && !search_bot?(request)
+      write_log(request, "Information: #{max_allowed/2} request for this ip (SearchBot)")  if req_count == max_allowed/2 && search_bot?(request)
+      if req_count < max_allowed || search_bot?(request)
         true
       else
         write_log(request, "Error: #{max_allowed} (max) request for this ip. Blocked.") if req_count == max_allowed
@@ -70,11 +71,6 @@ class Defender < Rack::Throttle::Hourly
     end  
   
     def need_defense?(request) 
-      begin
-       puts "#{request.ip} search_bot? #{search_bot?(request)}"    
-    	rescue => err
-    	 puts "============================= err #{err}"
-	    end
       IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.exclude?(request.fullpath) && request.fullpath =~ /^(\/products|\/categories\/)/
     end
     
