@@ -1,10 +1,10 @@
-		<hr><p class="article_name_2">Аналогичные товары</p>
+		<hr><p class="article_name_2">Еще товары из этого раздела</p>
 		<div class="pict_float_2">
-		<% @product.cached_analogs(3).each do |analog| -%>
+		<% @product.cached_analogs(5).each do |analog| -%>
 		<div class="article_img_2_float">
 		  <div class="article_img_2">
 		    <div class="article_img_3">
-		    <%= link_to product_image(analog), product_path(analog), :remote => true, :title => analog.short_name %>
+		    <%= link_to product_image(analog), product_path(analog),  :title => analog.short_name %>
 		    </div>
 		  </div>
 		</div>
