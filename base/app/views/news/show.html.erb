@@ -13,7 +13,13 @@
     <hr id="line" />
     <%= raw @news.body %>
   </div>
-<div class="clear"></div>
+  <div class="b-all-news">
+    <%= link_to 'Все новости', news_index_path  %>
+  </div>
+  <div id="news_owner">
+    <span class="red-square"></span><%= @news.firm.short_name %>
+  </div>
+  <div class="clear"></div>
 </div>
 <div class="footer">
   <div class="b-all-news">

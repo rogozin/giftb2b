@@ -1,8 +1,12 @@
 <% page_title "Новости" -%>
 
 <div class="center_block">
-<div class="b-news-index">
+<div class="b-news">
+<div class="header">
   <h1>Новости</h1>
+</div>
+</div>
+<div class="b-news-index">
   <% @news.each do |item| -%>
   <div class="title"><%= I18n.l(item.created_at.to_date, :format => :long) %>  <span class="red-square"></span> <span><%= item.firm.short_name %></span></div>    
   <div class="link"> <%= link_to item.title, news_path(item.permalink) %> </div>
