@@ -1,6 +1,6 @@
   <table width="100%">
   <tr>
-    <th>Создано</th>
+    <th>Дата</th>
     <th>Автор</th>
     <th>Заголовок</th>
     <th>Статус</th>
@@ -12,7 +12,7 @@
        <td><%= item.created_author.username %></td>      
        <td><%= link_to item.title, main_app.news_url(item.permalink, :host => "giftb2b.ru") %></td>
        <td><%= content_tag(:span, item.state, :class => "state_#{item.state_id}") %></td>      
-       <td><%= link_to "Снять с модерации", news_path(item.permalink), :method => :delete, :confirm => "Снять новость с модерации?" if item.state_id == 0 %>
+       <td><%= link_to "Снять с модерации", remove_from_moderate_news_path(item.permalink), :method => :put, :confirm => "Снять новость с модерации?" if item.state_id == 0 %>
         <%= link_to "Отправть на модерацию", send_to_moderate_news_path(item.permalink), :method => :put, :confirm => "Отправить новость на модерацию?" if [3,4].include?(item.state_id) %>
        </td>
       <td><%= link_to image_tag('edit.png'), edit_news_path(item.permalink), :title => "Редактировать" if [3,4].include?(item.state_id) %></td>

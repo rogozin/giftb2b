@@ -35,7 +35,12 @@ class Lk::NewsController < Lk::BaseController
   def create
     @news = News.new(params[:news].merge({:firm_id => current_user.firm_id, :created_by => current_user.id, :state_id => 3}))
     if @news.save
-      redirect_to drafts_news_index_path, :notice => "Новость создана. Для дальнейшей публикации на сайте giftb2b.ru отправьте ее на модерацию."
+      if params[:moderate].present?
+        @news.update_attribute :state_id, 0 
+        redirect_to moderate_news_index_path, :notice => "Новость создана и отправлена на модерацию"
+      else
+        redirect_to drafts_news_index_path, :notice => "Новость создана. Для дальнейшей публикации на сайте giftb2b.ru отправьте ее на модерацию."
+      end
     else
       render 'new'
     end
@@ -46,8 +51,13 @@ class Lk::NewsController < Lk::BaseController
   end
   
   def update
-    if @news.update_attributes(params[:news])
-      redirect_to drafts_news_index_path, :notice => "Новость изменена."
+    params[:news][:state_id] = 0 if params[:moderate].present?
+    if @news.update_attributes(params[:news])      
+      if params[:moderate].present?
+        redirect_to moderate_news_index_path, :notice => "Новость сохранена и отправлена на модерацию"
+      else 
+        redirect_to drafts_news_index_path, :notice => "Новость сохранена"
+      end
     else
       render 'edit'
     end
@@ -82,7 +92,7 @@ class Lk::NewsController < Lk::BaseController
   end
   
   def check_news_state
-    return redirect_to news_index_path, :alert => "Редактировать можно только черновик!" if [3,4].exclude?(@news.state_id)
+    return redirect_to news_index_path, :alert => "Редактировать можно только черновик!" unless @news.draft?
   end
 
   

@@ -6,7 +6,7 @@ class NewsObserver < ActiveRecord::Observer
        begin
         Auth::AdminMailer.new_news_created(news, admin).deliver
        rescue => err
-        ActiveRecord::Base.logger.info("message_send_error #{err}") if ActiveRecord::Base.logger
+        ActiveRecord::Base.logger.info("message_send_error #{err} #{err.message}") if ActiveRecord::Base.logger
        end
      end
    end

@@ -15,7 +15,9 @@
   </div>  
   <div class="spacer"></div>
     <div class="b-formfield-div">
-    <%= f.submit "Сохранить" %>
+    <%= f.submit "Отправить на модерацию", :name => "moderate" %> <%= f.submit "Сохранить в черновики" %>
   </div>
   <div class="clear"></div>
 <% end %>
+<div class="clear spacer"></div>
+<%= render :partial => 'warn' %>

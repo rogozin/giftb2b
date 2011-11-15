@@ -7,11 +7,14 @@ ul#news_menu {
     line-height:1.8;
     p {
       padding-left:3px;
+      color:#000;
       a { 
         color: #177E99;
         text-decoration: none;               
+        margin-right:20px;
       }
       &.selected {
+        color:#fff;
         background-color:#0080B2;      
         a { color: #fff }
       }
@@ -24,15 +27,15 @@ ul#news_menu {
 #news_form {
   input[type="text"], input[type="file"] 
     { width:400px;}
-  }
-  
+  }  
+  input[name="moderate"] {margin-right:20px;}
   input[type="file"]{ color:#177E99;}
   
 .tinymce {
   label { padding-bottom:5px;}
 }
 
-p.text { line-height:1.5; padding: 5px 0;}
+p.text { line-height:1.5; padding: 5px 0; text-aligin:justify;}
 
 div.action-new { float:right; margin:30px 60px 0 0;}
 

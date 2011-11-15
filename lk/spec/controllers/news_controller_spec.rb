@@ -60,7 +60,7 @@ describe "POST create" do
         }.to change(News, :count).by(1)
       end
 
-      it "redirects and assigns" do
+      it "создать новость как черновик" do
         post :create, :news => valid_attributes
         assigns(:news).should be_a(News)
         assigns(:news).should be_persisted        
@@ -68,6 +68,20 @@ describe "POST create" do
         assigns(:news).created_by.should eq(@user.id)
         assigns(:news).firm_id.should eq(@user.firm_id)
         response.should redirect_to drafts_news_index_path
+      end
+      
+      it 'создать и отправить на модерацию' do
+        firm  = Factory(:firm)
+        @user.update_attribute :firm_id, firm.id
+        @admin = Factory(:admin)        
+        post :create, :news => {:title => "Новость"}, :moderate => "На модерацию"
+        assigns(:news).should be_a(News)
+        assigns(:news).should be_persisted        
+        assigns(:news).state_id.should eq(0)
+        assigns(:news).created_by.should eq(@user.id)
+        assigns(:news).firm_id.should eq(@user.firm_id)
+        ActionMailer::Base.deliveries.should have(1).item      
+        response.should redirect_to moderate_news_index_path        
       end
     end
     
@@ -122,8 +136,20 @@ describe "POST create" do
         assigns(:news).title.should eq("Супер нововсть")
         assigns.should redirect_to drafts_news_index_path
       end
+      
+      it "изменение черновика новости и отправка на модерацию" do
+        firm  = Factory(:firm)
+        @user.update_attribute :firm_id, firm.id
+        @admin = Factory(:admin)        
+        news = Factory(:news, :firm_id => @user.firm_id, :created_by => @user.id, :state_id => 3)
+        put :update, :id => news.permalink, :news => {'title' => 'Супер нововсть'}, :moderate => "На модерацию"
+        assigns(:news).title.should eq("Супер нововсть")
+        assigns(:news).state_id.should eq 0
+        ActionMailer::Base.deliveries.should have(1).item
+        assigns.should redirect_to moderate_news_index_path
+      end
 
-      it "изменение новости, отрпавленной на модерацию" do
+      it "попытка изменение новости, отрпавленной на модерацию" do
         news = Factory(:news, :firm_id => @user.firm_id, :state_id => 0)
         put :update, :id => news.permalink, :news => {'title' => 'Супер нововсть'}
         assigns(:news).should eq(news)

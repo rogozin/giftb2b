@@ -25,6 +25,10 @@ class News < ActiveRecord::Base
     self.permalink
   end
   
+  def draft?
+    [3,4].include?(state_id)
+  end
+  
   def self.cached_latest_news
     Rails.cache.fetch("latest_news"){ News.latest.all }
   end
