@@ -37,7 +37,7 @@ Factory.define :firm_manager, :class => User, :parent => :user do |record|
 end
 
 Factory.define :sample_manager, :class => User, :parent => :user do |record|    
-  record.after_create { |user| add_role(user,:role_samples) }
+  record.after_create { |user| add_role(user, :role_samples) }
 end
 
 Factory.define :content_editor, :parent => :catalog_editor, :class => User do |record|    
@@ -45,7 +45,15 @@ Factory.define :content_editor, :parent => :catalog_editor, :class => User do |r
 end
 
 Factory.define :web_store_manager, :class => User, :parent => :user do |record|    
-  record.after_create { |user| add_role(user,:web_store) }
+  record.after_create { |user| add_role(user, :web_store) }
+end
+
+Factory.define :first_manager, :class => User, :parent => :user do |record|    
+  record.after_create { |user| add_role(user, :first_manager_role) }
+end
+
+Factory.define :second_manager, :class => User, :parent => :user do |record|    
+  record.after_create { |user| add_role(user, :second_manager_role) }
 end
 
 def add_role(user, factory_name)
@@ -72,6 +80,16 @@ end
 
 Factory.define :role_samples, :class => Role do |f|
   f.name "Учет образцов"
+  f.group 0
+end
+
+Factory.define :first_manager_role, :class => Role do |f|
+  f.name "Главный менеджер"
+  f.group 0
+end
+
+Factory.define :second_manager_role, :class => Role do |f|
+  f.name "Менеджер продаж"
   f.group 0
 end
 
