@@ -9,12 +9,42 @@ describe Lk::NewsController do
   end
 
   describe "GET 'index'" do
-    it "should be successful" do
+    it "index should be successful" do
       n = Factory(:news, :firm_id => @user.firm_id)
       get 'index'
       response.should be_success
+    end
+  
+    it "drafts should be successful" do
+      n = Factory(:news, :firm_id => @user.firm_id, :state_id => 3)
+      n1= Factory(:news, :firm_id => @user.firm_id, :state_id => 4)
+      get 'drafts'
+      response.should be_success
+      assigns(:news).should eq([n, n1])
+    end
+ 
+    it "moderate should be successful" do
+      n = Factory(:news, :firm_id => @user.firm_id, :state_id => 0)
+      get 'moderate'
+      response.should be_success
       assigns(:news).should eq([n])
     end
+
+    it "published should be successful" do
+      n = Factory(:news, :firm_id => @user.firm_id, :state_id => 1)
+      get 'published'
+      response.should be_success
+      assigns(:news).should eq([n])
+    end
+
+    it "archived should be successful" do
+      n = Factory(:news, :firm_id => @user.firm_id, :state_id => 2)
+      get 'archived'
+      response.should be_success
+      assigns(:news).should eq([n])
+    end
+
+        
   end
 
 
@@ -37,7 +67,7 @@ describe "POST create" do
         assigns(:news).state_id.should eq(3)
         assigns(:news).created_by.should eq(@user.id)
         assigns(:news).firm_id.should eq(@user.firm_id)
-        response.should redirect_to news_index_path
+        response.should redirect_to drafts_news_index_path
       end
     end
     
@@ -90,7 +120,7 @@ describe "POST create" do
         news = Factory(:news, :firm_id => @user.firm_id, :state_id => 3)
         put :update, :id => news.permalink, :news => {'title' => 'Супер нововсть'}
         assigns(:news).title.should eq("Супер нововсть")
-        assigns.should redirect_to news_index_path
+        assigns.should redirect_to drafts_news_index_path
       end
 
       it "изменение новости, отрпавленной на модерацию" do
@@ -120,7 +150,7 @@ describe "POST create" do
     it 'Новость может быть отправлена на модерацию' do
       @news = Factory(:news, :firm_id => @user.firm_id, :state_id => 3)
       put :send_to_moderate, :id => @news.permalink
-      response.should redirect_to news_index_path
+      response.should redirect_to moderate_news_index_path
       flash[:notice].should_not be_nil
       assigns(:news).state_id.should be(0)    
     end
@@ -134,28 +164,37 @@ describe "POST create" do
       ActionMailer::Base.deliveries.should have(1).items      
       ActionMailer::Base.deliveries.first.to.should eq([@admin.email])      
 #      ActionMailer::Base.deliveries.last.body.should match("Рекламное агентство")
-#      ActionMailer::Base.deliveries.first.body.should match(User.last.username)
+#      ActionMailer::Base.deliveries.first.body.should match(User.last.username)    
     end
     
     it 'Новость может быть снята с модерации' do
       @news = Factory(:news, :firm_id => @user.firm_id, :state_id => 0)
-      delete :destroy, :id => @news.permalink
-      response.should redirect_to news_index_path
+      put :remove_from_moderate, :id => @news.permalink
+      response.should redirect_to drafts_news_index_path
       flash[:notice].should_not be_nil
       assigns(:news).state_id.should be(3)
     end
 
     it 'Новость не может быть снята с модерации если уже опубликована' do
       @news = Factory(:news, :firm_id => @user.firm_id, :state_id => 1 )
-      delete :destroy, :id => @news.permalink
+      put :remove_from_moderate, :id => @news.permalink
       response.should redirect_to news_index_path      
       flash[:alert].should_not be_nil
       assigns(:news).should eq(@news)
     end
-
-
     
   end  
+  
+  describe "delete" do 
+    
+    it 'Новость может быть удалена' do
+      @news = Factory(:news, :firm_id => @user.firm_id, :state_id => 0)
+      delete :destroy, :id => @news.permalink
+      response.should redirect_to drafts_news_index_path
+      flash[:notice].should_not be_nil
+      assigns(:news).should be_destroyed
+    end
+  end
     
 end
 

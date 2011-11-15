@@ -18,7 +18,7 @@ class News < ActiveRecord::Base
   after_destroy :clear_cache
   
   def self.states
-    { "На модерации" => 0, "Опубликовано" => 1, "Архив" => 2, "Черновик" => 3 }
+    { "На модерации" => 0, "Опубликовано" => 1, "Архив" => 2, "Черновик" => 3, "Отклонена" => 4 }
   end
   
   def to_param

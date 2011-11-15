@@ -1,3 +1,26 @@
+ul#news_menu {
+  margin-bottom:20px;
+  li {
+    background: image-url("lk/images/folder-open.png") no-repeat left center;
+    padding-left:20px;
+    width:140px;
+    line-height:1.8;
+    p {
+      padding-left:3px;
+      a { 
+        color: #177E99;
+        text-decoration: none;               
+      }
+      &.selected {
+        background-color:#0080B2;      
+        a { color: #fff }
+      }
+    }
+  }
+}  
+
+ .content td a { color: #177E99; }
+
 #news_form {
   input[type="text"], input[type="file"] 
     { width:400px;}
@@ -8,3 +31,10 @@
 .tinymce {
   label { padding-bottom:5px;}
 }
+
+p.text { line-height:1.5; padding: 5px 0;}
+
+div.action-new { float:right; margin:30px 60px 0 0;}
+
+span.state_4 { color:red;}
+

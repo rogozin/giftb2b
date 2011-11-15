@@ -1,32 +1,14 @@
 <% title "Мои новости" -%>
-<div class="spacer"></div>
-<div class="b-command-menu">
-  <%= link_to 'Создать новость', new_news_path %>
-</div>
-<div class="spacer"></div>
-<% if @news.present? -%>
-  <table width="100%">
-  <tr>
-    <th></th>
-    <th>Создано</th>
-    <th>Заголовок</th>
-    <th>Статус</th>
-    <th>Автор</th>
-    <th></th>
-  </tr>
-   <% @news.each do |item| -%>
-     <tr>
-      <td><%= link_to image_tag('edit.png'), edit_news_path(item.permalink), :title => "Редактировать" if item.state_id == 3 %></td>
-       <td><%= I18n.l(item.created_at, :format => :long) %></td>
-       <td><%= link_to item.title, main_app.news_url(item.permalink, :host => "giftb2b.ru") %></td>
-       <td><%= item.state %></td>      
-       <td><%= item.created_author.username %></td>      
-       <td><%= link_to "Снять с модерации", news_path(item.permalink), :method => :delete, :confirm => "Снять новость с модерации?" if item.state_id == 0 %>
-        <%= link_to "Отправть на модерацию", send_to_moderate_news_path(item.permalink), :method => :put, :confirm => "Отправить новость на модерацию?" if item.state_id == 3 %>
-       </td>
-     </tr>
-   <% end -%>
-</table>
-<% else -%>
-<p>Вы еще не создали ни одной новости!</p>
-<% end -%>
+
+<%= render :partial => 'menu' %>
+
+<p class="text">
+Новость - это информация интересная заказчикам: о развитии, о новых возможностях, назначениях, днях рождениях, об участии в выставках, конференциях, новых проектах и др.
+В тексте новости может быть информация о компании, но не может быть никаких активных ссылок.
+Новость не должна быть рекламой. Для рекламы предусмотрена система баннеров, раздел "Спец.акции” и другие рекламные возможности.
+</p>
+
+<p class="text">
+В случае нарушения вышеперечисленных требований новость опубликована не будет и будет возвращена в папку Черновики для дальнейшего редактирования.
+</p>
+<%= render :partial => 'commands' %>

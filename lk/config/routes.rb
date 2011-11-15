@@ -8,6 +8,13 @@ Lk::Engine.routes.draw do
     resources :news do
       member do 
         put :send_to_moderate
+        put :remove_from_moderate
+      end
+      collection do 
+        get :drafts
+        get :moderate
+        get :published
+        get :archived
       end
     end
     resources :products

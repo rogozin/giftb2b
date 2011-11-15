@@ -1,5 +1,5 @@
 <% page_title "Авторизация" %>
-
+<%= render :partial => 'shared/flashes' %>
 <div id="login">
 <h1>Введите пароль</h1>
 <%= form_for @user_session, :url => auth_engine.create_session_path, :html => { :class => 'one_line_form'} do |form| %>
