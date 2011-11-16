@@ -1,10 +1,12 @@
   <table width="100%">
   <tr>
-    <th>Дата</th>
+    <th>Создано</th>
     <th>Автор</th>
     <th>Заголовок</th>
     <th>Статус</th>
-    <th colspan="3"></th>
+    <th></th>
+	<th class="th_lk"></th>
+	<th class="th_lk"></th>
   </tr>
    <% @news.each do |item| -%>
      <tr>
@@ -13,7 +15,7 @@
        <td><%= link_to item.title, main_app.news_url(item.permalink, :host => "giftb2b.ru") %></td>
        <td><%= content_tag(:span, item.state, :class => "state_#{item.state_id}") %></td>      
        <td><%= link_to "Снять с модерации", remove_from_moderate_news_path(item.permalink), :method => :put, :confirm => "Снять новость с модерации?" if item.state_id == 0 %>
-        <%= link_to "Отправть на модерацию", send_to_moderate_news_path(item.permalink), :method => :put, :confirm => "Отправить новость на модерацию?" if [3,4].include?(item.state_id) %>
+        <%= link_to "Отправить на модерацию", send_to_moderate_news_path(item.permalink), :method => :put, :confirm => "Отправить новость на модерацию?" if [3,4].include?(item.state_id) %>
        </td>
       <td><%= link_to image_tag('edit.png'), edit_news_path(item.permalink), :title => "Редактировать" if [3,4].include?(item.state_id) %></td>
       <td><%= link_to image_tag('remove.png'), news_path(item.permalink), :title => "Удалить", :method => :delete, :confirm => "Удалить новость?" if [3,4].include?(item.state_id) %></td>

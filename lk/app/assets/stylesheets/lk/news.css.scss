@@ -34,10 +34,14 @@ ul#news_menu {
 .tinymce {
   label { padding-bottom:5px;}
 }
+h3 { color:#333;}
+p.text { line-height:1.5; padding: 5px 0; text-align:justify; color:#333;}
 
-p.text { line-height:1.5; padding: 5px 0; text-aligin:justify;}
-
+p.light {color:#999;}
 div.action-new { float:right; margin:30px 60px 0 0;}
+
+.one_line_form label {color: #333;}
 
 span.state_4 { color:red;}
 
+.th_lk {width:20px;border-left:3px solid #fff;}
