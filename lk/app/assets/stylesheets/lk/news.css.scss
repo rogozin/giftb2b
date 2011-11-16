@@ -25,14 +25,14 @@ ul#news_menu {
  .content td a { color: #177E99; }
 
 #news_form {
-  input[type="text"], input[type="file"] 
+  input[type="text"]
     { width:400px;}
   }  
   input[name="moderate"], #preview {margin-right:20px;}
-  input[type="file"]{ color:#177E99;}
+  input[type="file"]{ color:#177E99; width:318px;}
   
   .tinymce {
-      label { padding-bottom:5px;}
+      div {margin-bottom:10px;}
     }
   .news-picture {float:left;margin:10px 0;}
 h3 { color:#333;}

@@ -12,7 +12,7 @@ class Lk::NewsController < Lk::BaseController
   end
   
   def drafts
-    find_all_news([3,4], "state_id desc, created_at")
+    find_all_news([3,4], "state_id desc, created_at desc")
   end
   
   def moderate
