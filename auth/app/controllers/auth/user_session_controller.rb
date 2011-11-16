@@ -16,8 +16,8 @@ class Auth::UserSessionController < ApplicationController
          else
           redirect_to  redirect_url.present? ? redirect_url : "/"
         end
-       else
-         redirect_to (redirect_url.present? ? redirect_url : "/"), :flash => {:login_error => "Неправильное имя или пароль"}
+       else         
+         redirect_to login_path, :flash => {:alert => @user_session.errors[:base].join(', ')}
        end
 
   end

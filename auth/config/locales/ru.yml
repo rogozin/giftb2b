@@ -24,7 +24,7 @@ ru:
       email_invalid: "неверный формат электронной почты."
       password_blank: "пароль не может быть пустым"
       password_invalid: "пароль неверный"
-      not_active: "Ваша учетная запись не активирована"
+      not_active: "Ваша учетная запись заблокирована"
       not_confirmed: "Ваша учетная запись не подтверждена"
       not_approved: "ваша учетная запись не одобрена"
       no_authentication_details: "You did not provide any details for authentication."
