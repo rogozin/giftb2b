@@ -6,10 +6,10 @@ class News < ActiveRecord::Base
   validates :title, :presence => true
   validates :permalink, :uniqueness => {:allow_nil => false}
   validates :firm_id, :presence => true
-  has_attached_file :picture, :styles => {:thumb => ["300", :png] },
+  has_attached_file :picture, :styles => {:thumb => ["300>", :png] },
      :path =>":rails_root/public/system/news/:firm_id/:id/:style/:filename",
    :url  => "/system/news/:firm_id/:id/:style/:filename"
-
+  validates_attachment_content_type :picture, :content_type=>['image/jpeg', 'image/png', 'image/gif']   
   scope :active, where(:state_id => 1).order("created_at desc")
   scope :latest, active.limit(5)
   before_create :prepare_permalink

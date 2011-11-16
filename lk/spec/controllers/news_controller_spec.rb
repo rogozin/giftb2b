@@ -16,13 +16,14 @@ describe Lk::NewsController do
     end
   
     it "drafts should be successful" do
+      #сначала отклоненные, потом черновики
       n = Factory(:news, :firm_id => @user.firm_id, :state_id => 3)
       n1= Factory(:news, :firm_id => @user.firm_id, :state_id => 4)
       get 'drafts'
       response.should be_success
-      assigns(:news).should eq([n, n1])
+      assigns(:news).should eq([n1, n])
     end
- 
+    
     it "moderate should be successful" do
       n = Factory(:news, :firm_id => @user.firm_id, :state_id => 0)
       get 'moderate'
@@ -176,7 +177,7 @@ describe "POST create" do
     it 'Новость может быть отправлена на модерацию' do
       @news = Factory(:news, :firm_id => @user.firm_id, :state_id => 3)
       put :send_to_moderate, :id => @news.permalink
-      response.should redirect_to moderate_news_index_path
+      response.should redirect_to drafts_news_index_path
       flash[:notice].should_not be_nil
       assigns(:news).state_id.should be(0)    
     end
@@ -196,7 +197,7 @@ describe "POST create" do
     it 'Новость может быть снята с модерации' do
       @news = Factory(:news, :firm_id => @user.firm_id, :state_id => 0)
       put :remove_from_moderate, :id => @news.permalink
-      response.should redirect_to drafts_news_index_path
+      response.should redirect_to moderate_news_index_path
       flash[:notice].should_not be_nil
       assigns(:news).state_id.should be(3)
     end

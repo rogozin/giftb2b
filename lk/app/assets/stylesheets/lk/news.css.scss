@@ -28,16 +28,19 @@ ul#news_menu {
   input[type="text"], input[type="file"] 
     { width:400px;}
   }  
-  input[name="moderate"] {margin-right:20px;}
+  input[name="moderate"], #preview {margin-right:20px;}
   input[type="file"]{ color:#177E99;}
   
-.tinymce {
-  label { padding-bottom:5px;}
-}
+  .tinymce {
+      label { padding-bottom:5px;}
+    }
+  .news-picture {float:left;margin:10px 0;}
 h3 { color:#333;}
-p.text { line-height:1.5; padding: 5px 0; text-align:justify; color:#333;}
+p { 
+    &.text { line-height:1.5; padding: 5px 0; text-align:justify; color:#333;}
+    &.light {color:#999;}    
+  }
 
-p.light {color:#999;}
 div.action-new { float:right; margin:30px 60px 0 0;}
 
 .one_line_form label {color: #333;}

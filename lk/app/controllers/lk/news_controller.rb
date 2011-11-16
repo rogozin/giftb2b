@@ -12,7 +12,7 @@ class Lk::NewsController < Lk::BaseController
   end
   
   def drafts
-    find_all_news([3,4])
+    find_all_news([3,4], "state_id desc, created_at")
   end
   
   def moderate
@@ -65,13 +65,13 @@ class Lk::NewsController < Lk::BaseController
 
   def send_to_moderate
     flash[:notice] = "Новость отправлена на модерацию!" if @news.update_attribute :state_id, 0
-    redirect_to moderate_news_index_path
+    redirect_to drafts_news_index_path
   end
   
   def remove_from_moderate
      return redirect_to news_index_path, :alert => "Новость уже опубликована!" if @news.state_id != 0
     flash[:notice] = "Новость снята с модерации!" if @news.update_attribute :state_id, 3
-    redirect_to drafts_news_index_path          
+    redirect_to moderate_news_index_path          
   end
   
   def destroy
@@ -81,9 +81,9 @@ class Lk::NewsController < Lk::BaseController
   
   private 
   
-  def find_all_news(state_id)
+  def find_all_news(state_id, sort_string="created_at desc")
     params[:page] ||=1
-    @news = News.where(:firm_id => current_user.firm_id, :state_id => state_id).order("created_at desc").paginate(:page => params[:per_page])        
+    @news = News.where(:firm_id => current_user.firm_id, :state_id => state_id).order(sort_string).paginate(:page => params[:per_page])        
   end
   
   def find_news

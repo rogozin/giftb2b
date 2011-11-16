@@ -8,6 +8,11 @@
     <%= f.label :picture, 'Изображение' %>
     <%= f.file_field :picture %>     
   </div>  
+    <% if @news.picture.present? -%>
+    <div class="news-picture">
+       <%= image_tag(@news.picture.url(:thumb)) %>
+    </div>
+    <% end -%>
   <div class="clear"></div>
   <div class="tinymce">
     <%= f.label :body, "Текст новости:" %>
@@ -15,7 +20,7 @@
   </div>  
   <div class="spacer"></div>
     <div class="b-formfield-div">
-    <%= f.submit "Отправить на модерацию", :name => "moderate" %> <%= f.submit "Сохранить в черновики" %>
+    <%= link_to "Предпросмотр", main_app.news_path(@news), :class => "b_button", :id => "preview" unless @news.new_record? %> <%= f.submit "Отправить на модерацию", :name => "moderate" %> <%= f.submit "Сохранить в черновики" %>
   </div>
   <div class="clear"></div>
 <% end %>

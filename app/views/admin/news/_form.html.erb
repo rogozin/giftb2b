@@ -20,6 +20,11 @@
     <%= f.label :picture, 'Картинка' %>
     <%= f.file_field :picture %>     
   </div>  
+    <% if @news.picture.present? -%>
+    <div class="news-picture">
+       <%= image_tag(@news.picture.url(:thumb)) %>
+    </div>
+    <% end -%>
       
   <div class="clear"></div>
   <div class="tinymce">

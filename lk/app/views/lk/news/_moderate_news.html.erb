@@ -1,0 +1,19 @@
+  <table width="100%">
+  <tr>
+    <th>Отправлено</th>
+    <th>Автор</th>
+    <th>Заголовок</th>
+    <th>Статус</th>
+    <th></th>
+  </tr>
+   <% @news.each do |item| -%>
+     <tr>
+       <td><%= I18n.l(item.updated_at, :format => :digital) %></td>
+       <td><%= item.created_author.username %></td>      
+       <td><%= link_to item.title, main_app.news_url(item.permalink, :host => "giftb2b.ru") %></td>
+       <td><%= content_tag(:span, item.state, :class => "state_#{item.state_id}") %></td>      
+       <td><%= link_to "Снять с модерации", remove_from_moderate_news_path(item.permalink), :method => :put, :confirm => "Снять новость с модерации?" if item.state_id == 0 %>
+       </td>
+     </tr>
+   <% end -%>
+</table>    

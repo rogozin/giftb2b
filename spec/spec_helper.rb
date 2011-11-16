@@ -49,6 +49,9 @@ RSpec.configure do |config|
   config.include LoginSpecHelper
  # config.include Lk::Engine.routes.url_helpers
  # config.include Auth::Engine.routes.url_helpers
+  config.after(:each) do
+    ActionMailer::Base.deliveries.clear
+  end
 end
 
 Capybara.default_selector = :css
