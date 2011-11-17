@@ -8,7 +8,7 @@
 
 <div class="news-content">
   <div id="news_content">
-      <%= image_tag(@news.picture.url(:thumb), :id => "news_picture") if @news.picture %>  
+      <%= image_tag(@news.picture.url(:thumb), :id => "news_picture") if @news.picture.present? %>  
     <h2><%= @news.title %><%= " [ЧЕРНОВИК НОВОСТИ]" if @news.draft? %></h2>
     <hr id="line" />
     <%= raw @news.body %>
