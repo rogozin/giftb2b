@@ -32,6 +32,7 @@ Factory.define :catalog_editor, :class => User, :parent => :user do |record|
 end
 
 Factory.define :firm_manager, :class => User, :parent => :user do |record|    
+  record.firm_id 1
   record.role_objects {|role|  [role.association(:role_firm_manager)]}
 end
 

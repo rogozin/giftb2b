@@ -38,6 +38,7 @@ ru:
       default: "%a, %d %b %Y, %H:%M:%S %z"
       short: "%d %b %Y, %H:%M"
       long: "%d %B %Y, %H:%M"
+      digital: "%d.%m.%y %H:%M"      
 
     am: "утра"
     pm: "вечера"

@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :news, :only => [:index, :show]
+
   resources :cart, :only => [:index, :destroy] do
     post :add, :on => :member
     post :empty, :on => :collection

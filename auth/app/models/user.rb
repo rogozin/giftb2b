@@ -29,6 +29,14 @@ class User < ActiveRecord::Base
      Rails.cache.fetch("#{cache_key}.is_admin_user?", :expires_in=>60) {role_objects.exists?(["roles.group=0"])}
   end
   
+  def is_first_manager?
+     is_admin? || has_role?("Главный менеджер")
+  end
+  
+  def is_second_manager?
+     has_role?("Менеджер продаж")
+  end    
+  
   def is_simple_user?
      Rails.cache.fetch("#{cache_key}.is_simple_user?", :expires_in=>60) {role_objects.exists?(["roles.group=1"])}
   end

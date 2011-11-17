@@ -489,3 +489,5 @@ a.toggle-category {
 
 .b-store-unit input[type="text"] { width:40px;}
 .b-store-unit select { width:85px;}
+
+.news-picture {float:right; margin:10px 0;}

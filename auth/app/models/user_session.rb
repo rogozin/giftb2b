@@ -6,7 +6,7 @@ class UserSession < Authlogic::Session::Base
   def before_validation
     usr = User.find_by_username(self.username)
     return false unless usr
-     errors.add(:base, "Срок действия учетной записи истек") unless (usr.expire_date.blank? ?  Date.today : usr.expire_date) >= Date.today
+     errors.add(:base, "У вас закончился доступ в систему. Для продления обратитесь, пожалуйста, по тел.: +7 495 741-06-95") unless (usr.expire_date.blank? ?  Date.today : usr.expire_date) >= Date.today
      
   end
 

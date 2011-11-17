@@ -11,7 +11,7 @@ group :assets do
 end
 
 gem 'rack-throttle'
-
+gem 'tinymce-rails'
 gem "therubyracer"
 gem "mysql2", "~> 0.3.7"
 gem 'russian'

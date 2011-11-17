@@ -4,6 +4,8 @@
 //= require jquery.treeview
 //= require jquery.cookie
 //= require ui.datepicker-ru
+//= require tinymce-jquery
+//= require lk/tinymce_init
 
 function bindAnimation() {
   $(".ajax_animation").bind({

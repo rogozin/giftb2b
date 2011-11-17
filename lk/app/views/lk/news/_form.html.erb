@@ -1,0 +1,29 @@
+<%= form_for  @news, :html => {:class=> "one_line_form", :id => "news_form"} do |f| %>
+   <%= render :partial => 'shared/error_messages', :locals => {:target => @news} %>
+  <div class="b-formfield-div">
+    <%= f.label :title, 'Заголовок*' %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :picture, 'Изображение' %>
+    <%= f.file_field :picture %>     
+    (.jpg, .png, .gif)
+  </div>  
+    <% if @news.picture.present? -%>
+    <div class="news-picture">
+       <%= image_tag(@news.picture.url(:thumb)) %>
+    </div>
+    <% end -%>
+  <div class="clear"></div>
+  <div class="tinymce">
+    <div>Текст новости:</div>
+    <%= f.text_area :body, :cols=>110, :rows=>25 %>
+  </div>  
+  <div class="spacer"></div>
+    <div class="b-formfield-div">
+    <%= link_to "Предпросмотр", main_app.news_url(@news, :host => "giftb2b.ru"), :class => "b_button", :id => "preview" unless @news.new_record? %><%= f.submit "Сохранить в черновики" %><%= f.submit "Отправить на модерацию", :name => "moderate" %> 
+  </div>
+  <div class="clear"></div>
+<% end %>
+<div class="clear spacer"></div>
+<%= render :partial => 'warn' %>

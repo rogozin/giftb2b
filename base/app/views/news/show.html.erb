@@ -1,0 +1,26 @@
+<% page_title "#{@news.title} | Новости" -%>
+<div class="center_block">
+<div class="b-news">
+<div class="header">
+  <h1>Новости</h1>
+  <div class="b-news-date"><%= I18n.l(@news.created_at.to_date, :format => :long) %></div>
+</div>
+
+<div class="news-content">
+  <div id="news_content">
+      <%= image_tag(@news.picture.url(:thumb), :id => "news_picture") if @news.picture.present? %>  
+    <h2><%= @news.title %><%= " [ЧЕРНОВИК НОВОСТИ]" if @news.draft? %></h2>
+    <hr id="line" />
+    <%= raw @news.body %>
+  </div>
+  <div class="b-all-news">
+    <%= link_to 'Все новости', news_index_path  %>
+  </div>
+  <div id="news_owner">
+    <span class="red-square"></span><%= @news.firm.short_name %>
+  </div>
+  <div class="clear"></div>
+</div>
+</div>
+
+</div>

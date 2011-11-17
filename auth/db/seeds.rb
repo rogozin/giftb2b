@@ -8,3 +8,4 @@
     Role.find_or_create_by_name_and_group("Менеджер фирмы", 2)
     Role.find_or_create_by_name_and_group("Пользователь фирмы", 2)
     Role.find_or_create_by_name_and_group("Интернет магазин", 3)
+    Role.find_or_create_by_name_and_group("Поставщик", 4)

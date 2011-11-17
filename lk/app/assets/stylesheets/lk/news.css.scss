@@ -1,0 +1,54 @@
+ul#news_menu {
+  margin-bottom:20px;
+  li {
+    background: image-url("lk/images/folder-open.png") no-repeat left center;
+    padding-left:20px;
+    width:140px;
+    line-height:1.8;
+    p {
+      padding-left:3px;
+      color:#000;
+      a { 
+        color: #177E99;
+        text-decoration: none;               
+        margin-right:20px;
+      }
+      &.selected {
+        color:#fff;
+        background-color:#0080B2;      
+        a { color: #fff }
+      }
+    }
+  }
+}  
+
+ .content td a { color: #177E99; }
+
+#news_form {
+  input[type="text"]
+    { width:400px;}
+  }  
+  input[name="moderate"], input[name="commit"], #preview {margin-right:20px;}
+  input[type="file"]{ color:#177E99; width:318px;}
+  
+  .tinymce {
+      div {margin-bottom:10px;}
+    }
+  .news-picture {float:left;margin:10px 0;}
+h3 { color:#333;}
+p { 
+    &.text { line-height:1.5; padding: 5px 0; text-align:justify; color:#333;}
+    &.light {color:#999;}    
+  }
+
+div.action-new { float:right; margin:30px 60px 0 0;}
+
+.one_line_form label {color: #333;}
+
+span.state_4 { color:red;}
+
+.th_lk {width:20px;border-left:3px solid #fff;}
+
+.th_date {width:85px;}
+
+.th_date_long {width:120px;}

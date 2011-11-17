@@ -8,6 +8,7 @@ ru:
     models:
       content: "Контент"
       firm: "Клиент"
+      news: "Новость"
     attributes:
       firm:
         name: "Полное наименование"        
@@ -27,6 +28,10 @@ ru:
         start: "Начало публикации"			
         stop: "Окончание публикации"
         draft: "Черновик"
+      news:
+        title: "Заголовок"
+        picture: "Изображение"
+        body: "Текст"
   will_paginate:
     page_gap: "..."
     next_label: "Вперед"

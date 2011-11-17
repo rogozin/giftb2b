@@ -8,7 +8,7 @@
  *= require base/layout
  *= require lk/ra
  *= require lk/jquery-ui
- *require_tree . 
+ *= require_tree . 
 */
 
 #gift_logo {
@@ -42,7 +42,7 @@ h3.h3-lk {
 
 .b-float-right { float:right; }
 
-a.a-text-blue, a.navi {
+a.a-text-blue {
 	color:#177E99;
 	text-decoration:none;
 }
@@ -106,3 +106,33 @@ td.right {text-align:right;}
 	-khtml-border-radius: 5px;
  
 }
+
+
+.navi {
+  border-top:solid 1px #ccc;
+  margin-top:15px;
+  padding-top:5px;
+  a { 	
+    color:#177E99;
+	  text-decoration:none;
+  }
+}
+
+p {
+  &.lk-menu-item 
+    { 
+    padding: 3px;
+    margin-right:30px;
+    a {
+      color: #177E99;
+      text-decoration: none;
+      line-height: 1.3;
+      &:hover { color: darken(#177E99, 10%);}
+    }
+    &.selected {       
+      background-color:#0080B2;      
+      a { color: #fff }
+    }
+  }
+}
+    

@@ -11,6 +11,7 @@ class Lk::BaseController < Lk::ApplicationController
     flash[:alert] = "Вам не назначена фирма!"
   end
   
+  
   def load_cart_products
     @cart = find_cart
     set_post_url
@@ -33,6 +34,10 @@ class Lk::BaseController < Lk::ApplicationController
     end
   end
      
+  def check_firm
+    raise Acl9::AccessDenied unless current_user.firm_id
+  end   
+     
   private :not_firm_assigned!
-  protected :set_post_url, :load_categories
+  protected :set_post_url, :load_categories, :check_firm
 end

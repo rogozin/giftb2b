@@ -1,0 +1,10 @@
+      <h3>Новости</h3>
+      <% News.cached_latest_news.each do |item| -%>
+        <div class="b-news-item">
+        <p class="b-news-date"><%= I18n.l(item.created_at.to_date, :format => :long) %></p>
+        <p><%= link_to item.title, main_app.news_path(item.permalink), :class => "menu_left"  %></p>
+        </div>
+      <% end -%>
+     <p class="b-all-news">
+      <%= link_to 'Все новости', main_app.news_index_path, :class => "green-link" %>
+     </p> 

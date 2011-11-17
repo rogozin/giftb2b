@@ -3,3 +3,7 @@
 <%= form_for  @account, :url => accounts_path, :html => {:class => :one_line_form} do |form| -%>
 <%= render :partial => 'account', :locals => {:form => form} %>
  <% end -%>
+ <div class="clear"></div>
+  <p class="navi">
+ <%= link_to '<< К списку пользователей', accounts_path %>
+ </p>

@@ -91,7 +91,7 @@ div.article_img_3 img {
 	 <p class="t11"><%= @commercial_offer.firm.short_name %></p> 
 	<p class="t11"><%= @commercial_offer.firm.addr_f %></p> 
 	<p class="t11">Менеджер: <%= @commercial_offer.user.fio %> </p> 
-	<p class="t11"> Тел./факс: <%= @commercial_offer.firm.phone %> e-mail: <%= @commercial_offer.firm.email %> <%= @commercial_offer.firm.url %></p>
+	<p class="t11"> Тел./факс: <%= @commercial_offer.user.phone %> e-mail: <%= @commercial_offer.user.email %> <%= @commercial_offer.firm.url %></p>
 	<p class="t11"> Специально для компании: <%= @commercial_offer.lk_firm.name if @commercial_offer.lk_firm %> </p>
 	 </td> 
 	</tr> 

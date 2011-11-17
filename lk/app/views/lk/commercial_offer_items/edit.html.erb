@@ -3,4 +3,7 @@
 
 <%= render :partial => "lk/products/product", :locals => {:redirect => commercial_offer_path(@commercial_offer)} %>
 <div class="spacer"></div>
-<%= link_to '<< Вернуться к коммерческому предложению', commercial_offer_path(@commercial_offer), :class => "navi" %>
+<p class="navi">
+<%= link_to '<< Вернуться к коммерческому предложению', commercial_offer_path(@commercial_offer) %>
+</p>
+

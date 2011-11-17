@@ -1,0 +1,24 @@
+  <table width="100%">
+  <tr>
+    <th class="th_date">Создано</th>
+    <th>Автор</th>
+    <th>Заголовок</th>
+    <th>Статус</th>
+    <th></th>
+	<th class="th_lk"></th>
+	<th class="th_lk"></th>
+  </tr>
+   <% @news.each do |item| -%>
+     <tr>
+       <td><%= I18n.l(item.created_at, :format => :digital) %></td>
+       <td><%= item.created_author.username %></td>      
+       <td><%= link_to item.title, main_app.news_url(item.permalink, :host => "giftb2b.ru") %></td>
+       <td><%= content_tag(:span, item.state, :class => "state_#{item.state_id}") %></td>      
+       <td><%= link_to "Отправить на модерацию", send_to_moderate_news_path(item.permalink), :method => :put, :confirm => "Отправить новость на модерацию?" if [3,4].include?(item.state_id) %>
+       </td>
+      <td><%= link_to image_tag('edit.png'), edit_news_path(item.permalink), :title => "Редактировать" if [3,4].include?(item.state_id) %></td>
+      <td><%= link_to image_tag('remove.png'), news_path(item.permalink), :title => "Удалить", :method => :delete, :confirm => "Удалить новость?" if [3,4].include?(item.state_id) %></td>
+     </tr>
+   <% end -%>
+</table>
+
