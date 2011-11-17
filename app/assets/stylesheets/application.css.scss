@@ -346,10 +346,10 @@ $c_light_blue: #177E99;
   padding:10px; 
   @include grey-border;
   div.title { color:#666;
-	font-size: 8pt;
+	font-size: 8pt; margin:5px 0 15px 5px;
    span {font-weight:bold; color:#c36;font-size: 9pt;}
    }
-  div.link { margin:5px 0 15px 0;}
+  div.link { margin:5px 0 5px 5px;}
 }
 
 span.red-square {
