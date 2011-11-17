@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "gift-auth"
   s.add_dependency "gift-base"
   s.add_dependency 'pdfkit'
-  s.add_dependency 'writeexcel'
+  s.add_dependency 'writeexcel', "0.6.9"
   s.add_dependency "will_paginate"
   s.add_dependency "tinymce-rails"
 end
