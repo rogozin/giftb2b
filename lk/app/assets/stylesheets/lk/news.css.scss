@@ -28,7 +28,7 @@ ul#news_menu {
   input[type="text"]
     { width:400px;}
   }  
-  input[name="moderate"], #preview {margin-right:20px;}
+  input[name="moderate"], input[name="commit"], #preview {margin-right:20px;}
   input[type="file"]{ color:#177E99; width:318px;}
   
   .tinymce {
@@ -48,3 +48,7 @@ div.action-new { float:right; margin:30px 60px 0 0;}
 span.state_4 { color:red;}
 
 .th_lk {width:20px;border-left:3px solid #fff;}
+
+.th_date {width:85px;}
+
+.th_date_long {width:120px;}
