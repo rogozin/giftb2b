@@ -21,7 +21,7 @@ def new
     @user.username = @user.username_from_email
     if @user.save
       if params[:i_am] == "1"
-        @firm = Firm.create(:name => @user.company_name, :city => @user.city, :url => @user.url)        
+       @firm = Firm.create(:name => @user.company_name, :city => @user.city, :url => @user.url, :phone => @user.phone, :email => @user.email, :state_id => 3)        
         @firm.users << @user
         @user.has_role! "Пользователь фирмы"
       else 
