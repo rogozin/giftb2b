@@ -36,9 +36,11 @@ Factory.define :firm_manager, :class => User, :parent => :user do |record|
   record.role_objects {|role|  [role.association(:role_firm_manager)]}
 end
 
-Factory.define :sample_manager, :class => User, :parent => :user do |record|    
-  record.after_create { |user| add_role(user, :role_samples) }
+Factory.define :firm_user, :class => User, :parent => :user do |record|    
+  record.firm_id 1
+  record.role_objects {|role|  [role.association(:role_firm_user)]}
 end
+
 
 Factory.define :content_editor, :parent => :catalog_editor, :class => User do |record|    
   record.role_objects {|role|  [role.association(:role_content_editor)]}
@@ -75,11 +77,6 @@ end
 
 Factory.define :role_content_editor, :class => Role do |f|
   f.name "Редактор контента"
-  f.group 0
-end
-
-Factory.define :role_samples, :class => Role do |f|
-  f.name "Учет образцов"
   f.group 0
 end
 

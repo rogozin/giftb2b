@@ -12,8 +12,8 @@ module Lk
   	res << lk_menu_item('Коммерческие предложения', commercial_offers_path) if current_user.is_firm_user?
     res << lk_menu_item('Клиенты', firms_path) if  current_user.is_lk_user?
     res << lk_menu_item('Мой список товаров', products_path) if  current_user.is_lk_user?
-    res << lk_menu_item('Мои новости', news_index_path) if  current_user.is_firm_manager?
-    res << lk_menu_item('Образцы', samples_path)  if current_user.has_role?(:Администратор) || current_user.has_role?("Учет образцов")
+    res << lk_menu_item('Мои новости', news_index_path) if  current_user.is_firm_user?
+    res << lk_menu_item('Образцы', samples_path)  if current_user.has_role?(:Администратор) || current_user.is_firm_user?
     res << lk_menu_item('Пользователи', accounts_path) if  current_user.is_firm_manager?
     res << content_tag(:div, nil, :class => "line")
     res << lk_menu_item('На главную страницу', main_app.root_path)

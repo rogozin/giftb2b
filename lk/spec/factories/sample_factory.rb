@@ -14,7 +14,7 @@ Factory.define :sample do |f|
   f.sale_date { Date.today }
   f.supplier_return_date { Date.today + 3 }
   f.client_return_date { Date.tomorrow }
-  f.association :user, :factory => :sample_manager
+  f.association :user, :factory => :firm_user
   f.association :responsible, :factory  => :sample_manager
   f.closed false
 end  

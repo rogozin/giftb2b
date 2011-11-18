@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe 'Роль учет образцов' do
   before(:each) do
-    login_as :sample_manager
+    login_as :firm_user
     @firm = Factory(:firm)
     @user.update_attributes(:firm => @firm, :fio => "Петя")    
     @lk_firm = Factory(:lk_firm, :firm_id => @firm.id)    
