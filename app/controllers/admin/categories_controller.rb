@@ -29,6 +29,8 @@ class Admin::CategoriesController < Admin::BaseController
 
   def destroy
     @category = Category.find(params[:id])    
+    tree_ids = Category.tree_childs(Category.all, @category)
+    ProductCategory.delete_all({:category_id => tree_ids})
     @category.destroy
     @cat = get_catalog_items(@category.catalog_type)
     flash[:notice] = "Категория удалена!"      
