@@ -7,7 +7,7 @@ class Auth::UserSessionController < ApplicationController
   def create
     redirect_url = session[:return_to]
     session[:return_to] = nil
-    return redirect_to(login_path, :flash => {:login_error => "Введите имя или пароль" })  if params[:user_session][:username].blank? or params[:user_session][:username].blank?
+    return redirect_to(login_path, :flash => {:alert=> "Введите имя или пароль",  :login_error => "Введите имя или пароль" })  if params[:user_session][:username].blank? or params[:user_session][:username].blank?
     @user_session = UserSession.new(params[:user_session])
       if @user_session.save
         @user = @user_session.record 
@@ -17,7 +17,7 @@ class Auth::UserSessionController < ApplicationController
           redirect_to  redirect_url.present? ? redirect_url : "/"
         end
        else         
-         redirect_to login_path, :flash => {:alert => @user_session.errors[:base].join(', ')}
+         redirect_to login_path, :flash => {:alert => @user_session.errors.full_messages.join(', ')}
        end
 
   end

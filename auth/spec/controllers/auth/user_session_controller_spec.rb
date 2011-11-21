@@ -14,12 +14,13 @@ describe Auth::UserSessionController do
     post :create,  {:user_session => {:user_name => "aaa", :password => "bbb"},:use_route => :auth_engine }
     response.code.should eq "302"
     flash[:login_error].should_not be_nil
+    flash[:alert].should_not be_nil
   end
 
   it 'wrong username' do
     post :create,  {:user_session => {:username => "aaa", :password => "bbb"},:use_route => :auth_engine }
     response.code.should eq "302"
-    flash[:login_error].should_not be_nil
+    flash[:alert].should_not be_nil
   end
 
 
@@ -28,6 +29,7 @@ describe Auth::UserSessionController do
     post :create,  {:user_session => {:username => user.username, :password => "test"},:use_route => :auth_engine }
     response.code.should eq "302"
     flash[:login_error].should be_nil
+    flash[:alert].should be_nil
   end
   
   it 'Пользователь фирмы должен быть перенаправлен на гифтпоиск' do
