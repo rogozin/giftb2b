@@ -265,6 +265,7 @@ padding-left:8px;}
 p.b-all-news  {
   margin-top:10px;
   a {font-weight:bold; font-style:italic; color:#c36; font-size: 8pt;}
+  a.green-link { color:$c_light_green;}
 }
 
 
@@ -380,4 +381,14 @@ span.red-square {
       a {color:#000}
     }
   }
+}
+
+p.places-for-sale {
+    padding-top:2px;
+    background: image-url("images/metro.png") no-repeat left center;
+  a {
+    padding-left:22px;
+    font-size:0.8em;
+    span {font-size:1.3em; font-weight:bold}
+    }
 }
