@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   end
   acts_as_authorization_subject :role_class_name => 'Role', :join_table_name => :roles_users
   belongs_to :firm
+  belongs_to :client, :foreign_key => :firm_id
   belongs_to :supplier
   validates :username, :exclusion => { :in => %w(admin superuser) }
   validates :appoint, :length => {:maximum => 100}
