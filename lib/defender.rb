@@ -4,7 +4,7 @@ require 'resolv'
 # we limit daily API usage
 class Defender < Rack::Throttle::Hourly
 
-  IP_WHITELIST = %w(87.236.190.194 66.249.66.161 66.249.71.168 207.46.199.37 157.55.18.24 207.46.199.53 79.142.165.179 157.55.16.87 207.46.204.240 213.180.209.10 65.52.110.152 194.186.248.18 65.52.104.87 95.108.247.252 178.65.33.101 66.249.66.5 217.69.133.31 66.249.72.134)
+  IP_WHITELIST = %w(87.236.190.194 66.249.66.161 66.249.71.168 213.180.209.10 95.108.247.252 66.249.66.5 66.249.72.134 66.249.66.22)
   LINKS_WHITELIST = %w(/api/categories.json /api/categories/analogs.json /api/categories/thematics.json)
 
   def initialize(app)
