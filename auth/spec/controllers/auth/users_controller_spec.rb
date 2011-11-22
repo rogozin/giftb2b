@@ -2,10 +2,14 @@
 require 'spec_helper'
 
 describe Auth::UsersController do
+  
+  def valid_attributes
+    {:i_am => 1, :user => {:fio => "Вася", :company_name => "Рога и рога", :city => "Москва", :phone => "32423423423", :appoint => "Електрик", :url => "http://www.yandex.ru", :email => "vasya@giftb3.ru" }, :use_route => :auth_engine}
+  end
+  
   describe "POST Create" do
     it "регистрация" do
-       post :create, {:i_am => 1, :user => {:fio => "Вася", :company_name => "Рога и рога", :city => "Москва", :phone => "32423423423", :appoint => "Електрик", :url => "http://www.yandex.ru", :email => "vasya@giftb3.ru" }, :use_route => :auth_engine}
-       
+       post :create, valid_attributes       
        assigns(:user).should be_persisted
        assigns(:user).should be_a(User)
        assigns(:firm).should be_a(Firm)
@@ -16,6 +20,15 @@ describe Auth::UsersController do
        assigns(:firm).phone.should eq assigns(:user).phone
        assigns(:firm).email.should eq assigns(:user).email
       response.should be_success
+    end
+    
+  
+    it "когда фирма уже есть" do
+      firm = Factory(:firm, :name => valid_attributes[:user][:company_name])
+      post :create, valid_attributes       
+      assigns(:firm).name.should eq valid_attributes[:user][:company_name] + "_1"
+      assigns(:firm).users.should eq [assigns(:user)]
+      assigns(:user).company_name.should eq valid_attributes[:user][:company_name] + " (дубликат)"
     end
   end
 end

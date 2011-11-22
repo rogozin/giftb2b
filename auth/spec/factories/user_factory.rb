@@ -122,6 +122,7 @@ Factory.define :firm do |f|
   f.addr_f "Москва, ул. Льва Толстого д.12 стр. 1"
   f.addr_u "Москва, хата с краю"
   f.city "Москва"
+  f.phone "+7(495)123-4567"
   f.subway "Текстильщики"
   f.show_on_site true
   f.after_create { |firm| firm.update_attribute :short_name, firm.name   }  

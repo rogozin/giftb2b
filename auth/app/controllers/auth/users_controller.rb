@@ -21,8 +21,19 @@ def new
     @user.username = @user.username_from_email
     if @user.save
       if params[:i_am] == "1"
-       @firm = Firm.create(:name => @user.company_name, :city => @user.city, :url => @user.url, :phone => @user.phone, :email => @user.email, :state_id => 3)        
-        @firm.users << @user
+        @firm = Firm.new(:name => @user.company_name, :city => @user.city, :url => @user.url, :phone => @user.phone, :email => @user.email, :state_id => 3)        
+        unless @firm.valid?
+          if @firm.errors[:name].present? 
+            new_name = @firm.name + "_1"
+            while Firm.exists?(:name => new_name)
+              new_name.succ!
+            end 
+            @firm.name = new_name    
+            @firm.permalink  = new_name.parameterize
+            @user.company_name += " (дубликат)"
+          end
+        end        
+        @firm.users << @user if @firm.save
         @user.has_role! "Пользователь фирмы"
       else 
         @user.has_role! "Пользователь"
