@@ -62,10 +62,7 @@ class Admin::ProductsController < Admin::BaseController
       if params[:store_unit].present?
         added_stores = []
         params[:store_unit][:store_id].each_with_index do |store_id, index|            
-            unless added_stores.include?(store_id)
-              @product.store_units.create(:store_id => store_id, :count => params[:store_unit][:count][index], :option => params[:store_unit][:option][index])    
-              added_stores << store_id
-            end
+          @product.store_units.create(:store_id => store_id, :count => params[:store_unit][:count][index], :option => params[:store_unit][:option][index])    
         end
       end
       flash[:notice] = 'Продукт успешно изменен'

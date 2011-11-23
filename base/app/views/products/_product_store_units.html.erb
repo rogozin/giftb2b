@@ -1,17 +1,26 @@
 <% if ext_user? &&  @product.cached_store_units.present?  -%>
-			<p class="article_t">Наличие на складе:</p>
-     <% @product.cached_store_units.each do |su| -%> 
-      <div class="b-product-store-units">
-       <% if su.store.location.present? -%>
-        <p class="article_t">Склад: <span class="article_s"><%= su.store.location %></span></p>         
-       <% end -%>
-       <% if su.store.delivery_time.present? -%>
-        <p class="article_t">Срок поставки: <span class="article_s"><%= su.store.delivery_time %></span></p>
-       <% end -%>
-        <p class="article_t">Количество: <span class="article_s"><%= store_count su %></span></p>
-      </div>
-    <% end -%>
-<% else -%>
-			<p class="article_t">Наличие на складе: <span class="article_s"><%= total_store_count @product %></span></p>
+<div class="b-product-store-units">
+  <% @product.cached_store_units.group_by(&:store).each do |store, su| -%> 
+<table>
+  <tr>
+    <th>Склад</th>
+    <th>Доступно на складе</th>
+    <th>Из них в резерве</th>
+    <th>Планируется поставка</th>
+  </tr>
+  <tr>
+    <td><%= store.location %></td>
+    <td class="stock"><%= units_count su, 1  %></td>
+    <td><%= units_count su, 2  %></td>
+    <td><%= units_count su, 3  %></td>
+  </tr>
+  <tr>
+    <td class="delivery" colspan="4"><%= store.delivery_time %></td>
+  </tr>
+  <tr>
+    <td class="info" colspan="4"><%= su.map(&:created_at).last ? su.map(&:created_at).last.strftime("%d.%m.%Y %H:%M") : @product.updated_at.strftime("%d.%m.%Y %H:%M") %></td>    
+  </tr>
+</table>
+  <% end -%>
+</div>
 <% end -%>
-
