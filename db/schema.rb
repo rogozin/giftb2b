@@ -324,6 +324,23 @@ ActiveRecord::Schema.define(:version => 20111123094750) do
     t.datetime "updated_at"
   end
 
+  create_table "people", :force => true do |t|
+    t.integer  "firm_id",    :null => false
+    t.integer  "user_id"
+    t.string   "fio"
+    t.string   "appoint"
+    t.string   "phone"
+    t.string   "phone2"
+    t.string   "phone3"
+    t.string   "email"
+    t.string   "email2"
+    t.text     "comment"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "persons", :force => true do |t|
     t.integer  "firm_id",    :null => false
     t.integer  "user_id"
@@ -521,9 +538,5 @@ ActiveRecord::Schema.define(:version => 20111123094750) do
 
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token"
   add_index "users", ["username"], :name => "index_users_on_username"
-
-  create_table "xml_data", :force => true do |t|
-    t.string "original_name", :null => false
-  end
 
 end
