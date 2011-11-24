@@ -10,7 +10,7 @@ class StoreUnit < ActiveRecord::Base
   
   private
   def null_value_protection
-    self.option=0 if self.count.nil?
+    self.option=0 if self.option == 1 && (self.count.nil? || self.count.zero?)
   end
   
   

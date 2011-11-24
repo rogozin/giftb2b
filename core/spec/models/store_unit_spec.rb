@@ -10,10 +10,26 @@ describe StoreUnit do
     su.should have(1).error_on(:option)
   end
   
-  it "when count is null" do
-    su = StoreUnit.create(:option => 1, :product_id => 1, :store_id => 1, :count => nil)
-    su.should be_persisted
-    su.option.should be_zero
+  
+  describe "reset option" do 
+    it "when count is null" do
+      su = StoreUnit.create(:option => 1, :product_id => 1, :store_id => 1, :count => nil)
+      su.should be_persisted
+      su.option.should be_zero
+    end
+    
+    it 'when count is zero' do
+      su = StoreUnit.create(:option => 1, :product_id => 1, :store_id => 1, :count => 0)    
+      su.should be_persisted
+      su.option.should be_zero      
+    end
+    
+    it 'when count is zero and option is -1' do
+      su = StoreUnit.create(:option => -1, :product_id => 1, :store_id => 1, :count => 0)    
+      su.should be_persisted
+      su.option.should eq -1
+    end    
+    
   end
   
   describe "ограничения на кол-во записей" do
