@@ -35,6 +35,7 @@ def new
         end        
         @firm.users << @user if @firm.save
         @user.has_role! "Пользователь фирмы"
+        @user.update_attribute :expire_date,  Date.today.next_day(5)
       else 
         @user.has_role! "Пользователь"
       end

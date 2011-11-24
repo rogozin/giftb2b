@@ -19,6 +19,7 @@ describe Auth::UsersController do
        assigns(:firm).url.should eq assigns(:user).url
        assigns(:firm).phone.should eq assigns(:user).phone
        assigns(:firm).email.should eq assigns(:user).email
+       assigns(:user).expire_date.should eq Date.today.next_day(5)
       response.should be_success
     end
     
