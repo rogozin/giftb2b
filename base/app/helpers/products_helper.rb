@@ -46,7 +46,7 @@ module ProductsHelper
     def store_count_value store_unit_item
       case store_unit_item.option
         when -1
-           (store_unit_item.count>0 ? store_unit_item.count : "Под заказ")
+           (store_unit_item.count && store_unit_item.count > 0 ? store_unit_item.count : "Под заказ")
         when 0
           "По запросу"
         when 1
