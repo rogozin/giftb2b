@@ -1,5 +1,3 @@
-
-
 .article {
 	width:200px;
 	font-size:8pt;
@@ -42,14 +40,13 @@ div.article_img_3 {#position: relative; #top: -50%;}
 	color:#999999;
 	font-weight:bold;
 	margin-top:5px;
-}	
-
-.article_t  a {
-	text-decoration:underline;
-	font-weight:bold;
-	color:#999999;
-	margin-top:5px;
-}	
+   a {
+	  text-decoration:underline;
+	  font-weight:bold;
+	  color:#999999;
+	  margin-top:5px;
+  }	
+}
 
 .article_s {
 	font-weight:normal;
@@ -59,7 +56,7 @@ div.article_img_3 {#position: relative; #top: -50%;}
 	font-weight:bold;
 	color:#999999;
 	text-decoration:underline;
-	margin-top:5px;
+	margin-top:5px;	
 }
 
 a:hover.article_a {
@@ -67,12 +64,9 @@ a:hover.article_a {
 	text-decoration:none;
 }
 
-
-
 .ext-search {
   font-size:1.2em;	
 }
-
 
 .s_button {
 	background: image_url("base/images/search_60.png") no-repeat scroll 0 0 transparent;
@@ -83,15 +77,12 @@ a:hover.article_a {
   position:absolute;
 }
 
-
-
 .text_center {
 	width:100%;
 	height:70px;
 	margin-top:15px;
 	margin-bottom:15px;	
 }
-
 
 
 /* Для файла с выводом одной картинки */
@@ -503,8 +494,6 @@ ul {
 
 label[for="eq"] { font-size: 0.9em; color:#999;padding-top:5px;margin-top:5px}
 
- 
-
 .b-supplier-info, .b-supplier-terms {
   line-height:1.4;
 }
@@ -512,11 +501,7 @@ label[for="eq"] { font-size: 0.9em; color:#999;padding-top:5px;margin-top:5px}
 .b-supplier-terms  img{ padding-bottom:5px;}
 h2.c_b {color:#666;}
 
-input[type="submit"], input[type="button"], .r_button {
-  color:#e8eef4;
-  border: 1px solid #773841;
-  background: #a91e4c;
-  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#cc6666), to(#a91e4c));
+@mixin red_gradient {
   background: -webkit-linear-gradient(#cc6666, #a91e4c);
   background: -moz-linear-gradient(#cc6666, #a91e4c);
   background: -ms-linear-gradient(#cc6666, #a91e4c);
@@ -525,15 +510,25 @@ input[type="submit"], input[type="button"], .r_button {
   -pie-background: linear-gradient(#cc6666, #a91e4c);
 }
 
-
-input[type="submit"]:hover, input[type="button"]:hover, .r_button:hover { 
-  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#cc6666), to(#BD4656));
+@mixin red_gradient_hover {
   background: -webkit-linear-gradient(#cc6666, #BD4656);
   background: -moz-linear-gradient(#cc6666, #BD4656);
   background: -ms-linear-gradient(#cc6666, #BD4656);
   background: -o-linear-gradient(#cc6666, #BD4656);
   background: linear-gradient(#cc6666, #BD4656);
   -pie-background: linear-gradient(#cc6666, #BD4656);
+} 
+ 
+input[type="submit"], input[type="button"], .r_button {
+  color:#e8eef4;
+  border: 1px solid #773841;
+  background: #a91e4c;
+  @include red_gradient;
+}
+
+
+input[type="submit"]:hover, input[type="button"]:hover, .r_button:hover { 
+  @include red_gradient_hover;
 }
 
 .ui-dialog .ui-dialog-content {
@@ -567,19 +562,12 @@ input[type="submit"]:hover, input[type="button"]:hover, .r_button:hover {
   -moz-border-radius: 4px;
   border-radius: 4px;
   background: #a91e4c;
-  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#cc6666), to(#a91e4c));
-  background: -webkit-linear-gradient(#cc6666, #a91e4c);
-  background: -moz-linear-gradient(#cc6666, #a91e4c);
-  background: -ms-linear-gradient(#cc6666, #a91e4c);
-  background: -o-linear-gradient(#cc6666, #a91e4c);
-  background: linear-gradient(#cc6666, #a91e4c);
-  -pie-background: linear-gradient(#cc6666, #a91e4c);
+  @include red_gradient;
 }
 
 .ui-dialog .ui-dialog-buttonpane button:hover {
   border: 1px solid #45682a;
   background: #689f3d;
-  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#a2db5a), to(#689f3d));
   background: -webkit-linear-gradient(#a2db5a, #689f3d);
   background: -moz-linear-gradient(#a2db5a, #689f3d);
   background: -ms-linear-gradient(#a2db5a, #689f3d);
@@ -591,35 +579,41 @@ input[type="submit"]:hover, input[type="button"]:hover, .r_button:hover {
 
 .b-who_are_you {
   width:350px;
+  p { padding:5px 10px; }
  }
  
- .b-who_are_you p {
-  padding:5px 10px;
- }
- 
- .b-who_are_you-next {margin-top:10px;}
+.b-who_are_you-next {margin-top:10px;}
   
-
-
 .gift_banner_bg {
   border:#5F8E38 1px solid;
   margin:10px 0;
   padding:5px;
   background:#84c54b;
   text-align:center;
+  a {
+    color:#fff;
+    text-decoration:none;
+    text-align:center;  
+  }
 }
-.gift_banner_bg a{
-  color:#fff;
-  text-decoration:none;
-  text-align:center;
-}
+
 .content .gift_baner p {
   color:#fff;
   text-align:center;
-  
   font-weight:bold;
   line-height:1.5;
 } 
 
 .redirection
 { margin-bottom:5px;}
+
+.b-product-store-units {
+table { width:100%; background:#f2f2f2; border-collapse: collapse; border:1px solid #ccc; margin:10px 0;
+   th {width:25%; color:#999999; font-weight:normal; font-size:9pt; height:50px; background:#f2f2f2; text-align:center;}
+   td {text-align:center; height:60px; background:#ccc; font-size:10pt;
+   &.stock {background:#99cccc;}
+   &.delivery, &.info {width:100%; text-align:left; background:#f2f2f2; height:15px; color:#999999; padding-left:3px;}
+   &.info {font-style:italic; font-size:8pt;}
+   }
+}
+}

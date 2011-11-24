@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111109043101) do
+ActiveRecord::Schema.define(:version => 20111123094750) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20111109043101) do
     t.integer  "go_cnt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   :default => 1
+    t.integer  "position",   :default => 0
     t.integer  "site",       :default => 0
     t.text     "pages"
   end
@@ -70,6 +70,14 @@ ActiveRecord::Schema.define(:version => 20111109043101) do
 
   add_index "categories", ["permalink"], :name => "index_categories_on_permalink", :unique => true
 
+  create_table "client_owners", :force => true do |t|
+    t.integer  "client_id"
+    t.integer  "user_id"
+    t.boolean  "active",     :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "commercial_offer_items", :force => true do |t|
     t.integer "commercial_offer_id"
     t.integer "quantity"
@@ -85,6 +93,26 @@ ActiveRecord::Schema.define(:version => 20111109043101) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "lk_firm_id"
+  end
+
+  create_table "contact_types", :force => true do |t|
+    t.string "name", :null => false
+  end
+
+  create_table "contacts", :force => true do |t|
+    t.integer  "firm_id",         :null => false
+    t.datetime "current_date",    :null => false
+    t.integer  "contact_type_id", :null => false
+    t.integer  "event_id",        :null => false
+    t.integer  "person_id"
+    t.string   "person_name"
+    t.string   "phone"
+    t.datetime "next_date"
+    t.text     "comment"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "content_categories", :force => true do |t|
@@ -145,6 +173,11 @@ ActiveRecord::Schema.define(:version => 20111109043101) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "events", :force => true do |t|
+    t.string  "name",   :null => false
+    t.integer "status"
+  end
+
   create_table "firms", :force => true do |t|
     t.string   "name"
     t.string   "short_name"
@@ -167,6 +200,7 @@ ActiveRecord::Schema.define(:version => 20111109043101) do
     t.string   "phone2"
     t.string   "phone3"
     t.string   "email2"
+    t.integer  "state_id",                    :default => 1
   end
 
   add_index "firms", ["city"], :name => "index_firms_on_city"
@@ -284,6 +318,40 @@ ActiveRecord::Schema.define(:version => 20111109043101) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "people", :force => true do |t|
+    t.integer  "firm_id",    :null => false
+    t.integer  "user_id"
+    t.string   "fio"
+    t.string   "appoint"
+    t.string   "phone"
+    t.string   "phone2"
+    t.string   "phone3"
+    t.string   "email"
+    t.string   "email2"
+    t.text     "comment"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "persons", :force => true do |t|
+    t.integer  "firm_id",    :null => false
+    t.integer  "user_id"
+    t.string   "fio"
+    t.string   "appoint"
+    t.string   "phone"
+    t.string   "phone2"
+    t.string   "phone3"
+    t.string   "email"
+    t.string   "email2"
+    t.text     "comment"
     t.integer  "created_by"
     t.integer  "updated_by"
     t.datetime "created_at"
@@ -411,10 +479,11 @@ ActiveRecord::Schema.define(:version => 20111109043101) do
     t.integer  "count",      :default => 0
     t.datetime "updated_at"
     t.integer  "option",     :default => 1
+    t.datetime "created_at"
   end
 
   add_index "store_units", ["product_id"], :name => "index_store_units_on_product_id"
-  add_index "store_units", ["store_id", "product_id"], :name => "index_store_units_on_store_id_and_product_id", :unique => true
+  add_index "store_units", ["store_id", "product_id", "option"], :name => "index_store_units_on_store_id_and_product_id_and_option", :unique => true
   add_index "store_units", ["store_id"], :name => "index_store_units_on_store_id"
 
   create_table "stores", :force => true do |t|

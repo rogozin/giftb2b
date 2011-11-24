@@ -36,11 +36,27 @@ module ProductsHelper
       end
     end
     
-    def store_count store_unit_item
-      store_unit_item.option == 0 ? "по запросу" : "#{store_unit_item.count} шт."
+    
+    def units_count store_units, opt
+      opts = opt ==1 ? [-1,0,1] : [opt]      
+      opt_units = store_units.select{|x| opts.include?(x.option)}
+      opt_units.present? ? store_count_value(opt_units.first) : ""
+    end
+    
+    def store_count_value store_unit_item
+      case store_unit_item.option
+        when -1
+           (store_unit_item.count>0 ? store_unit_item.count : "Под заказ")
+        when 0
+          "По запросу"
+        when 1
+          store_unit_item.count  
+        else  
+          store_unit_item.count > 0 ? store_unit_item.count : ""
+      end
     end
     
     def total_store_count product
-       product.cached_store_units.present? && product.cached_store_units.count{ |x| x.option !=0 } > 0 ? "#{product.store_count} шт." : "по запросу"                     
+       product.store_count > 0 ? product.store_count.to_s + " шт." : (product.cached_store_units.count{|x| x.option == -1} > 0 ? "под заказ" : "по запросу")
     end
 end

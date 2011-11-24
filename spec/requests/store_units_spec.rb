@@ -16,12 +16,14 @@ describe 'Информация о наличии на складе' do
   context "незарегистрированный пользователь" do          
     it 'не видит кол-во на складе в списке товаров' do
       visit category_path(@product.categories.first)
-      page.should have_no_content "Наличие на складе"
+      page.should have_no_content "Кол-во на складе"
     end
     
     it 'видит общее кол-во в карточке товара' do
-      visit product_path(@product)
-      page.should have_content "Наличие на складе: 15"
+      visit "/products/#{@product.permalink}"
+      within "#product_#{@product.id}" do
+        page.should have_content "Наличие на складе: 15"
+      end
     end        
   end
   
@@ -31,17 +33,20 @@ describe 'Информация о наличии на складе' do
     end
     it 'не видит кол-во на складе в списке товаров' do
       visit category_path(@product.categories.first)
-      page.should have_no_content "Наличие на складе"
+       page.should have_no_content "Кол-во на складе"
     end
     
     it 'видит общее кол-во в карточке товара' do
-      visit product_path(@product)
-      page.should have_content "Наличие на складе: 15"
+      visit "/products/#{@product.permalink}"
+      within "#product_#{@product.id}" do
+        page.should have_content "Наличие на складе: 15"
+      end
     end    
   end
   
   context 'менеджер фирмы' do
     before(:each) do
+      ActionMailer::Base.default_url_options = { :host => "giftpoisk.ru" }
       login_as(:firm_manager)
     end
     it 'видит суммарное кол-во на складе в списке товаров' do
@@ -50,17 +55,14 @@ describe 'Информация о наличии на складе' do
     end
     
     it 'видит общее кол-во в карточке товара' do
-      visit product_path(@product)
-      within "#product_#{@product.id}" do
-        page.should have_selector(".b-product-store-units", :count => 3)
+      visit "/products/#{@product.permalink}"
+      within ".b-product-store-units" do
+        page.should have_selector("table", :count => 3)
         page.should have_content @store1.location
         page.should have_content @store2.location
         page.should have_content @store2.delivery_time
         save_and_open_page
-        page.should have_content "по запросу"        
-        within first(".b-product-store-units") do
-          page.should have_no_content "Срок поставки"
-        end
+        page.should have_content "По запросу"        
       end
     end    
   end  

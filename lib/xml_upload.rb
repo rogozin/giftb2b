@@ -64,16 +64,7 @@ module XmlUpload
   
   def process_stream(io)
     Category.disable_cache
-    @log_categories = 0
-    @log_manufacors = 0
-    @log_suppliers = 0
-    @log_new_products = 0
-    @log_upd_products = 0
     @log_current = 0
-    @log_download_images =0
-    @log_total_images = 0
-    @log_new_properties = 0
-    @log_new_property_values = 0
     @log_errors=[]     
     reader = Nokogiri::XML(io)
     @log_total  = reader.root.xpath('//item').size
@@ -107,7 +98,6 @@ module XmlUpload
     io = open(URI.parse(url))
     def io.original_filename; base_uri.path.split('/').last; end
     io.original_filename.blank? ? nil : io
-    @log_download_images +=1 if io
     io
   end
 
@@ -135,7 +125,6 @@ module XmlUpload
     return -1 unless node or node.content
     puts "=======import_product  #{node.content}"
     p=Product.find_or_initialize_by_supplier_id_and_article(supplier, node.content)  if node and supplier>0
-    p.new_record? ? @log_new_products +=1 : @log_upd_products +=1
     p.category_ids= categories if categories.present?
     p.manufactor_id= manufactor if manufactor.present?
     inverted_fields = XmlSettings.fields_hash.invert
@@ -167,7 +156,6 @@ module XmlUpload
   def find_property(product, name, type=0)
     p=Property.find_or_initialize_by_name_and_property_type(name,type)
     if p.new_record?    
-      @log_new_properties += 1 
       p.save
     else
       #TODO - возможно вместо массива всех значений свойств нужно удалять только те, которые реально есть у товара.
@@ -179,9 +167,8 @@ module XmlUpload
   
   def find_property_value(product,property,text_value)
     pv = property.property_values.find_or_initialize_by_value(text_value)
-    @log_new_property_values += 1 if pv.new_record?
     pv.save
-    product.property_values<< pv if @reset_properties || product.property_values.include?(pv) == false 
+    product.property_values<< pv if @reset_properties || product.property_values.exclude?(pv) 
     rescue => error
       @log_errors<< "find_property_error: #{error}"
   end
@@ -195,11 +182,7 @@ module XmlUpload
         store_count =  store_unit.children.find{|i| i.name== "count"}.content 
         option =  store_unit.children.find{|i| i.name== "option"}.content 
         store = Store.find_or_create_by_name_and_supplier_id(store_name, product.supplier_id)
-        if product.store_units.where(:store_id => store.id).present?
-          product.store_units.find_by_store_id(store.id).update_attributes({:count => store_count, :option => option} )
-        else
-          product.store_units.create(:store => store, :count => store_count, :option => option)
-        end
+        product.store_units.create(:store => store, :count => store_count, :option => option)
       end
     end
   end
@@ -210,15 +193,19 @@ module XmlUpload
     for node in image_nodes.children do
       if node.element?
        # TODO: В дальнейшем нужно использовать URI.parse, URI.absolute?, URI.relative?
-       url =  node.content.index('http://') ? node.content : "http://#{ActionMailer::Base.default_url_options[:host]}#{ node.content }"
-       @log_total_images +=1 if upload_image(product, url)
+       if node.content.start_with?("file://")
+        #read_file(product,node.content.gsub("file://", ""))
+       else
+        url =  node.content.start_with?('http://') ? node.content : "http://#{ActionMailer::Base.default_url_options[:host]}#{ node.content }"
+        upload_image(product, url)
       end
+     end
     end  
     end
     rescue => error
       @log_errors<< "process_image_nodes_error: #{error}"     
   end
-  
+    
   def upload_image(product, url)
     filename = url.split('/').last 
     need_touch  = false
@@ -243,74 +230,39 @@ module XmlUpload
       cat_kind =  categories_chain.first.to_i
       categories_chain.delete_at(0)
     end
-    #@categories ||= Category.all
-     categories_chain.each_with_index do |cat_name,index|
-        if index == 0
-          cat = Category.find_by_name_and_kind_and_parent_id(cat_name,cat_kind,nil)
-        else
-          cat = Category.find_by_name_and_kind_and_parent_id(cat_name,cat_kind,prior_cat.id)
-        end
-        #cat = @categories.find{ |i| i.name==cat_name and i.kind==cat_kind and (index==0 ? i.parent_id ==nil : i.parent_id==prior_cat.id )  }
-        if cat.blank?
-         cat= (index==0 ?  Category.create({:name=>cat_name, :kind=>cat_kind}) : Category.create({:name=>cat_name, :kind=>cat_kind, :parent_id => prior_cat.id}))            
-         #@categories<< cat  
-         @log_categories +=1
-        end
-        prior_cat = cat
-     end
-     prior_cat.id
-     rescue => error
+    categories_chain.each_with_index do |cat_name,index|
+      if index == 0
+        cat = Category.find_by_name_and_kind_and_parent_id(cat_name,cat_kind,nil)
+      else
+        cat = Category.find_by_name_and_kind_and_parent_id(cat_name,cat_kind,prior_cat.id)
+      end
+      if cat.blank?
+        cat= (index==0 ?  Category.create({:name=>cat_name, :kind=>cat_kind}) : Category.create({:name=>cat_name, :kind=>cat_kind, :parent_id => prior_cat.id}))
+      end
+      prior_cat = cat
+    end
+      prior_cat.id
+    rescue => error
       @log_errors << "processing_categories_chain_error: #{error}"
   end
   
   def processing_manufactor(manufactor_name)
     return -1 if manufactor_name.blank?
-    #item = @manufactors.find{|i| i.name==manufactor_name }
-    item = Manufactor.find_or_initialize_by_name(manufactor_name)
-    if item.new_record?
-      @log_manufacors +=1
-      item.save
-    end
+    item = Manufactor.find_or_initialize_by_name(manufactor_name)    
+    item.save if item.new_record?
     item.id
   end
   
   def processing_supplier(supplier_name="")
     return -1 if supplier_name.blank?
-    #@suppliers ||= Supplier.all  
-    #item = @suppliers.find{|i| i.name==supplier_name }
     item = Supplier.find_or_initialize_by_name(supplier_name)
-    if item.new_record?
-      @log_suppliers +=1
-      item.save
-    end
+    item.save if item.new_record?
     item.id
   end
  
- def prepare_log_data
-    html=""
-    html += "<hr />"    
-    html += "<h2>Результаты обработки XML-файла:</h2>"
-    html += "Всего обработано элементов : #{ @log_total_xml_items } <br />"
-    html += "Добавлено новых товаров: #{@log_new_products } <br />"
-    html += "Обновлено товаров: #{@log_upd_products } <br />"
-    html += "Добавлено новых категорий: #{@log_categories } <br />"
-    html += "Добавлено новых производителей: #{@log_manufacors } <br />"
-    html += "Добавлено новых поставщиков: #{@log_suppliers } <br />"
-    html += "Загружено новых изображений: #{@log_download_images } <br />"
-    html += "Всего обработано ссылок на изображения: #{@log_total_images } <br />"
-    html += "Создано новых свойств: #{@log_new_properties } <br />"
-    html += "Создано новых значений для свойств: #{@log_new_property_values} <br />"
-    html += "Затрачено времени на обработку, мс: #{@log_exec_time.to_i } <br />"    
-    html += "<hr />"
-    html += "Ошибки: #{@log_errors.join(', ')}" unless @log_errors.blank?
-    return html
-  end
   
   def calc_progress
-    puts "==========update attr, #{@log_current}"    
-    #@bw.update_attribute :current_item, @log_current
-    bw= BackgroundWorker.find(@bw.id)
-    bw.update_attribute :current_item, @log_current
+    @bw.update_attribute :current_item, @log_current
   end
   
  end

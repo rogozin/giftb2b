@@ -172,7 +172,7 @@ class Product < ActiveRecord::Base
   end 
    
   def store_count
-    cached_store_units.sum{|x| x.option != 0 && x.count && x.count.integer? ? x.count : 0}     
+    cached_store_units.sum{|x| [-1,1].include?(x.option) && x.count && x.count.integer? ? x.count : 0}     
   end
    
   def pictures 

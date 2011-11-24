@@ -1,5 +1,6 @@
 #encoding: utf-8;
 require 'spec_helper'
+require 'support/truncation_cleaner'
 
 describe XmlUpload do
   context "Spec xml upload func" do
