@@ -108,7 +108,7 @@ def new
   
   private 
   def notify_admins(user)
-   User.joins(:role_objects).where("active = 1 and (roles.name='Администратор' or roles.name='Менеджер продаж')").each do |admin|
+   User.joins(:role_objects).where("active = 1 and (roles.name='Администратор' or roles.name='Главный менеджер')").each do |admin|
      Auth::AdminMailer.new_user_registered(user, admin).deliver
    end
  end  
