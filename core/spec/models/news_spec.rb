@@ -22,10 +22,10 @@ describe News do
     
     News.cached_latest_news.should have(5).records    
     News.last.update_attribute :state_id, 2
-    Rails.cache.fetch("latest_news").should be_nil
+    Rails.cache.fetch("site/#{Settings.site_id}/latest_news").should be_nil
     
     News.cached_latest_news.should have(5).records
     News.last.destroy
-    Rails.cache.fetch("latest_news").should be_nil
+    Rails.cache.fetch("site/#{Settings.site_id}/latest_news").should be_nil
   end
 end

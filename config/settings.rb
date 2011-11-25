@@ -11,5 +11,10 @@ module Settings
     def site_name
       "giftb2b.ru"
     end    
+    
+    def site_id
+      0
+    end    
+    
   end
 end
