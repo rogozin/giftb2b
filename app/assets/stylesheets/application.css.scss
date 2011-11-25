@@ -5,8 +5,8 @@
    
  *= require base/reset
  *require_tree .
- *= require base/jquery.treeview
- *= require base/jquery-ui
+ *= require jquery.treeview
+ *= require jquery-ui
  *= require smoothDivScroll
  *= require base/layout
  *= require base/base
@@ -175,42 +175,6 @@ padding-bottom: 0.8em;}
   font-size:13pt
 }
 
-
-.cat-name {
-  position:relative;
-	margin:0;
-	padding:0;
-	text-align:center;
-	background:#c36;
-	height:38px;
-	color:white;
-	font-size:11pt;
-	font-weight:bold;
-	margin-bottom:40px;
-}
-.cat-name p{ 
-  position:relative;
-	margin:0px;
-	padding-top:9px;
-}
-.b-down, .b-up  {
-	position:absolute;
-	z-index:10;
-	background: image-url("images/button_down.png") top center;
-	width:64px;
-	height:22px;
-	top:38px;
-	left:98px;
-}
-
-.b-up  {
-	position:absolute;
-	z-index:10;
-	background: image-url("images/button_up.png") top center;
-}
-
-
-#lk {margin-left:10px;}
 
 .b-n-header {
   margin:10px 0;
