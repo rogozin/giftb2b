@@ -4,12 +4,13 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
    
  *= require base/reset
- *require_tree .
+ * require_tree .
  *= require jquery.treeview
  *= require jquery-ui
  *= require smoothDivScroll
  *= require base/layout
  *= require base/base
+ *= require news
  *= require_self
  
 */
@@ -175,150 +176,6 @@ padding-bottom: 0.8em;}
   font-size:13pt
 }
 
-
-.b-n-header {
-  margin:10px 0;
-	min-height:113px;
-	background: image-url("images/bg_block_repeat.png") top repeat-y;
-	position:relative;
-}
-
-
-.b-b-block {
-	background: image-url("images/bg_block.png") bottom center no-repeat;
-	position:relative;
-	border:1px solid #fff;
-	margin:auto;
-	min-height:113px;
-}
-
-.b-t-block {
-	border-left:2px dashed #333;	
-	margin-left:18px;
-	margin-top:10px;
-	margin-bottom:10px;
-	h3 {	
-	  color:#c36;
-  	font-size:12pt;
-	  margin-bottom:5px;
-	  margin-left:10px;
-  }
-  p {
-    padding:0;
-    margin:0;
-    margin-left: 10px;
-    a { font-size:9.5pt; font-weight:normal; }
-  }  
-}
-
-$c_light_green: #82D269;
-
-.latest-news {margin-left:-17px;
-padding-left:8px;}
-.b-news-item { 
-  p {padding: 0px 18px 5px 0;}
-  a.menu_left {font-weight:normal; text-decoration:underline; font-size:9pt;}
-  padding: 5px 0;
-}
-.b-news-date { color:#999; font-size: 8pt; font-weight:bold;}
-p.b-all-news  {
-  margin-top:10px;
-  a {font-weight:bold; font-style:italic; color:#c36; font-size: 8pt;}
-  a.green-link { color:$c_light_green;}
-}
-
-
-$c_light_gray: #EFEFEF;
-$c_light_blue: #177E99;
-
-
-
-.b-news-index {
-  .b-news-info {
-    color:$c_light_green; 
-    margin-bottom:5px;
-    span { float:right; font-weight:bold}      
-  }
-  a {color:$c_light_blue}
-  
-}
-
-@mixin grey-border {
-  border:1px solid $c_light_gray;
-}  
-.b-news{
-  
-  .header {
-    height:45px;
-    background-color:$c_light_gray;
-    padding:5px 5px 0px 5px;
-	margin-bottom:5px;
-    h1 {float:left; margin-top:20px; margin-left:12px;}
-      .b-news-date {
-        margin-top:25px;
-		margin-right:12px;		
-        float:right;     
-        font-weight:bold;
-      }
-  }
-  #news_content {margin:0;padding:0;}
-  .news-content  {
-	@include grey-border;
-    #line { margin-bottom:25px; border:0px; height:1px; background-color:$c_light_gray;}
-    padding:15px;
-	margin:0px;
-    #news_picture {
-      float:left;
-      margin-right:20px;
-      @include grey-border;
-      padding:10px;    
-    }
-    h2 { padding:5px; margin-top:0; }
-    p { padding-bottom:5px; font-size:10pt; color:#666; text-align:justify; margin-left:10px; line-height:1.4;}
-  }
-  .b-all-news {
-	  margin-top:20px;
-	  margin-left:10px;
-      float:left;
-      a {color: #666;}
-   }
-   #news_owner {
-	  margin-top:20px;
-      float:right;
-      color: #c36;
-     }
-  .footer {
-    font-weight:bold;
-    margin-bottom:10px;
-    padding:0 5px;
-    .b-all-news { 
-      float:left;
-      a {color:#c36;}
-      }
-    #news_owner {
-      float:right;
-      color: $c_light_green;
-     }
-   }
-}
-
-.b-news-index {
-  padding:10px; 
-  @include grey-border;
-  div.title { color:#666;
-	font-size: 8pt; margin:5px 0 15px 5px;
-   span {font-weight:bold; color:#c36;font-size: 9pt;}
-   }
-  div.link { margin:5px 0 5px 5px;}
-}
-
-span.red-square {
-  display:inline-block;
-  height:8px;
-  width:8px;
-  background-color:#C36;
-  margin:0 5px 0px;
-}
 
 #left_content, #right_content {padding-bottom:140px}
 
