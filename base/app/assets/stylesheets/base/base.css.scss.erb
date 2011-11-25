@@ -372,9 +372,30 @@ padding: 5px 0;
   line-height:1.2;
 }  
 
+@mixin ui-icon   { width: 16px; height: 16px; background-image: url("/assets/images/ui-icons_222222_256x240.png"); }
+@mixin ui-icon-circle-triangle-n { background-position: -96px -192px; }
+@mixin ui-icon-circle-triangle-s { background-position: -64px -192px; }
+
 .b-ext-search-inner {
   padding:5px;
   clear: both;
+  .header {float:left;}
+  .collapse {float:right;
+   margin-top:5px;
+  a.up-down {
+    width:1.8em; height:1.8em;
+    }
+  span.up, span.down {display:block;}
+  span.up { 
+        @include ui-icon;
+        @include ui-icon-circle-triangle-n;   
+      }
+  span.down {
+        @include ui-icon;
+        @include ui-icon-circle-triangle-s;   
+      }    
+  }
+  .collapsible-content {clear:both;}
 }
 
 .b-ext-search .even {

@@ -32,14 +32,21 @@
      <div class="clear"></div>
   </div>
   <div class="b-ext-search-inner even">
-    <h3>Поставщик</h3>
-    <ul class="supplier-items">
-    <% @suppliers.each do |item| -%>
-      <li>
-      <%= check_box_tag "supplier_ids[]", item.id, params[:supplier_ids] && params[:supplier_ids].include?(item.id.to_s), :id => dom_id(item) %> <%= label_tag dom_id(item), item.name %>
-      </li>
-    <% end -%>
-    </ul>
+    <div class="header">
+      <h3>Поставщик</h3> 
+    </div>
+    <div class="collapse">   
+      <a href="" class="up-down"><span class="down"></span></a>
+    </div>
+    <div class="collapsible-content g-hidden">
+      <ul class="supplier-items">
+      <% @suppliers.each do |item| -%>
+        <li>
+        <%= check_box_tag "supplier_ids[]", item.id, params[:supplier_ids] && params[:supplier_ids].include?(item.id.to_s), :id => dom_id(item) %> <%= label_tag dom_id(item), item.name %>
+        </li>
+      <% end -%>
+      </ul>
+    </div>
     <div class="clear"></div> 
   </div>
 
@@ -77,8 +84,15 @@
   <% end -%>
   <% if ext_user? || giftpoisk? -%>
   <div class="b-ext-search-inner">
-    <h3>Материал</h3>
-    <%= prop_values_tree(@material, params[prop_name(@material)].present? ? params[prop_name(@material)] : [] , {:class => "material-items", :grouped => true}) %>
+   <div class="header">
+      <h3>Материал</h3>
+    </div>
+    <div class="collapse">
+      <a href="" class="up-down"><span class="down"></span></a>
+    </div>
+    <div class="collapsible-content g-hidden">
+      <%= prop_values_tree(@material, params[prop_name(@material)].present? ? params[prop_name(@material)] : [] , {:class => "material-items", :grouped => true}) %>
+    </div>
     <div class="clear"></div>
   </div>
 <% end -%> 
@@ -139,16 +153,40 @@
 
   </div> -->
   <div class="b-ext-search-inner even">
-    <h3>Категория каталога</h3>
+     <div class="header">
+      <h3>Категория каталога</h3>
+    </div>
+    <div class="collapse">
+      <a href="" class="up-down"><span class="down"></span></a>
+    </div>
+    <div class="collapsible-content g-hidden">
    <%= categories_columns(@categories, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], 3,   {:field_name => "category_ids", :class => "column-items", :select_children => true, :sort_parents => true} ) %>
+    </div>
+    <div class="clear"></div>
   </div>
-  <div class="b-ext-search-inner">
-    <h3>Категория тематических сувениров</h3>
-   <%= categories_columns(@thematic, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], 3,   {:field_name => "category_ids", :class => "column-items", :select_children => true, :sort_parents => true} ) %>
+    <div class="b-ext-search-inner">
+       <div class="header">
+      <h3>Категория тематических сувениров</h3>
+    </div>
+    <div class="collapse">
+      <a href="" class="up-down"><span class="down"></span></a>
+    </div>
+    <div class="collapsible-content g-hidden">
+     <%= categories_columns(@thematic, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], 3,   {:field_name => "category_ids", :class => "column-items", :select_children => true, :sort_parents => true} ) %>
+   </div>
+   <div class="clear"></div>
   </div>  
   <div class="b-ext-search-inner even">
-    <h3>Категория праздника</h3>
-   <%= categories_columns(@analogs, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], 3,   {:field_name => "category_ids", :class => "column-items", :select_children => true, :sort_parents => true} ) %>
+     <div class="header">
+      <h3>Категория праздника</h3>
+    </div>
+    <div class="collapse">
+      <a href="" class="up-down"><span class="down"></span></a>
+    </div>
+    <div class="collapsible-content g-hidden">
+     <%= categories_columns(@analogs, params[:category_ids].present? ?  params[:category_ids].map(&:to_i) : [], 3,   {:field_name => "category_ids", :class => "column-items", :select_children => true, :sort_parents => true} ) %>
+    </div>
+   <div class="clear"></div>
   </div>    
 <% end -%>
 </div>

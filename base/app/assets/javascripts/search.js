@@ -11,6 +11,15 @@ function removeColor(selector) {
 }
 
 $(function() {
+    $('div.collapse a.up-down').toggle(function() {
+      $(this).children('span').removeClass('down').addClass('up');
+      $(this).parent().parent().find('.collapsible-content').toggle();
+      return false;
+    }, function() {
+      $(this).children('span').removeClass('up').addClass('down');
+      $(this).parent().parent().find('.collapsible-content').toggle();
+      return false;
+    });
     cp_id  = $('#color_ids').attr('title');
     $('#ext_search .color-box').click(function() { 
         if ($(this).hasClass('shadow')) 
@@ -27,10 +36,4 @@ $(function() {
        $(this).parentsUntil('#search_properties').find('a').removeClass('has-selected-items');
      }     
     });               
-// $('a.toggle-category').click(function(){
-//    console.log($(this).next());
-//   $(this).next().toggle();
-//   
-//   return false;
-//  });      
 });
