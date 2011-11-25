@@ -23,8 +23,8 @@ def new
       if params[:i_am] == "1"
         @firm = Firm.new(:name => @user.company_name, :city => @user.city, :url => @user.url, :phone => @user.phone, :email => @user.email, :state_id => 3)        
         unless @firm.valid?
-          if @firm.errors[:name].present? 
-            new_name = @firm.name + "_1"
+          if @firm.errors[:name].present? || @firm.errors[:permalink].present? 
+            new_name = @firm.name + "-1"
             while Firm.exists?(:name => new_name)
               new_name.succ!
             end 

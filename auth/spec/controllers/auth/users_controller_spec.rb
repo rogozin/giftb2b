@@ -20,16 +20,22 @@ describe Auth::UsersController do
        assigns(:firm).phone.should eq assigns(:user).phone
        assigns(:firm).email.should eq assigns(:user).email
        assigns(:user).expire_date.should eq Date.today.next_day(5)
-      response.should be_success
+       response.should be_success
     end
     
   
     it "когда фирма уже есть" do
       firm = Factory(:firm, :name => valid_attributes[:user][:company_name])
       post :create, valid_attributes       
-      assigns(:firm).name.should eq valid_attributes[:user][:company_name] + "_1"
+      assigns(:firm).name.should eq valid_attributes[:user][:company_name] + "-1"
       assigns(:firm).users.should eq [assigns(:user)]
       assigns(:user).company_name.should eq valid_attributes[:user][:company_name] + " (дубликат)"
+    end
+    
+    it "когда пермалинк уже есть" do
+      firm = Factory(:firm, :name => "Крутая фирма", :permalink => "roga-i-roga")
+      post :create, valid_attributes       
+      assigns(:firm).should be_persisted
     end
   end
 end
