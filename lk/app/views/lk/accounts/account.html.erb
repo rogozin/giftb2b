@@ -1,0 +1,13 @@
+<% title "Информация для входа" -%>
+
+<p class="text">
+Важно! Запомните информацию, приведенную ниже: <br />
+<em>Имя пользователя:</em> <strong><%= @account.username %></strong> <br />
+<em>Пароль:</em> <strong><%= @password %></strong> <br />
+</p>
+
+
+<p class="navi">
+  <%= link_to '<< К списку пользователей', accounts_path %>
+</p>
+

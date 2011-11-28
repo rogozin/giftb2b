@@ -19,14 +19,14 @@ class Lk::AccountsController < Lk::BaseController
   end
   
   def create
-    @account = User.new(params[:user])
-    @account.active = true
-    @account.city = current_user.firm.city
-    @account.company_name = current_user.firm.name
+    @password = User.friendly_pass  
+    @account = User.new(params[:user].merge(:active => true, :password => @password, :password_confirmation => @password, 
+                        :username => User.next_username(current_user.firm_id),
+                        :city => current_user.firm.city, :company_name => current_user.firm.name ))
     if @account.save
       @account.has_role! "Пользователь фирмы"
       flash[:notice] = "Пользователь успешно создан!"
-      redirect_to accounts_path 
+      render 'account'
     else
       flash[:alert] = "Ошибка при создании пользователя!"
       render 'new'

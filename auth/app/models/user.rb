@@ -66,6 +66,11 @@ class User < ActiveRecord::Base
    end
    
   
+  def self.next_username(firm_id)
+    cnt = User.where("firm_id = :firm_id and username like :username", {:firm_id => firm_id, :username => "f#{firm_id}.%"}).count
+    "f#{firm_id}.#{cnt + 1}"
+  end
+  
   def username_from_email
     username =  email.split("@").first
     username = (username|| "").ljust(3,'abc')

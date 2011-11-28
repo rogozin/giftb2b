@@ -1,10 +1,12 @@
     <%= render :partial => 'shared/error_messages', :locals => {:target => @account} %>
     <%= form.hidden_field :firm_id %>
+    
+    <% unless current_user.is_firm_user? -%>      
     <div class ="b-formfield-div">
       <%= form.label :username %>
       <%= form.text_field :username %>
     </div>
-  
+    <% end -%>  
     <div class ="b-formfield-div">
       <%= form.label :email %>
       <%= form.text_field :email %>

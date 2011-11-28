@@ -8,7 +8,7 @@ describe Auth::UsersController do
   end
   
   describe "POST Create" do
-    it "регистрация" do
+    it "регистрация рекламного агентства" do
        post :create, valid_attributes       
        assigns(:user).should be_persisted
        assigns(:user).should be_a(User)
@@ -18,10 +18,21 @@ describe Auth::UsersController do
        assigns(:firm).city.should eq assigns(:user).city
        assigns(:firm).url.should eq assigns(:user).url
        assigns(:firm).phone.should eq assigns(:user).phone
-       assigns(:firm).email.should eq assigns(:user).email
+       assigns(:firm).email.should eq assigns(:user).email       
        assigns(:user).expire_date.should eq Date.today.next_day(5)
+       assigns(:user).username.should eq "f#{assigns(:firm).id}.1"       
        response.should be_success
     end
+    
+    it "регистрация конечного клиента" do
+       post :create, valid_attributes.merge(:i_am => 0)      
+       assigns(:user).should be_persisted
+       assigns(:user).should be_a(User)
+       assigns(:firm).should be_nil
+       assigns(:user).expire_date.should be_nil
+       assigns(:user).username.should eq "vasya"       
+       response.should be_success
+    end    
     
   
     it "когда фирма уже есть" do
@@ -29,7 +40,6 @@ describe Auth::UsersController do
       post :create, valid_attributes       
       assigns(:firm).name.should eq valid_attributes[:user][:company_name] + "-1"
       assigns(:firm).users.should eq [assigns(:user)]
-      assigns(:user).company_name.should eq valid_attributes[:user][:company_name] + " (дубликат)"
     end
     
     it "когда пермалинк уже есть" do

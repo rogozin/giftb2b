@@ -1,5 +1,8 @@
-<% page_title "Новый пользователь" -%>
-<h1>Новый пользователь</h1>
+<% title "Новый пользователь" -%>
+<p class="text">
+Внимание! Имя и пароль для нового пользователя будут сгенерированы автоматически. Вы их увидите на экране после сохранения изменений.
+</p>
+<div class="spacer"></div>
 <%= form_for  @account, :url => accounts_path, :html => {:class => :one_line_form} do |form| -%>
 <%= render :partial => 'account', :locals => {:form => form} %>
  <% end -%>

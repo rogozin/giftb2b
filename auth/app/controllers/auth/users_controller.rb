@@ -16,31 +16,9 @@ def new
   end
 
   def create    
-    pass = User.friendly_pass
-    @user = User.new(params[:user].merge(:active => true, :password => pass, :password_confirmation => pass))
-    @user.username = @user.username_from_email
-    if @user.save
-      if params[:i_am] == "1"
-        @firm = Firm.new(:name => @user.company_name, :city => @user.city, :url => @user.url, :phone => @user.phone, :email => @user.email, :state_id => 3)        
-        unless @firm.valid?
-          if @firm.errors[:name].present? || @firm.errors[:permalink].present? 
-            new_name = @firm.name + "-1"
-            while Firm.exists?(:name => new_name)
-              new_name.succ!
-            end 
-            @firm.name = new_name    
-            @firm.permalink  = new_name.parameterize
-            @user.company_name += " (дубликат)"
-          end
-        end        
-        @firm.users << @user if @firm.save
-        @user.has_role! "Пользователь фирмы"
-        @user.update_attribute :expire_date,  Date.today.next_day(5)
-      else 
-        @user.has_role! "Пользователь"
-      end
+    params[:i_am] == "1" ?   create_firm_user : create_single_user
+    if @user.persisted?
       UserSession.create @user
-      Auth::AccountMailer.new_account(@user, pass).deliver
       notify_admins(@user)
       render 'thanks'
     else
@@ -78,7 +56,6 @@ def new
     @user = User.find_using_perishable_token(params[:token], 5.hours)
     if @user 
       @user.reset_persistence_token!
-#      @user.reset_perishable_token!
       UserSession.create(@user)
       redirect_to main_app.root_path      
     else
@@ -96,7 +73,7 @@ def new
     return redirect_to recovery_password_path, :alert => "Пользователь с таким именем не найден!" if user.nil? || (user.present? && !user.active)
     pass = User.friendly_pass
     if user.update_attributes(:password => pass, :password_confirmation => pass)
-      user_session  =  UserSession.find
+      user_session = UserSession.find
       user_session.destroy if user_session
       Auth::AccountMailer.recovery_password(user, pass).deliver
       render 'password_changed'
@@ -108,9 +85,45 @@ def new
   
   private 
   def notify_admins(user)
-   User.joins(:role_objects).where("active = 1 and (roles.name='Администратор' or roles.name='Главный менеджер')").each do |admin|
-     Auth::AdminMailer.new_user_registered(user, admin).deliver
-   end
- end  
+    User.joins(:role_objects).where("active = 1 and (roles.name='Администратор' or roles.name='Главный менеджер')").each do |admin|
+      Auth::AdminMailer.new_user_registered(user, admin).deliver
+    end
+  end 
+  
+  def create_firm_user
+    @firm = Firm.new(:name => params[:user][:company_name], :city => params[:user][:city], :url => params[:user][:url], :phone => params[:user][:phone], :email => params[:user][:email], :state_id => 3)        
+    unless @firm.valid?
+      if @firm.errors[:name].present? || @firm.errors[:permalink].present? 
+        new_name = @firm.name + "-1"
+        while Firm.exists?(:name => new_name)
+          new_name.succ!
+        end 
+        @firm.name = new_name    
+        @firm.permalink  = new_name.parameterize
+      end
+    end        
+    if @firm.save
+      pass = User.friendly_pass    
+      @user = User.new(params[:user].merge(:firm_id => @firm.id, :active => true, :password => pass, :password_confirmation => pass, :expire_date =>  Date.today.next_day(5), :username => User.next_username(@firm.id) ))
+      
+      if @user.save
+        @user.has_role! "Пользователь фирмы" 
+        Auth::AccountMailer.new_account(@user, pass).deliver
+      end
+      
+    end
+  end  
+  
+  def create_single_user
+    pass = User.friendly_pass
+    @user = User.new(params[:user].merge(:active => true, :password => pass, :password_confirmation => pass))
+    @user.username = @user.username_from_email
+    
+    if @user.save
+      @user.has_role! "Пользователь" 
+      Auth::AccountMailer.new_account(@user, pass).deliver
+    end
+      
+  end
 
 end

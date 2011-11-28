@@ -1,15 +1,11 @@
     <%= render :partial => 'shared/error_messages', :locals => {:target => @account} %>
-    <%= form.hidden_field :firm_id %>
-    <div class ="b-formfield-div">
-      <%= form.label :username %>
-      <%= form.text_field :username %>
-    </div>
-  
+    <%= form.hidden_field :firm_id %>  
     <div class ="b-formfield-div">
       <%= form.label :email %>
       <%= form.text_field :email %>
     </div>
-    <div class ="b-formfield-div">
+    <% unless @account.new_record? -%>
+     <div class ="b-formfield-div">
       <%= form.label :password %>
       <%= form.password_field :password %>
     </div>    
@@ -17,6 +13,7 @@
       <%= form.label :password_confirmation %>
       <%= form.password_field :password_confirmation %>
     </div>    
+    <% end -%>
     <div class ="b-formfield-div">
       <%= form.label :fio %>
       <%= form.text_field :fio %>
@@ -44,4 +41,3 @@
     <div class ="b-formfield-div">
       <%= form.submit "Сохранить" %>
     </div>
-
