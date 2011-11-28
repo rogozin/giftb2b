@@ -489,7 +489,6 @@ input[type="submit"], input[type="button"], .b_button, .r_button, .g_button {
 .g_button {
   border: 1px solid #45682a;
   background: #689f3d;
-  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#a2db5a), to(#689f3d));
   background: -webkit-linear-gradient(#a2db5a, #689f3d);
   background: -moz-linear-gradient(#a2db5a, #689f3d);
   background: -ms-linear-gradient(#a2db5a, #689f3d);
@@ -504,7 +503,6 @@ div.b-rgb {margin:10px 0;}
 a.r_button, a.b_button, a.g_button {color:#e8eef4; text-decoration:none;}
 
 .g_button:hover { 
-  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#a2db5a), to(#79A93B));
   background: -webkit-linear-gradient(#a2db5a, #79A93B);
   background: -moz-linear-gradient(#a2db5a, #79A93B);
   background: -ms-linear-gradient(#a2db5a, #79A93B);

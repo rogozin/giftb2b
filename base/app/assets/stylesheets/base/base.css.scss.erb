@@ -372,9 +372,30 @@ padding: 5px 0;
   line-height:1.2;
 }  
 
+@mixin ui-icon   { width: 16px; height: 16px; background-image: url("/assets/images/ui-icons_222222_256x240.png"); }
+@mixin ui-icon-circle-triangle-n { background-position: -96px -192px; }
+@mixin ui-icon-circle-triangle-s { background-position: -64px -192px; }
+
 .b-ext-search-inner {
   padding:5px;
   clear: both;
+  .header {float:left;}
+  .collapse {float:right;
+   margin-top:5px;
+  a.up-down {
+    width:1.8em; height:1.8em;
+    }
+  span.up, span.down {display:block;}
+  span.up { 
+        @include ui-icon;
+        @include ui-icon-circle-triangle-n;   
+      }
+  span.down {
+        @include ui-icon;
+        @include ui-icon-circle-triangle-s;   
+      }    
+  }
+  .collapsible-content {clear:both;}
 }
 
 .b-ext-search .even {
@@ -617,3 +638,45 @@ table { width:100%; background:#f2f2f2; border-collapse: collapse; border:1px so
    }
 }
 }
+
+<% if Settings.giftb2b? %>
+$background_color:#c36;
+<% else %>
+$background_color:#3ec2d2;
+<% end %>
+
+.cat-name {
+  position:relative;
+	margin:0;
+	padding:0;
+	text-align:center;
+	background:$background_color;
+	height:38px;
+	color:white;
+	font-size:11pt;
+	font-weight:bold;
+	margin-bottom:40px;
+}
+
+.cat-name p{ 
+  position:relative;
+	margin:0px;
+	padding-top:9px;
+}
+.b-down, .b-up  {
+	position:absolute;
+	z-index:10;
+	background: image-url("images/button_down.png") top center;
+	width:64px;
+	height:22px;
+	top:38px;
+	left:98px;
+}
+
+.b-up  {
+	position:absolute;
+	z-index:10;
+	background: image-url("images/button_up.png") top center;
+}
+
+#lk {margin-left:10px;}

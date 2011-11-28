@@ -17,6 +17,10 @@
     <%= f.select :state_id, options_for_select(@states, @news.state_id) %>
   </div>
   <div class="b-formfield-div">
+    <%= f.label :site, "Сайт" %> <%= link_to '?', "#", :title => "(0-гифт, 1-гифтпоиск)" %>
+    <%= f.number_field :site, :min => 0, :max => 1 %>
+  </div>        
+  <div class="b-formfield-div">
     <%= f.label :picture, 'Картинка' %>
     <%= f.file_field :picture %>     
   </div>  

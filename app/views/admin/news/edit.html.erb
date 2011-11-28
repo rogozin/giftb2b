@@ -5,7 +5,7 @@
 <div class="spacer clear"></div>
 </div>
 <div class="grid_16">
-<%= link_to 'Назад к новостям', admin_news_index_path %> | <%= link_to "Предпросмотр", news_path(@news) %>
+<%= link_to 'Назад к новостям', admin_news_index_path %> | <%= link_to "Предпросмотр", news_url(@news, :host => host_by_site_id(@news.site)) %>
 </div>
 
 

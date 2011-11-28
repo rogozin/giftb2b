@@ -2,7 +2,7 @@
 class Banner < ActiveRecord::Base
   belongs_to :firm
   validates :firm_id, :presence => true
-  scope :active, lambda {|pos|  where(:site => Banner.site_no, :active => true, :position => pos) }
+  scope :active, lambda {|pos|  where(:site => Settings.site_id, :active => true, :position => pos) }
   after_save :clear_cache
   
   def self.types
@@ -10,7 +10,8 @@ class Banner < ActiveRecord::Base
   end
   
   def self.cached_active_banners(position)
-    Rails.cache.fetch("active_banners/#{position}/#{Banner.site_no}") {  active(position).all }    
+    Rails.cache.fetch("site/#{Settings.site_id}/active_banners/#{position}") {  active(position).all }    
+    
   end
   
   def type
@@ -25,12 +26,8 @@ class Banner < ActiveRecord::Base
   
   private 
   
-  def self.site_no
-    ActionMailer::Base.default_url_options[:host] == "giftb2b.ru" ? 0 : 1
-  end
-  
   def del_cache(position, site_no)
-    Rails.cache.delete("active_banners/#{position}/#{site_no}")        
+    Rails.cache.delete("site/#{Settings.site_id}/active_banners/#{position}")        
   end
   
   def clear_cache

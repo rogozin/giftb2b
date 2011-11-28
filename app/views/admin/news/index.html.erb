@@ -9,7 +9,7 @@
 <tr>
   <th></th>
   <th>Фирма</th>
-  <th>Заголовок</th>
+  <th>Заголовок</th>  
   <th>Ссылка</th>
   <th>Состояние</th>
   <th>Создано</th>
@@ -21,7 +21,7 @@
     <td><%= link_to image_tag('edit.png'), edit_admin_news_path(news) %></td>
     <td><%= news.firm.name  if news.firm%></td>    
     <td><%= news.title %></td>
-    <td><%= news.permalink %></td>
+    <td><%= link_to (host_by_site_id(news.site)+ "/" + news.permalink), news_url(news, :host => host_by_site_id(news.site)) %></td>
     <td><%= news.state %></td>    
     <td><%= I18n.l(news.created_at, :format => :short) %></td>
     <td><%= news.created_author.username if news.created_author %></td>

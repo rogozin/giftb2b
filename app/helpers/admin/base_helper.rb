@@ -69,6 +69,11 @@ module Admin::BaseHelper
     raw ret
   end
   
+  
+  def host_by_site_id(site_id)
+    site_id.zero? ? "giftb2b.ru" : "giftpoisk.ru"
+  end
+  
  def tree_select(categories, model, name,options={}, selected=nil, level=0, init=true,child = nil)
     html = ""
     if init

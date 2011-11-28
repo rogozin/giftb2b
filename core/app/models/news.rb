@@ -10,7 +10,7 @@ class News < ActiveRecord::Base
      :path =>":rails_root/public/system/news/:firm_id/:id/:style/:filename",
    :url  => "/system/news/:firm_id/:id/:style/:filename"
   validates_attachment_content_type :picture, :content_type=>['image/jpeg', 'image/png', 'image/gif']   
-  scope :active, where(:state_id => 1).order("created_at desc")
+  scope :active, where(:state_id => 1, :site => Settings.site_id).order("created_at desc")
   scope :latest, active.limit(5)
   before_create :prepare_permalink
   
@@ -30,7 +30,7 @@ class News < ActiveRecord::Base
   end
   
   def self.cached_latest_news
-    Rails.cache.fetch("latest_news"){ News.latest.all }
+    Rails.cache.fetch("site/#{Settings.site_id}/latest_news"){ News.latest.where(:site => Settings.site_id).all }
   end
   
   def state
@@ -40,7 +40,7 @@ class News < ActiveRecord::Base
   private     
   
   def clear_cache
-    Rails.cache.delete("latest_news")
+    Rails.cache.delete("site/#{Settings.site_id}/latest_news")
   end
   
   def prepare_permalink

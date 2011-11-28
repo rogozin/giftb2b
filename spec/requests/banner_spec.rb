@@ -7,14 +7,14 @@ describe 'Показ баннеров' do
   end
   
   it 'я вижу баннер на гифте' do
-    ActionMailer::Base.default_url_options[:host] = "giftb2b.ru" 
+    Settings.stub(:site_id).and_return(0)
     visit '/'
     page.should have_selector("div.banner")
   end
 
 
   it 'я не вижу баннер на гифтпоиске' do
-    ActionMailer::Base.default_url_options[:host] = "giftpoisk.ru" 
+    Settings.stub(:site_id).and_return(1)
     visit '/'
     page.should have_no_selector("div.banner")
   end
