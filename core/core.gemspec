@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.1.3"
-  s.add_dependency "composite_primary_keys", "~> 4.0.0"
+  s.add_dependency "composite_primary_keys", "~> 4.1.1"
   s.add_dependency "paperclip"
   s.add_dependency "russian"
 
