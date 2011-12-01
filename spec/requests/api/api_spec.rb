@@ -74,10 +74,23 @@ describe 'api testing' do
       @product.categories << category
       get "api/products", {:format => :json, :category => cat.id}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       ActiveSupport::JSON.decode(response.body).should have(1).item
-
+      @json_object = ActiveSupport::JSON.decode(response.body).first["product"]
+      @json_object.should_not have_key("colors")
+      @json_object.should_not have_key("properties")
+      @json_object.should_not have_key("similar")
+      @json_object.should have_key("pictures")
       #Этот код не работает, т.к. по разному кодируется time      
       #products = Product.active.all_by_category(Category.tree_childs(Category.cached_active_categories, cat.id))
       #ActiveSupport::JSON.decode(response.body).should eq(products.as_json)
+    end
+    
+    it 'show' do
+      get "api/products/#{@product.permalink}", { :format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+      @json_object = ActiveSupport::JSON.decode(response.body)["product"]
+      @json_object.should have_key("colors")
+      @json_object.should have_key("properties")
+      @json_object.should have_key("similar")
+      @json_object.should have_key("pictures")
     end
     
     it 'если запрашиваем товары несуществующей категории' do
@@ -99,7 +112,7 @@ describe 'api testing' do
     end
 
     it 'если не указана категория, выводятся все товары пользователяt' do
-    @lk_product = Factory(:lk_product, :firm => @firm, :category_ids => [1], :show_on_site => true, :active => true)
+    @lk_product = Factory(:lk_product, :firm => @firm, :category_ids => [@product.categories.first.id], :show_on_site => true, :active => true)
     @lk_product = Factory(:lk_product, :firm => @firm,  :show_on_site => true, :active => true)
     get "api/products/lk", {:format => :json}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       ActiveSupport::JSON.decode(response.body).should have(2).items 

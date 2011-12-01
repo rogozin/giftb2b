@@ -159,8 +159,13 @@ class Product < ActiveRecord::Base
    
    def as_json(options={})
      #store_count is depricated and will be removed after 2012
-     default_options = { :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :store_count, :updated_at], 
-     :methods=>[ "pictures", "similar", "colors","properties", "unique_code", "price_in_rub", "store_items", "categories_id" ] }
+     default_options = if options.delete(:min)
+       { :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :updated_at], 
+       :methods=>[ "pictures", "unique_code", "price_in_rub", "store_count", "categories_id" ] }
+     else
+        { :only => [:id, :short_name, :permalink, :color, :size, :box, :factur, :description, :updated_at], 
+       :methods=>[ "pictures", "similar", "colors","properties", "unique_code", "price_in_rub", "store_count", "categories_id" ] }
+     end
      super options.present? ? options.merge(default_options) : default_options
    end
    

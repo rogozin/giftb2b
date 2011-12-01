@@ -11,7 +11,7 @@ class Api::ProductsController < Api::BaseController
     else
       []
     end
-   respond_with @products
+   respond_with @products, {:min => true}
   end
   
   def lk
