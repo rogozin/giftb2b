@@ -11,7 +11,7 @@ class Api::ProductsController < Api::BaseController
     else
       []
     end
-   respond_with @products, {:min => true}
+   respond_with @products.each{|x| x.as_json({:min => true}) }, {:min => true}
   end
   
   def lk
