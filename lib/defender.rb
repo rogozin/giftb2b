@@ -93,6 +93,7 @@ class Defender < Rack::Throttle::Hourly
     rescue Resolv::ResolvError
       write_log(request, "ResolvError")
       resolv_blacklist << request.ip
+      cache.set("resolv_blacklist", resolv_blacklist)                    
      	list
     end
 
