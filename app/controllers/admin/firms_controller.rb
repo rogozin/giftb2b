@@ -42,7 +42,10 @@ class Admin::FirmsController < Admin::BaseController
   
   def destroy
     @firm = Firm.find(params[:id])
-    flash[:notice] = "Фирма удалена!" if @firm.destroy
+    if @firm.destroy
+      flash[:notice] = "Фирма удалена!" 
+      ActiveRecord::Base.connection.execute "update clients set firm_id = null where firm_id = #{@firm.id}"
+    end
     redirect_to admin_firms_path
   end
   
