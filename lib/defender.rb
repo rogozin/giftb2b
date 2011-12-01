@@ -4,9 +4,9 @@ require 'resolv'
 # we limit daily API usage
 class Defender < Rack::Throttle::Hourly
 
-  IP_WHITELIST = %w(87.236.190.194 66.249.66.161 66.249.71.168 213.180.209.10 95.108.247.252 66.249.66.5 66.249.72.134 66.249.66.22)
+  IP_WHITELIST = %w(87.236.190.194 66.249.66.161 66.249.71.168 213.180.209.10 95.108.247.252 66.249.66.5 66.249.72.134 66.249.66.22)  
   LINKS_WHITELIST = %w(/api/categories.json /api/categories/analogs.json /api/categories/thematics.json)
-
+    
   def initialize(app)
     host, ttl = "127.0.0.1:11211", 3600
     options = {
@@ -82,7 +82,8 @@ class Defender < Rack::Throttle::Hourly
     
     def bots_cache(request)
       list = cache.get("bot_list") || []
-      if list.exclude?(request.ip) 
+      resolv_balcklist = cache.get("resolv_blacklist") || []
+      if resolv_blacklist.exclude?(request.ip) && list.exclude?(request.ip) 
         if Resolv.new.getname(request.ip) =~ /(googlebot.com|yandex.ru|msnbot)/
           list << request.ip
           cache.set("bot_list", list)                    
@@ -91,6 +92,7 @@ class Defender < Rack::Throttle::Hourly
       list
     rescue Resolv::ResolvError
       write_log(request, "ResolvError")
+      resolv_blacklist << request.ip
      	list
     end
 
