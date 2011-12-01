@@ -6,7 +6,6 @@ class Firm < ActiveRecord::Base
   has_one :client, :dependent => :nullify
   validates :name, :presence => true, :uniqueness => true
   validates :email, :email => {:allow_blank => true},  :length => {:maximum => 40, :allow_nil => true}  
-  validates :email2, :email => {:allow_blank => true},  :length => {:maximum => 40, :allow_nil => true}  
   validates :permalink, :presence => true, :uniqueness => true
   validates :phone, :presence => true
   
