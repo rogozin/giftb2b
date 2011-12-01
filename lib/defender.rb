@@ -71,7 +71,7 @@ class Defender < Rack::Throttle::Hourly
     end  
   
     def need_defense?(request) 
-      IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.exclude?(request.fullpath) && request.fullpath =~ /^(\/products|\/categories\/)/
+      IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.exclude?(request.fullpath) && request.fullpath =~ /(\/products|\/categories\/)/
     end
     
     def search_bot?(request)
