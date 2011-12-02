@@ -38,19 +38,6 @@ tr.disabled-row {
   width:100%;
 }
 
-.b-co-description {
-  float:left;
-  width:50%;
-}
-
-.b-co-description textarea { width:95%;}
-
-.b-co-delta {
-  float:left;
-  width:50%
-}
-
-.b-co-delta-inner {padding: 5px 0 5px 25px;}
 
 .margin-left4 {margin-left:40px;}
 .margin-left2 {margin-left:20px;}
@@ -113,17 +100,6 @@ input[type="submit"]:hover, .b_button:hover {
 input[type="submit"], .b_button:active {
   
 }
-
-
-#co_output a.pseudo-link {
-  font-size:0.8em;
-  color:#0080B2;
-}
-
-#co_settings{
-  font-size:0.8em;
-  display:none;
-}  
 
 .treeview li span.selected a {color:#cc3366;}
 

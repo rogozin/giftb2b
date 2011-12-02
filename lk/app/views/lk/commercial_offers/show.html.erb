@@ -44,10 +44,10 @@ $('#co_settings input:checkbox').click(function() {
 <p><%= link_to 'Добавить еще товар', cart_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true  %></p>
 <div id="add_cart_prodcut"></div>
 <div class="spacer"></div>
-<p><%= link_to 'Добавить товар из моего списка', load_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true  %></p>
+<p><%= link_to 'Добавить товар из моей базы сувениров', load_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true  %></p>
 <div id="add_lk_prodcut"></div>
 <div class="spacer"></div><div class="spacer"></div>
-<p><%= link_to 'Преобразовать в заказ', move_to_order_commercial_offer_path(@commercial_offer), :method => :post, :confirm => "Коммерческое предлоежние будет преобразовано в заказ. Продолжить?"  %></p>
+<%#= link_to 'Преобразовать в заказ', move_to_order_commercial_offer_path(@commercial_offer), :method => :post, :confirm => "Коммерческое предлоежние будет преобразовано в заказ. Продолжить?"  %>
 </div>
 
 

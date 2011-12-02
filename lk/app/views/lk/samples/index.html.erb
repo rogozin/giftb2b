@@ -28,7 +28,7 @@
   <th>Клиент</th>
   <th>Сумма продажи</th>
   <th>Срок до</th>
-  <th></th>
+  <th class="th_lk"></th>
 </tr>
 <% @samples.each do |item| -%>
   <%= content_tag :tr, :class => can_edit_sample?(item) ? nil : "disabled-row" do %>
@@ -41,7 +41,7 @@
     <td><%= item.lk_firm.name if item.lk_firm %></td>
     <td><%= price_ru_label item.sale_price %></td>
     <td><%= I18n.l(item.client_return_date, :format => :short_year) if item.client_return_date %></td>        
-    <td><%= link_to image_tag('bin.png'), sample_path(item), :method => :delete, :confirm => "Удалить?" if can_edit_sample?(item) %></td>    
+    <td><%= link_to image_tag('remove.png'), sample_path(item), :method => :delete, :confirm => "Удалить?", :title => "Удалить" if can_edit_sample?(item) %></td>    
   <% end -%>
 <% end -%>
 </table>

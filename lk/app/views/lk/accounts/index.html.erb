@@ -11,7 +11,7 @@
   <th>ФИО</th>
   <th>Email</th>
   <th>Последний вход</th>
-  <th></th>
+  <th class="th_lk"></th>
 </tr>
   <% @users.each do |item| -%>
    <tr>
@@ -20,7 +20,7 @@
      <td><%= item.fio %></td>
      <td><%= item.email %></td>
      <td><%= I18n.l(item.current_login_at, :format => :long)  if item.current_login_at %></td>
-     <td><%= link_to_unless current_user.id == item.id, image_tag('bin.png'), account_path(item), :method => :delete, :confirm => "Вы действительно хотите удалить пользователя?" %></td>
+     <td><%= link_to_unless current_user.id == item.id, image_tag('remove.png'), account_path(item), :method => :delete, :confirm => "Вы действительно хотите удалить пользователя?", :title => "Удалить" %></td>
    </tr> 
   <% end -%>
 </table>

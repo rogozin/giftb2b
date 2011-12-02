@@ -6,12 +6,12 @@ $(function() {
     });
   $("#select_all").toggle(
     function() { 
-      this.src="/images/checked.gif";
+      this.src="/assets/checked.gif";
       this.title="Снять выделение"
       $('td.checkbox input:checkbox').attr('checked', true);
     },
     function() { 
-      this.src="/images/unchecked.gif";
+      this.src="/assets/unchecked.gif";
       this.title="Выбрать все";
       $('td.checkbox input:checked').attr('checked', false);
     });
@@ -23,33 +23,31 @@ $(function() {
 <table width="100%">
   <tr>
     <th><%= image_tag "unchecked.gif", :id => "select_all", :title => "Выбрать все"  %></th>
-    <th></th>
     <th>Изображение</th>
     <th>Артикул</th>
     <th>Наименование</th>
     <th>Цена за шт</th>
-    <th>Кол-во</th>
-    <th>Сумма</th>
-    <th></th>
+    <th class="no-wrap">Кол-во</th>
+    <%= content_tag :th, "Скидка" if @commercial_offer.sale > 0 %>
+    <%= content_tag :th, "Сумма со скидкой" if @commercial_offer.sale > 0 %>
+    <th class="th_lk"></th>
+    <th class="th_lk"></th>
   </tr>
   <% @commercial_offer.commercial_offer_items.each do |item| -%>
     <tr>
       <td class="checkbox"><%= check_box_tag "co_items_ids[]", item.lk_product_id %></td>
-      <td><%= link_to image_tag('edit.png'), edit_commercial_offer_product_path(@commercial_offer, item)  %></td>
-      <td><%= link_to_if item.lk_product.product, image_tag(item.lk_product && item.lk_product.picture ? item.lk_product.picture.url(:thumb) : "default_image.jpg"), main_app.product_path(item.lk_product.product), :target => "_blank" %></td>
-      <td><%= item.lk_product.article %></td>
+      <td><%= product_image_link item.lk_product %></td>
+      <td><%= article item.lk_product %></td>
       <td><%= item.lk_product.short_name %></td>
       <td class="no-wrap"><%= price_ru_label item.lk_product.price  %></td>
       <td class="no-wrap"><%= text_field_tag "co_items[#{item.lk_product.id}]", item.quantity, :class => "inp-quantity" %></td>
-      <td class="no-wrap"><%= price_ru_label item.lk_product.price * item.quantity %></td>
-      <td><%= link_to image_tag('bin.png'), commercial_offer_product_path(@commercial_offer, item), :method => :delete, :confirm => "Удалить товар из коммерческого предложения?"  %></td>
+      <%= content_tag :td, price_ru_label(sale_size(item.lk_product.price, @commercial_offer.sale)), :class => "no-wrap" if @commercial_offer.sale > 0  %>
+      <%= content_tag :td, price_ru_label(price_with_sale(item.lk_product.price, @commercial_offer.sale)*item.quantity), :class => "no-wrap" if @commercial_offer.sale > 0 %>
+      <td><%= link_to image_tag('edit.png'), edit_commercial_offer_product_path(@commercial_offer, item), :title => "Редактировать"  %></td>
+      <td><%= link_to image_tag('remove.png'), commercial_offer_product_path(@commercial_offer, item), :method => :delete, :confirm => "Удалить товар из коммерческого предложения?", :title => "Удалить"  %></td>
     </tr>
   <% end -%>
-  <tr>              
-    <td class="right" colspan="6"><strong>Итого:</strong></td>
-    <td class="no-wrap"><%= @commercial_offer.commercial_offer_items.sum(:quantity) %> шт. </td>
-    <td class="no-wrap" colspan="2"><%= price_ru_label @commercial_offer.total_price  %></td>
-  </tr>
+
   <% if @commercial_offer.sale > 0 -%>
     
   <tr>              

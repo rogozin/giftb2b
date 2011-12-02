@@ -4,7 +4,7 @@
     <th>Кому</th>
     <th>Автор</th>
     <th>Создано</th>
-    <th></th>
+    <th class="th_lk"></th>
   </tr>
   <% @commercial_offers.each do |item| -%>
     <tr>
@@ -15,7 +15,7 @@
       <td><%= item.lk_firm.name if item.lk_firm %></td>
       <td><%= who(item.user) %></td>
       <td><%= I18n.l(item.created_at, :format => :long) %></td>
-      <td><%= link_to image_tag('bin.png'), commercial_offer_path(item), :method => :delete, :confirm => "Действительно хотите удалить коммерческое предложение?", :title => "Удалить коммерческое предложение"  %></td>
+      <td><%= link_to image_tag('remove.png'), commercial_offer_path(item), :method => :delete, :confirm => "Действительно хотите удалить коммерческое предложение?", :title => "Удалить коммерческое предложение"  %></td>
     </tr>
   <% end -%>
 </table>

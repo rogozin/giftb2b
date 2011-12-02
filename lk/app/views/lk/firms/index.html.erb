@@ -13,7 +13,7 @@
     <th>Контактное лицо</th>
     <th>E-mail</th>
     <th>Телефон</th>
-    <th></th>
+    <th class="th_lk"></th>
   </tr>
    <% @firms.each do |item| -%>
      <tr>
@@ -22,7 +22,7 @@
        <td><%= item.contact %></td>
        <td><%= item.email %></td>
        <td><%= item.phone %></td>
-       <td><%= link_to image_tag('bin.png'), firm_path(item), :method => :delete, :confirm => "Удалить данные о клиенте?"  %></td>
+       <td><%= link_to image_tag('remove.png'), firm_path(item), :method => :delete, :confirm => "Удалить данные о клиенте?", :title => "Удалить"  %></td>
      </tr>
    <% end -%>
 </table>
