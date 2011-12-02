@@ -1,13 +1,14 @@
 <% hidden_class = (defined?(hidden) && hidden) ? "g-hidden"  : ""  -%>
 <% up_or_down_class = (defined?(hidden) && hidden) ? "down"  : "up"  -%>
 <% up_or_down_title = (defined?(hidden) && hidden) ? "Развернуть"  : "Свернуть"  -%>
+<% open_or_close_text = (defined?(hidden) && hidden) ? "Открыть"  : "Закрыть"  -%>
  <%= form_tag search_path(:anchor => "results"), :method=> :get, :id => "ext_search_form" do  -%>
 <div class="b-ext-search" id="ext_search">
   <div class="header">
   <h1>Расширенный поиск сувениров</h1>  
   </div>
   <div class="collapse collapse-all">   
-   <%= link_to "Открыть", "", :class=> "up-down-text" %> 
+   <%= link_to open_or_close_text, "", :class=> "up-down-text" %> 
    <%= link_to content_tag(:span, nil, :class => up_or_down_class), "", :class=> "up-down", :title => up_or_down_title %> 
   </div>
   <div class="clear"></div>
