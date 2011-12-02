@@ -11,16 +11,33 @@ function removeColor(selector) {
 }
 
 $(function() {
+    $('div.collapse a.up-down-text').click(function() {
+        if ($(this).text() == "Открыть") {
+           $(this).text("Закрыть");
+           $(this).next().click();
+        }
+        else {
+           $(this).text("Открыть");
+           $(this).next().click();        
+        }        
+        return false;
+        
+    });
+
     $('div.collapse a.up-down').click(function() {
       if ($(this).children('span').hasClass('down')) {
           $(this).attr('title', "Свернуть");
           $(this).children('span').removeClass('down').addClass('up');
+          $(this).parents('form').find('.line').hide();
           $(this).parent().parent().find('.collapsible-content:first').toggle('fast');
         }
       else {
           $(this).attr('title', "Развернуть");
           $(this).children('span').removeClass('up').addClass('down');
-          $(this).parent().parent().find('.collapsible-content:first').toggle('fast');
+          $(this).parent().parent().find('.collapsible-content:first').toggle('fast', function() {
+            $(this).parents('form').find('.line').fadeIn();          
+            }
+          );
         }
       return false;
     });
