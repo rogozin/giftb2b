@@ -2,11 +2,13 @@ module Base
   
   module ControllerMix  
   def giftpoisk?
-    ActionMailer::Base.default_url_options[:host] == "giftpoisk.ru"
+    #ActionMailer::Base.default_url_options[:host] == "giftpoisk.ru"
+    Settings.giftpoisk?
   end
     
   def giftb2b?
-    ActionMailer::Base.default_url_options[:host] == "giftb2b.ru"
+    #ActionMailer::Base.default_url_options[:host] == "giftb2b.ru"
+    Settings.giftb2b?
   end  
     
    def not_found(message=nil)    

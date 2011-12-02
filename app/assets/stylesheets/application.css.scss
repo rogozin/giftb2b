@@ -4,7 +4,6 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
    
  *= require base/reset
- * require_tree .
  *= require jquery.treeview
  *= require jquery-ui
  *= require smoothDivScroll
@@ -15,9 +14,6 @@
  
 */
 
-#gift_logo {
-  background: image-url("images/logo_giftb2b.png") no-repeat top left;
-}
 
 table
 {
@@ -50,6 +46,15 @@ table tr.alert td
   min-height:80px;
 	background:#cc3366;  
 	
+}
+
+.search-button {
+	background: image_url("base/images/search_60.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+	border:none;
+  position:absolute;
 }
 
 .search-form {
@@ -207,4 +212,13 @@ p.places-for-sale {
     font-size:0.8em;
     span {font-size:1.3em; font-weight:bold}
     }
+}
+
+.s_button {
+	background: image_url("base/images/search_60.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+	border:none;
+  position:absolute;
 }
