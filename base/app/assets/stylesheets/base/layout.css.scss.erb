@@ -547,6 +547,14 @@ $br_l_color_hover:lighten($br_color,20%);
   }
 }
 
+.ext-search-button {
+<% if Settings.giftb2b? %>
+  @extend .g_button;
+<% else %>
+  @extend .br_button;
+<% end %>
+}
+
 
 div.b-rgb {margin:10px 0;}
 a.br_button, a.r_button, a.b_button, a.g_button {color:#e8eef4; text-decoration:none;}
