@@ -11,7 +11,7 @@ class Api::ProductsController < Api::BaseController
     else
       []
     end
-   respond_with @products
+   render :json => @products.map{|x| x.as_json({:min => true}) }, :status => @products.present? ? :ok : :not_found
   end
   
   def lk

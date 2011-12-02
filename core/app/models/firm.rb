@@ -3,10 +3,9 @@ class Firm < ActiveRecord::Base
   has_many :attach_images, :as => :attachable, :conditions => {:attachable_type =>"Firm"}, :dependent => :destroy, :foreign_key => :attachable_id
   has_many :images, :through => :attach_images
   has_many :users
-  has_one :client, :dependent => :nullify
+  has_one :client
   validates :name, :presence => true, :uniqueness => true
   validates :email, :email => {:allow_blank => true},  :length => {:maximum => 40, :allow_nil => true}  
-  validates :email2, :email => {:allow_blank => true},  :length => {:maximum => 40, :allow_nil => true}  
   validates :permalink, :presence => true, :uniqueness => true
   validates :phone, :presence => true
   

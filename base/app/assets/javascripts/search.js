@@ -11,15 +11,20 @@ function removeColor(selector) {
 }
 
 $(function() {
-    $('div.collapse a.up-down').toggle(function() {
-      $(this).children('span').removeClass('down').addClass('up');
-      $(this).parent().parent().find('.collapsible-content').toggle();
-      return false;
-    }, function() {
-      $(this).children('span').removeClass('up').addClass('down');
-      $(this).parent().parent().find('.collapsible-content').toggle();
+    $('div.collapse a.up-down').click(function() {
+      if ($(this).children('span').hasClass('down')) {
+          $(this).attr('title', "Свернуть");
+          $(this).children('span').removeClass('down').addClass('up');
+          $(this).parent().parent().find('.collapsible-content:first').toggle('fast');
+        }
+      else {
+          $(this).attr('title', "Развернуть");
+          $(this).children('span').removeClass('up').addClass('down');
+          $(this).parent().parent().find('.collapsible-content:first').toggle('fast');
+        }
       return false;
     });
+    
     cp_id  = $('#color_ids').attr('title');
     $('#ext_search .color-box').click(function() { 
         if ($(this).hasClass('shadow')) 

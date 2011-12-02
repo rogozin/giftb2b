@@ -14,7 +14,6 @@ function get_cat_num(href) {
 function set_cat_cookie(cat_num, value) {
   data =[0,0,0];
   data[cat_num] = value;
-  console.log(cat_num +' '+ value);
   $.cookie('catalog_tree', data.join(""), { expires:7, path: '/' });
 }
 
