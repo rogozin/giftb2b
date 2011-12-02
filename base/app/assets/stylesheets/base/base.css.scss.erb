@@ -1,9 +1,11 @@
 <% if Settings.giftb2b? %>
 $background_color:#c36;
 $search_background_color:$background_color;
+$search_line_color:$background_color;
 <% else %>
 $background_color:#3ec2d2;
 $search_background_color: #481f0d;
+$search_line_color: #ccc;
 <% end %>
 
 .article {
@@ -372,9 +374,10 @@ padding: 5px 0;
 @mixin ui-icon-circle-triangle-s { background-position: -64px -192px; }
 
 #ext_search_form {
+  padding-top:15px;
   .line {
      width:100%;
-     background-color:$search_background_color;
+     background-color:$search_line_color;
      margin:0;
   }
 }

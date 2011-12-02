@@ -12,12 +12,12 @@ function removeColor(selector) {
 
 $(function() {
     $('div.collapse a.up-down-text').click(function() {
-        if ($(this).text() == "Открыть") {
-           $(this).text("Закрыть");
+        if ($(this).text() == "Развернуть") {
+           $(this).text("Свернуть");
            $(this).next().click();
         }
         else {
-           $(this).text("Открыть");
+           $(this).text("Развернуть");
            $(this).next().click();        
         }        
         return false;
