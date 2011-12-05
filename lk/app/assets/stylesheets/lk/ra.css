@@ -70,7 +70,8 @@ div.radio-buttons {margin-bottom:5px;}
  
 .radio-buttons a.selected { color:#004276; font-weight:bold;}
 
-input[type="submit"], .b_button {
+
+ .ui-widget-content button, input[type="submit"], .b_button {
   color:#e8eef4;
   border: 1px solid #45682a;
   background: #006389;
@@ -97,9 +98,6 @@ input[type="submit"]:hover, .b_button:hover {
   -pie-background: linear-gradient(#0080b2, #1773AA);
 }
 
-input[type="submit"], .b_button:active {
-  
-}
 
 .treeview li span.selected a {color:#cc3366;}
 
