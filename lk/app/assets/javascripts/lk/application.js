@@ -6,6 +6,7 @@
 //= require ui.datepicker-ru
 //= require tinymce-jquery
 //= require lk/tinymce_init
+//= require search
 
 function bindAnimation() {
   $(".ajax_animation").bind({

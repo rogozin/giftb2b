@@ -3,6 +3,7 @@ class Lk::BaseController < Lk::ApplicationController
   before_filter :require_user
   layout 'lk/application'
  
+ 
   def index
     
   end
@@ -37,6 +38,7 @@ class Lk::BaseController < Lk::ApplicationController
   def check_firm
     raise Acl9::AccessDenied unless current_user.firm_id
   end   
+     
      
   private :not_firm_assigned!
   protected :set_post_url, :load_categories, :check_firm

@@ -9,6 +9,7 @@
  *= require smoothDivScroll
  *= require base/layout
  *= require base/base
+ *= require base/search
  *= require news
  *= require_self
  
@@ -156,13 +157,6 @@ div.b-popup-info {
 div.b-popup-info h1 {
 padding-bottom: 0.8em;}
 
-.b-ext-search-inner {
-  background-color:#FFD8D9
-}
-
-.b-ext-search { 
-  background-color: #ffeeee;
-}
 
 
 #map {

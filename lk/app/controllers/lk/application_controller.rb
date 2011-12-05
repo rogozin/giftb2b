@@ -4,6 +4,7 @@ module Lk
  # helper_method :current_user, :giftpoisk?
     
   helper GiftHelper
+  helper SearchHelper
   helper CartHelper
   helper UsersHelper
   helper CategoriesHelper  

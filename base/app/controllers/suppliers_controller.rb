@@ -1,5 +1,5 @@
 #encoding: utf-8;
-class SuppliersController < ApplicationController
+class SuppliersController < BaseController
   access_control do
      allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
   end

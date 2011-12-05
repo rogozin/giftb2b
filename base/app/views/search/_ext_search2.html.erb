@@ -1,7 +1,8 @@
+<% load_search_data -%>
 <% hidden_class = (defined?(hidden) && hidden) ? "g-hidden"  : ""  -%>
 <% up_or_down_class = (defined?(hidden) && hidden) ? "down"  : "up"  -%>
 <% up_or_down_title = (defined?(hidden) && hidden) ? "Развернуть"  : "Свернуть"  -%>
- <%= form_tag search_path(:anchor => "results"), :method=> :get, :id => "ext_search_form" do  -%>
+ <%= form_tag main_app.search_path(:anchor => "results"), :method=> :get, :id => "ext_search_form" do  -%>
 <div class="b-ext-search" id="ext_search">
   <div class="header">
   <h1>Расширенный поиск сувениров</h1>  

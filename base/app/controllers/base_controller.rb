@@ -12,18 +12,5 @@ class BaseController < ApplicationController
   def require_ra_user
      require_user if giftpoisk?
   end
-
-  def load_search_data
-    if ext_user? || giftpoisk?
-      @categories = Category.cached_catalog_categories
-      @thematic  = Category.cached_thematic_categories
-      @analogs  = Category.cached_analog_categories
-      @suppliers = Supplier.order("name")
-      @manufactors =  Manufactor.cached_active_manufactors
-      @infliction = Property.where(:name => "Нанесение").first      
-      @material = Property.where(:name => "Материал").first            
-    end
-    @color = Property.where(:name => "Цвет").first         
-  end
   
 end

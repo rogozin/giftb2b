@@ -1,4 +1,8 @@
 <% page_title @supplier.name  -%>
+
+<% if giftpoisk? -%>
+  <%= render :partial => 'search/ext_search2', :locals => {:hidden => true} %>
+<% end -%>
 <div class="center_block">
 
 <h1><%= @supplier.name %></h1>
