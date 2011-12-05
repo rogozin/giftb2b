@@ -6,11 +6,12 @@ class SearchController < BaseController
     def index
      params[:per_page] ||="20"
      params[:page] ||=1
+
      if params[:request].present?
       res = can_ext_search? ? Product.search_with_article(params[:request]) : Product.search(params[:request])
       res = res.where(:supplier_id =>  session[:flt_supplier_id]) if session[:flt_supplier_id]
       @products = res.paginate(:page => params[:page], :per_page => params[:per_page])
-    elsif    
+    else
       price = []
       price[0] = params[:price_from].to_i
       price[1] = params[:price_to].to_i
@@ -20,7 +21,8 @@ class SearchController < BaseController
        opts.merge!(params.select{ |k,v| k =~ /pv_\d+/ && v.reject(&:blank?).present? })
      else
        opts = {:search_text => params[:name], :eq => params[:eq]}
-       opts.merge!(params.select{ |k,v| k == "pv_#{@color.id}" && v.reject(&:blank?).present? })
+       color =  Property.where(:name => "Цвет").first             
+       opts.merge!(params.select{ |k,v| k == "pv_#{color.id}" && v.reject(&:blank?).present? })
      end
        
        if params[:price_from] == "по запросу"
