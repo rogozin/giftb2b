@@ -20,11 +20,12 @@ class Lk::ProductsController < Lk::BaseController
   end
   
   def new
-    @product = LkProduct.new({:firm_id => current_user.firm_id})
+    @product = LkProduct.new()
   end
   
   def create
     @product = LkProduct.new(params[:lk_product])
+    @produc.firm_id = current_user.firm_id
     if @product.save
       flash[:notice] = "Товар успешно добавлен!"
       redirect_to edit_product_path(@product)

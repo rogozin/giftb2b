@@ -93,7 +93,7 @@ class Lk::CommercialOffersController < Lk::BaseController
 
   def create
     @cart = find_cart
-    @co = CommercialOffer.new(:firm => current_user.firm, :user => current_user)
+    @co = CommercialOffer.new(:firm => current_user.firm, :user => current_user, :as => :admin)
     if @co.save
      flash[:notice] = "Коммерческое предложение сохранено. Вы можете внести в него правки." 
      @cart.items.each do |item|
@@ -110,7 +110,7 @@ class Lk::CommercialOffersController < Lk::BaseController
   end
 
   def move_to_order
-    @lk_order = LkOrder.create(:firm_id => @commercial_offer.firm_id, :lk_firm_id => @commercial_offer.lk_firm_id, :user => current_user, :user_comment => "Сгенерировано из коммерческого предложения № #{@commercial_offer.id}")
+    @lk_order = LkOrder.create(:firm_id => @commercial_offer.firm_id, :lk_firm_id => @commercial_offer.lk_firm_id, :user => current_user, :user_comment => "Сгенерировано из коммерческого предложения № #{@commercial_offer.id}", :as => :admin)
     @commercial_offer.commercial_offer_items.each do |co_item|
       @lk_order.lk_order_items.create(:product => co_item.lk_product, :quantity => co_item.quantity, :price => co_item.lk_product.price)      
     end

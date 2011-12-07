@@ -29,11 +29,14 @@ class Lk::NewsController < Lk::BaseController
 
   
   def new
-    @news =  News.new(:firm_id => current_user.firm_id, :state_id => 3)
+    @news =  News.new
   end
   
   def create
-    @news = News.new(params[:news].merge({:firm_id => current_user.firm_id, :created_by => current_user.id, :state_id => 3}))
+    @news = News.new(params[:news])
+    @news.firm_id = current_user.firm_id
+    @news.created_by = current_user.id
+    @news.state_id = 3
     if @news.save
       if params[:moderate].present?
         @news.update_attribute :state_id, 0 

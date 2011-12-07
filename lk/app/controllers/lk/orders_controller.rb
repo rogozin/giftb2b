@@ -16,7 +16,7 @@ class Lk::OrdersController < Lk::BaseController
   end
 
   def create
-    @order = LkOrder.new(:firm => current_user.firm, :user => current_user)
+    @order = LkOrder.new(:firm => current_user.firm, :user => current_user, :as => :admin)
     flash[:notice] = "Заказ оформлен!" if @order.save
     @cart = find_cart
     @cart.items.each do |cart_item|
