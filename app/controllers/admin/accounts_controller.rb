@@ -19,13 +19,13 @@ class AccountsController < Admin::BaseController
 
 
   def new
-    @account = User.new(:password=>User.friendly_pass, :firm_id => params[:firm_id], :company_name => "admin")
+    @account = User.new(:password=>User.friendly_pass, :firm_id => params[:firm_id], :company_name => "admin", :as => :admin)
     select_firms
     select_suppliers
   end
 
-  def create
-    @account = User.new(params[:admin_account])
+  def create    
+    @account = User.new(params[:admin_account], :as => :admin)
     @account.password_confirmation = params[:admin_account][:password]    
     @account.company_name = @account.firm.name if @account.firm_id
     if @account.save
@@ -50,7 +50,7 @@ class AccountsController < Admin::BaseController
     params[:admin_account][:role_object_ids] ||= []
     @account = User.find(params[:id])
     @account.password_confirmation = params[:admin_account][:password]
-    if @account.update_attributes params[:admin_account]
+    if @account.update_attributes(params[:admin_account], :as => :admin)
       succ_updated
     else
       select_firms

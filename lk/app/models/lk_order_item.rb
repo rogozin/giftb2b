@@ -7,4 +7,6 @@ class LkOrderItem < ActiveRecord::Base
   def sum
     price * quantity
   end
+  
+  attr_protected :lk_order_id  
 end

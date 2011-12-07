@@ -7,6 +7,8 @@ class CommercialOffer < ActiveRecord::Base
   belongs_to :lk_firm
   
   validates :sale,  :inclusion => { :in => 0..99 }
+  attr_accessible :sale, :signature, :lk_firm_id
+  attr_accessible :sale, :signature, :lk_firm_id, :firm_id, :user_id, :firm, :user, :as => :admin
   
   def total_price
     commercial_offer_items.map{|ci| ci.lk_product.price * ci.quantity}.sum

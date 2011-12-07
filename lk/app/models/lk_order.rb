@@ -10,6 +10,8 @@ class LkOrder < ActiveRecord::Base
   
   validates :user_email, :email => {:allow_blank => true}
   validates :firm_id, :presence => true
+  
+  attr_protected :firm_id  
 
   def self.statuses
     [["заказ в обработке",0],["выставлен счет на оплату заказа",10],["макет на утверждении", 20],

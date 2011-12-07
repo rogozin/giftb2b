@@ -1,11 +1,12 @@
-<%=  form_for @firm, :url => @firm.new_record? ? firms_path : firm_path(@firm), :method => @firm.new_record? ? "post" : "put", :html => { :class => "one_line_form"} do |form| -%>
+<% remote = false unless defined?(remote) -%>
+<%=  form_for @firm, :url => @firm.new_record? ? firms_path : firm_path(@firm), :method => @firm.new_record? ? "post" : "put", :html => {:remote => remote, :class => "one_line_form"} do |form| -%>
      <%= form.hidden_field :firm_id %>
     <%= hidden_field_tag :back_url, params[:back_url] %>     
     <div class ="b-formfield-div">
     <%= render :partial => 'shared/error_messages', :locals => {:target => @firm} %>
     </div>
     <div class ="b-formfield-div">
-      <%= form.label :name %>
+      <%= form.label :name %> <span>*</span>
       <%= form.text_field :name %>
     </div>
     <div class ="b-formfield-div">
@@ -26,17 +27,20 @@
     </div>    
     <div class ="b-formfield-div">
       <%= form.label :addr_u %>
-      <%= form.text_area :addr_u, :cols => 22, :rows=>5 %>
+      <%= form.text_area :addr_u %>
     </div>        
     <div class ="b-formfield-div">
       <%= form.label :addr_f %>
-      <%= form.text_area :addr_f, :cols => 22, :rows=>5 %>
+      <%= form.text_area :addr_f %>
     </div> 
     <div class ="b-formfield-div">
       <%= form.label :description %>
-      <%= form.text_area :description, :cols => 22, :rows=>5 %>
+      <%= form.text_area :description %>
     </div>   
     <div class="b-formfield-div">
-    <%= form.submit "Сохранить" %>
+     <%= form.submit "Сохранить" %>
+     <% if remote -%>      
+       <button type="button" id="close_dialog">Отмена</button>
+     <% end -%>
     </div>                
 <% end -%>

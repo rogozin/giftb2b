@@ -15,14 +15,16 @@ class Lk::AccountsController < Lk::BaseController
   end
 
   def new
-    @account = User.new({:firm_id => current_user.firm_id})
+    @account = User.new()
   end
   
   def create
     @password = User.friendly_pass  
-    @account = User.new(params[:user].merge(:active => true, :password => @password, :password_confirmation => @password, 
-                        :username => User.next_username(current_user.firm_id),
-                        :city => current_user.firm.city, :company_name => current_user.firm.name ))
+    @account = User.new(params[:user].merge(:password => @password, :password_confirmation => @password, 
+                        :username => User.next_username(current_user.firm_id), :company_name => current_user.firm.name ))
+    @account.active = true
+    @account.firm_id = current_user.firm_id
+    @account.city = current_user.firm.city.present? ? current_user.firm.city : "Default"
     if @account.save
       @account.has_role! "Пользователь фирмы"
       flash[:notice] = "Пользователь успешно создан!"
@@ -59,8 +61,6 @@ class Lk::AccountsController < Lk::BaseController
   def find_account
     @account = User.where(:firm_id => current_user.firm_id).find(params[:id])
   end
-
-  
   
   
 end

@@ -6,6 +6,7 @@ class CommercialOfferItem < ActiveRecord::Base
   validates :quantity, :numericality => {:greater_than => 0}
   
   after_destroy :drop_lk_product
+  attr_protected :commercial_offer_id
   
   private
   

@@ -19,7 +19,7 @@ class Sample < ActiveRecord::Base
   scope :return_to_supplier_in_two_days, active.with_responsible.where(:supplier_return_date => Date.today + 2)
   scope :return_from_client_today, active.with_responsible.where(:client_return_date => Date.today)
   scope :return_from_client_in_two_days, active.with_responsible.where(:client_return_date => Date.today + 2)  
-  
+  attr_protected :firm_id  
   
   
   private
