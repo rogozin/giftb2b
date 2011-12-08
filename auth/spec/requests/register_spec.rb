@@ -21,10 +21,13 @@ end
   
   it 'рекалмное агентство' do
     ActionMailer::Base.default_url_options[:host] = "giftpoisk.ru"
+    Settings.stub(:giftpoisk?).and_return(true)    
+    Settings.stub(:giftb2b?).and_return(false)        
     visit "/auth/register"
     choose "Рекламное агентство"
     click_button "Далее"
-    page.should have_selector "h1", :text => "Рекламное агентство"   
+    save_and_open_page
+    page.should have_selector "h1", :text => "Рекламное агентство"      
     fill_in "Имя, фамилия", :with => "demo"
     fill_in "Компания", :with => "Копыта"
     fill_in "Город", :with => "Москва"
@@ -58,6 +61,7 @@ end
   
    it 'конечный клиент с гифтпоиска перенаправлен на гифт' do
     ActionMailer::Base.default_url_options[:host] = "giftpoisk.ru" 
+    Settings.stub(:giftpoisk?).and_return(true)
     visit "/auth/register"
     choose "i_am_2"
     click_button "Далее"

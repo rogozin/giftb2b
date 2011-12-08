@@ -14,7 +14,6 @@ describe Auth::UsersController do
        assigns(:user).should be_a(User)
        assigns(:firm).should be_a(Firm)
        assigns(:firm).should be_persisted
-       assigns(:firm).state_id.should eq 3
        assigns(:firm).city.should eq assigns(:user).city
        assigns(:firm).url.should eq assigns(:user).url
        assigns(:firm).phone.should eq assigns(:user).phone

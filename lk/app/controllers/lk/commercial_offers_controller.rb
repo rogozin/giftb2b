@@ -93,11 +93,12 @@ class Lk::CommercialOffersController < Lk::BaseController
 
   def create
     @cart = find_cart
-    @co = CommercialOffer.new(:firm => current_user.firm, :user => current_user, :as => :admin)
+    @co = CommercialOffer.new
+    @co.firm_id = current_user.firm_id
+    @co.user_id = current_user.id
     if @co.save
      flash[:notice] = "Коммерческое предложение сохранено. Вы можете внести в него правки." 
      @cart.items.each do |item|
-       logger.info item.product.id
        lk_product = LkProduct.copy_from_product(item.product, @co.firm_id, item.start_price)
        @co.commercial_offer_items.create({:lk_product=>lk_product, :quantity => item.quantity})
       end

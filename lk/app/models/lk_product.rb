@@ -69,7 +69,6 @@ class LkProduct < ActiveRecord::Base
    
    def self.copy_from_product(product, firm_id, price=0, active=false, copy_categories=false)
        lk_product = LkProduct.new({ 
-      :firm_id => firm_id, 
       :product_id => product.id,
       :article => product.unique_code,
       :short_name => product.short_name,
@@ -93,6 +92,7 @@ class LkProduct < ActiveRecord::Base
         lk_product.picture = File.open(Rails.root.to_s + "/public/images/default_image.jpg")
     end    
     lk_product.category_ids = product.category_ids if copy_categories
+    lk_product.firm_id = firm_id
     lk_product.save
 
     lk_product

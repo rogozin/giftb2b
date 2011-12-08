@@ -17,7 +17,7 @@ class Admin::NewsController < Admin::BaseController
   end
   
   def new
-    @news = News.new(:firm_id => current_user.firm_id)
+    @news = News.new
   end
   
   def edit
@@ -25,7 +25,7 @@ class Admin::NewsController < Admin::BaseController
   end
   
   def create
-    @news = News.new(params[:news].merge(:created_by => current_user.id))
+    @news = News.new(params[:news].merge(:firm_id => current_user.firm_id, :created_by => current_user.id), :as => :admin)
     if @news.save
       redirect_to admin_news_index_path, :notice => "Новость создана!"
     else
@@ -35,7 +35,7 @@ class Admin::NewsController < Admin::BaseController
   
   def update
     @news = News.find_by_permalink(params[:id])
-    if @news.update_attributes(params[:news].merge(:updated_by => current_user.id))
+    if @news.update_attributes(params[:news].merge(:updated_by => current_user.id), :as => :admin)
       redirect_to admin_news_index_path, :notice => "Новость изменена"
     else
       render 'edit'

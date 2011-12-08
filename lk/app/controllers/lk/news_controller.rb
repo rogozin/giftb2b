@@ -54,7 +54,7 @@ class Lk::NewsController < Lk::BaseController
   end
   
   def update
-    params[:news][:state_id] = 0 if params[:moderate].present?
+    @news.state_id = 0 if params[:moderate].present?
     if @news.update_attributes(params[:news])      
       if params[:moderate].present?
         redirect_to moderate_news_index_path, :notice => "Новость сохранена и отправлена на модерацию"

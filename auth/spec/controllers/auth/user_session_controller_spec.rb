@@ -43,7 +43,7 @@ describe Auth::UserSessionController do
 
   it 'Если логин на гифтпоиске, редирект на главную страницу.' do
     user = Factory(:firm_manager, :password => "test")
-    ActionMailer::Base.default_url_options[:host] = "giftpoisk.ru"
+    Settings.stub(:giftpoisk?).and_return(true)
     post :create,  {:user_session => {:username => user.username, :password => "test"},:use_route => :auth_engine }
     response.code.should eq "302"
     flash[:login_error].should be_nil

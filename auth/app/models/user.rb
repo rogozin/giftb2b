@@ -15,10 +15,12 @@ class User < ActiveRecord::Base
   validates :icq, :length => {:maximum => 25},  :numericality => {:allow_blank => true}
   validates_presence_of :company_name, :city, :phone, :fio, :on => :create
 
-  attr_accessible :username, :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, :city, :url
-  attr_accessible  :username, :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, :city, :url, 
+  attr_accessible :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, :city, :url
+  attr_accessible :username, :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, 
+                  :city, :url, :as => :client
+  attr_accessible :username, :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, :city, :url, 
                   :active,  :expire_date, :firm_id, :supplier_id, :as => :admin
-  attr_accessible  :username, :password, :password_confirmation, :birth_date, :active,  :expire_date, :firm_id, :as => :crm
+  attr_accessible :username, :password, :password_confirmation, :birth_date, :active,  :expire_date, :firm_id, :as => :crm
   
   def is_admin?
     Rails.cache.fetch("#{cache_key}.is_admin?", :expires_in=>60) {has_role? 'Администратор'}

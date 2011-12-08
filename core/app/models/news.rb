@@ -17,6 +17,9 @@ class News < ActiveRecord::Base
   after_save :clear_cache
   after_destroy :clear_cache
   
+  attr_accessible :title, :body, :permalink, :picture
+  attr_accessible :title, :body, :permalink, :picture, :firm_id, :state_id, :site, :as => :admin
+  
   def self.states
     { "На модерации" => 0, "Опубликовано" => 1, "Архив" => 2, "Черновик" => 3, "Отклонена" => 4 }
   end

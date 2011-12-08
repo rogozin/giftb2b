@@ -104,13 +104,15 @@ def new
     end        
     if @firm.save
       pass = User.friendly_pass    
-      @user = User.new(params[:user].merge(:firm_id => @firm.id, :active => true, :password => pass, :password_confirmation => pass, :expire_date =>  Date.today.next_day(5), :username => User.next_username(@firm.id) ))
-      
+      @user = User.new(params[:user].merge( :password => pass, :password_confirmation => pass))
+      @user.firm_id = @firm.id
+      @user.active = true
+      @user.expire_date = Date.today.next_day(5)
+      @user.username = User.next_username(@firm.id)      
       if @user.save
         @user.has_role! "Пользователь фирмы" 
         Auth::AccountMailer.new_account(@user, pass).deliver
-      end
-      
+      end      
     end
   end  
   
