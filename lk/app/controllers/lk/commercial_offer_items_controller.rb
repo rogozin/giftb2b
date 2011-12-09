@@ -4,7 +4,7 @@ class Lk::CommercialOfferItemsController < Lk::BaseController
      allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
   end
   
-  before_filter :find_co
+  before_filter :find_co, :except => [:calc_single]
   before_filter :find_co_item, :except => [:create, :new]
   before_filter :load_categories, :only => [:edit, :update]
   
@@ -12,6 +12,15 @@ class Lk::CommercialOfferItemsController < Lk::BaseController
   
   def edit
     @product = @commercial_offer_item.lk_product
+  end
+  
+  def calc_single    
+    @commercial_offer = @commercial_offer_item.commercial_offer
+    if params[:quantity].to_i >0
+      @commercial_offer_item.update_attribute :quantity, params[:quantity]
+    else
+      @commercial_offer_item.destroy
+    end     
   end
   
   def destroy

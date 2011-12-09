@@ -20,17 +20,6 @@ class Lk::FirmsController < Lk::BaseController
     @firm = LkFirm.new()
   end
 
-  def create
-    @firm = LkFirm.new(params[:lk_firm])
-    @firm.firm_id = current_user.firm.id    
-    if @firm.save
-      flash[:notice] = "Новый клиент создан"
-      redirect_to (params[:back_url].present? ? params[:back_url] : firms_path)
-    else
-      render :new  
-    end
-  end
-
   def edit
   
   end
@@ -57,6 +46,23 @@ class Lk::FirmsController < Lk::BaseController
       redirect_to firms_path 
   end
 
+  def create
+    @firm = LkFirm.new(params[:lk_firm])
+    @firm.firm_id = current_user.firm_id
+    if @firm.save
+      respond_to do |format|
+        format.html { 
+          flash[:notice] = "Новый клиент создан"
+          redirect_to (params[:back_url].present? ? params[:back_url] : firms_path) 
+        }
+        format.js {
+          render 'update_client'          
+        } 
+      end
+    else
+      render :new  
+    end
+  end
 
   private
   def find_firm

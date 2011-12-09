@@ -70,12 +70,22 @@ div.radio-buttons {margin-bottom:5px;}
  
 .radio-buttons a.selected { color:#004276; font-weight:bold;}
 
+  $c_grey:#696969;
+  
+ .gray_button {
+    background: $c_grey;
+    font-weight:bold;
+    border: 1px solid darken($c_grey, 10%);  
+    &:hover {
+      background: lighten($c_grey, 5%);
+      border: 1px solid darken($c_grey, 10%);  
+    }
+ }
 
- .ui-widget-content button, input[type="submit"], .b_button {
+ .ui-widget-content button, button, input[type="submit"], .b_button {
   color:#e8eef4;
   border: 1px solid #45682a;
   background: #006389;
-  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0080b2), to(#006389));
   background: -webkit-linear-gradient(#0080b2, #006389);
   background: -moz-linear-gradient(#0080b2, #006389);
   background: -ms-linear-gradient(#0080b2, #006389);
@@ -85,11 +95,10 @@ div.radio-buttons {margin-bottom:5px;}
 }
 
 
-input[type="submit"]:hover, .b_button:hover {
+ .ui-widget-content button:hover, button:hover, input[type="submit"]:hover, .b_button:hover {
   color:#e8eef4;
   border: 1px solid #45682a;
   background: #006389;
-  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0080b2), to(#1773AA));
   background: -webkit-linear-gradient(#0080b2, #1773AA);
   background: -moz-linear-gradient(#0080b2, #1773AA);
   background: -ms-linear-gradient(#0080b2, #1773AA);

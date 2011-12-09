@@ -6,6 +6,7 @@ class Lk::CommercialOffersController < Lk::BaseController
   end
   include Gift::Export::Excel
   before_filter :find_co, :except => [:index, :create]
+  before_filter :find_clients, :only => [:show, :calculate] 
   
   def index
     params[:page] ||=1
@@ -17,7 +18,6 @@ class Lk::CommercialOffersController < Lk::BaseController
   end
  
   def show
-    @lk_firms = LkFirm.where(:firm_id => current_user.firm_id).order("name")
   end
   
   def export
@@ -36,36 +36,53 @@ class Lk::CommercialOffersController < Lk::BaseController
     redirect_to commercial_offers_path
   end
   
-  def calculate 
-    flash_alert = ""
-    @commercial_offer.sale = params[:sale]
-    @commercial_offer.lk_firm_id = params[:lk_firm_id]
-    @commercial_offer.signature = params[:signature]
-    flash_alert << "Ошибка при пересчете. " unless @commercial_offer.save
-    
-    params[:co_items].each do |lk_product_id, quantity|
-      if quantity.to_i >0
-        @commercial_offer.commercial_offer_items.find_by_lk_product_id(lk_product_id).update_attribute :quantity, quantity
-      else
-        @commercial_offer.commercial_offer_items.find_by_lk_product_id(lk_product_id).destroy
-      end 
+  def update
+    @commercial_offer.update_attributes(params[:commercial_offer])
+
+    respond_to do |format|
+      format.html { redirect_to commercial_offer_path(@commercial_offer), :notice => "Коммерческое предложение изменено" }
+      format.js {render :text => "Ok", :status => :ok} 
     end
-    
-    flash_alert << "Не выбраны товары для изменения стоимости" if params[:delta].present? && params[:co_items_ids].blank?
-    if params[:delta].present? && params[:co_items_ids].present?
+  end
+  
+  def modify
+    flash_alert = ""   
+    flash_alert << "Не выбраны товары для изменения стоимости" if  params[:co_items].blank?
+    if (params[:delta].present? || params[:logo].present? || params[:sale].present?) && params[:co_items].present?
       delta = params[:delta].to_i
-      params[:co_items_ids].each do |lk_product_id|
-         p = @commercial_offer.commercial_offer_items.where(:lk_product_id => lk_product_id).first.lk_product
-         val = params[:unit] == "1" ? p.price + (p.price * (delta.to_f/100)) : p.price + delta if p 
-         p.update_attribute(:price, val > 0 ?  val : 0) if p
+      logo = params[:logo].to_i      
+      sale = params[:sale].to_i
+      params[:co_items].each do |id|
+        co= CommercialOfferItem.find(id)
+        p = co.lk_product
+        val = p.price
+        val += logo if p && logo
+        val += params[:unit] == "1" ? (p.price * (delta.to_f/100)) :  delta if p  
+        p.update_attribute(:price, val > 0 ?  val : 0) if p
+        co.update_attribute(:sale, sale > 0 ? sale : 0) if co && params[:sale].present?
       end
+    end    
+    flash_alert.present? ? (flash[:alert] = flash_alert) :  (flash[:notice] = "Коммерческое предложение пересчитано")
+    respond_to do |format|
+      format.js { render 'calculate' }
+      format.html { redirect_to commercial_offer_path(@commercial_offer)}
+    end    
+  end
+  
+  def calculate 
+    params[:co_items].each do |id, quantity|
+      @co_item = CommercialOfferItem.find(id)
+      if quantity.to_i >0
+        @co_item.update_attribute :quantity, quantity
+      else
+        @co_item.destroy
+      end 
+    end    
+    flash[:notice] = "Коммерческое предложение пересчитано"
+    respond_to do |format|
+      format.js { }
+      format.html {redirect_to commercial_offer_path(@commercial_offer) }
     end
-    if flash_alert.present?
-      flash[:alert] = flash_alert
-    else
-      flash[:notice] = "Коммерческое предложение изменено"
-    end
-    redirect_to commercial_offer_path(@commercial_offer)  
   end
   
   
@@ -123,5 +140,9 @@ class Lk::CommercialOffersController < Lk::BaseController
   
   def find_co
     @commercial_offer = CommercialOffer.where(:firm_id => current_user.firm.id).find(params[:commercial_offer_id] || params[:id])
+  end
+  
+  def find_clients
+    @lk_firms = LkFirm.where(:firm_id => current_user.firm_id).order("name")
   end
 end

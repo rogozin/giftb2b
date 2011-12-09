@@ -28,8 +28,7 @@
   <h3 class="h3-lk">Вы находитесь в личном кабинете</h3>
 </div>
 <div class="clear"></div>   
-<div class="content">
- <%#= render :partial => 'lk/shared/happy_birthday' if current_user.is_firm_user? && is_birthday_today? %>    
+<div id="flashes" class="content">
   <%= render :partial => 'shared/flashes' %>
 </div>
  <div id="main_content" class="content">

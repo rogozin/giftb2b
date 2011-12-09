@@ -5,7 +5,7 @@
 //= require jquery.cookie
 //= require ui.datepicker-ru
 //= require tinymce-jquery
-//= require lk/tinymce_init
+//= require_tree .
 //= require search
 
 function bindAnimation() {
@@ -17,6 +17,7 @@ function bindAnimation() {
 
 $(function() {
  $("#tabs").tabs();  
+ $("#close_dialog").live('click', function(){ $(this).parents('form').dialog("close") });
  $('a.toggle-category').live('click', function(){
    $(this).next().toggle();
    return false;

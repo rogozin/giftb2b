@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111125072629) do
+ActiveRecord::Schema.define(:version => 20111209081022) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -78,15 +78,29 @@ ActiveRecord::Schema.define(:version => 20111125072629) do
     t.datetime "updated_at"
   end
 
+  create_table "clients", :force => true do |t|
+    t.string   "name"
+    t.string   "short_name"
+    t.text     "addr_u"
+    t.text     "addr_f"
+    t.text     "comment"
+    t.string   "city"
+    t.string   "subway"
+    t.integer  "state_id",   :default => 1
+    t.integer  "firm_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "commercial_offer_items", :force => true do |t|
     t.integer "commercial_offer_id"
     t.integer "quantity"
     t.integer "lk_product_id"
+    t.integer "sale",                :default => 0
   end
 
   create_table "commercial_offers", :force => true do |t|
     t.integer  "firm_id"
-    t.integer  "sale",       :default => 0
     t.string   "email"
     t.text     "signature"
     t.integer  "user_id"
@@ -95,12 +109,21 @@ ActiveRecord::Schema.define(:version => 20111125072629) do
     t.integer  "lk_firm_id"
   end
 
+  create_table "communications", :force => true do |t|
+    t.integer  "ownerable_id"
+    t.string   "ownerable_type"
+    t.string   "value"
+    t.integer  "type_id",        :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "contact_types", :force => true do |t|
     t.string "name", :null => false
   end
 
   create_table "contacts", :force => true do |t|
-    t.integer  "firm_id",         :null => false
+    t.integer  "client_id",       :null => false
     t.datetime "current_date",    :null => false
     t.integer  "contact_type_id", :null => false
     t.integer  "event_id",        :null => false
@@ -343,7 +366,7 @@ ActiveRecord::Schema.define(:version => 20111125072629) do
   end
 
   create_table "persons", :force => true do |t|
-    t.integer  "firm_id",    :null => false
+    t.integer  "client_id",  :null => false
     t.integer  "user_id"
     t.string   "fio"
     t.string   "appoint"

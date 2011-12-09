@@ -8,5 +8,10 @@ class LkFirm < ActiveRecord::Base
   validates :url,
   :format => { :with => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :allow_blank => true},
   :length => {:maximum => 40, :allow_nil => true}
-  attr_protected :firm_id    
+  attr_protected :firm_id  
+  
+  
+  def self.ids(firm_id)
+    LkFirm.select("id").where(:firm_id => firm_id).map(&:id)
+  end  
 end
