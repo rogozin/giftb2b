@@ -46,8 +46,12 @@ class Lk::CommercialOffersController < Lk::BaseController
   end
   
   def modify
-    flash_alert = ""   
-    flash_alert << "Не выбраны товары для изменения стоимости" if  params[:co_items].blank?
+    alert = ""
+    notice = ""
+    alert << "Не выбраны товары для изменения стоимости" if  params[:co_items].blank?
+    @co_items = []
+    cnt_price = 0
+    cnt_sale = 0
     if (params[:delta].present? || params[:logo].present? || params[:sale].present?) && params[:co_items].present?
       delta = params[:delta].to_i
       logo = params[:logo].to_i      
@@ -56,15 +60,28 @@ class Lk::CommercialOffersController < Lk::BaseController
         co= CommercialOfferItem.find(id)
         p = co.lk_product
         val = p.price
-        val += logo if p && logo
-        val += params[:unit] == "1" ? (p.price * (delta.to_f/100)) :  delta if p  
-        p.update_attribute(:price, val > 0 ?  val : 0) if p
-        co.update_attribute(:sale, sale > 0 ? sale : 0) if co && params[:sale].present?
-      end
+        if p
+          val += logo if logo
+          val += params[:unit] == "1" ? (p.price * (delta.to_f/100)) :  delta 
+          cnt_price +=1 if p.update_attributes(:price => val > 0 ?  val : 0) 
+        end
+        if co && params[:sale].present?
+          cnt_sale += 1 if co.update_attributes(:sale =>  sale > 0 ? sale : 0) 
+        end
+        if co.valid? && p.valid?
+          @co_items << co 
+        else
+          alert << co.errors.full_messages.join(', ')
+        end
+      end      
+      notice << "Установлена скидка в размере #{sale}% для #{t(:product_p, :count => cnt_sale)}" if params[:sale].present? && cnt_sale > 0 
+      notice << "Добавлено нанесение в размере #{logo} руб. для #{t(:product_p, :count => cnt_price)}" if params[:logo].present? && cnt_price > 0 
+      notice << "Добавлена наценка в размере #{delta} #{params[:unit]=="1" ? "%" : "руб."} для #{t(:product_p, :count => cnt_price)}" if params[:delta].present? && cnt_price > 0 
+      flash[:alert] = alert if alert.present?
+      flash[:notice] = notice if alert.present?      
     end    
-    flash_alert.present? ? (flash[:alert] = flash_alert) :  (flash[:notice] = "Коммерческое предложение пересчитано")
     respond_to do |format|
-      format.js { render 'calculate' }
+      format.js { render 'modify' }
       format.html { redirect_to commercial_offer_path(@commercial_offer)}
     end    
   end
@@ -145,4 +162,5 @@ class Lk::CommercialOffersController < Lk::BaseController
   def find_clients
     @lk_firms = LkFirm.where(:firm_id => current_user.firm_id).order("name")
   end
+  
 end

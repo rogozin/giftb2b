@@ -47,6 +47,13 @@ describe Lk::CommercialOffersController do
       assigns(:commercial_offer).commercial_offer_items.first.sale.should eq 20
     end            
 
+    it 'скидочка больше 100% не может быть' do
+      post :modify, {:id => @commercial_offer.id, :co_items => [@co_item.id], :sale => 120}      
+      assigns(:commercial_offer).commercial_offer_items.first.sale.should eq @co_item.sale
+      flash[:alert].should_not be_nil
+    end    
+
+
     it 'когда меняю цену, скидочка не изменяется' do
       @commercial_offer.commercial_offer_items.first.update_attribute(:sale, 22)
       post :modify, {:id => @commercial_offer.id, :co_items => [@co_item.id], :delta => 10, :sale => ""}            

@@ -27,6 +27,7 @@ ru:
         quantity: "Количество" 
         price: "Цена"
         description: "Описание" 
+        sale: "Скидка"
       lk_firm:
         name: "Название клиента"
         contact: "Контактное лицо"

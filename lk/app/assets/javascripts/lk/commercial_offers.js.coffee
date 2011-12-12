@@ -13,9 +13,23 @@ window.save_co = ->
       commercial_offer:
         lk_firm_id: $('#lk_firm_id').val()
         signature: $('#signature').val()
-    success: -> 
-      console.log "saved..."
-      false
+  false      
+    
+modify = (target) -> 
+  $.post $('#modify_form').data('action'), 
+    'co_items[]':
+      $("#co_form input:checked").map -> 
+        this.value
+      .get()
+    logo:
+     if target == "modify_logo" then $("#logo").val() else ""
+    delta:
+     if target == "modify_delta" then $("#delta").val() else ""      
+    sale:
+     if target == "modify_sale" then $("#sale").val() else ""      
+    unit:
+      $("#unit").val()        
+  false        
 
 jQuery ->
   $("#co_form .b-submit").hide()
@@ -80,21 +94,7 @@ jQuery ->
       $('<div class="alert">Отметьте галочкой товар для изменения стоимости</div>').appendTo('#delta_messages').delay(2000).fadeOut(500)
     $("#co_form input:checked").size() > 0
 
-  $('#modify_form').bind 'submit', -> 
-    console.log "modify.."
+  $('#modify_form button').live 'click', -> 
     if check_checked_items()
-      console.log "post.."
-      $.post this.action, 
-        'co_items[]':
-          $("#co_form input:checked").map -> 
-            this.value
-          .get()
-        logo:
-          $("#logo").val()
-        delta:
-          $("#delta").val()
-        sale:
-          $("#sale").val()
-        unit:
-          $("#unit").val()    
+      modify(this.id)
     false        
