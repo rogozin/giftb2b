@@ -13,7 +13,7 @@ module CartHelper
   end
   
   def cart_name
-    giftpoisk? ? "ВАШЕ коммерческое предложение" : "Ваша корзина"
+    giftpoisk? ? "Отложенные товары" : "Ваша корзина"
   end
   
   def cart_name_r
