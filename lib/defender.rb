@@ -21,21 +21,19 @@ class Defender < Rack::Throttle::Hourly
   # this method checks if request needs throttling. 
   # If so, it increases usage counter and compare it with maximum 
   # allowed API calls. Returns true if a request can be handled.
-   def allowed?(request)
-     max_allowed = api_request?(request) ?  max_per_hour*1.2 : max_per_hour     
-    if need_defense?(request)   
-      req_count =  cache_incr(request)      
-      write_log(request, "Warning: #{max_allowed/2} request for this ip")  if req_count == max_allowed/2 && !search_bot?(request)
-      write_log(request, "Information: #{max_allowed/2} request for this ip (SearchBot)")  if req_count == max_allowed/2 && search_bot?(request)
-      if req_count < max_allowed || search_bot?(request)
-        true
-      else
-        write_log(request, "Error: #{max_allowed} (max) request for this ip. Blocked.") if req_count == max_allowed
-        false
-      end
-    else 
-      true
-    end
+  def allowed?(request)
+   max_allowed = api_request?(request) ?  max_per_hour*1.2 : max_per_hour     
+   if need_defense?(request)   
+     req_count =  cache_incr(request)      
+     write_log(request, "Warning: #{max_allowed/2} request for this ip")  if req_count == max_allowed/2 && !search_bot?(request)
+     #write_log(request, "Information: #{max_allowed/2} request for this ip (SearchBot)")  if req_count == max_allowed/2 && search_bot?(request)
+     if req_count >= max_allowed && !search_bot?(request)
+       write_log(request, "Error: #{max_allowed} (max) request for this ip. Blocked.") if req_count == max_allowed
+       return false
+     end
+   else 
+    true
+   end
   end
 
   def call(env)
