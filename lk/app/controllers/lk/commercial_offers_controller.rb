@@ -78,7 +78,7 @@ class Lk::CommercialOffersController < Lk::BaseController
       notice << "Добавлено нанесение в размере #{logo} руб. для #{t(:product_p, :count => cnt_price)}" if params[:logo].present? && cnt_price > 0 
       notice << "Добавлена наценка в размере #{delta} #{params[:unit]=="1" ? "%" : "руб."} для #{t(:product_p, :count => cnt_price)}" if params[:delta].present? && cnt_price > 0 
       flash[:alert] = alert if alert.present?
-      flash[:notice] = notice if alert.present?      
+      flash[:notice] = notice if notice.present?      
     end    
     respond_to do |format|
       format.js { render 'modify' }
