@@ -30,6 +30,8 @@ describe Auth::UsersController do
        assigns(:firm).should be_nil
        assigns(:user).expire_date.should be_nil
        assigns(:user).username.should eq "vasya"       
+       assigns(:user).username.should eq "vasya"       
+       assigns(:user).should be_active
        response.should be_success
     end    
     

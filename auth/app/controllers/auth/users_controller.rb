@@ -118,9 +118,9 @@ def new
   
   def create_single_user
     pass = User.friendly_pass
-    @user = User.new(params[:user].merge(:active => true, :password => pass, :password_confirmation => pass))
+    @user = User.new(params[:user].merge(:password => pass, :password_confirmation => pass))
     @user.username = @user.username_from_email
-    
+    @user.active = true
     if @user.save
       @user.has_role! "Пользователь" 
       Auth::AccountMailer.new_account(@user, pass).deliver
