@@ -30,6 +30,8 @@ class Defender < Rack::Throttle::Hourly
      if req_count >= max_allowed && !search_bot?(request)
        write_log(request, "Error: #{max_allowed} (max) request for this ip. Blocked.") if req_count == max_allowed
        return false
+     else
+       true
      end
    else 
     true
