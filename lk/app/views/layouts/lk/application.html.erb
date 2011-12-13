@@ -48,17 +48,13 @@
 </div> <!-- end all_content --> 
 
 <div id="right_content"> 
+  <div class="lk-short" id="lk"> 
+      <%= render  :partial =>'shared/lk_short' if current_user %>
+   </div> <!-- end lk -->	
  
  <div id="cart" class="basket_right">
     <%= render :partial => "cart/cart" %>
   </div>
-<div class="lk" id="lk"> 
-    <%  if current_user -%>
-      <%= render  :partial =>'shared/lk' %>
-    <% else -%>
-    <%= render :partial => "shared/pass_input" %>
-    <% end -%>
-    </div> <!-- end lk -->	
   <div id="user_menu" class="left_block">
     <div class="line"></div>
     <h3>Личный кабинет</h3>

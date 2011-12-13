@@ -1,0 +1,8 @@
+<div class="username">
+  Вы вошли как 
+   <%= link_to  current_user.username, auth_engine.profile_path, :title => "Редактировать профиль, сменить пароль" %>  
+</div>
+<div class="logout">
+  <%= link_to "", auth_engine.logout_path, :title => "Выход" %>
+</div>
+<div class="clear"></div>
