@@ -154,11 +154,11 @@ describe 'api testing' do
       post 'api/orders', {:order => {:email => "demo@demo.ru", :phone => "888-999-32", :name => "ilya", :comment => "Комментарий", :products => [:product => {:id => @product.id, :quantity => 1, :price => @product.price_in_rub }]}}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       response.code.should eq("200")
       order = LkOrder.first
+      order.lk_order_items.should have(1).item
+      order.is_remote.should be_true      
       ActionMailer::Base.deliveries.should have(2).items
       ActionMailer::Base.deliveries.map(&:to).flatten.should include("demo@demo.ru")
       ActionMailer::Base.deliveries.map(&:to).flatten.should include(order.firm.email)
-      order.lk_order_items.should have(1).item
-      order.is_remote.should be_true      
     end
   end
 
