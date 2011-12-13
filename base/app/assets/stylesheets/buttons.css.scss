@@ -1,0 +1,143 @@
+ .ui-button-text-only .ui-button-text { padding:0px;}
+ 
+.corner-all {
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	behavior: url(/javascripts/PIE.htc);
+}
+
+.shadow {
+  -moz-box-shadow: #000 0px 0px 7px;
+  -webkit-box-shadow: #000 0px 0px 7px;
+  box-shadow: #000 0px 0px 7px;
+	behavior: url(/javascripts/PIE.htc);
+}
+
+@mixin red_gradient {
+  background: -webkit-linear-gradient(#cc6666, #a91e4c);
+  background: -moz-linear-gradient(#cc6666, #a91e4c);
+  background: -ms-linear-gradient(#cc6666, #a91e4c);
+  background: -o-linear-gradient(#cc6666, #a91e4c);
+  background: linear-gradient(#cc6666, #a91e4c);
+  -pie-background: linear-gradient(#cc6666, #a91e4c);
+}
+
+@mixin red_gradient_hover {
+  background: -webkit-linear-gradient(#cc6666, #BD4656);
+  background: -moz-linear-gradient(#cc6666, #BD4656);
+  background: -ms-linear-gradient(#cc6666, #BD4656);
+  background: -o-linear-gradient(#cc6666, #BD4656);
+  background: linear-gradient(#cc6666, #BD4656);
+  -pie-background: linear-gradient(#cc6666, #BD4656);
+} 
+
+.r_button {
+  color:#e8eef4;
+  border: 1px solid #773841;
+  background: #a91e4c;
+  @include red_gradient;
+  &:hover  {
+    @include red_gradient_hover;
+  }
+}
+
+.b_button {
+  color:#e8eef4;
+  border: 1px solid #45682a;
+  background: #006389;
+  background: -webkit-linear-gradient(#0080b2, #006389);
+  background: -moz-linear-gradient(#0080b2, #006389);
+  background: -ms-linear-gradient(#0080b2, #006389);
+  background: -o-linear-gradient(#0080b2, #006389);
+  background: linear-gradient(#0080b2, #006389);
+  -pie-background: linear-gradient(#0080b2, #006389);
+  &:hover {
+    color:#e8eef4;
+    border: 1px solid #45682a;
+    background: #006389;
+    background: -webkit-linear-gradient(#0080b2, #1773AA);
+    background: -moz-linear-gradient(#0080b2, #1773AA);
+    background: -ms-linear-gradient(#0080b2, #1773AA);
+    background: -o-linear-gradient(#0080b2, #1773AA);
+    background: linear-gradient(#0080b2, #1773AA);
+    -pie-background: linear-gradient(#0080b2, #1773AA);
+  }  
+}
+
+$br_color:#481f0d;
+$br_l_color:lighten($br_color,10%);
+
+$br_color_hover:lighten($br_color,15%);
+$br_l_color_hover:lighten($br_color,20%);
+
+
+.br_button {
+  color: #fff; 
+  border: 1px solid darken($br_color, 10%);
+  background: $br_color;
+  background: -webkit-linear-gradient($br_l_color, $br_color);
+  background: -moz-linear-gradient($br_l_color, $br_color);
+  background: -ms-linear-gradient($br_l_color, $br_color);
+  background: -o-linear-gradient($br_l_color, $br_color);
+  background: linear-gradient($br_l_color, $br_color);
+  -pie-background: linear-gradient($br_l_color, $br_color);
+  &:hover {
+    color: #e8eef4; 
+    background: -webkit-linear-gradient($br_l_color_hover, $br_color_hover);
+    background: -moz-linear-gradient($br_l_color_hover, $br_color_hover);
+    background: -ms-linear-gradient($br_l_color_hover, $br_color_hover);
+    background: -o-linear-gradient($br_l_color_hover, $br_color_hover);
+    background: linear-gradient($br_l_color_hover, $br_color_hover);
+    -pie-background: linear-gradient($br_l_color_hover, $br_color_hover);  
+  }
+}
+
+.g_button {
+  border: 1px solid #45682a;
+  background: #689f3d;
+  background: -webkit-linear-gradient(#a2db5a, #689f3d);
+  background: -moz-linear-gradient(#a2db5a, #689f3d);
+  background: -ms-linear-gradient(#a2db5a, #689f3d);
+  background: -o-linear-gradient(#a2db5a, #689f3d);
+  background: linear-gradient(#a2db5a, #689f3d);
+  -pie-background: linear-gradient(#a2db5a, #689f3d);
+  &:hover {
+    background: -webkit-linear-gradient(#a2db5a, #79A93B);
+    background: -moz-linear-gradient(#a2db5a, #79A93B);
+    background: -ms-linear-gradient(#a2db5a, #79A93B);
+    background: -o-linear-gradient(#a2db5a, #79A93B);
+    background: linear-gradient(#a2db5a, #79A93B);
+    -pie-background: linear-gradient(#a2db5a, #79A93B);  
+  }
+}
+
+*+html input[type="submit"], *+html .b_button, *+html .g_button, *+html .r_button, *+html .br_button {
+  padding: 2px 10px;
+}
+
+
+.ui-widget-content button, input[type="submit"], input[type="button"], .b_button, .r_button, .g_button, .br_button, .gray_button {
+  cursor:pointer;
+  margin:auto;
+  font-size:9pt;
+  padding: 4px 15px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: #666 0px 2px 3px;
+  -moz-box-shadow: #666 0px 2px 3px;
+  box-shadow: #666 0px 2px 3px;
+  position:relative;
+	behavior: url(/javascripts/PIE.htc);
+	&:active {
+    -webkit-box-shadow: inset #666 1px 1px 3px;
+    -moz-box-shadow: inset #666 1px 1px 3px;
+    box-shadow: inset #666 1px 1px 3px;
+	}
+}  
+
+
+

@@ -1,12 +1,12 @@
 <div class="spacer"></div>
 <h3>Список товаров:</h3>
 <div class="spacer"></div>
-<div class="">
+<div>
 <%= render :partial => "filter", :locals => {:path => load_products_path(:id => params[:id], :object_type => @object_type ), :remote => true }%>
 </div>
 <%= form_tag post_url do -%>
 <%= render :partial => 'products', :locals => {:products => @lk_products, :should_check => true, :should_remove => false} %>
-<div class="b-submit"><%= submit_tag "Добавить" if @lk_products.present? %></div>
+<div class="b-submit"><%= submit_tag "Добавить товары в КП"  if @lk_products.present? %></div>
 <% end -%>
 <div class="spacer"></div>
 <%= render :partial => 'shared/paginate2', :locals => {:products => @lk_products} %>

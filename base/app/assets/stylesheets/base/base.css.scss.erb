@@ -355,79 +355,12 @@ padding: 5px 0;
 }
 
 
-@mixin red_gradient {
-  background: -webkit-linear-gradient(#cc6666, #a91e4c);
-  background: -moz-linear-gradient(#cc6666, #a91e4c);
-  background: -ms-linear-gradient(#cc6666, #a91e4c);
-  background: -o-linear-gradient(#cc6666, #a91e4c);
-  background: linear-gradient(#cc6666, #a91e4c);
-  -pie-background: linear-gradient(#cc6666, #a91e4c);
-}
-
-@mixin red_gradient_hover {
-  background: -webkit-linear-gradient(#cc6666, #BD4656);
-  background: -moz-linear-gradient(#cc6666, #BD4656);
-  background: -ms-linear-gradient(#cc6666, #BD4656);
-  background: -o-linear-gradient(#cc6666, #BD4656);
-  background: linear-gradient(#cc6666, #BD4656);
-  -pie-background: linear-gradient(#cc6666, #BD4656);
-} 
- 
-input[type="submit"], input[type="button"], .r_button {
-  color:#e8eef4;
-  border: 1px solid #773841;
-  background: #a91e4c;
-  @include red_gradient;
-  &:hover  {
-    @include red_gradient_hover;
-  }
-}
-
-
-.ui-dialog .ui-dialog-content {
-    padding:0;
-}
-
-.ui-widget-content {
-  text-align:left;  
-}  
-
 #firm_contact p {
   float:left;
   font-size:20pt;
 }
 .td_z {font-weight:bold;font-size:8pt;width:80px;}
 
-.ui-button-text {font-size:9pt;}
-
-.ui-dialog .ui-dialog-buttonpane button, .ui-dialog .ui-dialog-buttonpane button:hover {
-  text-align: center;
-	behavior: url(/javascripts/PIE.htc);
-  -webkit-box-shadow: #666 0px 2px 3px;
-  -moz-box-shadow: #666 0px 2px 3px;
-  box-shadow: #666 0px 2px 3px;
-  color:#e8eef4;
-}
-
-.ui-dialog .ui-dialog-buttonpane button {
-  border: 1px solid #773841;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  background: #a91e4c;
-  @include red_gradient;
-}
-
-.ui-dialog .ui-dialog-buttonpane button:hover {
-  border: 1px solid #45682a;
-  background: #689f3d;
-  background: -webkit-linear-gradient(#a2db5a, #689f3d);
-  background: -moz-linear-gradient(#a2db5a, #689f3d);
-  background: -ms-linear-gradient(#a2db5a, #689f3d);
-  background: -o-linear-gradient(#a2db5a, #689f3d);
-  background: linear-gradient(#a2db5a, #689f3d);
-  -pie-background: linear-gradient(#a2db5a, #689f3d);
-}
 
 
 .b-who_are_you {

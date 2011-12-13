@@ -16,6 +16,8 @@
 */
 
 
+@import "buttons";
+
 table
 {
   border: solid 1px #e8eef4;
@@ -216,3 +218,48 @@ p.places-for-sale {
 	border:none;
   position:absolute;
 }
+
+.ui-button-text {font-size:9pt;}
+
+.ui-dialog .ui-dialog-buttonpane button, .ui-dialog .ui-dialog-buttonpane button:hover {
+  text-align: center;
+	behavior: url(/javascripts/PIE.htc);
+  -webkit-box-shadow: #666 0px 2px 3px;
+  -moz-box-shadow: #666 0px 2px 3px;
+  box-shadow: #666 0px 2px 3px;
+  color:#e8eef4;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+  border: 1px solid #773841;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background: #a91e4c;
+  @include red_gradient;
+}
+
+.ui-dialog .ui-dialog-buttonpane button:hover {
+  border: 1px solid #45682a;
+  background: #689f3d;
+  background: -webkit-linear-gradient(#a2db5a, #689f3d);
+  background: -moz-linear-gradient(#a2db5a, #689f3d);
+  background: -ms-linear-gradient(#a2db5a, #689f3d);
+  background: -o-linear-gradient(#a2db5a, #689f3d);
+  background: linear-gradient(#a2db5a, #689f3d);
+  -pie-background: linear-gradient(#a2db5a, #689f3d);
+}
+
+ 
+input[type="submit"], input[type="button"] {
+  @extend .r_button;
+}
+
+
+.ui-dialog .ui-dialog-content {
+    padding:0;
+}
+
+.ui-widget-content {
+  text-align:left;  
+}  

@@ -3,6 +3,7 @@
 <% else %>
 @import "giftpoisk_vars";
 <% end %>
+@import "buttons";
 
  * {
 	margin:0px;
@@ -76,17 +77,16 @@ h3 {font-size:1.1em;}
 	margin-right:260px;
 	text-align:left;
 	padding:0 6px;
-}
-
-.content p, .commercial_offer label {
+	p {
     color:#999999;
     text-align:left;
     font-size:10pt;
+	}
+	a {
+    color:#999999;	
+  }  	
 }
 
-.content a {
-    color:#999999;
-}
 
 .line {
 	width:250px;
@@ -465,8 +465,13 @@ a:hover.lk-logout {
 	color:#666;
 }
 
+.pager { color:#000; a {color:#000}}
 .paginate2 {
   float:right;
+  font-size: 10pt;
+  color: #000;
+  a {color: #000;}
+  em.current  {color:$background_color; font-weight:bold; }
 }
 .products-per-page, .b-left {
   float:left;
@@ -474,9 +479,12 @@ a:hover.lk-logout {
 
 .per-page { 
   font-weight:900;
+  color:$background_color;  
+  a { 
+    font-weight:normal;
+    color:#000;
+  }
 }
-
-.per-page a { font-weight:normal;}
 
 .ajax_animation {
   display:none;
@@ -489,94 +497,6 @@ a.toggle-category {
   border-bottom:dotted 1px;
 }   
   
-.corner-all {
-	border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-khtml-border-radius: 10px;
-	behavior: url(/javascripts/PIE.htc);
-}
-
-.shadow {
-  -moz-box-shadow: #000 0px 0px 7px;
-  -webkit-box-shadow: #000 0px 0px 7px;
-  box-shadow: #000 0px 0px 7px;
-//	behavior: url(/javascripts/PIE.htc);
-}
-
-
-.ui-widget-content button, input[type="submit"], input[type="button"], .b_button, .r_button, .g_button, .br_button, .gray_button {
-  cursor:pointer;
-  margin:auto;
-  font-size:9pt;
-  padding: 4px 15px;
-  text-align: center;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-box-shadow: #666 0px 2px 3px;
-  -moz-box-shadow: #666 0px 2px 3px;
-  box-shadow: #666 0px 2px 3px;
-  position:relative;
-	behavior: url(/javascripts/PIE.htc);
-	&:active {
-    -webkit-box-shadow: inset #666 1px 1px 3px;
-    -moz-box-shadow: inset #666 1px 1px 3px;
-    box-shadow: inset #666 1px 1px 3px;
-	}
-}  
-
-
-*+html input[type="submit"], *+html .b_button, *+html .g_button, *+html .r_button, *+html .br_button {
-  padding: 2px 10px;
-}
-
-.g_button {
-  border: 1px solid #45682a;
-  background: #689f3d;
-  background: -webkit-linear-gradient(#a2db5a, #689f3d);
-  background: -moz-linear-gradient(#a2db5a, #689f3d);
-  background: -ms-linear-gradient(#a2db5a, #689f3d);
-  background: -o-linear-gradient(#a2db5a, #689f3d);
-  background: linear-gradient(#a2db5a, #689f3d);
-  -pie-background: linear-gradient(#a2db5a, #689f3d);
-  &:hover {
-    background: -webkit-linear-gradient(#a2db5a, #79A93B);
-    background: -moz-linear-gradient(#a2db5a, #79A93B);
-    background: -ms-linear-gradient(#a2db5a, #79A93B);
-    background: -o-linear-gradient(#a2db5a, #79A93B);
-    background: linear-gradient(#a2db5a, #79A93B);
-    -pie-background: linear-gradient(#a2db5a, #79A93B);  
-  }
-}
-
-$br_color:#481f0d;
-$br_l_color:lighten($br_color,10%);
-
-$br_color_hover:lighten($br_color,15%);
-$br_l_color_hover:lighten($br_color,20%);
-
-
-.br_button {
-  color: #fff; 
-  border: 1px solid darken($br_color, 10%);
-  background: $br_color;
-  background: -webkit-linear-gradient($br_l_color, $br_color);
-  background: -moz-linear-gradient($br_l_color, $br_color);
-  background: -ms-linear-gradient($br_l_color, $br_color);
-  background: -o-linear-gradient($br_l_color, $br_color);
-  background: linear-gradient($br_l_color, $br_color);
-  -pie-background: linear-gradient($br_l_color, $br_color);
-  &:hover {
-    color: #e8eef4; 
-    background: -webkit-linear-gradient($br_l_color_hover, $br_color_hover);
-    background: -moz-linear-gradient($br_l_color_hover, $br_color_hover);
-    background: -ms-linear-gradient($br_l_color_hover, $br_color_hover);
-    background: -o-linear-gradient($br_l_color_hover, $br_color_hover);
-    background: linear-gradient($br_l_color_hover, $br_color_hover);
-    -pie-background: linear-gradient($br_l_color_hover, $br_color_hover);  
-  }
-}
 
 .ext-search-button {
 <% if Settings.giftb2b? %>

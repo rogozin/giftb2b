@@ -1,6 +1,5 @@
 #encoding: utf-8;
-module Lk
-  module ApplicationHelper
+module Lk::ApplicationHelper
          
   def firm_logo_present?
     current_user && current_user.firm && current_user.firm.images.present?
@@ -20,15 +19,5 @@ module Lk
   
   def lk_menu_item(title, link, class_name="l-folder")
     content_tag(:p, link_to(title, link, :class => class_name), :class => selected_class = link.match(controller_name) ? "selected" : nil )
-  end
-
-
-
-  def help_popup text
-    content_tag :span, :class => "i-help-popup" do
-      concat image_tag("pix.gif")
-      concat content_tag(:div, simple_format(text), :class => "b-info-popup")      
-    end    
-  end
   end
 end

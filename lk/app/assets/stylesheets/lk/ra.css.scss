@@ -1,8 +1,10 @@
+@import "giftpoisk_vars";
+@import "buttons";
 
 table th
 {  
   color:#EAF7E6;
-  background-color: #0080B2;
+  background-color: $background_color;
 }
 
 .b-search-property {
@@ -11,8 +13,7 @@ table th
   text-align:left;
 }  
 
-#title h1, .center_block h1, .center_block h2, .lk-menu-title, .per-page {
-	color:#0080B2;
+#title h1, .center_block h1, .center_block h2, .lk-menu-title {
 }
 
 tr.disabled-row {
@@ -72,6 +73,11 @@ div.radio-buttons {margin-bottom:5px;}
 
   $c_grey:#696969;
   
+
+ .ui-widget-content button, button, input[type="submit"] {
+   @extend .br_button;
+}
+
  .gray_button {
     background: $c_grey;
     font-weight:bold;
@@ -81,32 +87,6 @@ div.radio-buttons {margin-bottom:5px;}
       border: 1px solid darken($c_grey, 10%);  
     }
  }
-
- .ui-widget-content button, button, input[type="submit"], .b_button {
-  color:#e8eef4;
-  border: 1px solid #45682a;
-  background: #006389;
-  background: -webkit-linear-gradient(#0080b2, #006389);
-  background: -moz-linear-gradient(#0080b2, #006389);
-  background: -ms-linear-gradient(#0080b2, #006389);
-  background: -o-linear-gradient(#0080b2, #006389);
-  background: linear-gradient(#0080b2, #006389);
-  -pie-background: linear-gradient(#0080b2, #006389);
-}
-
-
- .ui-widget-content button:hover, button:hover, input[type="submit"]:hover, .b_button:hover {
-  color:#e8eef4;
-  border: 1px solid #45682a;
-  background: #006389;
-  background: -webkit-linear-gradient(#0080b2, #1773AA);
-  background: -moz-linear-gradient(#0080b2, #1773AA);
-  background: -ms-linear-gradient(#0080b2, #1773AA);
-  background: -o-linear-gradient(#0080b2, #1773AA);
-  background: linear-gradient(#0080b2, #1773AA);
-  -pie-background: linear-gradient(#0080b2, #1773AA);
-}
-
 
 .treeview li span.selected a {color:#cc3366;}
 

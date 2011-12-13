@@ -75,3 +75,9 @@ a.add-link {
   color:#177E99;
   &:hover { color: lighten(#177E99, 10%); }
   }
+  
+#add_new_product  {
+  padding:40px;
+  text-align:center;
+  border: solid 1px #e8eef4;  
+}

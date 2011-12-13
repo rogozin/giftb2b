@@ -40,7 +40,7 @@ function setValues(dialog) {
             arr[index] = $(dialog).find('label[for="'+this.id+'"]').text();
             $("<input type='hidden' name='category_ids[]' value='" + this.value + "'>").appendTo('#category_ids'); 
            });
-          $("#select_category").text( arr.length == 0 ? "Выберите категорию товара" : arr.join(', ')); 
+          $("#select_category").text( arr.length == 0 ? "Искать в разделах" : arr.join(', ')); 
           return false;
 }         
 

@@ -21,7 +21,7 @@
   </div>  
   <div class="spacer"></div>
     <div class="b-formfield-div">
-    <%= link_to "Предпросмотр", main_app.news_url(@news, :host => "giftb2b.ru"), :class => "b_button", :id => "preview" unless @news.new_record? %><%= f.submit "Сохранить в черновики" %><%= f.submit "Отправить на модерацию", :name => "moderate" %> 
+    <%= link_to "Предпросмотр", main_app.news_url(@news, :host => "giftb2b.ru"), :class => "br_button", :id => "preview" unless @news.new_record? %><%= f.submit "Сохранить в черновики" %><%= f.submit "Отправить на модерацию", :name => "moderate" %> 
   </div>
   <div class="clear"></div>
 <% end %>

@@ -60,7 +60,7 @@
   </div>
   <div class="clear"></div>
   <div class="b-submit">
-    <%= submit_tag "Сохранить",  :class => "b_button" %>	
+    <%= submit_tag "Сохранить",  :class => "br_button" %>	
   </div>
 
   </div> <!-- #tab-1 -->
@@ -68,7 +68,7 @@
   <div id="tab-2">
     <%= f.text_area :description, :cols => 0, :rows => 18 %>      
     <div class="b-submit">
-    <%= submit_tag "Сохранить",  :class => "b_button" %>	
+    <%= submit_tag "Сохранить",  :class => "br_button" %>	
     </div>
   </div> <!-- #tab-4 -->
 
@@ -83,7 +83,7 @@
     <div class="b-search-property">
       <h3><%= link_to_function "Основной каталог", "$('#categories_tree').toggle();", :class=>"pseudo-link" %> </h3>
       <div id="categories_tree" class="g-hidden">
-        <%= hashed_categories_tree(@catalog, @product.category_ids) %>
+        <%= hashed_categories_tree(@catalog, @product.category_ids, true, true) %>
       </div>
     </div>
     
@@ -102,7 +102,7 @@
     </div>
     <div class="clear"></div>
    <div class="b-submit">
-    <%= submit_tag "Сохранить",  :class => "b_button" %>	
+    <%= submit_tag "Сохранить",  :class => "br_button" %>	
   </div>
   </div> <!-- #tab-3 -->
 
