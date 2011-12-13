@@ -169,13 +169,14 @@ input:focus,  select:focus,  textarea:focus{
 }
   
 a.menu_left {
-	color:#177E99;
+	color:$c_side_menu;		
 	text-decoration:none;
 	line-height:1.3;
+	&:hover {color: lighten($c_side_menu, 20%);}
 }
 
 a:hover.menu_left {
-	color:#cc3366;
+//	color:#cc3366;
 	text-decoration:underline;
 }
 
@@ -465,13 +466,14 @@ a:hover.lk-logout {
 	color:#666;
 }
 
-.pager { color:#000; a {color:#000}}
+
+.paginate2, .pagination, .pager { 
+  color:#000; a {color:#000}
+  em.current  {color:$background_color; font-weight:bold; }
+}
 .paginate2 {
   float:right;
   font-size: 10pt;
-  color: #000;
-  a {color: #000;}
-  em.current  {color:$background_color; font-weight:bold; }
 }
 .products-per-page, .b-left {
   float:left;
