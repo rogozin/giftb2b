@@ -390,11 +390,19 @@ select {background-color: white;}
 	}
 	.logout {
 	  margin-left:10px;	
-		background: image-url("base/images/unlock.png") 0% 0% no-repeat transparent;
+		background: image-url("base/images/unlock.png") 0 0 no-repeat transparent;
   	width:24px;
   	height:24px;
   	cursor:pointer;
   	float:left;
+  	a {
+	    display:inline-block;
+	    height:24px;
+	    width:24px;
+     }
+	    &:hover {
+      	background: image-url("base/images/unlock_hover.png") 0 0 no-repeat transparent;
+	    }  	
   }
 }
 
