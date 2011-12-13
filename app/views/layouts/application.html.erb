@@ -13,7 +13,6 @@
   <script type="text/javascript">
  $(function()
   {
-    $('.b-tree').treeview({collapsed: true,persist: "cookie"});  
     <%= yield :document_ready %>   
   })
  </script>
@@ -139,7 +138,9 @@
     </div>
     <div class="left_block">
       <%= render :partial => 'shared/banner', :locals => {:position => 12} %>
-       <div class="b-n-header latest-news"><div class="b-b-block"><div class="b-t-block"><%= render :partial => 'shared/latest_news' %></div></div></div>
+      <% if News.cached_latest_news.present? -%>
+       <div class="b-n-header latest-news"><div class="b-b-block"><div class="b-t-block"><%= render :partial => 'shared/latest_news' %></div></div></div>        
+      <% end -%>
       <%= render :partial => 'shared/banner', :locals => {:position => 13} %>
     </div>       
   </div> <!--end left_content --> 

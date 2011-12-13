@@ -3,17 +3,11 @@
 //= require jquery-ui
 //= require jquery.treeview
 //= require jquery.cookie
+//= require layout
 //= require ui.datepicker-ru
 //= require tinymce-jquery
 //= require_tree .
 //= require search
-
-function bindAnimation() {
-  $(".ajax_animation").bind({
-      ajaxStart: function() { $(this).show(); },
-      ajaxStop: function() { $(this).hide(); }
-    });
-}
 
 $(function() {
  $("#tabs").tabs();  

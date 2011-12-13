@@ -52,28 +52,59 @@
  <div id="cart" class="basket_right">
     <%= render :partial => "cart/cart" %>
   </div>
-	<div class="line"></div> 
-  <div id="user_menu" class="left_block">
-	<p class="b-header"><span class="lk-menu-title">Личный кабинет</span></p> 
-	<%= render_lk_menu %>
-  </div> <!-- end left_block -->   
-</div> <!--end right_content --> 
-
-<div id="left_content">
- <%= link_to  image_tag("pix.gif", :alt => "giftpoisk.ru", :id => "gift_logo" ), main_app.root_path  %>
- <%= image_tag current_user.firm.logo.url(:thumb) if firm_logo_present? %>
-     
-	<div class="lk" id="lk"> 
+<div class="lk" id="lk"> 
     <%  if current_user -%>
       <%= render  :partial =>'shared/lk' %>
     <% else -%>
     <%= render :partial => "shared/pass_input" %>
     <% end -%>
-    </div> <!-- end lk -->
-<div class="line line-top-margin"></div> 
-<div class="spacer"></div>
-<div class="banner_left"></div>
-	
+    </div> <!-- end lk -->	
+  <div id="user_menu" class="left_block">
+    <div class="line"></div>
+    <h3>Личный кабинет</h3>
+  	<%= render_lk_menu %>
+    <div class="line"></div>
+  </div> <!-- end left_block -->   
+</div> <!--end right_content --> 
+
+<div id="left_content">
+  <%= link_to  image_tag("pix.gif", :alt => "giftpoisk.ru", :id => "gift_logo" ), main_app.root_path  %>
+  <%= image_tag current_user.firm.logo.url(:thumb) if firm_logo_present? %>
+     
+  <div class="left_block b-background">
+    
+    <div class="cat-name">
+      <p>Каталог сувениров</p>
+      <a id="catalog_0" href="#0" class="b-down"></a>
+    </div>
+
+    <div class="catalog-tree js-hidden">
+     <%= render :partial => 'shared/catalog' %>
+    </div>
+
+    <div class="cat-name">
+      <p>Тематические сувениры</p>
+      <a  id="catalog_1" href="#1" class="b-down"></a>
+    </div>
+
+    <div class="catalog-tree js-hidden">
+     <%= render :partial => 'shared/tematicheskie' %>
+    </div>
+
+    <div class="cat-name">
+      <p>Сувениры к праздникам</p>
+      <a  id="catalog_2" href="#2" class="b-down"></a>
+    </div>
+    <div class="catalog-tree js-hidden">
+     <%= render :partial => 'shared/analogs' %>
+    </div>              
+  </div> <!-- end left_block -->
+  
+  <div class="left_block">
+    <% if News.cached_latest_news.present? -%>
+     <div class="b-n-header latest-news"><div class="b-b-block"><div class="b-t-block"><%= render :partial => 'shared/latest_news' %></div></div></div>        
+    <% end -%>
+ 	</div>
 </div> <!--end left_content --> 
 <div class="clear"></div> 
 <div id="footer">	<div class="f-block">

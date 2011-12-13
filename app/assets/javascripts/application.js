@@ -8,6 +8,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery.treeview
+//= require layout
 //= require base
 //= require jquery.cookie
 //= require jquery.smoothDivScroll-1.1-min
