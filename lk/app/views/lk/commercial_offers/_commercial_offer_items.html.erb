@@ -1,21 +1,8 @@
 <%= form_tag calculate_commercial_offer_path(@commercial_offer), :remote => true, :id => "co_form" do %>
 <table width="100%">
-  <tr>
-    <th><%= image_tag "unchecked.gif", :id => "select_all", :title => "Выбрать все"  %></th>
-    <th>Изображение</th>
-    <th>Артикул</th>
-    <th>Наименование</th>
-    <th>Цена за шт</th>
-    <th class="no-wrap">Кол-во</th>
-    <% if @commercial_offer.has_sale? %>
-      <th>Скидка</th>
-      <th>Сумма со скидкой</th>
-    <% else %>
-       <th>Сумма </th>       
-    <% end -%>
-    <th class="th_lk"></th>
-    <th class="th_lk"></th>
-  </tr>
+<tr id="co_items_header">
+<%= render :partial => "co_item_header" %>
+</tr>
 
 <%= render :partial => "co_item_row", :collection => @commercial_offer.commercial_offer_items, :as => :item %>
 </table>

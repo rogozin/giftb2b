@@ -5,8 +5,8 @@
       <td><%= item.lk_product.short_name %></td>
       <td class="no-wrap single-price"><%= price_ru_label item.lk_product.price  %></td>
       <td class="no-wrap"><%= text_field_tag "co_items[#{item.id}]", item.quantity, :class => "inp-quantity" %></td>
+      <td class="no-wrap sale"><%= item.sale %>%</td>
       <% if @commercial_offer.has_sale? -%>
-        <td class="no-wrap sale"><%= item.sale %>%</td>
         <td class="no-wrap sum"><%= price_ru_label(price_with_sale(item.lk_product.price, item.sale)*item.quantity) %></td>
       <% else -%>
         <td class="no-wrap sum"><%= price_ru_label(item.lk_product.price * item.quantity) %></td>      
