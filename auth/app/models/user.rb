@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
      Rails.cache.fetch("#{cache_key}.is_firm_user?", :expires_in=>60) {role_objects.exists?(["roles.group=2"])}
   end
   
+  def is_e_shop_user?
+     Rails.cache.fetch("#{cache_key}.is_e_shop_user?", :expires_in=>60) {role_objects.exists?(["roles.group=3"])}
+  end
+  
   def is_firm_manager?
     Rails.cache.fetch("#{cache_key}.is_firm_manager?", :expires_in=>60) { has_role?("Менеджер фирмы")}    
   end

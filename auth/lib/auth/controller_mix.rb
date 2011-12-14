@@ -19,7 +19,7 @@ module Auth
         flash[:alert] = "Для доступа необходимо ввести имя пользователя и пароль"
         redirect_to auth_engine.login_path
         return false
-        end
+      end
     end
   
   

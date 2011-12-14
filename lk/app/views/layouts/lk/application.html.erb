@@ -52,9 +52,11 @@
       <%= render  :partial =>'shared/lk_short' if current_user %>
    </div> <!-- end lk -->	
  
+  <% if current_user && current_user.is_firm_user? -%>
  <div id="cart" class="basket_right">
     <%= render :partial => "cart/cart" %>
   </div>
+  <% end -%>
   <div id="user_menu" class="left_block">
     <div class="line"></div>
     <h3>Личный кабинет</h3>

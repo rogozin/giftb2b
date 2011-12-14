@@ -16,5 +16,5 @@
 		<div class="article_t">
 		  <%= link_to 'Подробнее о товаре', product_path(product), :class => "article_a", :target => "_blank"  %>		  
 		</div> 
-     <%= add_to_cart_url(product) if current_user %>
+     <%= add_to_cart_url(product) if current_user && !current_user.is_e_shop_user? %>
 <% end -%>

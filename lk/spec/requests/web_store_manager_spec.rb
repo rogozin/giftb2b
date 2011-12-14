@@ -3,10 +3,37 @@ require 'spec_helper'
 
 
 describe 'Роль Интернет-магазин' do
+  
   before(:each) do
      login_as :web_store_manager
      @firm = Factory(:firm)
      @user.update_attributes(:firm => @firm, :fio => "Петр Иванов")    
+     Factory(:color_property, :name => "Цвет", :property_values => [PropertyValue.create(:value => "красный")])
+     Settings.stub(:giftpoisk?).and_return(true)     
+  end
+  
+  context 'главная страница' do
+    it 'не вижу корзину' do
+      visit "/lk"
+      page.should have_no_selector "#cart"
+    end      
+  end
+  
+  context "расширенный поиск" do
+    it 'доступен поиск по артикулу и названию' do
+      visit "/lk"
+      within "#ext_search" do
+        page.should have_selector "#name"      
+        page.should have_selector "#store_from"      
+        page.should have_selector "#price_from"      
+        page.should have_selector "#price_to"      
+        page.should have_selector ".color-box"      
+        page.should have_no_selector "#article"      
+        page.should have_no_selector "#manufactor_id"      
+        page.should have_no_selector ".suppliers-items"      
+        page.should have_no_selector ".material-items"      
+      end
+    end
   end
   
   context "Личный кабинет" do

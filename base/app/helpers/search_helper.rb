@@ -1,6 +1,11 @@
 #encoding: utf-8;
 module SearchHelper
   
+  def show_ext_search?
+    (ext_user? || giftpoisk?) && !current_user.is_e_shop_user?
+  end
+  
+  
   def prop_name obj, array = false
     res  =  "pv_#{obj.id}"
     res << "[]" if array

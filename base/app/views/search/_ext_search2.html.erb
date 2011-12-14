@@ -30,7 +30,7 @@
        </div>
        <div class="clear"></div>     
     </div>
-  <% if ext_user? || giftpoisk? -%>
+  <% if show_ext_search? -%>
     
     <div class="b-ext-search-inner">
        <div class="b-ext-search-center">     
@@ -75,7 +75,7 @@
        <div class="clear"></div>
     </div>
   <% end -%>
-    <%= content_tag :div, :class => (ext_user? || giftpoisk?) ? "b-ext-search-inner even" : "b-ext-search-inner" do %>
+    <%= content_tag :div, :class => (show_ext_search?) ? "b-ext-search-inner even" : "b-ext-search-inner" do %>
        <div class="b-ext-search-center">     
          <div class="b-search-center-inner">
            <span class="span-right-block"><%= label_tag :store_from, "на складе от: " %> 
@@ -94,7 +94,7 @@
 
        <div class="clear"></div>
     <% end -%>
-    <% if ext_user? || giftpoisk? -%>
+    <% if show_ext_search? -%>
     <div class="b-ext-search-inner">
      <div class="header">
         <h3>Материал</h3>
@@ -148,7 +148,7 @@
        <div class="clear"></div>
     </div>
 
-  <% if ext_user? || giftpoisk? -%>
+  <% if show_ext_search? -%>
     
   <!--  <div class="b-ext-search-inner even">
 
