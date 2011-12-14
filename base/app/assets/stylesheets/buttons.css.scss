@@ -118,7 +118,7 @@ $br_l_color_hover:lighten($br_color,20%);
 }
 
 
-.ui-widget-content button, input[type="submit"], input[type="button"], .b_button, .r_button, .g_button, .br_button, .gray_button {
+@mixin default_button {
   cursor:pointer;
   margin:auto;
   font-size:9pt;
@@ -137,6 +137,11 @@ $br_l_color_hover:lighten($br_color,20%);
     -moz-box-shadow: inset #666 1px 1px 3px;
     box-shadow: inset #666 1px 1px 3px;
 	}
+}
+
+
+.ui-widget-content button, input[type="submit"], input[type="button"], .b_button, .r_button, .g_button, .br_button {
+  @include default_button;
 }  
 
 

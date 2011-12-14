@@ -74,13 +74,15 @@ div.radio-buttons {margin-bottom:5px;}
   $c_grey:#696969;
   
 
- .ui-widget-content button, button, input[type="submit"] {
+ .ui-widget-content button, input[type="submit"] {
    @extend .br_button;
 }
 
  .gray_button {
+    @include default_button;
     background: $c_grey;
     font-weight:bold;
+    color:#fff;
     border: 1px solid darken($c_grey, 10%);  
     &:hover {
       background: lighten($c_grey, 5%);
