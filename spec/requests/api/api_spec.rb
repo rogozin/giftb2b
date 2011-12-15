@@ -160,6 +160,28 @@ describe 'api testing' do
       ActionMailer::Base.deliveries.map(&:to).flatten.should include("demo@demo.ru")
       ActionMailer::Base.deliveries.map(&:to).flatten.should include(order.firm.email)
     end
+    
+    context 'разные способы передачи массива в заказе' do
+      before(:each) do
+       @product2 = Factory(:product)
+      end
+
+# Этот способ передачи параметров не работает, на сервер передается только один элемент :product
+#      it 'передача с ключом product' do        
+#        expect {
+#         post 'api/orders', {:order => {:email => "demo@demo.ru", :phone => "888-999-32", :name => "ilya", :comment => "Комментарий", :products => [{:product => {:id => @product.id, :quantity => 1, :price => @product.price_in_rub }}, {:product => {:id => @product2.id, :quantity => 2, :price => 111 }}]}}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+#         }.to change(LkOrder, :count).by(1) && change(LkOrderItem, :count).by(2)
+#        response.code.should eq("200")
+#      end
+      
+      it 'передача без ключа product' do        
+        expect {
+         post 'api/orders', {:order => {:email => "demo@demo.ru", :phone => "888-999-32", :name => "ilya", :comment => "Комментарий", :products => [{:id => @product.id, :quantity => 1, :price => @product.price_in_rub }, {:id => @product2.id, :quantity => 2, :price => 111 }]}}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
+         }.to change(LkOrder, :count).by(1) && change(LkOrderItem, :count).by(2)
+        response.code.should eq("200")
+      end      
+    end
+    
   end
 
   context 'search' do
