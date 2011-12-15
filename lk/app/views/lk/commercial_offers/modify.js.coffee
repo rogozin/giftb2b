@@ -29,3 +29,5 @@
   $('<div class="alert"><%= escape_javascript(flash[:alert]) %></div>').appendTo('#delta_messages').delay(3000).fadeOut(500)
 <% end %>  
   
+<% flash.discard %>
+
