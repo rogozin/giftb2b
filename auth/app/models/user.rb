@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
   attr_accessible :username, :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, 
                   :city, :url, :as => :client
   attr_accessible :username, :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, :city, :url, 
-                  :active,  :expire_date, :firm_id, :supplier_id, :as => :admin
-  attr_accessible :username, :password, :password_confirmation, :birth_date, :active,  :expire_date, :firm_id, :as => :crm
+                  :active,  :expire_date, :firm_id, :supplier_id, :role_object_ids, :as => :admin
+  attr_accessible :username, :password, :password_confirmation, :birth_date, :active,  :expire_date, :firm_id, :role_object_ids, :as => :crm
   
   def is_admin?
     Rails.cache.fetch("#{cache_key}.is_admin?", :expires_in=>60) {has_role? 'Администратор'}
