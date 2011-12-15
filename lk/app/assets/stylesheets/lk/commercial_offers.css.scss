@@ -4,28 +4,81 @@
   }
 }
 
-
 #co_output a.pseudo-link {
   font-size:0.8em;
   color:#0080B2;
 }
 
-#co_settings{
-  font-size:0.8em;
-  display:none;
+#co_client {
+  float:left;
+}
+
+#co_messages {
+  float:right;
+  .ajax_animation {
+    width:16px;
+    height:16px;
+    background: image-url("loading.gif") no-repeat top left;
+  }
 }  
 
-.b-co-description {
-  float:left;
-  width:50%;
-  textarea { width:95%;}
+#delta_messages {
+  min-height: 32px; 
+  .notice, .alert {
+    padding:8px;  
+    margin-bottom:2px;
+	  border-radius: 5px;
+	  -moz-border-radius: 5px;
+	  -webkit-border-radius: 5px;
+	  -khtml-border-radius: 5px;
+	  behavior: url(/javascripts/PIE.htc);
+    }
+  .alert {background:#fedada;}
+  .notice {background:#B9F6A9}
+
 }
 
+#co_settings{
+  border: solid 1px #ccc;
+  width:200px;
+  padding:20px;
+  line-height:2em;
+  label {margin-left:10px;}
+}  
+
+#co_output_links {
+  padding-top:10px;
+}
+
+.b-co-description {
+  width:100%;
+  textarea { width:100%;}
+}
+
+.b-co-change-links {
+  padding-left:25px;
+  padding-top:5px;
+}  
 
 .b-co-delta {
-  float:left;
-  width:50%
+  background:#ccc;
+  padding:10px 0;
+  margin-top:10px;
+  .inner {
+    padding: 5px 5px 5px 25px;
+    button {margin-left:10px};
+  }
 }
 
-.b-co-delta-inner {padding: 5px 0 5px 25px;}
-
+a.add-link {
+  background: image-url("lk/images/add.png") no-repeat top left; 
+  padding-left:20px;
+  color:#177E99;
+  &:hover { color: lighten(#177E99, 10%); }
+  }
+  
+#add_new_product  {
+  padding:40px;
+  text-align:center;
+  border: solid 1px #e8eef4;  
+}

@@ -1,0 +1,17 @@
+    <%= content_tag :tr, :id=> dom_id(item) do %>
+      <td class="checkbox"><%= check_box_tag "co_items_ids[]", item.id %></td>
+      <td><%= product_image_link item.lk_product %></td>
+      <td><%= article item.lk_product %></td>
+      <td><%= item.lk_product.short_name %></td>
+      <td class="no-wrap single-price"><%= price_ru_label item.lk_product.price  %></td>
+      <td class="no-wrap"><%= text_field_tag "co_items[#{item.id}]", item.quantity, :class => "inp-quantity" %></td>
+      <td class="no-wrap sale"><%= item.sale %>%</td>
+      <% if @commercial_offer.has_sale? -%>
+        <td class="no-wrap sum"><%= price_ru_label(price_with_sale(item.lk_product.price, item.sale)*item.quantity) %></td>
+      <% else -%>
+        <td class="no-wrap sum"><%= price_ru_label(item.lk_product.price * item.quantity) %></td>      
+      <% end -%>
+      <td><%= link_to image_tag('edit.png'), edit_commercial_offer_product_path(@commercial_offer, item), :title => "Редактировать"  %> </td>
+      <td> <%= link_to image_tag('remove.png'), commercial_offer_product_path(@commercial_offer, item), :method => :delete, :confirm => "Удалить товар из коммерческого предложения?", :title => "Удалить"  %></td>
+ <% end %>
+

@@ -22,8 +22,7 @@ end
 
 Factory.define :commercial_offer do |f|
   f.association :firm
-  f.association :lk_firm
-  f.sale 10
+#  f.association :lk_firm
   f.email "demo@giftb2b.ru"
   f.signature "Всего хорошего!"
   f.association :user

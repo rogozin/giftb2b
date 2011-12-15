@@ -4,7 +4,7 @@ class CommercialOfferItem < ActiveRecord::Base
   belongs_to :lk_product
   
   validates :quantity, :numericality => {:greater_than => 0}
-  
+  validates :sale,  :inclusion => { :in => 0..99 }
   after_destroy :drop_lk_product
   
   private

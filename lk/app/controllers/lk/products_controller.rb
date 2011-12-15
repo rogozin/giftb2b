@@ -35,6 +35,7 @@ class Lk::ProductsController < Lk::BaseController
   end
   
   def update
+    params[:lk_product][:category_ids] ||= []
     if @product.update_attributes(params[:lk_product])
       flash[:notice] = "Товар изменен!"
       redirect_to (params[:redirect].present? ?  params[:redirect] :  edit_product_path(@product))
@@ -55,7 +56,7 @@ class Lk::ProductsController < Lk::BaseController
  
    def load_lk_products
     params[:page] ||="1"
-    params[:per_page] ||= 20
+    params[:per_page] ||= "20"
     @object_type = params[:object_type]
     #@object_id = params[:object_id]
     set_post_url    

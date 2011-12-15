@@ -1,6 +1,7 @@
 #encoding: utf-8;
 module Lk
   class ApplicationController < ActionController::Base
+  protect_from_forgery  :secret => '14d398aec746ebb20e8f187bda7c3ba3'
  # helper_method :current_user, :giftpoisk?
     
   helper GiftHelper

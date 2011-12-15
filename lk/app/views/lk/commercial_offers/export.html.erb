@@ -56,6 +56,14 @@
 	font-weight:bold;
 	page-break-inside: avoid;
 	}	
+.t10 {
+	font-size:10pt;
+	margin:0px;
+	margin-left:15px;
+	padding:0px;
+	line-height:1.2;
+	page-break-inside: avoid;
+	}		
 .td_descr {
 	width:400px;
 	vertical-align:top;
@@ -78,7 +86,32 @@ div.article_img_2 {
 div.article_img_3 img {
 }
 
+div.sale {
+ background:red;
+ color:#fff;
+ font-weight:900;
+ font-size:13pt;
+ width:40px;
+ height:30px;
+ text-align:center;
+ padding-top:10px;
+ border:2px solid red;
+ top:-40px;
+ left:-10px;
+ position:relative;
+	border-radius: 22px;
+	-moz-border-radius: 22px;
+	-webkit-border-radius: 22px;
+	-khtml-border-radius: 22px;
+	behavior: url(/javascripts/PIE.htc); 
+	z-index:999;
+}
 
+div.sale span {
+  font-weight:normal;
+  font-size:11pt;
+  margin-left:2px;
+}
 </style>
 </head>
 <body>
@@ -101,28 +134,38 @@ div.article_img_3 img {
 <% @commercial_offer.commercial_offer_items.each do |item| -%>
 <table id="table_t"> 
 <tr> 
-<td width="90"><div class="article_img_1"><div class="article_img_2"> <div class="article_img_3">  
+<td width="90">
+<div class="article_img_1"><div class="article_img_2"> <div class="article_img_3">  
   <% picture_geometry = Paperclip::Geometry.from_file(item.lk_product.picture.path) -%>
    <%= image_tag(image_path("#{controller.request.protocol}#{controller.request.host}:#{controller.request.port}"+item.lk_product.picture.url), :width => picture_geometry.width/3, :height => picture_geometry.height/3 )%>
  </div></div></div>
+<% if item.sale > 0 -%>
+<div class="sale">-<%= item.sale %><span>%</span></div>  
+<% end -%> 
 </td> 
 <td class="td_descr"> 
 		<p class="t9"><strong>Название товара: </strong><%= item.lk_product.short_name %></p> 
 		<% unless @hide_article -%>	  
 		<p class="t9"><strong>Артикул: </strong><%= item.lk_product.article %></p> 
 		<% end -%>
-		<p class="t9"><strong>Материал: </strong><%= item.lk_product.factur %></p> 
-		<p class="t9"><strong>Цвет: </strong><%= item.lk_product.color %></p> 
-		<p class="t9"><strong>Размер: </strong><%= item.lk_product.size %></p> 
-		<p class="t9"><strong>Нанесение: </strong><%= item.lk_product.infliction %></p>
-		<p class="t9"><strong>Количество на складе: </strong><%= item.lk_product.store_count  %></p>
-		<p class="t9"><strong>Цена: </strong><%= price_ru_label item.lk_product.price %></p> 
-		<% unless @commercial_offer.sale.zero? -%>
-		<p class="t9"><strong>Цена со скидкой: </strong><%= price_ru_label price_with_sale(item.lk_product.price, @commercial_offer.sale) %></p> 
+		<% if item.lk_product.factur.present? -%>
+		<p class="t9"><strong>Материал: </strong><%= item.lk_product.factur %></p> 		  
 		<% end -%>
-		<p class="t10b">Общая сумма: <%= price_ru_label item.quantity * item.lk_product.price %> за <%= item.quantity %> шт.</p> 
-		<% unless @commercial_offer.sale.zero? -%>
-		<p class="t10b">Общая сумма со скидкой <%= @commercial_offer.sale %>%: <%= price_ru_label item.quantity * price_with_sale(item.lk_product.price, @commercial_offer.sale) %> за <%= item.quantity %> шт.</p> 
+		<% if item.lk_product.color.present? -%>
+		<p class="t9"><strong>Цвет: </strong><%= item.lk_product.color %></p> 
+		<% end -%>
+		<% if item.lk_product.size.present? -%>
+		<p class="t9"><strong>Размер: </strong><%= item.lk_product.size %></p> 
+		 <% end -%>
+		 <% if item.lk_product.infliction.present? -%>
+		<p class="t9"><strong>Нанесение: </strong><%= item.lk_product.infliction %></p>
+		 <% end -%>
+		<p class="t9"><strong>Количество на складе: </strong> <%= item.lk_product.store_count  %></p>
+		<p class="t9" style="padding-top:10px"><strong>Цена: </strong><%= price_ru_label item.lk_product.price %></p> 
+		<% if item.sale > 0 -%>
+		<p class="t10"><strong>Сумма со скидкой <%= item.sale %>% :</strong> <%= price_ru_label item.quantity * price_with_sale(item.lk_product.price, item.sale) %> за <%= item.quantity %> шт.</p>
+		<% else -%> 
+			<p class="t10"><strong>Сумма: </strong><%= price_ru_label item.quantity * item.lk_product.price %> за <%= item.quantity %> шт.</p> 
 		<% end -%>
 </td> 
 <td class="td_descr t9i"> 

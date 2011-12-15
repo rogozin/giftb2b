@@ -17,4 +17,10 @@ module Lk::OrdersHelper
     end
   end
   
+  
+  def article_sup product
+    raw "#{product.unique_code} <span class='art-sup'>(#{product.article})</span>"
+  end
+
+  
 end

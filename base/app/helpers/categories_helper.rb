@@ -52,7 +52,7 @@ module CategoriesHelper
   end
   
   def min_categories_tree(categories_hash, used_values, checked_items, init = true, expand_block = false )
-    content_tag(:ul, :class => init ? "treeview" : nil, :style => !init && !expand_block ?  "display:none" : nil) do
+    content_tag(:ul, :class => init ? "treeview min-categories" : nil, :style => !init && !expand_block ?  "display:none" : nil) do
       categories_hash.each do |category|
         if find_value(category, used_values).present?
           concat raw("<li>")

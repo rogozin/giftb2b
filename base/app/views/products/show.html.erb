@@ -31,7 +31,7 @@
 			<br />
 			<p class="article_t">Цена: <span class="article_name"><%= product_price(@product) %></span></p>
 			
-			<p id="add_to_cart"><%= link_to giftpoisk? ? 'Добавить в коммерческое предложение' : 'Добавить в корзину', add_cart_path(@product.id), :remote => true, :method => :post if current_user%></p>
+			<p id="add_to_cart"><%= link_to giftpoisk? ? 'Добавить в коммерческое предложение' : 'Добавить в корзину', add_cart_path(@product.id), :remote => true, :method => :post if current_user && !current_user.is_e_shop_user? %></p>
 			<% unless current_user -%>
   			<div class="b-rgb"><%= link_to 'Оформить заказ', auth_engine.register_user_path, :class => "g_button"  %></div>			  
   			<div class="spacer"></div>

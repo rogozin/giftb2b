@@ -1,0 +1,21 @@
+<%= content_tag :div, :id => "modify_form", :data => {:action => modify_commercial_offer_path(@commercial_offer)} do %>
+  <div class="b-co-delta">
+    <div class="inner">
+      <%= label_tag :logo,"Добавить нанесение логотипа:" %> <%= text_field_tag :logo, nil, :class => "inp-quantity" %> руб./шт 
+      <button id="modify_logo" class="gray_button">Ok</button>      
+    </div>            
+    <div class="inner">     
+      <%= label_tag :delta, "Добавить наценку:" %> <%= text_field_tag :delta, nil, :class => "inp-quantity" %> к цене за 1 шт.
+      <select name="unit" id="unit" style="width:70px">
+      <option value="0">рублей</option>
+      <option value="1">%</option>
+      </select>
+      <button id="modify_delta" class="gray_button">Ok</button>              
+    </div>
+    <div class="inner">
+      <%= label_tag :sale,"Добавить скидку:" %> <%= text_field_tag :sale, nil, :class => "inp-quantity" %> %     
+      <button id="modify_sale" class="gray_button">Ok</button>      
+    </div>
+    <div class="clear"></div>
+  </div>
+<% end -%>

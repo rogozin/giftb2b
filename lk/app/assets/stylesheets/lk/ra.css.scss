@@ -1,8 +1,10 @@
+@import "giftpoisk_vars";
+@import "buttons";
 
 table th
 {  
   color:#EAF7E6;
-  background-color: #0080B2;
+  background-color: $background_color;
 }
 
 .b-search-property {
@@ -11,8 +13,7 @@ table th
   text-align:left;
 }  
 
-#title h1, .center_block h1, .center_block h2, .lk-menu-title, .per-page {
-	color:#0080B2;
+#title h1, .center_block h1, .center_block h2, .lk-menu-title {
 }
 
 tr.disabled-row {
@@ -70,34 +71,24 @@ div.radio-buttons {margin-bottom:5px;}
  
 .radio-buttons a.selected { color:#004276; font-weight:bold;}
 
+  $c_grey:#696969;
+  
 
- .ui-widget-content button, input[type="submit"], .b_button {
-  color:#e8eef4;
-  border: 1px solid #45682a;
-  background: #006389;
-  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0080b2), to(#006389));
-  background: -webkit-linear-gradient(#0080b2, #006389);
-  background: -moz-linear-gradient(#0080b2, #006389);
-  background: -ms-linear-gradient(#0080b2, #006389);
-  background: -o-linear-gradient(#0080b2, #006389);
-  background: linear-gradient(#0080b2, #006389);
-  -pie-background: linear-gradient(#0080b2, #006389);
+ .ui-widget-content button, input[type="submit"] {
+   @extend .br_button;
 }
 
-
-input[type="submit"]:hover, .b_button:hover {
-  color:#e8eef4;
-  border: 1px solid #45682a;
-  background: #006389;
-  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0080b2), to(#1773AA));
-  background: -webkit-linear-gradient(#0080b2, #1773AA);
-  background: -moz-linear-gradient(#0080b2, #1773AA);
-  background: -ms-linear-gradient(#0080b2, #1773AA);
-  background: -o-linear-gradient(#0080b2, #1773AA);
-  background: linear-gradient(#0080b2, #1773AA);
-  -pie-background: linear-gradient(#0080b2, #1773AA);
-}
-
+ .gray_button {
+    @include default_button;
+    background: $c_grey;
+    font-weight:bold;
+    color:#fff;
+    border: 1px solid darken($c_grey, 10%);  
+    &:hover {
+      background: lighten($c_grey, 5%);
+      border: 1px solid darken($c_grey, 10%);  
+    }
+ }
 
 .treeview li span.selected a {color:#cc3366;}
 
@@ -127,4 +118,7 @@ input[type="submit"]:hover, .b_button:hover {
 .treeview ul a {
 	color:#666;
 	font-weight:normal;
+}
+.pager {
+padding: 10px 0;
 }

@@ -1,0 +1,14 @@
+    <th><%= image_tag "unchecked.gif", :id => "select_all", :title => "Выбрать все"  %></th>
+    <th>Изображение</th>
+    <th>Артикул</th>
+    <th>Наименование</th>
+    <th>Цена за шт</th>
+    <th class="no-wrap">Кол-во</th>
+    <th class="th-sale">Скидка</th>
+    <% if @commercial_offer.has_sale? %>
+      <th>Сумма со скидкой</th>
+    <% else %>
+       <th>Сумма </th>       
+    <% end -%>
+    <th class="th_lk"></th>
+    <th class="th_lk"></th>

@@ -21,9 +21,9 @@ $(function() {
   </tr>
   <% @order.lk_order_items.each do |item| -%>
     <tr>
-      <td><%= image_tag(item.product && item.product.picture ?  item.product.picture.url(:thumb) : "default_image.jpg") %></td>
+      <td><%= link_to image_tag(item.product && item.product.picture ?  item.product.picture.url(:thumb) : "default_image.jpg"), main_app.product_path(item.product), :target => "_blank" %></td>
       <td><%= product_supplier item.product   %></td>
-      <td><%= item.product.article %></td>
+      <td><%= article_sup(item.product) %></td>
       <td><%= item.product.short_name %></td>
       <td class="no-wrap"><%= text_field_tag "price[#{item.id}]", item.price, :class => "inp-numeric"  %> руб.</td>
       <td><%= text_field_tag "quantity[#{item.id}]", item.quantity, :class => "inp-quantity" %></td>
@@ -32,7 +32,7 @@ $(function() {
     </tr>
   <% end -%>
   <tr>
-    <td colspan="3"><%= submit_tag "Пересчитать" %></td>
+    <td colspan="4"><%= submit_tag "Пересчитать" %></td>
     <td>Итого:</td>
     <td><%= @order.lk_order_items.size %> шт.</td>
     <td colspan="2"><%= price_ru_label @order.sum  %></td>

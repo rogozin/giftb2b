@@ -3,7 +3,12 @@ ru:
     one: "%{count} товар"
     few: "%{count} товара"  
     many: "%{count} товаров"  
-    other: "%{count} товара"            
+    other: "%{count} товара"
+  product_p:
+    one: "%{count} товара"
+    few: "%{count} товаров"  
+    many: "%{count} товаров"  
+    other: "%{count} товара"                           
   supplier:
     one: "%{count} поставщик"
     few: "%{count} поставщика"  

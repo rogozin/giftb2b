@@ -40,11 +40,11 @@
   padding:10px;
   h1 {color: $search_background_color;}
   .b-ext-search-inner {
-    padding:5px;
+    padding:5px 0;
     clear: both;
      margin-top:5px;
   }
-  .header {float:left;}
+  .header {float:left;  padding-left:5px;}
   .collapse-all {
     padding-top:5px;
     a.up-down-text {
@@ -73,7 +73,7 @@
           @include ui-icon-circle-triangle-s;   
         }    
   }
-    .collapsible-content {clear:both;}
+    .collapsible-content {clear:both; width:100%; }
 }
 .b-ext-search .even {
   background-color:#fff;
@@ -93,6 +93,7 @@
   margin-left:-100%; 
   width:100px;
   float:left;
+  padding-left:5px;
 }
 
 .b-ext-search-center {
@@ -101,7 +102,7 @@
 }
 
 .b-search-center-inner {
-  margin:0 90px 0 100px;
+  margin:0 100px 0 100px;
 }
 
 .b-search-center-inner-no-right {
@@ -112,7 +113,7 @@
 .b-ext-search-right { 
   float:left;
   width:50px;
-  margin-left:-70px;
+  margin-left:-90px;
 }
 
 .v-align { padding-top:.3em; }

@@ -3,20 +3,15 @@
 //= require jquery-ui
 //= require jquery.treeview
 //= require jquery.cookie
+//= require layout
 //= require ui.datepicker-ru
 //= require tinymce-jquery
-//= require lk/tinymce_init
+//= require_tree .
 //= require search
-
-function bindAnimation() {
-  $(".ajax_animation").bind({
-      ajaxStart: function() { $(this).show(); },
-      ajaxStop: function() { $(this).hide(); }
-    });
-}
 
 $(function() {
  $("#tabs").tabs();  
+ $("#close_dialog").live('click', function(){ $(this).parents('form').dialog("close") });
  $('a.toggle-category').live('click', function(){
    $(this).next().toggle();
    return false;
@@ -45,7 +40,7 @@ function setValues(dialog) {
             arr[index] = $(dialog).find('label[for="'+this.id+'"]').text();
             $("<input type='hidden' name='category_ids[]' value='" + this.value + "'>").appendTo('#category_ids'); 
            });
-          $("#select_category").text( arr.length == 0 ? "Выберите категорию товара" : arr.join(', ')); 
+          $("#select_category").text( arr.length == 0 ? "Искать в разделах" : arr.join(', ')); 
           return false;
 }         
 

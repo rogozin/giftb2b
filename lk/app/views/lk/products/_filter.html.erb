@@ -13,8 +13,12 @@ $(function() {
 
 <%= form_tag path, :remote => remote, :method => :get, :id => "filter" do %>
 Поиск:
-<span><%= text_field_tag :request, params[:request], :placeholder => "Название" %></span>
-<span><%= link_to 'Выбрать категорию товара', "#", :id => "select_category", :class => "pseudo-link" %></span>
+<span><%= text_field_tag :request, params[:request], :placeholder => "Название, артикул" %></span>
+<span>
+<% if @category_ids.present? -%>
+  <%= link_to 'Выбрать категорию товара', "#", :id => "select_category", :class => "pseudo-link" %>
+<% end -%>
+</span>
 <span id="category_ids"></span>
 <div id="categories_dialog" title="Выбор категории" class="g-hidden">
 

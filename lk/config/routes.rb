@@ -29,11 +29,13 @@ Lk::Engine.routes.draw do
     resources :commercial_offers do
       member do 
         post :calculate
+        post :modify
         post :add_product
         post :move_to_order
         get :export
       end
-    resources :products, :controller => "commercial_offer_items", :only => [:edit, :destroy] 
+    resources :products, :controller => "commercial_offer_items", :only => [:edit, :destroy]
     end  
     resources :samples
+    post 'commercial_offer/calc_single/:id' =>  'commercial_offer_items#calc_single'
 end

@@ -3,7 +3,7 @@
 <div class="spacer"></div>
 <div id="order" class="b-bg corner-all">
   <%= form_for @order, :url => order_path(@order), :method => :put do |f| -%>
-   <div class="one_line_form">
+   <div class="one_line_form col1">
      <div class="b-formfield-div">
       <%= f.label :lk_firm_id %>
       <%= f.select :lk_firm_id, options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @order.lk_firm_id) %>
@@ -12,10 +12,8 @@
      <%= f.label :status_id %>
      <%= f.select :status_id, options_for_select(LkOrder.statuses, @order.status_id) %>
      </div>
-   </div>
-   <div class="v-spacer2"></div>
-  
-   <div class="one_line_form">
+   </div> 
+   <div class="one_line_form col2">
      <div class="b-formfield-div">
        <%= f.label :user_name %>
        <%= f.text_field :user_name %>

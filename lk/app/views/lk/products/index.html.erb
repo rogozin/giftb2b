@@ -1,7 +1,6 @@
 <% page_title "Список товаров" -%>
-<h1>Список товаров</h1>
-<div class="b-command-menu"><%= link_to 'Добавить новый товар', new_product_path  %></div>
-<div class="">
+<h1>Моя база сувениров</h1>
+<div>
 <%= render :partial => 'filter', :locals => {:path => products_path, :remote => false} %>
 </div>
 <% if @products.present? -%>
