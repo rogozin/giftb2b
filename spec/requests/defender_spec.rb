@@ -14,8 +14,8 @@ describe 'defender' do
     dir = File.join(Rails.root, "log/defender/")
     Dir.mkdir(dir) unless File.exists?(dir)    
     get "/"
-    zero_defender = ZeroDefender.new(Rails.application)
-    zero_defender.clear request    
+    @zero_defender = ZeroDefender.new(Rails.application)
+    @zero_defender.clear request    
   end
   
 
@@ -25,6 +25,19 @@ describe 'defender' do
       response.code.should eq 403 if n== (100-1)
     end
   end
+  
+ 
+  it 'неограничено для бота' do    
+    Defender.class_eval do 
+      define_method(:search_bot?){|request| true }
+    end
+    st = []
+    (200).times do |n|
+      get "/products/#{@product.permalink}"
+      st << response.code
+    end
+    st.all?{ |x| x=="200"}.should be_true
+  end  
   
   context 'api' do
     before(:each) do
