@@ -37,5 +37,6 @@ Lk::Engine.routes.draw do
     resources :products, :controller => "commercial_offer_items", :only => [:edit, :destroy]
     end  
     resources :samples
+    resources :logos, :only => [:show]
     post 'commercial_offer/calc_single/:id' =>  'commercial_offer_items#calc_single'
 end
