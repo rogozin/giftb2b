@@ -32,7 +32,7 @@ class Auth::UserSessionController < ApplicationController
   private
   
   def redirect_to_giftpoisk
-    if  !giftpoisk? && @user.is_firm_user? && !@user.is_admin?
+    if  !giftpoisk? && @user.is_firm_user? && !@user.is_admin_user?
       current_user_session.destroy
       redirect_to(login_by_token_url(:token => @user.perishable_token, :host =>  "giftpoisk.ru"))
     elsif  giftpoisk? && @user.is_simple_user?
