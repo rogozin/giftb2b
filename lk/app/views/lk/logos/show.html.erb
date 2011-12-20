@@ -1,8 +1,15 @@
+<script type="text/javascript">
+$(function() {
+  $('#logo').logoTransform();
+});
+</script>
 <div><input type="checkbox" value="1" name="remove_white" id="remove_white" />Удалить белый фон </div>
-    <div>
-    <%= content_tag :canvas, "Обновите браузер", :width => 300, :height => 300, :id => "logo_transform", :data => {:picture_url => @product.picture.url, :logo_url => current_user.firm.logo.url } %>   
-    </div>
+    <%= content_tag :div, nil, :width => 300, :height => 300, :id => "logo", :data => {
+      :save_url => commercial_offer_logo_path(@commercial_offer, @item), 
+      :picture_url => @item.lk_product.picture.url, 
+      :logo_url => current_user.firm.logo.url } %>   
     <div>l_x: <input name="l_x" id="l_x" value="" size="3" />  </div>
     <div>l_y: <input name="l_y" id="l_y" value="" size="3" />  </div>    
     <div>sc: <input name="sc" id="sc" value="" size="3" />  </div>        
     <div>rt: <input name="rt" id="rt" value="" size="3" />  </div>       
+    <div><button id="save">Сохранить</button> </div>

@@ -11,7 +11,8 @@
       <% else -%>
         <td class="no-wrap sum"><%= price_ru_label(item.lk_product.price * item.quantity) %></td>      
       <% end -%>
-      <td><%= link_to image_tag('edit.png'), edit_commercial_offer_product_path(@commercial_offer, item), :title => "Редактировать"  %> </td>
+      <%= content_tag :td, link_to("Лого", commercial_offer_logo_path(@commercial_offer, item)) if current_user.is_admin_user? %>
+      <td><%= link_to image_tag('edit.png'), edit_commercial_offer_product_path(@commercial_offer, item), :title => "Редактировать"  %> </td>      
       <td> <%= link_to image_tag('remove.png'), commercial_offer_product_path(@commercial_offer, item), :method => :delete, :confirm => "Удалить товар из коммерческого предложения?", :title => "Удалить"  %></td>
  <% end %>
 
