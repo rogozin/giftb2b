@@ -45,7 +45,8 @@ class Lk::ProductsController < Lk::BaseController
   end
  
  def destroy
-   flash[:notice] = "Товар удален!" if @product.destroy
+   flash[:alert] = "Товар не может быть удален, потому что он используется в каком-либо коммерческом предложении или заказе!" unless @product.can_destroy?
+   flash[:notice] = "Товар удален!" if @product.can_destroy? && @product.destroy
    redirect_to products_path
    
  end

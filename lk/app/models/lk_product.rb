@@ -64,7 +64,7 @@ class LkProduct < ActiveRecord::Base
    end
    
    def can_destroy?
-     lk_order_items.size == 0 && commercial_offer_items.size == 0 && !active?
+     lk_order_items.empty? && commercial_offer_items.empty? && !active?
    end
    
    def self.copy_from_product(product, firm_id, price=0, active=false, copy_categories=false)
