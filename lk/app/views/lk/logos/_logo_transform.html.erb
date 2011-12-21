@@ -1,0 +1,21 @@
+<div id="logo_dialog">
+  <div class="controls">
+    <input type="checkbox" value="1" name="remove_white" id="remove_white" />Удалить белый фон 
+  </div>
+  <%= content_tag :div, nil, :width => 300, :height => 300, :id => "logo", :data => {
+      :save_url => commercial_offer_logo_path(@commercial_offer, @item), 
+      :picture_url => @item.lk_product.picture.url, 
+      :logo_url => current_user.firm.logo.url } %>   
+  <div class="palette">
+    <button id="load_logo">Загрузить логотип</button> 
+  </div>    
+  <div class="status">
+      l_x: <input name="l_x" id="l_x" value="" size="3" />  
+      l_y: <input name="l_y" id="l_y" value="" size="3" />  
+      sc: <input name="sc" id="sc" value="" size="3" />
+      rt: <input name="rt" id="rt" value="" size="3" />  
+  </div>      
+  <div class="buttons">
+      <button id="save">Сохранить</button> 
+  </div>
+</div>    

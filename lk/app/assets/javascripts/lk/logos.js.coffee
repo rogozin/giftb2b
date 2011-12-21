@@ -36,6 +36,7 @@ class LogoTransform
         when 107, 187 then @scale(1)
         when 188 then @rotate(0)    
         when 190 then @rotate(1)
+      false    
     $("#remove_white").bind 'click', () =>          
       @remove_logo_bg()
     $("#save").bind 'click', () =>          
