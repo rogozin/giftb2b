@@ -28,15 +28,30 @@ class LogoTransform
       e = if e then e else window.event
       console.log e.keyCode
       switch e.keyCode
-        when 38, 104 then @move(0)
-        when 39, 102 then @move(1)
-        when 40, 98 then @move(2)
-        when 37, 100 then @move(3)
-        when 109, 189 then @scale(0)
-        when 107, 187 then @scale(1)
-        when 188 then @rotate(0)    
-        when 190 then @rotate(1)
-      false    
+        when 38, 104 
+          @move(0)
+          false
+        when 39, 102
+          @move(1)
+          false
+        when 40, 98
+          @move(2)
+          false
+        when 37, 100 
+          @move(3)
+          false
+        when 109, 189 
+          @scale(0)
+          false
+        when 107, 187 
+          @scale(1)
+          false
+        when 188 
+          @rotate(0)    
+          false
+        when 190
+          @rotate(1)
+          false
     $("#remove_white").bind 'click', () =>          
       @remove_logo_bg()
     $("#save").bind 'click', () =>          
