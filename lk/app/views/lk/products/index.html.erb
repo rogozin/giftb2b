@@ -3,15 +3,10 @@
 <div>
 <%= render :partial => 'filter', :locals => {:path => products_path, :remote => false} %>
 </div>
-<% if @products.present? -%>
 <div class="spacer"></div>
 <%= render :partial => 'shared/paginate2', :locals => {:products => @products, :no_ajax => true} %>
   <div class="spacer"></div>
 <%= render :partial => "products", :locals => {:products => @products, :should_check => false} %>
   <div class="spacer"></div>
 <%= render :partial => 'shared/paginate2', :locals => {:products => @products, :no_ajax => true} %>
-<% else -%>
-<p>Товары отсутствуют</p>
-<% end -%>
-
 
