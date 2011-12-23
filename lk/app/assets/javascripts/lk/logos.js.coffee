@@ -16,29 +16,34 @@ class LogoTransform
     @ctx = @canvas.getContext('2d')
     @rw = false
     @save_url = $(@element).data('save-url')
+    @logo_url = $(@element).data('logo-url') 
     @bg = new Image()
     @bg.src = $(@element).data('picture-url')
     $(@bg).bind 'load', () =>
       @canvas.width = @bg.width
       @canvas.height = @bg.height
-      @draw_bg()
-      @logo = new Logo(40,40, $(@element).data('logo-url') , @ctx)
-  
+      @drawBg()
+      @logo = new Logo(40,40, @logo_url , @ctx)
+      @updateDebug()
+    $(document).unbind 'keydown'    
+    $('#removeWhite').unbind 'click'
+    $('#save').unbind 'click'
+    $(@canvas).unbind 'mousedown', 'mouseup'
     $(document).bind 'keydown',  (e) =>
       e = if e then e else window.event
       console.log e.keyCode
       switch e.keyCode
         when 38, 104 
-          @move(0)
+          @moveByKey(0)
           false
         when 39, 102
-          @move(1)
+          @moveByKey(1)
           false
         when 40, 98
-          @move(2)
+          @moveByKey(2)
           false
         when 37, 100 
-          @move(3)
+          @moveByKey(3)
           false
         when 109, 189 
           @scale(0)
@@ -52,35 +57,58 @@ class LogoTransform
         when 190
           @rotate(1)
           false
+          
     $("#remove_white").bind 'click', () =>          
-      @remove_logo_bg()
+      @removeLogoBg()
+      false
+      
     $("#save").bind 'click', () =>          
       @save()
+      false
+      
+    $(@canvas).bind 'mousedown', (e) =>                  
+      console.log @logo.mouseOnSelectionRect(@coord(e))
+      if @logo?.mouseOnMe @coord(e)
+        $(@canvas).bind 'mousemove', (e) => 
+          @moveByMouse @coord(e)
+      false
 
+    $(@canvas).bind 'mouseup', (e) => 
+      $(@canvas).unbind 'mousemove'
+      console.log "unbind mouse move"        
+
+  coord: (mouseevent) ->    
+    offset = $(@canvas).offset()
+    {x: mouseevent.pageX - offset.left, y: mouseevent.pageY - offset.top}
+    
   createCanvas: ->
     canvas = document.createElement('canvas')
     c = $(canvas)
-    $(@element).replaceWith(c)
+    $(@element).html(c)
     canvas
 
-  draw_bg: ->
+  drawBg: ->
     @canvas.width = @canvas.width
     @ctx.drawImage(@bg, 0, 0)
                          
   draw: ->
-    @update_debug()  
-    @draw_bg()
+    @updateDebug()  
+    @drawBg()
     @logo.draw()
 
-
-  move: (direction) ->
+  moveByKey: (direction) ->
     switch direction
       when 0 then @logo.y -=1 if @logo.y - 1 > 0
       when 1 then @logo.x +=1 if @logo.x + 1 + @logo.w < @bg.width
       when 2 then @logo.y +=1 if @logo.y + 1 + @logo.h < @bg.height
       when 3 then @logo.x -=1 if @logo.x - 1 > 0
-    @draw(@logo.x, @logo.y)
+    @draw()
 
+  moveByMouse: (coord) ->    
+    @logo.x = coord.x - @logo.cursorDistance.x
+    @logo.y = coord.y - @logo.cursorDistance.y
+    @draw()
+    
   rotate: (direction) ->
     @logo.grad += if direction == 0  then-5 else 5
     @draw()
@@ -96,46 +124,75 @@ class LogoTransform
   save: ->
     $.ajax 
       type: "PUT"
-      dataType: "script"   
+      dataType: "json"   
       url: @save_url
+      success:  => 
+        console.log "ajax succ"    
+        @settings.onsave()  if @settings.onsave &&  typeof @settings.onsave == "function"
       data:
         picture:     
-          @canvas.toDataURL('image/png')  
+          @pictureToUrl()
+    false      
+  
+  pictureToUrl: -> 
+    tmp_c = document.createElement('canvas')
+    tmp_ctx = tmp_c.getContext('2d')    
+    tmp_c.width = @bg.width
+    tmp_c.height = @bg.height    
+    tmp_ctx.drawImage(@bg, 0,0)      
+    logo = new Logo(@logo.x,@logo.y, @logo_url , tmp_ctx, @logo.grad)
+    logo.noSelectionRect = true
+    logo.sc = @logo.sc
+    logo.draw()
+    tmp_c.toDataURL('image/png')  
           
-  update_debug: ->
-    $("#l_x").val(@logo.x)
-    $("#l_y").val(@logo.y)
-    $("#sc").val(@logo.sc)    
-    $("#rt").val(@logo.grad)    
+  updateDebug: ->
+    $("#l_x").val @logo.x
+    $("#l_y").val @logo.y
+    $("#sc").val Math.floor(@logo.sc * 100) + "%"
+    $("#rt").val @logo.grad % 360   
 
 
       
-  remove_logo_bg: ->   
-    @draw_bg()
-    console.log "removing white color"
-    @logo = new Logo(@logo.x, @logo.y, @logo.remove_white(), @ctx, @logo.grad)       
+  removeLogoBg: ->   
+    @drawBg()  
+    @logo = new Logo(@logo.x, @logo.y, @logo.removeWhite(), @ctx, @logo.grad)       
       
 
 class Logo
   constructor:(@x, @y, src, @ctx, @grad = 0 ) -> 
     @sc = 1      
+    @noSelectionRect = false
     @w = @h = 0
+    @cursorDistance = {x: 0, y: 0}    
     @img = new Image()
     @img.src = src
     $(@img).bind 'load', () =>  
       @draw()
  
-  calc_scale: -> 
+  calcScale: -> 
       @w = @img.width * @sc
       @h = @img.height * @sc   
       
+  attitude: -> [{x:@x, y:@y}, {x: @x + @w, y: @y}, {x: @x+@w, y: @y + @h}, {x:@x, y:@y+@h}]
+  
+  drawSelectionRect:  -> 
+    @ctx.fillStyle = "rgba(80, 80, 80, 0.8)"
+    @ctx.strokeStyle = "rgba(80, 80, 80, 0.8)"
+    @ctx.lineWidth = 1
+    @ctx.strokeRect @x, @y, @w, @h
+    for p in @attitude()
+      @ctx.fillRect p.x-4, p.y-4, 8, 8
+
+    
   draw: (x = @x,y = @y) ->
-    @calc_scale()    
+    @calcScale()    
     console.log "draw logo in #{x},#{y} size #{@w}, #{@h}"
     if @grad == 0  
       @ctx.drawImage(@img, x, y, @w, @h)
+      @drawSelectionRect() unless @noSelectionRect
     else
-      @rotate(@grad)      
+      @rotate(@grad)
         
   rotate: (grad) ->
    @ctx.save()
@@ -143,10 +200,17 @@ class Logo
    rads = grad * Math.PI / 180;
    @ctx.translate(@x + @w / 2, @y + @h / 2)
    @ctx.rotate(rads)
-   @ctx.drawImage(@img, @w / -2, @h / -2, @w, @h)
+   _x = @x
+   _y = @y
+   @x=@w/-2
+   @y=@h/-2
+   @ctx.drawImage(@img, @x, @y, @w, @h)
+   @drawSelectionRect() unless @noSelectionRect
    @ctx.restore()
+   @x = _x
+   @y = _y
    
-  remove_white:  ->
+  removeWhite:  ->
     tmp_c = document.createElement('canvas')
     tmp_c.width = @w
     tmp_c.height = @h    
@@ -161,4 +225,14 @@ class Logo
     tmp_ctx.putImageData(imageData,0, 0)
     tmp_c.toDataURL('image/png')  
       
+  mouseOnMe: (coord) -> 
+    @cursorDistance.x = coord.x-@x
+    @cursorDistance.y = coord.y-@y
+    (coord.x > @x && coord.x < @x+@w) && (coord.y > @y && coord.y < @y+@h)
+    
+  mouseOnSelectionRect: (coord) -> 
+    coord.x in [@x-4..@x+4] && coord.y in [@y-4..@y+4]
+    for p in @attitude()
+      return true if coord.x in [p.x-4..p.x+4] && coord.y in [p.y-4..p.y+4]
+    false  
    

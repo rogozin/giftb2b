@@ -1,6 +1,19 @@
 #logo_dialog {
-  #logo {float:left;}
+   .workplace {float:left;}
   .palette {float:right;}
-  .status {clear:both;}
   .buttons {float:right;}
+  input[type="file"] {width: 256px;}
+  #logo_stack { 
+    padding:10px 0;
+    img {max-width:230px;} 
+  
+  }
+  .status {
+    font-size:9pt;
+    background:#ccc;
+    padding:5px;
+    input {font-size:8pt;width:35px; border: 1px solid darken(#ccc, 20%)}
+  }
+  
+  
 }

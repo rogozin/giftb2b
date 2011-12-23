@@ -1,20 +1,30 @@
 <div id="logo_dialog">
-  <div class="controls">
-    <input type="checkbox" value="1" name="remove_white" id="remove_white" />Удалить белый фон 
-  </div>
-  <%= content_tag :div, nil, :width => 300, :height => 300, :id => "logo", :data => {
-      :save_url => commercial_offer_logo_path(@commercial_offer, @item), 
-      :picture_url => @item.lk_product.picture.url, 
-      :logo_url => current_user.firm.logo.url } %>   
+  <div class="workplace">
+    <h3>Изображение товара</h3>
+    <div class="controls">
+      <input type="checkbox" value="1" name="remove_white" id="remove_white" />Удалить белый фон 
+    </div>  
+    <%= content_tag :div, image_tag(@item.lk_product.picture.url), :width => 300, :height => 300, :id => "logo", :data => {
+        :save_url => commercial_offer_logo_path(@commercial_offer, @item), 
+        :picture_url => @item.lk_product.picture.url } %>   
+    <div class="status">
+        x: <input name="l_x" id="l_x" value="" size="3" />  
+        y: <input name="l_y" id="l_y" value="" size="3" />  
+        увел: <input name="sc" id="sc" value="" size="3" />
+        град: <input name="rt" id="rt" value="" size="3" />  
+    </div>      
+  </div>  
+
   <div class="palette">
-    <button id="load_logo">Загрузить логотип</button> 
+   <h3>Загрузка логотипа</h3>  
+    <%= form_tag load_commercial_offer_logo_path(@commercial_offer, @item), :remote => true do %>     
+    <div>
+        <%=  file_field_tag :picture, :accept=> "image/gif, image/jpeg, image/jpg", :onchange => "$(this).parents('form').submit()"%>
+    </div>   
+    <div id="logo_stack"></div>            
+    <% end -%>
   </div>    
-  <div class="status">
-      l_x: <input name="l_x" id="l_x" value="" size="3" />  
-      l_y: <input name="l_y" id="l_y" value="" size="3" />  
-      sc: <input name="sc" id="sc" value="" size="3" />
-      rt: <input name="rt" id="rt" value="" size="3" />  
-  </div>      
+  <div class="clear"></div>
   <div class="buttons">
       <button id="save">Сохранить</button> 
   </div>

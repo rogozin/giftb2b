@@ -1,7 +1,7 @@
 <% if item.lk_product -%> 
     <%= content_tag :tr, :id=> dom_id(item) do %>
       <td class="checkbox"><%= check_box_tag "co_items_ids[]", item.id %></td>
-      <td><%= product_image_link item.lk_product %></td>
+      <td class="product-picture"><%= product_image_link item.lk_product %></td>
       <td><%= article item.lk_product %></td>
       <td><%= item.lk_product.short_name %></td>
       <td class="no-wrap single-price"><%= price_ru_label item.lk_product.price  %></td>

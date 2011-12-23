@@ -35,7 +35,9 @@ Lk::Engine.routes.draw do
         get :export
       end
       resources :products, :controller => "commercial_offer_items", :only => [:edit, :destroy]
-      resources :logos, :only => [:show, :update]      
+      resources :logos, :only => [:show, :update] do
+        post :load, :on => :member
+      end 
     end  
     resources :samples
 
