@@ -73,7 +73,7 @@ class Defender < Rack::Throttle::Hourly
       list = cache.get("bot_list") || []
       resolv_blacklist = cache.get("resolv_blacklist") || []
       if resolv_blacklist.exclude?(request.ip) && list.exclude?(request.ip) 
-        if Resolv.new.getname(request.ip) =~ /(googlebot.com|yandex.ru|msnbot)/
+        if Resolv.new.getname(request.ip) =~ /(googlebot.com|yandex|msnbot)/
           list << request.ip
           cache.set("bot_list", list)                    
         end
