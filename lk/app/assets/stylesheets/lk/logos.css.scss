@@ -1,0 +1,62 @@
+#logo_dialog {
+   .workplace {float:left;}
+  .palette {float:right;}
+  .buttons {float:right;}
+  input[type="file"] {width: 256px;}
+  #logo_stack { 
+    padding:10px 0;
+    img {max-width:230px;} 
+  
+  }
+  .status {
+    font-size:9pt;
+    background:#ccc;
+    padding:5px;
+    input {font-size:8pt;width:35px; border: 1px solid darken(#ccc, 20%)}
+    border:1px solid darken(#ccc,20%);    
+  }
+  
+  .controls {
+    padding:3px;
+    background: #ccc;
+    border:1px solid darken(#ccc,20%);
+  }
+  
+.button-container {
+   float:left; 
+    width:16px;
+    height:16px;  
+    border:1px solid darken(#ccc,20%);	      
+    padding:4px;
+    margin-left:3px;
+  	border-radius: 5px;
+	  -moz-border-radius: 5px;
+	  -webkit-border-radius: 5px;
+	  -khtml-border-radius: 5px;
+	  &:hover { 
+	    border:1px solid darken(#ccc,30%);
+	    background: lighten(#ccc,5%);
+    }
+	&:active {
+    -webkit-box-shadow: inset #666 1px 1px 3px;
+    -moz-box-shadow: inset #666 1px 1px 3px;
+    box-shadow: inset #666 1px 1px 3px;
+	}    
+	span {
+    display:block;
+    width:16px;
+    height:16px;
+    background: image_url("lk/images/logo_panel.png") no-repeat;
+  &.remove-bg {	background-position: 0 0;  }
+  &.zoom-out {	background-position: -32px 0 }
+  &.zoom-in {	background-position: -48px 0 }
+  &.rotate-left {	background-position: -64px 0 }
+  &.rotate-right {	background-position: -80px 0 }
+	}
+}  
+ 
+
+  
+  
+  
+}

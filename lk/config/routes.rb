@@ -34,8 +34,12 @@ Lk::Engine.routes.draw do
         post :move_to_order
         get :export
       end
-    resources :products, :controller => "commercial_offer_items", :only => [:edit, :destroy]
+      resources :products, :controller => "commercial_offer_items", :only => [:edit, :destroy]
+      resources :logos, :only => [:show, :update] do
+        post :load, :on => :member
+      end 
     end  
     resources :samples
+
     post 'commercial_offer/calc_single/:id' =>  'commercial_offer_items#calc_single'
 end

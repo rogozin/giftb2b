@@ -5,6 +5,7 @@ require 'will_paginate'
 require "composite_primary_keys"
 require "paperclip"
 require "magic_routes"
+require "remotipart"
 module Lk
 end
 

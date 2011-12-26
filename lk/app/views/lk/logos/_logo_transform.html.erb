@@ -1,0 +1,36 @@
+<div id="logo_dialog">
+  <div class="workplace">
+    <h3>Изображение товара</h3>
+    <div class="controls">
+      <div class="button-container" title="Удалить белый фон"><span class="remove-bg"></span></div>
+      <div class="button-container" title="Уменьшить логотип"><span class="zoom-out"></span></div>
+      <div class="button-container" title="Увеличить логотип"><span class="zoom-in"></span></div>
+      <div class="button-container" title="Повернуть логотип влево"><span class="rotate-left"></span></div>
+      <div class="button-container" title="Повернуть логотип вправо"><span class="rotate-right"></span></div>
+      <div class="clear"></div>
+    </div>  
+    <%= content_tag :div, image_tag(@item.lk_product.picture.url), :width => 300, :height => 300, :id => "logo", :data => {
+        :save_url => commercial_offer_logo_path(@commercial_offer, @item), 
+        :picture_url => @item.lk_product.picture.url } %>   
+    <div class="status">
+        x: <input name="l_x" id="l_x" value="" size="3" />  
+        y: <input name="l_y" id="l_y" value="" size="3" />  
+        увел: <input name="sc" id="sc" value="" size="3" />
+        град: <input name="rt" id="rt" value="" size="3" />  
+    </div>      
+  </div>  
+
+  <div class="palette">
+   <h3>Загрузка логотипа</h3>  
+    <%= form_tag load_commercial_offer_logo_path(@commercial_offer, @item), :remote => true do %>     
+    <div>
+        <%=  file_field_tag :picture, :accept=> "image/gif, image/jpeg, image/jpg", :onchange => "$(this).parents('form').submit()"%>
+    </div>   
+    <div id="logo_stack"></div>            
+    <% end -%>
+  </div>    
+  <div class="clear"></div>
+  <div class="buttons">
+      <button id="save">Сохранить</button> 
+  </div>
+</div>    
