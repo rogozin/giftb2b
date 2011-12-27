@@ -270,9 +270,14 @@ class Logo
     (coord.x  > @x + 4 && coord.x < @x + @w - 4) && (coord.y > @y + 4 && coord.y < @y+@h - 4)
     
   mouseOnSelectionRect: (coord) -> 
-    console.log "tg(#{@grad * Math.PI/180}) * #{@x} = #{Math.tan(@grad * Math.PI/180) * @x}"
-    coord.x in [@x-4..@x+4] && coord.y in [@y-4..@y+4]
+    rad = (@grad) * (Math.PI/180)
+    x1 = -1*(@w/2) * Math.cos(rad) + (@h/2) * Math.sin(rad)
+    y1 = (@w/2) * Math.sin(rad) + (@h/2) * Math.cos(rad)
+    console.log "смещение по осям (х:y) =  #{x1}:#{y1}"
+    console.log "координаты вершины (х:y) =  #{@x + (@w/2-Math.abs(x1))}:#{@y + (@h/2-Math.abs(y1))}"
+    #coord.x in [@x-4..@x+4] && coord.y in [@y-4..@y+4]
     for p, i in @attitude()
       return i if coord.x in [p.x-4..p.x+4] && coord.y in [p.y-4..p.y+4]
     -1 
+   
    
