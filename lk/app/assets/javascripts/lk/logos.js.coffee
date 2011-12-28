@@ -217,14 +217,14 @@ class Logo
   calcScale: -> 
     @sc = { x: @w / @img.width, y: @h /  @img.height }
       
-  attitude: -> [{x:@x, y:@y}, {x: @x + @w, y: @y}, {x: @x + @w, y: @y + @h}, {x:@x, y:@y + @h}]
+  attitudes: -> [{x:@x, y:@y}, {x: @x + @w, y: @y}, {x: @x + @w, y: @y + @h}, {x:@x, y:@y + @h}]
   
   drawSelectionRect:  -> 
     @ctx.fillStyle = "rgba(80, 80, 80, 0.8)"
     @ctx.strokeStyle = "rgba(80, 80, 80, 0.8)"
     @ctx.lineWidth = 1
     @ctx.strokeRect @x, @y, @w, @h
-    for p in @attitude()
+    for p in @attitudes()
       @ctx.fillRect p.x-4, p.y-4, 8, 8
 
     
@@ -268,15 +268,29 @@ class Logo
   mouseOnMe: (coord) -> 
     @cursorDistance = {x: coord.x-@x, y: coord.y-@y}
     (coord.x  > @x + 4 && coord.x < @x + @w - 4) && (coord.y > @y + 4 && coord.y < @y+@h - 4)
+      
+  coordWithRotationShift: (x,y,w,h) ->
+    rad = (@grad ) * (Math.PI/180)
+    shift = [{x:  (-w/2) * Math.cos(rad) + (h/2) * Math.sin(rad), y: (w/2) * Math.sin(rad) + (h/2) * Math.cos(rad) },
+             {x:  (w/2) * Math.cos(rad) +  (h/2) * Math.sin(rad), y: -(w/2) * Math.sin(rad) + (h/2) * Math.cos(rad) },
+             {x:  (w/2) * Math.cos(rad) +  (-h/2) * Math.sin(rad), y: -(w/2) * Math.sin(rad) + (-h/2) * Math.cos(rad) },
+             {x:  (-w/2) * Math.cos(rad) +  (-h/2) * Math.sin(rad), y: (w/2) * Math.sin(rad) + (-h/2) * Math.cos(rad) }]
+#    console.log "смещение по осям [0] (х:y) =  #{shift[0].x}:#{shift[0].y}"    
+#    console.log "смещение по осям [1] (х:y) =  #{shift[1].x}:#{shift[1].y}"    
+#    console.log "смещение по осям [2] (х:y) =  #{shift[2].x}:#{shift[2].y}"    
+#    console.log "смещение по осям [3] (х:y) =  #{shift[3].x}:#{shift[3].y}"
+    att = []     
+    @ctx.fillStyle = "red"
+    for p,i in shift
+      att[i] = {x: Math.round(p.x + x + w/2) , y:Math.round(y - p.y + h/2)}
+    for p, i in att  
+      @ctx.fillRect p.x-(i+2)/2 , p.y-(i+2)/2, i + 2, i + 2
+    att
+
     
   mouseOnSelectionRect: (coord) -> 
-    rad = (@grad) * (Math.PI/180)
-    x1 = -1*(@w/2) * Math.cos(rad) + (@h/2) * Math.sin(rad)
-    y1 = (@w/2) * Math.sin(rad) + (@h/2) * Math.cos(rad)
-    console.log "смещение по осям (х:y) =  #{x1}:#{y1}"
-    console.log "координаты вершины (х:y) =  #{@x + (@w/2-Math.abs(x1))}:#{@y + (@h/2-Math.abs(y1))}"
-    #coord.x in [@x-4..@x+4] && coord.y in [@y-4..@y+4]
-    for p, i in @attitude()
+    for p, i in @coordWithRotationShift(@x,@y,@w,@h)
+      console.log "координаты вершины[#{i}] (х:y) =  #{p.x}:#{p.y}"      
       return i if coord.x in [p.x-4..p.x+4] && coord.y in [p.y-4..p.y+4]
     -1 
    
