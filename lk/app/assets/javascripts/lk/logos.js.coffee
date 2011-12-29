@@ -134,29 +134,33 @@ class LogoTransform
       @draw()   
     false   
     
-  scaleByMouse: (coord, att ) -> 
+  scaleByMouse: (coord, att_id ) -> 
     return false if coord.x < 1 || coord.y < 1 || @logo.w < 8 || @logo.h < 8  
-    switch att 
+    rad = @logo.getRads()
+    mouseX = @logo.x + @logo.w/2 +  (coord.x-@logo.x-@logo.w/2) * Math.cos(rad) +  (coord.y-@logo.y-@logo.h/2) * Math.sin(rad)
+    mouseY = @logo.y + @logo.h/2 - (coord.x-@logo.x-@logo.w/2) * Math.sin(rad) + (coord.y-@logo.y-@logo.h/2) * Math.cos(rad)       
+    switch att_id
       when 0
-        @logo.w = @logo.w + (@logo.x - coord.x)
-        @logo.h = @logo.h + (@logo.y - coord.y)
-        @logo.x = coord.x
-        @logo.y = coord.y
+        @logo.w = @logo.w + (@logo.x - mouseX)
+        @logo.h = @logo.h + (@logo.y - mouseY)
+        @logo.x = mouseX
+        @logo.y = mouseY
       when 1 
-        @logo.w =  coord.x - @logo.x
-        @logo.h = @logo.h + (@logo.y - coord.y)
-        @logo.y = coord.y
+        @logo.w = mouseX - @logo.x
+        @logo.h = @logo.h + (@logo.y - mouseY)
+        @logo.y = mouseY
+        #coord.y
       when 2 
-        @logo.w = coord.x - @logo.x
-        @logo.h = coord.y - @logo.y
+        @logo.w = mouseX - @logo.x
+        @logo.h = mouseY - @logo.y
       when 3 
-        @logo.w = @logo.w + @logo.x - coord.x
-        @logo.h = coord.y - @logo.y
-        @logo.x = coord.x
+        @logo.w = @logo.w + @logo.x - mouseX
+        @logo.h = mouseY - @logo.y
+        @logo.x = mouseX
     @logo.w = 8 if @logo.w < 8    
     @logo.h = 8 if @logo.h < 8    
     @logo.calcScale()
-    @draw()  
+    @draw()     
     false
     
   save: ->
@@ -235,13 +239,16 @@ class Logo
       @drawSelectionRect() unless @noSelectionRect
     else
       @rotate(x, y, w, h)
-        
+
+  getRads: (angle = @grad) -> 
+    angle * Math.PI / 180     
+         
   rotate: (x = @x, y = @y, w = @w, h = @h) ->
    @ctx.save()
    @ctx.setTransform(1,0,0,1,0,0)     
-   rads = @grad * Math.PI / 180
+#   rads = @grad * Math.PI / 180
    @ctx.translate(x + w / 2, y + h / 2)
-   @ctx.rotate(rads)
+   @ctx.rotate(@getRads())
    @x=w/-2
    @y=h/-2
    @ctx.drawImage(@img, @x, @y, w, h)
@@ -270,7 +277,7 @@ class Logo
     (coord.x  > @x + 4 && coord.x < @x + @w - 4) && (coord.y > @y + 4 && coord.y < @y+@h - 4)
       
   coordWithRotationShift: (x,y,w,h) ->
-    rad = (@grad ) * (Math.PI/180)
+    rad  = @getRads()
     shift = [{x:  (-w/2) * Math.cos(rad) + (h/2) * Math.sin(rad), y: (w/2) * Math.sin(rad) + (h/2) * Math.cos(rad) },
              {x:  (w/2) * Math.cos(rad) +  (h/2) * Math.sin(rad), y: -(w/2) * Math.sin(rad) + (h/2) * Math.cos(rad) },
              {x:  (w/2) * Math.cos(rad) +  (-h/2) * Math.sin(rad), y: -(w/2) * Math.sin(rad) + (-h/2) * Math.cos(rad) },
