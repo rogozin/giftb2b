@@ -15,10 +15,10 @@ class Lk::LogosController < Lk::BaseController
   def update
     encoded_image = params[:picture].sub('data:image/png;base64,', '')
     new_picture = StringIO.new( Base64.decode64(encoded_image))
-    def new_picture.original_filename; "picture-with-logo"; end   
+    def new_picture.original_filename; "picture-with-logo-#{Time.now.to_s(:db).parameterize}"; end   
     @item.lk_product.update_attributes :picture => new_picture
     respond_to do |format|
-      format.js { render :json => {:status => "ok"}}
+      format.js { render :json => {:status => "ok", :picture => @item.lk_product.picture.url(:thumb)}}
       format.html {redirect_to commercial_offer_path(@commercial_offer) }
     end
   end

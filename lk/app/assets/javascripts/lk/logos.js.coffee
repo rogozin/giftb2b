@@ -15,8 +15,8 @@ class LogoTransform
     @canvas = @createCanvas()    
     @ctx = @canvas.getContext('2d')
     @rw = false
-    @save_url = $(@element).data('save-url')
-    @logo_url = $(@element).data('logo-url') 
+    @saveUrl = $(@element).data('save-url')
+    @logoUrl = $(@element).data('logo-url') 
     @bg = new Image()
     @bg.src = $(@element).data('picture-url')
     console.log "bg src is #{@bg.src}"
@@ -28,7 +28,7 @@ class LogoTransform
       console.log  "..loading bg success"        
       @drawBg()
 
-      @logo = new Logo(20,20, @logo_url , @ctx)
+      @logo = new Logo(20,20, @logoUrl , @ctx)
       @updateDebug()
     $(document).unbind 'keydown'    
     $('.controls span').unbind 'click'
@@ -149,11 +149,11 @@ class LogoTransform
     rad = @logo.getRads()
     mouseX = @logo.x + @logo.w/2 +  (coord.x-@logo.x-@logo.w/2) * Math.cos(rad) +  (coord.y-@logo.y-@logo.h/2) * Math.sin(rad)
     mouseY = @logo.y + @logo.h/2 - (coord.x-@logo.x-@logo.w/2) * Math.sin(rad) + (coord.y-@logo.y-@logo.h/2) * Math.cos(rad)       
-#    att_shift = 0
-    att_shift = Math.floor(@logo.grad / 90) % 4 
-    console.log "att_id = #{att_id}, att_shift= #{att_shift}, total = #{(att_id + att_shift) % 4}"
-    console.log "coordX:coordY=#{coord.x}:#{coord.y}"
-    console.log "mouseX:mouseY=#{mouseX}:#{mouseY}"
+    att_shift = 0
+#    att_shift = Math.floor(@logo.grad / 90) % 4 
+#    console.log "att_id = #{att_id}, att_shift= #{att_shift}, total = #{(att_id + att_shift) % 4}"
+#    console.log "coordX:coordY=#{coord.x}:#{coord.y}"
+#    console.log "mouseX:mouseY=#{mouseX}:#{mouseY}"
     switch (att_id + att_shift) % 4
       when 0
         @logo.w = @logo.w + (@logo.x - mouseX)
@@ -170,11 +170,11 @@ class LogoTransform
           when 0
             @logo.w = mouseX - @logo.x
             @logo.h = mouseY - @logo.y
-          when 1
+#          when 1
 #            @logo.x = 
 #            @logo.y = 
-            @logo.h = coord.x - @logo.x
-            @logo.w = coord.y - @logo.y
+#            @logo.h = coord.x - @logo.x
+#            @logo.w = coord.y - @logo.y
                         
       when 3 
         @logo.w = @logo.w + @logo.x - mouseX
@@ -190,10 +190,9 @@ class LogoTransform
     $.ajax 
       type: "PUT"
       dataType: "json"   
-      url: @save_url
-      success:  => 
-        console.log "ajax succ"    
-        @settings.onsave()  if @settings.onsave &&  typeof @settings.onsave == "function"
+      url: @saveUrl
+      success: (data) => 
+        @settings.onsave(data.picture)  if @settings.onsave &&  typeof @settings.onsave == "function"
       data:
         picture:     
           @pictureToUrl()
@@ -205,7 +204,8 @@ class LogoTransform
     tmp_c.width = @bg.width
     tmp_c.height = @bg.height    
     tmp_ctx.drawImage(@bg, 0,0)      
-    logo = new Logo(@logo.x,@logo.y, @logo_url , tmp_ctx, @logo.grad)
+    logourl =  if @rw then  @logo.removeWhite() else @logoUrl
+    logo = new Logo(@logo.x,@logo.y, logourl , tmp_ctx, @logo.grad)
     logo.noSelectionRect = true
     logo.w = @logo.w
     logo.h = @logo.h
@@ -217,12 +217,11 @@ class LogoTransform
     $("#l_y").val @logo.y
     $("#sc").val Math.floor(@logo.sc * 100) + "%"
     $("#rt").val @logo.grad % 360   
-
-
       
   removeLogoBg: ->   
     @drawBg()  
     @logo = new Logo(@logo.x, @logo.y, @logo.removeWhite(), @ctx, @logo.grad)       
+    @rw = true
       
 
 class Logo
