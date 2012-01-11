@@ -19,11 +19,16 @@ class LogoTransform
     @logo_url = $(@element).data('logo-url') 
     @bg = new Image()
     @bg.src = $(@element).data('picture-url')
+    console.log "bg src is #{@bg.src}"
     $(@bg).bind 'load', () =>
       @canvas.width = @bg.width
       @canvas.height = @bg.height
+      @ctx.width = @bg.width
+      @ctx.height = @bg.height
+      console.log  "..loading bg success"        
       @drawBg()
-      @logo = new Logo(40,40, @logo_url , @ctx)
+
+      @logo = new Logo(20,20, @logo_url , @ctx)
       @updateDebug()
     $(document).unbind 'keydown'    
     $('.controls span').unbind 'click'
@@ -127,10 +132,15 @@ class LogoTransform
     if @logo.x > 7 && @logo.y > 7  
       switch direction
         when 0
-          @logo.sc = {x:@logo.sc.x-=0.1, y:@logo.sc.y-=0.1} if @logo.sc.x + @logo.sc.y> 0.8 
-        when 1  
-          @logo.sc = {x:@logo.sc.x+=0.1, y:@logo.sc.y+=0.1} if  @logo.sc.x + @logo.sc.y < 4.8
-      @logo.calcSizeByScale()    
+          if @logo.sc > 0.1
+            @logo.sc = @logo.sc -= 0.1
+            @logo.w -=  Math.round @logo.w * 0.1
+            @logo.h -= Math.round @logo.h * 0.1
+        when 1
+          if @logo.sc < 3
+            @logo.sc = @logo.sc += 0.1
+            @logo.w +=  Math.round @logo.w * 0.1
+            @logo.h += Math.round @logo.h * 0.1          
       @draw()   
     false   
     
@@ -139,7 +149,12 @@ class LogoTransform
     rad = @logo.getRads()
     mouseX = @logo.x + @logo.w/2 +  (coord.x-@logo.x-@logo.w/2) * Math.cos(rad) +  (coord.y-@logo.y-@logo.h/2) * Math.sin(rad)
     mouseY = @logo.y + @logo.h/2 - (coord.x-@logo.x-@logo.w/2) * Math.sin(rad) + (coord.y-@logo.y-@logo.h/2) * Math.cos(rad)       
-    switch att_id
+#    att_shift = 0
+    att_shift = Math.floor(@logo.grad / 90) % 4 
+    console.log "att_id = #{att_id}, att_shift= #{att_shift}, total = #{(att_id + att_shift) % 4}"
+    console.log "coordX:coordY=#{coord.x}:#{coord.y}"
+    console.log "mouseX:mouseY=#{mouseX}:#{mouseY}"
+    switch (att_id + att_shift) % 4
       when 0
         @logo.w = @logo.w + (@logo.x - mouseX)
         @logo.h = @logo.h + (@logo.y - mouseY)
@@ -151,15 +166,23 @@ class LogoTransform
         @logo.y = mouseY
         #coord.y
       when 2 
-        @logo.w = mouseX - @logo.x
-        @logo.h = mouseY - @logo.y
+        switch att_shift 
+          when 0
+            @logo.w = mouseX - @logo.x
+            @logo.h = mouseY - @logo.y
+          when 1
+#            @logo.x = 
+#            @logo.y = 
+            @logo.h = coord.x - @logo.x
+            @logo.w = coord.y - @logo.y
+                        
       when 3 
         @logo.w = @logo.w + @logo.x - mouseX
         @logo.h = mouseY - @logo.y
         @logo.x = mouseX
     @logo.w = 8 if @logo.w < 8    
     @logo.h = 8 if @logo.h < 8    
-    @logo.calcScale()
+    #@logo.calcScale()
     @draw()     
     false
     
@@ -204,23 +227,17 @@ class LogoTransform
 
 class Logo
   constructor:(@x, @y, src, @ctx, @grad = 0 ) -> 
-    @sc = {x:1, y:1}      
+    @sc = 1
     @noSelectionRect = false
-    @w = @h = 0
     @cursorDistance = {x: 0, y: 0}    
     @img = new Image()
     @img.src = src
     $(@img).bind 'load', () =>  
-      @calcSizeByScale()
+      @w = Math.round @img.width * @sc
+      @h = Math.round @img.height * @sc
       @draw()
  
-  calcSizeByScale: -> 
-    @w = Math.round @img.width * @sc.x
-    @h = Math.round @img.height * @sc.y  
-  
-  calcScale: -> 
-    @sc = { x: @w / @img.width, y: @h /  @img.height }
-      
+
   attitudes: -> [{x:@x, y:@y}, {x: @x + @w, y: @y}, {x: @x + @w, y: @y + @h}, {x:@x, y:@y + @h}]
   
   drawSelectionRect:  -> 
@@ -282,10 +299,6 @@ class Logo
              {x:  (w/2) * Math.cos(rad) +  (h/2) * Math.sin(rad), y: -(w/2) * Math.sin(rad) + (h/2) * Math.cos(rad) },
              {x:  (w/2) * Math.cos(rad) +  (-h/2) * Math.sin(rad), y: -(w/2) * Math.sin(rad) + (-h/2) * Math.cos(rad) },
              {x:  (-w/2) * Math.cos(rad) +  (-h/2) * Math.sin(rad), y: (w/2) * Math.sin(rad) + (-h/2) * Math.cos(rad) }]
-#    console.log "смещение по осям [0] (х:y) =  #{shift[0].x}:#{shift[0].y}"    
-#    console.log "смещение по осям [1] (х:y) =  #{shift[1].x}:#{shift[1].y}"    
-#    console.log "смещение по осям [2] (х:y) =  #{shift[2].x}:#{shift[2].y}"    
-#    console.log "смещение по осям [3] (х:y) =  #{shift[3].x}:#{shift[3].y}"
     att = []     
     @ctx.fillStyle = "red"
     for p,i in shift
