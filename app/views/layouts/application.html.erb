@@ -147,14 +147,12 @@
   <div class="clear"></div> 
   <%= render :partial => "footer" %>	
   <% unless local_request? %>
- <!-- Yandex.Metrika counter -->
+<!-- Yandex.Metrika counter -->
 <div style="display:none;"><script type="text/javascript">
 (function(w, c) {
     (w[c] = w[c] || []).push(function() {
         try {
-            w.yaCounter8164030 = new Ya.Metrika({id:8164030,
-                    clickmap:true,
-                    accurateTrackBounce:true});
+            w.yaCounter8164030 = new Ya.Metrika({id:8164030, enableAll: true, webvisor:true});
         }
         catch(e) { }
     });
