@@ -25,16 +25,17 @@ class LogoTransform
       @bgScale = {w: @bg.width / 450, h: @bg.height / 450}
       if @bg.width >= @bg.height
         @bg.width = 450
-        @bg.height = @bg.height / @bgScale.w
+        @bg.height = Math.round(@bg.height / @bgScale.w)
         @bgScale.h = @bgScale.w
       else
         @bg.height = 450
-        @bg.width = @bg.width / @bgScale.h
+        @bg.width = Math.round(@bg.width / @bgScale.h)
         @bgScale.w = @bgScale.h
       @canvas.width = @bg.width
       @canvas.height = @bg.height
       @ctx.width = @bg.width
       @ctx.height = @bg.height
+      console.log "background w:h = #{@bg.width}:#{@bg.height}"
       @drawBg()
       @logo = new Logo(20,20, @logoUrl , @ctx)
       @updateDebug()  
@@ -208,17 +209,17 @@ class LogoTransform
   
   pictureToUrl: -> 
     tmp_c = document.createElement('canvas')
-    tmp_ctx = tmp_c.getContext('2d')    
     tmp_c.width = @bgOriginalSize.w
     tmp_c.height = @bgOriginalSize.h
+    tmp_ctx = tmp_c.getContext('2d')    
+    tmp_ctx.width = @bgOriginalSize.w
+    tmp_ctx.height = @bgOriginalSize.h
     tmp_ctx.drawImage(@bg, 0,0,tmp_c.width, tmp_c.height )      
-    logourl =  if @rw then  @logo.removeWhite() else @logoUrl
-    logo = new Logo(Math.round(@logo.x * @bgScale.w),Math.round(@logo.y * @bgScale.h), logourl , tmp_ctx,  false)
-    logo.noSelectionRect = true
-    logo.grad = @logo.grad
-    logo.w = Math.round(@logo.w * @bgScale.w)
-    logo.h = Math.round(@logo.h * @bgScale.h)
-    logo.draw(logo.x, logo.y, logo.w,logo.h)
+    logoAtt = { x:Math.round(@logo.x * @bgScale.w), y:Math.round(@logo.y * @bgScale.h), w:Math.round(@logo.w * @bgScale.w), h:Math.round(@logo.h * @bgScale.h) }
+    tmp_ctx.setTransform 1,0,0,1,0,0
+    tmp_ctx.translate logoAtt.x + logoAtt.w / 2, logoAtt.y + logoAtt.h / 2
+    tmp_ctx.rotate @logo.getRads()
+    tmp_ctx.drawImage @logo.img, logoAtt.w / -2, logoAtt.h / -2, logoAtt.w, logoAtt.h
     tmp_c.toDataURL('image/png')  
           
   updateDebug: ->
@@ -255,42 +256,29 @@ class Logo
       @h = Math.round @img.height * @sc
       @draw() if drawAfterLoad
 
-  attitudes: -> [{x:@x, y:@y}, {x: @x + @w, y: @y}, {x: @x + @w, y: @y + @h}, {x:@x, y:@y + @h}]
+  attitudes: (x,y,w,h) -> [{x:x, y:y}, {x: x + w, y: y}, {x: x + w, y: y + h}, {x:x, y:y + h}]
   
-  drawSelectionRect:  -> 
+  drawSelectionRect: (x,y,w,h) -> 
     @ctx.fillStyle = "rgba(80, 80, 80, 0.8)"
     @ctx.strokeStyle = "rgba(80, 80, 80, 0.8)"
     @ctx.lineWidth = 1
-    @ctx.strokeRect @x, @y, @w, @h
-    for p in @attitudes()
+    @ctx.strokeRect x, y, w, h
+    for p in @attitudes(x,y,w,h)
       @ctx.fillRect p.x-4, p.y-4, 8, 8
-
     
   draw: (x = @x,y = @y, w = @w, h = @h) ->
     console.log "draw logo in #{x},#{y} size #{w}, #{h}"
-    if @grad == 0  
-      @ctx.drawImage(@img, x, y, w, h)
-      @drawSelectionRect() unless @noSelectionRect
-    else
-      @rotate(x, y, w, h)
+    @ctx.save()
+    @ctx.setTransform(1,0,0,1,0,0)     
+    @ctx.translate(x + w / 2, y + h / 2)
+    @ctx.rotate(@getRads())
+    @ctx.drawImage(@img, w/-2, h/-2, w, h)
+    @drawSelectionRect(w/-2, h/-2, w, h)
+    @ctx.restore()
 
   getRads: (angle = @grad) -> 
     angle * Math.PI / 180     
-         
-  rotate: (x = @x, y = @y, w = @w, h = @h) ->
-   @ctx.save()
-   @ctx.setTransform(1,0,0,1,0,0)     
-#   rads = @grad * Math.PI / 180
-   @ctx.translate(x + w / 2, y + h / 2)
-   @ctx.rotate(@getRads())
-   @x=w/-2
-   @y=h/-2
-   @ctx.drawImage(@img, @x, @y, w, h)
-   @drawSelectionRect() unless @noSelectionRect
-   @ctx.restore()
-   @x = x
-   @y = y
-   
+          
   removeWhite:  ->
     tmp_c = document.createElement('canvas')
     tmp_c.width = @w
@@ -330,5 +318,4 @@ class Logo
       #console.log "координаты вершины[#{i}] (х:y) =  #{p.x}:#{p.y}"      
       return i if coord.x in [p.x-4..p.x+4] && coord.y in [p.y-4..p.y+4]
     -1 
-   
    
