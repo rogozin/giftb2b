@@ -19,7 +19,7 @@ class LogoTransform
     @logoUrl = $(@element).data('logo-url') 
     @bg = new Image()
     @bg.src = $(@element).data('picture-url')
-    console.log "bg src is #{@bg.src}"
+    #console.log "bg src is #{@bg.src}"
     $(@bg).bind 'load', () =>
       @bgOriginalSize = { w: @bg.width, h: @bg.height }
       @bgScale = {w: @bg.width / 450, h: @bg.height / 450}
@@ -36,16 +36,15 @@ class LogoTransform
       @ctx.width = @bg.width
       @ctx.height = @bg.height
       @drawBg()
-
       @logo = new Logo(20,20, @logoUrl , @ctx)
-      @updateDebug()
+      @updateDebug()  
     $(document).unbind 'keydown'    
     $('.controls div').unbind 'click'
     $('#save').unbind 'click'
     $(@canvas).unbind 'mousedown', 'mouseup'
     $(document).bind 'keydown',  (e) =>
       e = if e then e else window.event
-      console.log e.keyCode
+      #console.log e.keyCode
       switch e.keyCode
         when 38, 104 
           @moveByKey(0)
@@ -84,12 +83,12 @@ class LogoTransform
       @save()
       
     $(@canvas).bind 'mousedown', (e) =>     
-      console.log "mouse down on  #{@coord(e).x}:#{@coord(e).y}. x=#{@logo.x}, y=#{@logo.y},  w=#{@logo.w}, h=#{@logo.h}"
+      #console.log "mouse down on  #{@coord(e).x}:#{@coord(e).y}. x=#{@logo.x}, y=#{@logo.y},  w=#{@logo.w}, h=#{@logo.h}"
       if @logo?.mouseOnMe @coord(e)
         $(@canvas).bind 'mousemove', (e) => 
           @moveByMouse @coord(e)
       att = @logo?.mouseOnSelectionRect @coord(e)    
-      console.log "scale by mouse #{att}"      
+      #console.log "scale by mouse #{att}"      
       if att > -1
          $(@canvas).bind 'mousemove', (e) => 
           @scaleByMouse @coord(e), att
@@ -214,11 +213,12 @@ class LogoTransform
     tmp_c.height = @bgOriginalSize.h
     tmp_ctx.drawImage(@bg, 0,0,tmp_c.width, tmp_c.height )      
     logourl =  if @rw then  @logo.removeWhite() else @logoUrl
-    logo = new Logo(Math.round(@logo.x * @bgScale.w),Math.round(@logo.y * @bgScale.h), logourl , tmp_ctx, @logo.grad)
+    logo = new Logo(Math.round(@logo.x * @bgScale.w),Math.round(@logo.y * @bgScale.h), logourl , tmp_ctx,  false)
     logo.noSelectionRect = true
+    logo.grad = @logo.grad
     logo.w = Math.round(@logo.w * @bgScale.w)
     logo.h = Math.round(@logo.h * @bgScale.h)
-    logo.draw()
+    logo.draw(logo.x, logo.y, logo.w,logo.h)
     tmp_c.toDataURL('image/png')  
           
   updateDebug: ->
@@ -229,13 +229,15 @@ class LogoTransform
       
   removeLogoBg: ->   
     @drawBg()  
-    @logo = new Logo(@logo.x, @logo.y, @logo.removeWhite(), @ctx, @logo.grad)       
+    @logo = new Logo(@logo.x, @logo.y, @logo.removeWhite(), @ctx)       
+    @logo.grad = @logo.grad
     @rw = true
       
 
 class Logo
-  constructor:(@x, @y, src, @ctx, @grad = 0 ) -> 
+  constructor:(@x, @y, src, @ctx, drawAfterLoad = true ) -> 
     @sc = 1
+    @grad = 0
     @noSelectionRect = false
     @cursorDistance = {x: 0, y: 0}    
     @img = new Image()
@@ -251,8 +253,7 @@ class Logo
         @img.width = @img.width / dimension
       @w = Math.round @img.width * @sc      
       @h = Math.round @img.height * @sc
-      @draw()
- 
+      @draw() if drawAfterLoad
 
   attitudes: -> [{x:@x, y:@y}, {x: @x + @w, y: @y}, {x: @x + @w, y: @y + @h}, {x:@x, y:@y + @h}]
   
@@ -326,7 +327,7 @@ class Logo
     
   mouseOnSelectionRect: (coord) -> 
     for p, i in @coordWithRotationShift(@x,@y,@w,@h)
-      console.log "координаты вершины[#{i}] (х:y) =  #{p.x}:#{p.y}"      
+      #console.log "координаты вершины[#{i}] (х:y) =  #{p.x}:#{p.y}"      
       return i if coord.x in [p.x-4..p.x+4] && coord.y in [p.y-4..p.y+4]
     -1 
    
