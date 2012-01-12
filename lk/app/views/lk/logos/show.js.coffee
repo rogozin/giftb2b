@@ -4,7 +4,7 @@ jQuery ->
   $(dlg).dialog modal: false
   dialogClass: 'logo_transform_modal'
   title: "Нанесение логотипа"
-  width: 600
+  width: 800
   close: -> 
     $(this).remove() 
   create: -> 

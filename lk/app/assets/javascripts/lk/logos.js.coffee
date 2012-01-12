@@ -21,17 +21,26 @@ class LogoTransform
     @bg.src = $(@element).data('picture-url')
     console.log "bg src is #{@bg.src}"
     $(@bg).bind 'load', () =>
+      @bgOriginalSize = { w: @bg.width, h: @bg.height }
+      @bgScale = {w: @bg.width / 450, h: @bg.height / 450}
+      if @bg.width >= @bg.height
+        @bg.width = 450
+        @bg.height = @bg.height / @bgScale.w
+        @bgScale.h = @bgScale.w
+      else
+        @bg.height = 450
+        @bg.width = @bg.width / @bgScale.h
+        @bgScale.w = @bgScale.h
       @canvas.width = @bg.width
       @canvas.height = @bg.height
       @ctx.width = @bg.width
       @ctx.height = @bg.height
-      console.log  "..loading bg success"        
       @drawBg()
 
       @logo = new Logo(20,20, @logoUrl , @ctx)
       @updateDebug()
     $(document).unbind 'keydown'    
-    $('.controls span').unbind 'click'
+    $('.controls div').unbind 'click'
     $('#save').unbind 'click'
     $(@canvas).unbind 'mousedown', 'mouseup'
     $(document).bind 'keydown',  (e) =>
@@ -56,19 +65,19 @@ class LogoTransform
           @rotate(1)
                   
           
-    $(".remove-bg").bind 'click', () =>          
+    $(".remove-bg").parent().bind 'click', () =>          
       @removeLogoBg()
         
-    $(".rotate-left").bind 'click', () =>          
+    $(".rotate-left").parent().bind 'click', () =>          
       @rotate(0)
         
-    $(".rotate-right").bind 'click', () =>          
+    $(".rotate-right").parent().bind 'click', () =>          
       @rotate(1)
 
-    $(".zoom-out").bind 'click', () =>          
+    $(".zoom-out").parent().bind 'click', () =>          
       @scaleByKey(0)
       
-    $(".zoom-in").bind 'click', () =>          
+    $(".zoom-in").parent().bind 'click', () =>          
       @scaleByKey(1)      
       
     $("#save").bind 'click', () =>          
@@ -101,7 +110,7 @@ class LogoTransform
 
   drawBg: ->
     @canvas.width = @canvas.width
-    @ctx.drawImage(@bg, 0, 0)
+    @ctx.drawImage(@bg, 0, 0, @bg.width, @bg.height)
                          
   draw: ->
     @updateDebug()  
@@ -201,14 +210,14 @@ class LogoTransform
   pictureToUrl: -> 
     tmp_c = document.createElement('canvas')
     tmp_ctx = tmp_c.getContext('2d')    
-    tmp_c.width = @bg.width
-    tmp_c.height = @bg.height    
-    tmp_ctx.drawImage(@bg, 0,0)      
+    tmp_c.width = @bgOriginalSize.w
+    tmp_c.height = @bgOriginalSize.h
+    tmp_ctx.drawImage(@bg, 0,0,tmp_c.width, tmp_c.height )      
     logourl =  if @rw then  @logo.removeWhite() else @logoUrl
-    logo = new Logo(@logo.x,@logo.y, logourl , tmp_ctx, @logo.grad)
+    logo = new Logo(@logo.x * @bgScale.w,@logo.y * @bgScale.h, logourl , tmp_ctx, @logo.grad)
     logo.noSelectionRect = true
-    logo.w = @logo.w
-    logo.h = @logo.h
+    logo.w = @logo.w * @bgScale.w
+    logo.h = @logo.h * @bgScale.h
     logo.draw()
     tmp_c.toDataURL('image/png')  
           
@@ -232,7 +241,15 @@ class Logo
     @img = new Image()
     @img.src = src
     $(@img).bind 'load', () =>  
-      @w = Math.round @img.width * @sc
+      if @img.width > 300
+        dimension  = @img.width / 300
+        @img.width = 300
+        @img.height = @img.height / dimension
+      else if @img.height > 300 
+        dimension  = @img.height / 300
+        @img.height = 300
+        @img.width = @img.width / dimension
+      @w = Math.round @img.width * @sc      
       @h = Math.round @img.height * @sc
       @draw()
  

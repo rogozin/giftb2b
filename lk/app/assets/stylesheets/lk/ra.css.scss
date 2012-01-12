@@ -122,3 +122,21 @@ div.radio-buttons {margin-bottom:5px;}
 .pager {
 padding: 10px 0;
 }
+
+.icon  {
+      display:inline-block;
+      width:16px;
+      height:16px;
+      background: image_url("lk/images/logo_panel.png") no-repeat;
+}
+.picture-add-logo {
+  background-position: -96px 0;      
+}
+.picture-edit {
+  background-position: -64px -16px;      
+}
+.picture-remove {
+  background-position: -80px -16px;      
+}
+
+
