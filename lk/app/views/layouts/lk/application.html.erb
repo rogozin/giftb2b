@@ -110,6 +110,7 @@
 	<p>© 2011 Giftb2b - Все сувениры для бизнеса.</p>
 	</div></div> <!-- end footer --> 
 	<% unless local_request? -%>
+    <%= render :partial => 'lk/shared/counters' %>	    	  
     <%= render :partial => 'shared/zopim' %>	    
 	<% end -%>
 </body> 
