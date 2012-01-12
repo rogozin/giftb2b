@@ -214,10 +214,10 @@ class LogoTransform
     tmp_c.height = @bgOriginalSize.h
     tmp_ctx.drawImage(@bg, 0,0,tmp_c.width, tmp_c.height )      
     logourl =  if @rw then  @logo.removeWhite() else @logoUrl
-    logo = new Logo(@logo.x * @bgScale.w,@logo.y * @bgScale.h, logourl , tmp_ctx, @logo.grad)
+    logo = new Logo(Math.round(@logo.x * @bgScale.w),Math.round(@logo.y * @bgScale.h), logourl , tmp_ctx, @logo.grad)
     logo.noSelectionRect = true
-    logo.w = @logo.w * @bgScale.w
-    logo.h = @logo.h * @bgScale.h
+    logo.w = Math.round(@logo.w * @bgScale.w)
+    logo.h = Math.round(@logo.h * @bgScale.h)
     logo.draw()
     tmp_c.toDataURL('image/png')  
           
@@ -316,11 +316,11 @@ class Logo
              {x:  (w/2) * Math.cos(rad) +  (-h/2) * Math.sin(rad), y: -(w/2) * Math.sin(rad) + (-h/2) * Math.cos(rad) },
              {x:  (-w/2) * Math.cos(rad) +  (-h/2) * Math.sin(rad), y: (w/2) * Math.sin(rad) + (-h/2) * Math.cos(rad) }]
     att = []     
-    @ctx.fillStyle = "red"
+#    @ctx.fillStyle = "red"
     for p,i in shift
       att[i] = {x: Math.round(p.x + x + w/2) , y:Math.round(y - p.y + h/2)}
-    for p, i in att  
-      @ctx.fillRect p.x-(i+2)/2 , p.y-(i+2)/2, i + 2, i + 2
+#    for p, i in att  
+#      @ctx.fillRect p.x-(i+2)/2 , p.y-(i+2)/2, i + 2, i + 2
     att
 
     

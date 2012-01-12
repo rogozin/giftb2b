@@ -12,7 +12,7 @@
       <% else -%>
         <td class="no-wrap sum"><%= price_ru_label(item.lk_product.price * item.quantity) %></td>      
       <% end -%>
-      <%= content_tag :td, link_to("", commercial_offer_logo_path(@commercial_offer, item), :remote => true, :class => "icon picture-add-logo", :title => "Нанесение логотипа") if item.lk_product && !item.lk_product.is_my? %>
+      <%= content_tag :td, link_to("", commercial_offer_logo_path(@commercial_offer, item), :remote => true, :class => "icon picture-add-logo", :title => "Нанесение логотипа"), :class => "center" if item.lk_product && !item.lk_product.is_my? %>
       <td><%= link_to "", edit_commercial_offer_product_path(@commercial_offer, item), :title => "Редактировать", :class => "icon picture-edit"  %> </td>      
       <td> <%= link_to "", commercial_offer_product_path(@commercial_offer, item), :method => :delete, :confirm => "Удалить товар из коммерческого предложения?", :title => "Удалить", :class => "icon picture-remove"  %></td>
  <% end %>
