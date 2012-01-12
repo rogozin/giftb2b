@@ -147,20 +147,7 @@
   <div class="clear"></div> 
   <%= render :partial => "footer" %>	
   <% unless local_request? %>
-<!-- Yandex.Metrika counter -->
-<div style="display:none;"><script type="text/javascript">
-(function(w, c) {
-    (w[c] = w[c] || []).push(function() {
-        try {
-            w.yaCounter8164030 = new Ya.Metrika({id:8164030, enableAll: true, webvisor:true});
-        }
-        catch(e) { }
-    });
-})(window, "yandex_metrika_callbacks");
-</script></div>
-<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-<noscript><div><img src="//mc.yandex.ru/watch/8164030" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+  <%= render :partial => "counters" %>
   <%= render :partial => 'shared/zopim' %>
 <% end -%>
 </body> 
