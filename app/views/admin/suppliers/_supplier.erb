@@ -21,6 +21,10 @@
   <%= f.check_box :allow_upload  %>
 </div>
 <div class="b-formfield-div">
+  <%= f.label :group_id, 'Код группы' %>
+  <%= f.text_field :group_id %>
+</div>
+<div class="b-formfield-div">
   <%= f.submit "Сохранить" %>
 </div>
 <%  end %>
