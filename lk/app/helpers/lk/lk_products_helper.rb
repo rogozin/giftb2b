@@ -1,6 +1,6 @@
 module Lk::LkProductsHelper
   
-  def article lk_product
+  def lk_article lk_product
     lk_product.is_my? ? lk_product.article  : content_tag(:span, lk_product.product.unique_code, :class => "art-product") + content_tag(:span, " (#{lk_product.product.article})", :class => "art-sup")
   end
   
