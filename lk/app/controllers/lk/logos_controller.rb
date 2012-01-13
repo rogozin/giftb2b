@@ -27,8 +27,12 @@ class Lk::LogosController < Lk::BaseController
   # add new logo to canvas
   def load
     f = params[:picture]
-    @src = "data:" + f.content_type + ";base64," + Base64.encode64(f.read)
-    @file_name = f.original_filename
+    if %w(gif png jpeg bmp).include?(f.content_type.split("/").last)    
+      @src = "data:" + f.content_type + ";base64," + Base64.encode64(f.read)
+      @file_name = f.original_filename
+   else 
+     @message = "Неверный формат файла. Используйте png, jpg, gif или bmp."
+   end
   end
   
   
