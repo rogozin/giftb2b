@@ -45,7 +45,7 @@ class LogoTransform
     $(@canvas).unbind 'mousedown', 'mouseup'
     $(document).bind 'keydown',  (e) =>
       e = if e then e else window.event
-      #console.log e.keyCode
+      console.log e
       switch e.keyCode
         when 38, 104 
           @moveByKey(0)
@@ -100,7 +100,7 @@ class LogoTransform
 
   coord: (mouseevent) ->    
     offset = $(@canvas).offset()
-    {x: mouseevent.pageX - offset.left, y: mouseevent.pageY - offset.top}
+    {x: Math.round(mouseevent.pageX - offset.left), y: Math.round(mouseevent.pageY - offset.top)}
     
   createCanvas: ->
     canvas = document.createElement('canvas')
