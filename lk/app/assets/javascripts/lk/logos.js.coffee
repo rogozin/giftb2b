@@ -19,7 +19,6 @@ class LogoTransform
     @logoUrl = $(@element).data('logo-url') 
     @bg = new Image()
     @bg.src = $(@element).data('picture-url')
-    #console.log "bg src is #{@bg.src}"
     $(@bg).bind 'load', () =>
       @bgOriginalSize = { w: @bg.width, h: @bg.height }
       @bgScale = {w: @bg.width / 450, h: @bg.height / 450}
@@ -35,9 +34,8 @@ class LogoTransform
       @canvas.height = @bg.height
       @ctx.width = @bg.width
       @ctx.height = @bg.height
-      console.log "background w:h = #{@bg.width}:#{@bg.height}"
       @drawBg()
-      @logo = new Logo(60,60, @logoUrl , @ctx)
+      @logo = new Logo(120,120, @logoUrl , @ctx)
       @updateDebug()  
     $(document).unbind 'keydown'    
     $('.controls div').unbind 'click'
@@ -45,7 +43,6 @@ class LogoTransform
     $(@canvas).unbind 'mousedown', 'mouseup'
     $(document).bind 'keydown',  (e) =>
       e = if e then e else window.event
-      console.log e
       switch e.keyCode
         when 38, 104 
           @moveByKey(0)
@@ -84,18 +81,16 @@ class LogoTransform
       @save()
       
     $(@canvas).bind 'mousedown', (e) =>     
-      console.log "mouse down on  #{@coord(e).x}:#{@coord(e).y}. x=#{@logo.x}, y=#{@logo.y},  w=#{@logo.w}, h=#{@logo.h}"
       if @logo?.mouseOnMe @coord(e)
         $(@canvas).bind 'mousemove', (e) => 
           @moveByMouse @coord(e)
       att = @logo?.mouseOnSelectionRect @coord(e)    
-      console.log "scale by mouse #{att}"      
       if att > -1
-        @x_mouse_fixed = @coord(e).x
-        @y_mouse_fixed = @coord(e).y	     
+        @logo.cursorDistance.x= @coord(e).x
+        @logo.cursorDistance.y= @coord(e).y	     
         for j in [0..3]
-          @logo.rect_coords_fixed[j].x=@logo.rect_coords[j].x	
-          @logo.rect_coords_fixed[j].y=@logo.rect_coords[j].y 		                     
+          @logo.rect_coords_fixed[j].x= @logo.rect_coords[j].x	
+          @logo.rect_coords_fixed[j].y= @logo.rect_coords[j].y 		                     
         $(@canvas).bind 'mousemove', (e) => 
           @scaleByMouse @coord(e), att
       false
@@ -160,46 +155,9 @@ class LogoTransform
     
   scaleByMouse: (coord, att_id ) -> 
     return false if coord.x < 1 || coord.y < 1 || @logo.w < 8 || @logo.h < 8              
-    dx= (coord.x - @x_mouse_fixed)
-    dy= (coord.y - @y_mouse_fixed)  	
-    x1= @logo.rect_coords_fixed[att_id].x
-    y1= @logo.rect_coords_fixed[att_id].y
-    xn= x1+dx
-    yn= y1+dy
-    console.log "dx, dy = #{dx}, #{dy}, x1=#{x1}, y1=#{y1}"
-    @logo.rect_coords[att_id].x= xn
-    @logo.rect_coords[att_id].y= yn	   
-    indp= @logo.prev_ind(att_id)  
-    x2= @logo.rect_coords_fixed[indp].x
-    y2= @logo.rect_coords_fixed[indp].y
-    @logo.calc_new_ppos(x1,y1,x2,y2,xn,yn)
-    console.log "x_tmp = #{@logo.x_tmp}, y_ymp = #{@logo.y_tmp}"
-    sz1= Math.sqrt(@logo.my_sqr(xn-@logo.x_tmp)+@logo.my_sqr(yn-@logo.y_tmp))/2 
-    @logo.rect_coords[indp].x= @logo.x_tmp	 	
-    @logo.rect_coords[indp].y= @logo.y_tmp	    
-    indp= @logo.next_ind(att_id) 
-    x2= @logo.rect_coords_fixed[indp].x
-    y2= @logo.rect_coords_fixed[indp].y
-    @logo.calc_new_ppos(x1,y1,x2,y2,xn,yn)
-    sz2= Math.sqrt(@logo.my_sqr(xn-@logo.x_tmp)+@logo.my_sqr(yn-@logo.y_tmp))/2
-    @logo.rect_coords[indp].x= @logo.x_tmp	 	
-    @logo.rect_coords[indp].y= @logo.y_tmp		
-    x1= 0
-    y1= 0	
-    console.log "sz1=#{sz1}, sz2=#{sz2}"
-    for i in [0..3]		   
-      x1+= @logo.rect_coords[i].x
-      y1+= @logo.rect_coords[i].y	    
-    @logo.x= x1/4
-    @logo.y= y1/4	  
-    if (att_id==1)||(att_id==3)	     			 
-       @logo.w= sz1;	  
-       @logo.h= sz2;
-    else
-       @logo.h= sz1	  
-       @logo.w= sz2	  				              
-#    @logo.w = 8 if @logo.w < 8    
-#    @logo.h = 8 if @logo.h < 8    
+    @logo.calc(coord, att_id)  				              
+    @logo.w = 8 if @logo.w < 8    
+    @logo.h = 8 if @logo.h < 8    
     #@logo.calcScale()
     @draw() 
     false
@@ -280,15 +238,13 @@ class Logo
       @ctx.fillRect p.x-4, p.y-4, 8, 8
     
   draw: (x = @x,y = @y, w = @w, h = @h) ->
-
     r1= Math.sqrt(@my_sqr(@w)+@my_sqr(@h));
-    alfa1= Math.atan(@y/@w)*(180.0/Math.PI);
-
+    alfa1= Math.atan(@h/@w)*(180.0/Math.PI);
     @rect_calc_polar_pos(0,@x,@y,r1,@grad+alfa1);
     @rect_calc_polar_pos(1,@x,@y,r1,@grad+180.0-alfa1);
     @rect_calc_polar_pos(2,@x,@y,r1,@grad+180.0+alfa1);
     @rect_calc_polar_pos(3,@x,@y,r1,@grad+360.0-alfa1);
-    console.log "draw logo in #{x},#{y} size #{w}, #{h}"    
+      
     @ctx.save()
     @ctx.setTransform(1,0,0,1,0,0)     
     @ctx.translate(x, y)
@@ -328,27 +284,62 @@ class Logo
              {x:  (-w) * Math.cos(rad) + (h) * Math.sin(rad), y: (w) * Math.sin(rad) + (h) * Math.cos(rad) },
              {x:  (w) * Math.cos(rad) +  (h) * Math.sin(rad), y: -(w) * Math.sin(rad) + (h) * Math.cos(rad) }]
     att = []     
-    @ctx.fillStyle = "red"
+#    @ctx.fillStyle = "red"
     for p,i in shift
       att[i] = {x: Math.round(p.x + x ) , y:Math.round(y - p.y )}
-    for p, i in att  
-      @ctx.fillRect p.x-(i+2)/2 , p.y-(i+2)/2, i + 2, i + 2
+#    for p, i in att  
+#      @ctx.fillRect p.x-(i+2)/2 , p.y-(i+2)/2, i + 2, i + 2
     att
 
     
   mouseOnSelectionRect: (coord) -> 
-    for p, i in @coordWithRotationShift(@x,@y,@w,@h)
-      #console.log "координаты вершины[#{i}] (х:y) =  #{p.x}:#{p.y}"      
+    for p, i in @coordWithRotationShift(@x,@y,@w,@h)    
       return i if coord.x in [p.x-4..p.x+4] && coord.y in [p.y-4..p.y+4]
     -1 
       
-#==================================================================================
+  calc: (coord, att_id) -> 
+    dx= (coord.x - @cursorDistance.x)
+    dy= (coord.y - @cursorDistance.y)  	
+    x1= @rect_coords_fixed[att_id].x
+    y1= @rect_coords_fixed[att_id].y
+    xn= x1+dx
+    yn= y1+dy
+    @rect_coords[att_id].x= xn
+    @rect_coords[att_id].y= yn	   
+    indp= @prev_ind(att_id)  
+    x2= @rect_coords_fixed[indp].x
+    y2= @rect_coords_fixed[indp].y
+    @calc_new_ppos(x1,y1,x2,y2,xn,yn)
+    sz1= Math.sqrt(@my_sqr(xn-@x_tmp)+@my_sqr(yn-@y_tmp))/2 
+    @rect_coords[indp].x= @x_tmp	 	
+    @rect_coords[indp].y= @y_tmp	    
+    indp= @next_ind(att_id) 
+    x2= @rect_coords_fixed[indp].x
+    y2= @rect_coords_fixed[indp].y
+    @calc_new_ppos(x1,y1,x2,y2,xn,yn)
+    sz2= Math.sqrt(@my_sqr(xn-@x_tmp)+@my_sqr(yn-@y_tmp))/2
+    @rect_coords[indp].x= @x_tmp	 	
+    @rect_coords[indp].y= @y_tmp		
+    x1= 0
+    y1= 0	
+    for i in [0..3]		   
+      x1+= @rect_coords[i].x
+      y1+= @rect_coords[i].y	    
+    @x= x1/4
+    @y= y1/4	  
+    if (att_id==1)||(att_id==3)	     			 
+       @w= sz1;	  
+       @h= sz2;
+    else
+       @h= sz1	  
+       @w= sz2	
+    
   my_sqr: (val)  -> 
     val * val
 
-  rect_calc_polar_pos: (ind,xc,yc,r) ->        
-    @rect_coords[ind].x= xc+r*Math.cos(@getRads())
-    @rect_coords[ind].y= yc+r*Math.sin(@getRads())
+  rect_calc_polar_pos: (ind,xc,yc,r,ang) ->
+    @rect_coords[ind].x= xc+r*Math.cos(@getRads(ang))
+    @rect_coords[ind].y= yc+r*Math.sin(@getRads(ang))
 
   prev_ind: (ind) -> 
     if ind==0 then 3 else ind-1
@@ -366,7 +357,7 @@ class Logo
       dy12= y2-y1
       dy12_2= @my_sqr(dy12)  
       @y_tmp= ((x2-xn)*dx12*dy12+dx12_2*yn+dy12_2*y2)/(dx12_2+dy12_2)
-      @x_tmp= x2+dy12*(y2-y_tmp)/dx12
+      @x_tmp= x2+dy12*(y2-@y_tmp)/dx12
   
       
    
