@@ -1,0 +1,11 @@
+<%= form_for [:admin,@service] do |f| %>
+  <div class="one_line_form">
+  <div class="b-formfield-div">
+    <%= f.label :name, "Название" %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.submit "Сохранить"  %>
+  </div>
+  </div>  
+<% end -%>

@@ -1,0 +1,19 @@
+<%= form_for [:admin,@role] do |f| %>
+  <div class="one_line_form">
+  <div class="b-formfield-div">
+    <%= f.label :name, "Название" %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :description, "Человеческое название" %>
+    <%= f.text_field :description %>
+  </div>  
+  <div class="b-formfield-div">
+    <%= f.label :group, "Группа" %>
+    <%= f.text_field :group %>
+  </div>    
+  <div class="b-formfield-div">
+    <%= f.submit "Сохранить"  %>
+  </div>
+  </div>  
+<% end -%>

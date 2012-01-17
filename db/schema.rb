@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120113104251) do
+ActiveRecord::Schema.define(:version => 20120117051824) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20120113104251) do
     t.integer  "go_cnt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   :default => 1
+    t.integer  "position",   :default => 0
     t.integer  "site",       :default => 0
     t.text     "pages"
   end
@@ -63,9 +63,10 @@ ActiveRecord::Schema.define(:version => 20120113104251) do
     t.string   "permalink",                                         :null => false
     t.integer  "virtual_id"
     t.boolean  "show_description",               :default => false
-    t.string   "meta_keywords"
-    t.string   "meta_description"
+    t.text     "meta_keywords"
+    t.text     "meta_description"
     t.boolean  "outline",                        :default => false
+    t.string   "custom_title"
   end
 
   add_index "categories", ["permalink"], :name => "index_categories_on_permalink", :unique => true
@@ -219,6 +220,11 @@ ActiveRecord::Schema.define(:version => 20120113104251) do
     t.float    "long"
     t.string   "permalink"
     t.boolean  "show_on_site",                :default => false
+    t.text     "comment"
+    t.string   "phone2"
+    t.string   "phone3"
+    t.string   "email2"
+    t.integer  "state_id",                    :default => 1
   end
 
   add_index "firms", ["city"], :name => "index_firms_on_city"
@@ -343,11 +349,33 @@ ActiveRecord::Schema.define(:version => 20120113104251) do
     t.integer  "site",                 :default => 0
   end
 
+  create_table "people", :force => true do |t|
+    t.integer  "firm_id",    :null => false
+    t.integer  "user_id"
+    t.string   "fio"
+    t.string   "appoint"
+    t.string   "phone"
+    t.string   "phone2"
+    t.string   "phone3"
+    t.string   "email"
+    t.string   "email2"
+    t.text     "comment"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "persons", :force => true do |t|
     t.integer  "client_id",  :null => false
     t.integer  "user_id"
     t.string   "fio"
     t.string   "appoint"
+    t.string   "phone"
+    t.string   "phone2"
+    t.string   "phone3"
+    t.string   "email"
+    t.string   "email2"
     t.text     "comment"
     t.integer  "created_by"
     t.integer  "updated_by"
@@ -554,9 +582,5 @@ ActiveRecord::Schema.define(:version => 20120113104251) do
 
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token"
   add_index "users", ["username"], :name => "index_users_on_username"
-
-  create_table "xml_data", :force => true do |t|
-    t.string "original_name", :null => false
-  end
 
 end

@@ -128,3 +128,8 @@ Factory.define :firm do |f|
   f.after_create { |firm| firm.update_attribute :short_name, firm.name   }  
 end
 
+
+Factory.define :service do |f|
+  f.name "Общая услуга"
+end
+  

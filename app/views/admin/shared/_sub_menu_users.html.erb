@@ -1,8 +1,10 @@
 <% content_for :sub_menu do %>
   <ul id="sub_nav">
     <%= tab :accounts, :url => admin_accounts_path(:group =>0), :label => 'Администраторы', :match_path => "/accounts?group=0" %>
-    <%= tab :firms, :route => :admin_firms, :label => 'Фирмы', :css_class => 'last' %>        
+    <%= tab :firms, :route => :admin_firms, :label => 'Фирмы' %>        
     <%= tab :accounts, :url => admin_accounts_path(:group =>1), :label => 'Пользователи', :match_path => "/accounts?group=1" %>
-    <%= tab :foreign_access_index, :match_path =>"/foreign_access" ,:label=> 'Доступ к каталогу',:css_class => 'last' if current_user.has_role?(:Администратор) || current_user.has_role?("Менеджер продаж")  %>        
+    <%= tab :foreign_access_index, :match_path =>"/foreign_access" ,:label=> 'Доступ к каталогу',:css_class => 'last' if current_user.has_role?(:Администратор) || current_user.has_role?("Менеджер продаж")  %>
+    <%= tab :services, :route => :admin_services, :label => 'Услуги' %>                    
+    <%= tab :roles, :route => :admin_roles, :label => 'Роли', :css_class => 'last' %>                        
   </ul>
 <% end %>
