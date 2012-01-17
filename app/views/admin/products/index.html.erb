@@ -13,19 +13,22 @@
 <%= raw tree_select(Category.cached_all_categories,  'category',nil,{:value=>"-1", :name => "<-Без категории->"} ,params[:category].to_i ) %>
  <%= select(nil ,'manufactor', options_for_select( Manufactor.all.collect{|i| [i.name, i.id] },params[:manufactor].to_i),{:prompt=>'<-Производитель->'}, {:name=>'manufactor'}) %>
   <%= select(nil ,'supplier', options_for_select( Supplier.all.collect{|i| [i.name, i.id] },params[:supplier].to_i),{:prompt=>'<-Поставщик->'}, {:name=>'supplier'}) unless current_user.has_role?("Редактор каталога") %>
-<%= select(nil ,'store', options_for_select( [['Отсуствует', '0'],['В наличии','1']],params[:store]),{:prompt=>'<-Наличие на складе->'}, {:name=>'store'}) %>
+ назв: <%= text_field_tag :search_text, params[:search_text] %>
  арт: <%= text_field_tag :article, params[:article] %>
  код: <%= text_field_tag :code, params[:code] %>
- <%= submit_tag "Ok", :name=>nil %><br />
- <%= select(nil ,'active', options_for_select( [['Нет', '0'],['Да','1']],params[:active]),{:prompt=>'<-Опубликован->'}, {:name=>'active'}) %> 
- <%= select(nil ,'new', options_for_select( [['Нет', '0'],['Да','1']],params[:new]),{:prompt=>'<-Новинка->'}, {:name=>'new'}) %> 
- <%= select(nil ,'sale', options_for_select( [['Нет', '0'],['Да','1']],params[:sale]),{:prompt=>'<-Распродажа->'}, {:name=>'sale'}) %> 
- <%= select(nil ,'best_price', options_for_select( [['Нет', '0'],['Да','1']],params[:best_price]),{:prompt=>'<-Лучшая цена->'}, {:name=>'best_price'}) %> 
- <%= select(nil ,'price', options_for_select( [['Равна 0', '0'],['Больше 0','1']],params[:price]),{:prompt=>'<-Цена товара->'}, {:name=>'price'}) %> 
-<%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100'],['500','500']],params[:per_page]),{:prompt=>'<-Кол-во->'}, {:name=>'per_page'}) %> 
+<%= select(nil ,'per_page', options_for_select( [['20', '20'],['50','50'],['100','100'],['500','500']],params[:per_page]),{:prompt=>'<-Кол-во->'}, {:name=>'per_page'}) %>  
+ <%= submit_tag "Ok", :name=>nil %>
 <div>
   <%= link_to_function 'Расширенный поиск', "$('.ext-search').toggle()", :class=>"pseudo-link" %>
   <%= content_tag :div, :class => "ext-search #{params.keys.select{|x| x =~ /property_values_/}.present? ? nil : "g-hidden" }" do %>
+   <%= select(nil ,'active', options_for_select( [['Нет', '0'],['Да','1']],params[:active]),{:prompt=>'<-Опубликован->'}, {:name=>'active'}) %> 
+   <%= select(nil ,'new', options_for_select( [['Нет', '0'],['Да','1']],params[:new]),{:prompt=>'<-Новинка->'}, {:name=>'new'}) %> 
+   <%= select(nil ,'sale', options_for_select( [['Нет', '0'],['Да','1']],params[:sale]),{:prompt=>'<-Распродажа->'}, {:name=>'sale'}) %> 
+   <%= select(nil ,'best_price', options_for_select( [['Нет', '0'],['Да','1']],params[:best_price]),{:prompt=>'<-Лучшая цена->'},   {:name=>'best_price'}) %> 
+   <%= select(nil ,'price', options_for_select( [['Равна 0', '0'],['Больше 0','1']],params[:price]),{:prompt=>'<-Цена товара->'}, {:name=>'price'}) %> 
+<%= select(nil ,'store', options_for_select( [['Отсуствует', '0'],['В наличии','1']],params[:store]),{:prompt=>'<-Наличие на складе->'}, {:name=>'store'}) %>   
+
+  <div class="properties">
       <% @properties.each do |item| -%>
       <% pv_param = "property_values_#{item.id}" -%>
         <%= div_for(item, :class => "filter-property ajax-load") do %>       
@@ -35,9 +38,10 @@
           </div>
         <% end -%>
       <% end -%>
-      <div class="clear"></div>
+      
+      <div class="clear"></div>      
   <% end -%>
-  
+  </div>
 </div>
 <% end -%>
 <div class="spacer"></div>

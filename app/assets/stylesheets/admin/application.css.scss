@@ -405,7 +405,11 @@ ul.image-gallery li {
 
 
 div.ext-search {
-  
+  padding-top:10px;
+  .properties {
+    margin-top:5px;
+    background: #FFFBC2;
+  }
 }
 
 div.b-product-properties {
@@ -491,3 +495,5 @@ a.toggle-category {
 .b-store-unit select { width:85px;}
 
 .news-picture {float:right; margin:10px 0;}
+
+
