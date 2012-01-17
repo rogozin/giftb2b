@@ -184,9 +184,9 @@ class LogoTransform
     tmp_ctx.drawImage(@bg, 0,0,tmp_c.width, tmp_c.height )      
     logoAtt = { x:Math.round(@logo.x * @bgScale.w), y:Math.round(@logo.y * @bgScale.h), w:Math.round(@logo.w * @bgScale.w), h:Math.round(@logo.h * @bgScale.h) }
     tmp_ctx.setTransform 1,0,0,1,0,0
-    tmp_ctx.translate logoAtt.x + logoAtt.w / 2, logoAtt.y + logoAtt.h / 2
+    tmp_ctx.translate logoAtt.x, logoAtt.y 
     tmp_ctx.rotate @logo.getRads()
-    tmp_ctx.drawImage @logo.img, logoAtt.w / -2, logoAtt.h / -2, logoAtt.w, logoAtt.h
+    tmp_ctx.drawImage @logo.img, -logoAtt.w  , -logoAtt.h , logoAtt.w * 2, logoAtt.h * 2
     tmp_c.toDataURL('image/png')  
           
   updateDebug: ->
@@ -260,13 +260,11 @@ class Logo
           
   removeWhite:  ->
     tmp_c = document.createElement('canvas')
-    tmp_c.width = @w
-    tmp_c.height = @h    
+    tmp_c.width = @w*2
+    tmp_c.height = @h*2    
     tmp_ctx = tmp_c.getContext('2d')    
-    tmp_ctx.width = @w
-    tmp_ctx.height = @h
-    tmp_ctx.drawImage(@img, 0,0,@w,@h)        
-    imageData = tmp_ctx.getImageData(0,0,@w,@h)
+    tmp_ctx.drawImage(@img, 0,0,@w*2,@h*2)        
+    imageData = tmp_ctx.getImageData(0,0,@w*2,@h*2)
     pixel = imageData.data
     for p, i in pixel by 4
       pixel[i+3] = 0 if pixel[i+0] == 255 && pixel[i+1] == 255 && pixel[i+2] == 255                 
