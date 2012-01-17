@@ -1,6 +1,6 @@
 <% content_for :meta_description, @category.meta_description -%>
 <% content_for :meta_keywords, @category.meta_keywords -%>
-<% page_title(Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join(' | ')) -%>
+<% @category.custom_title.present? ? page_title(@category.custom_title) : page_title(Category.tree_nesting_by_name(Category.cached_active_categories, @category).reverse.join(' | ')) -%>
 <%= render :partial => 'search/ext_search2', :locals => {:hidden => true} if giftpoisk? %>
 <div class="center_block"> 
 <p class="r_text">
