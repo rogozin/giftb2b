@@ -18,7 +18,7 @@
     <td><%= link_to image_tag('edit.png'), edit_admin_role_path(role) %></td>
     <td><%= role.name %></td>    
     <td><%= role.description %></td>
-    <td><%= role.group %></td>
+    <td><%= Role.group_names[role.group] %></td>
     <td><%= link_to image_tag('bin.png'), admin_role_path(role), :method => :delete, :confirm => "Удалить роль?" %></td>
   </tr>  
 <% end -%>

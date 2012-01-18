@@ -1,11 +1,29 @@
 <%= form_for [:admin,@service] do |f| %>
-  <div class="one_line_form">
-  <div class="b-formfield-div">
-    <%= f.label :name, "Название" %>
-    <%= f.text_field :name %>
+  <div class="grid_8 alpha">
+    <div class="one_line_form">
+      <div class="b-formfield-div">
+        <%= f.label :name, "Название" %>
+        <%= f.text_field :name %>
+      </div>
+      <div class="b-formfield-div">
+        <%= f.submit "Сохранить"  %>
+      </div>
+    </div>  
+   </div>    
+   <div class="grid_8 omega">
+   <h3>Группы доступа</h3>
+   <% @roles.group_by(&:group).each do |group, items| -%>
+    <strong><%= Role.group_names[group] %></strong>
+    <% items.each do |item| -%>
+     <ul>
+      <li> 
+        <%= check_box_tag "service[role_ids][]",  item.id, @service.service_roles.map(&:role_id).include?(item.id), :id => dom_id(item) %>
+        <%= label_tag dom_id(item), item.description, :title => item.name %>
+      </li>     
+    </ul>   
+    <% end -%>
+    <div class="spacer"></div>    
+   <% end -%>
   </div>
-  <div class="b-formfield-div">
-    <%= f.submit "Сохранить"  %>
-  </div>
-  </div>  
 <% end -%>
+

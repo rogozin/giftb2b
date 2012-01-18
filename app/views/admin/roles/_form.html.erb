@@ -10,7 +10,7 @@
   </div>  
   <div class="b-formfield-div">
     <%= f.label :group, "Группа" %>
-    <%= f.text_field :group %>
+    <%= f.select :group, options_for_select(Role.group_names.map{|x| [x, Role.group_names.index(x)]}, @role.group) %>
   </div>    
   <div class="b-formfield-div">
     <%= f.submit "Сохранить"  %>

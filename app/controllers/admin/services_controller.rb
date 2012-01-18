@@ -4,6 +4,8 @@ class Admin::ServicesController < Admin::BaseController
     allow :Администратор  
   end
   
+  before_filter :get_roles, :except => [:index, :destroy] 
+  
   def index
     @services = Service.order("id desc")
   end
@@ -38,6 +40,13 @@ class Admin::ServicesController < Admin::BaseController
     @service= Service.find(params[:id])
     @service.destroy
     redirect_to admin_services_path, :notice => "Услуга удалена"
+  end
+  
+  
+  private 
+  
+  def get_roles
+    @roles = Role.all
   end
 
 end
