@@ -1,23 +1,20 @@
-<% title "Редактирование атрибутов фирмы" -%>
+<% title "Редактирование фирмы" -%>
 <%= render :partial => 'admin/shared/sub_menu_users' %>
-<div class="grid_8 alpha">
-<%= render :partial => "firm" %>
-</div>
 
-<div class="grid_8 omega">
-  <h3>Логотип фирмы</h3>
-  <div>
-    <%= image_tag(@firm.logo.url(:thumb)) if @firm.images.present? %>
+
+<div id="firm_logo">
+  <div class="picture">
+    <%= image_tag(@firm.logo.url(:thumb), :title => "Логотип") if @firm.images.present? %>
+    <%#= link_to "Удалить", remove_image_admin_firm_path(@firm), :method => :delete, :confirm => "Вы уверены?"  if @firm.images.present? %>
   </div>
-  <div>
-    <%= link_to "Удалить", remove_image_admin_firm_path(@firm), :method => :delete, :confirm => "Вы уверены?"  if @firm.images.present? %>
-  </div>
-  <div class="spacer"></div>
-    <div class="b-uploadfile">
+   <div class="b-uploadfile">
   <%= render :partial => 'admin/images/upload_image', :object => add_image_admin_firm_path(@firm) %>
   </div> 
+  <div class="clear"></div>
 </div>
-<div class="spacer clear"></div>
+  <div class="spacer"></div>
+  <%= render :partial => "firm" %>
+
 <div class="grid_16">
 <%= link_to 'Назад к списку фирм', admin_firms_path  %>
 </div>

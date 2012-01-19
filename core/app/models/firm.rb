@@ -3,7 +3,8 @@ class Firm < ActiveRecord::Base
   has_many :attach_images, :as => :attachable, :conditions => {:attachable_type =>"Firm"}, :dependent => :destroy, :foreign_key => :attachable_id
   has_many :images, :through => :attach_images
   has_many :firm_services, :dependent => :delete_all
-  has_many :services, :through => :firm_services
+  has_many :services, :through => :firm_services, :conditions => "deleted_at is null"
+  has_many :archived_services, :through => :firm_services, :conditions => "deleted_at is not null", :source => "service"
   has_many :users
   has_one :client
   validates :name, :presence => true, :uniqueness => true
@@ -43,16 +44,16 @@ class Firm < ActiveRecord::Base
  
   def commit_service(service)
     users.each do |user|
-      service.roles.each do |role|
-        user.role_objects << role if user.role_objects.exclude?(role)
-      end
+      user.role_object_ids = (user.role_object_ids + service.role_ids).uniq
     end
   end
 
   def rollback_service(service)
+    other_service_ids = service_ids - [service.id]
+    other_role_ids = ServiceRole.where(:service_id => other_service_ids).map(&:role_id).uniq
     users.each do |user|
-      user.role_object_ids = (user.role_object_ids + service.map(&:role_id)).uniq
-    end
+      user.role_object_ids = other_role_ids
+    end  
   end
 
 private 

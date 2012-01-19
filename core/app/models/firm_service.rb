@@ -5,16 +5,10 @@ class FirmService < ActiveRecord::Base
   
   scope :active, where("deleted_at is null")
   scope :history, where("deleted_at is not null")  
-  after_create :flush_service
+  after_create  {|record| record.firm.commit_service(record.service) }
   
   def destroy
-    self.update_attribute :deleted_at, Time.now
+    firm.rollback_service(service)    
+    update_attribute :deleted_at, Time.now
   end
-  
-  private
-  
-  def flush_service
-    firm.commit_service(service)
-  end
-  
 end

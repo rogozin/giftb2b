@@ -4,6 +4,8 @@ class Admin::FirmsController < Admin::BaseController
      allow :Администратор, "Менеджер продаж"
   end
   
+  before_filter :find_services
+  
   def index
     @firms = Firm.all
   end
@@ -20,7 +22,7 @@ class Admin::FirmsController < Admin::BaseController
     @firm = Firm.new(params[:firm])
     if @firm.save
       flash[:notice] = "Новая фирма успешно создана"      
-      redirect_to (params[:back_url].present? ? params[:back_url] : admin_firms_path)
+      redirect_to (params[:back_url].present? ? params[:back_url] : edit_admin_firm_path(@firm))
     else
       render 'new'  
     end
@@ -32,6 +34,7 @@ class Admin::FirmsController < Admin::BaseController
   
   def update
     @firm = Firm.find(params[:id])
+    service_ids = params[:firm][:service_ids].delete
     if @firm.update_attributes(params[:firm])
       flash[:notice] = "Атрибуты фирмы изменены"
       redirect_to  (params[:back_url].present? ? params[:back_url] : edit_admin_firm_path(@firm))
@@ -60,6 +63,12 @@ class Admin::FirmsController < Admin::BaseController
      @firm = Firm.find(params[:id])   
      @firm.images.delete_all
      redirect_to edit_admin_firm_path(@category), :notice => "Логотип удален"
+  end
+  
+  private 
+  
+  def find_services
+    @services = Service.order("type_id, name")
   end
 
 end

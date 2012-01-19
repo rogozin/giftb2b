@@ -485,6 +485,7 @@ a.toggle-category {
 
 .b-description textarea {
   width:100%;
+  height:150px;
 }
 
 .b-description label {
@@ -496,4 +497,14 @@ a.toggle-category {
 
 .news-picture {float:right; margin:10px 0;}
 
-
+#firm_logo {
+  padding:10px;
+  background:#e6e6fa;
+  .picture { float:left;
+    img{
+      width:90px;
+      height:90px;  
+    }
+  }
+  .b-uploadfile {float:right;}
+}  
