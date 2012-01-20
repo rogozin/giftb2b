@@ -508,3 +508,14 @@ a.toggle-category {
   }
   .b-uploadfile {float:right;}
 }  
+
+.services {
+   a {color:#696969;}
+  .archived-services {
+   margin-top:10px;
+   ul li {
+    line-height:20px;
+    span {font-size:0.9em;color: lighten(#696969, 30%);}
+   }
+  }
+}

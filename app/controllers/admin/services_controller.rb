@@ -46,7 +46,7 @@ class Admin::ServicesController < Admin::BaseController
   private 
   
   def get_roles
-    @roles = Role.all
+    @roles = Role.scoped
   end
 
 end

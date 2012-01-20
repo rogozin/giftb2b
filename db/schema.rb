@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120118083639) do
+ActiveRecord::Schema.define(:version => 20120120090803) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -202,14 +202,12 @@ ActiveRecord::Schema.define(:version => 20120118083639) do
     t.integer "status"
   end
 
-  create_table "firm_services", :id => false, :force => true do |t|
+  create_table "firm_services", :force => true do |t|
     t.integer  "firm_id"
     t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "deleted_at"
   end
-
-  add_index "firm_services", ["firm_id", "service_id"], :name => "index_firm_services_on_firm_id_and_service_id", :unique => true
 
   create_table "firms", :force => true do |t|
     t.string   "name"
@@ -454,7 +452,7 @@ ActiveRecord::Schema.define(:version => 20120118083639) do
     t.string  "name",              :limit => 40
     t.integer "group",                           :default => 0
     t.integer "authorizable_id"
-    t.integer "authorizable_type"
+    t.string  "authorizable_type"
     t.string  "description"
   end
 

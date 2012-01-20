@@ -34,8 +34,11 @@ class Admin::FirmsController < Admin::BaseController
   
   def update
     @firm = Firm.find(params[:id])
-    service_ids = params[:firm][:service_ids].delete
-    if @firm.update_attributes(params[:firm])
+    new_service_ids = (params[:firm].delete(:service_ids) || []).map(&:to_i) 
+    old_service_ids = @firm.service_ids
+    if @firm.update_attributes(params[:firm])      
+      @firm.firm_services.active.where(:service_id => (old_service_ids-new_service_ids)).each{|s| s.destroy}
+      @firm.service_ids += new_service_ids-old_service_ids
       flash[:notice] = "Атрибуты фирмы изменены"
       redirect_to  (params[:back_url].present? ? params[:back_url] : edit_admin_firm_path(@firm))
     else

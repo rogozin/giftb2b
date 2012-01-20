@@ -62,17 +62,31 @@
   </div>            
  </div>
 </div>
-  <div class="grid_8 omega">
-  
-  <div class="services">
-  <h2>Пакеты услуг</h2>
-    <ul>
-    <% @services.each do |item| -%>
-      <li><%= check_box_tag "firm[service_ids][]", item.id, @firm.service_ids.include?(item.id), :id => dom_id(item) %> <%= label_tag dom_id(item), item.name %></li>    
-    <% end -%>
-    </ul>    
-  </div>      
+  <div class="grid_8 omega">  
+    <div class="services">
+      <div class="active-services">
+      <h2>Пакеты услуг</h2>
+        <ul>
+        <% @services.each do |item| -%>
+          <li><%= check_box_tag "firm[service_ids][]", item.id, @firm.service_ids.include?(item.id), :id => dom_id(item) %>
+            <%= link_to item.name, edit_admin_service_path(item) %>
+          </li>    
+        <% end -%>
+        </ul>    
+      </div>  
+      <div class="archived-services">
+        <h2>Ранее использованные пакеты</h2>
+        <ul>
+          <% @firm.firm_services.history.each do |item| -%>
+            <li><%= link_to item.service.name, edit_admin_service_path(item.service) %>
+            <span><%= I18n.l(item.created_at,:format => :digital) %> - <%= I18n.l(item.deleted_at,:format => :digital) %> </span>
+            </li>        
+          <% end -%>
+        </ul>
+      </div>   
+    </div>        
   </div>
+  <div class="clear"></div>
   <div class="b-formfield-div">
     <%= f.submit "Сохранить" %>
   </div>

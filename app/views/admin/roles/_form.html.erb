@@ -13,6 +13,14 @@
     <%= f.select :group, options_for_select(Role.group_names.map{|x| [x, Role.group_names.index(x)]}, @role.group) %>
   </div>    
   <div class="b-formfield-div">
+    <%= f.label :authorizable_id, "ID объекта" %>
+    <%= f.text_field :authorizable_id %>
+  </div>    
+  <div class="b-formfield-div">
+    <%= f.label :authorizable_type, "Тип объекта" %>
+    <%= f.text_field :authorizable_type %>
+  </div>      
+  <div class="b-formfield-div">
     <%= f.submit "Сохранить"  %>
   </div>
   </div>  

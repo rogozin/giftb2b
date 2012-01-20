@@ -51,6 +51,17 @@ end
       assigns(:firm).archived_services.should eq [@service]
       @user.role_object_ids.should be_empty
     end
+#    
+#    it 'enable service' do
+#      @firm.services << @service
+#      put :update, :id => @firm.id, :firm => {:service_ids => []}
+#      assigns(:firm).services.should be_empty
+#      assigns(:firm).archived_services.should eq [@service]
+#      @user.role_object_ids.should be_empty
+#    end
+
+    
+    
   end
 
   it 'DELETE destroy' do
@@ -59,5 +70,4 @@ end
     assigns(:firm).services.should be_empty
     response.should redirect_to admin_firms_path
   end
-
 end
