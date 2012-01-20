@@ -32,7 +32,7 @@ class MoveRolesToServices < ActiveRecord::Migration
     s_s30 = Service.create(:name => "Набор поставщиков (максимум)")
     s_co = Service.create(:name => "Коммерческое предложение", :roles => [r_co]) 
     s_co_logo = Service.create(:name => "Коммерческое предложение + Лого", :roles => [r_co, r_logo]) 
-    s_sс = Service.create(:name => "Образцы + клиенты", :roles => [r_samp, r_c])     
+    s_sc = Service.create(:name => "Образцы + клиенты", :roles => [r_samp, r_c])     
     s_mp = Service.create(:name => "Мои товары", :roles => [r_p])   
     
     say "add supplier to roles", true
@@ -45,10 +45,10 @@ class MoveRolesToServices < ActiveRecord::Migration
     
     say "update users access rights and add services to firms"
     User.joins(:role_objects).where("roles.id=?", firm_manager.id).each do |user|
-      [s_s, s_s30, s_co_logo, s_sс, s_mp].each{|ss| user.firm.commit_service(ss) if user.firm && user.active?}
+      [s_s, s_s30, s_co_logo, s_sc, s_mp].each{|ss| user.firm.commit_service(ss) if user.firm && user.active?}
     end
 
-    firm_manager.upadte_attributes(:name => "lk_users", :description => "Доступ к упралению пользователями", :group => 2)    
+    firm_manager.update_attributes(:name => "lk_users", :description => "Доступ к упралению пользователями", :group => 2)    
              
   end
 
