@@ -3,7 +3,7 @@
 
 class Admin::ProductsController < Admin::BaseController
   access_control do
-     allow :Администратор, "Редактор каталога"
+     allow :admin, :admin_catalog
   end
   
   before_filter :find_properties, :only => [:new, :create, :edit, :update]
@@ -18,7 +18,7 @@ class Admin::ProductsController < Admin::BaseController
     params[:page] ||= 1    
     params[:per_page] ||=20
     @properties = Property.active.for_search
-    if current_user.has_role?("Редактор каталога")  
+    if current_user.has_role?("admin_catalog")  
       params[:supplier] = current_user.supplier ? current_user.supplier.id : -1
     end
     respond_to do |format|

@@ -18,6 +18,11 @@ class MoveRolesToServices < ActiveRecord::Migration
     r_c = Role.create(:name => "lk_clients", :description => "Доступ к клиентам", :group => 2)    
     r_samp = Role.create(:name => "lk_samples", :description => "Доступ к образцам", :group => 2)    
     r_p = Role.create(:name => "lk_products", :description => "Доступ к моим товарам", :group => 2)    
+    r_news = Role.create(:name => "lk_news", :description => "Доступ к новостям", :group => 2)        
+    r_orders = Role.create(:name => "lk_orders", :description => "Доступ к заказам", :group => 2)            
+
+    r_sup = Role.create(:name => "supplier_viewer", :description => "Доступ к странице поставщика", :group => 2)    
+    
 
     
         
@@ -26,14 +31,14 @@ class MoveRolesToServices < ActiveRecord::Migration
         
         
     say "create services"    
-    s_s = Service.create(:name => "База данных с расширенным поиском", :roles => [r_s, r_ca])
-    s_s10 = Service.create(:name => "Набор поставщиков (минимум)")
-    s_s20 = Service.create(:name => "Набор поставщиков (средний)")
-    s_s30 = Service.create(:name => "Набор поставщиков (максимум)")
-    s_co = Service.create(:name => "Коммерческое предложение", :roles => [r_co]) 
-    s_co_logo = Service.create(:name => "Коммерческое предложение + Лого", :roles => [r_co, r_logo]) 
-    s_sc = Service.create(:name => "Образцы + клиенты", :roles => [r_samp, r_c])     
-    s_mp = Service.create(:name => "Мои товары", :roles => [r_p])   
+    s_s = Service.create(:name => "База данных с расширенным поиском", :code=> "base_ext_search", :roles => [r_s, r_ca, r_sup, r_news, r_orders])
+    s_s10 = Service.create(:name => "Набор поставщиков (минимум)", :code => "sup_min")
+    s_s20 = Service.create(:name => "Набор поставщиков (средний)", :code => "sup_med")
+    s_s30 = Service.create(:name => "Набор поставщиков (максимум)", :code => "sup_max")
+    s_co = Service.create(:name => "Коммерческое предложение", :code => "co", :roles => [r_co, r_sup, r_news, r_orders]) 
+    s_co_logo = Service.create(:name => "Коммерческое предложение + Лого", :code => "co_logo", :roles => [r_co, r_logo, r_sup, r_news, r_orders]) 
+    s_sc = Service.create(:name => "Образцы + клиенты", :code => "s_cli", :roles => [r_samp, r_c, r_sup, r_news, r_orders])     
+    s_mp = Service.create(:name => "Мои товары", :code => "my_goods", :roles => [r_p, r_sup, r_news, r_orders])   
     
     say "add supplier to roles", true
     Supplier.all.each do |sup|

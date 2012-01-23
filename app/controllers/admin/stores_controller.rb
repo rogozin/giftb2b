@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Admin::StoresController < Admin::BaseController
   access_control do
-    allow :Администратор
+    allow :admin, :admin_catalog
   end
   
   before_filter :find_supplier

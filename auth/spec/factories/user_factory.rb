@@ -66,17 +66,17 @@ def add_role(user, factory_name)
 end
 
 Factory.define :role_admin, :class => Role do |f|
-  f.name "Администратор"
+  f.name "admin"
   f.group 0
 end
 
 Factory.define :role_catalog_editor, :class => Role do |f|
-  f.name "Редактор каталога"
+  f.name "admin_catalog"
   f.group 0
 end
 
 Factory.define :role_content_editor, :class => Role do |f|
-  f.name "Редактор контента"
+  f.name "admin_content"
   f.group 0
 end
 
@@ -91,7 +91,7 @@ Factory.define :second_manager_role, :class => Role do |f|
 end
 
 Factory.define :role_user, :class => Role do |f|
-  f.name "Пользователь"
+  f.name "simple_user"
   f.group 1
 end
 

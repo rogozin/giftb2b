@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Lk::AccountsController < Lk::BaseController
   access_control do
-     allow :Администратор, "Менеджер фирмы"
+     allow :admin, :lk_users
   end
 
   before_filter :find_account, :only => [:edit, :update, :destroy, :activate]  
@@ -25,8 +25,8 @@ class Lk::AccountsController < Lk::BaseController
     @account.active = true
     @account.firm_id = current_user.firm_id
     @account.city = current_user.firm.city.present? ? current_user.firm.city : "Default"
-    if @account.save
-      @account.has_role! "Пользователь фирмы"
+    @account.role_object_ids = current_user.firm.services.map(&:role_ids).flatten.uniq
+    if @account.save       
       flash[:notice] = "Пользователь успешно создан!"
       render 'account'
     else

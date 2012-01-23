@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Admin::DataChangesController < Admin::BaseController
   access_control do
-     allow :Администратор
+     allow :admin
   end
 #after_filter :wrap_ajax_file_upload_responce, :only => [:create]
 respond_to :html, :js

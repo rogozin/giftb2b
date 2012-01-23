@@ -2,7 +2,7 @@
 require "excel"
 class Lk::CommercialOffersController < Lk::BaseController
   access_control do
-     allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
+     allow :admin, :lk_co
   end
   include Gift::Export::Excel
   before_filter :find_co, :except => [:index, :create]

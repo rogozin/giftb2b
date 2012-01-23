@@ -1,7 +1,7 @@
 #encoding:utf-8;
 class Admin::ServicesController < Admin::BaseController
   access_control do
-    allow :Администратор  
+    allow :admin, :admin_users
   end
   
   before_filter :get_roles, :except => [:index, :destroy] 

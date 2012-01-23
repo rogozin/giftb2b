@@ -13,7 +13,7 @@
 <% for user in users_list do %>
   <tr>
     <td><%= link_to  user.username, edit_admin_account_path(user.id) %></td>
-    <td><%= user.role_objects.map(&:name).join(', ') %></td>    
+    <td><%= user.role_objects.where("roles.group <> 5").map(&:name).join(', ') %></td>    
     <td><%= user.fio %></td>
     <td><%= user.email %></td>
     <td><%= I18n.l(user.current_login_at, :format => :long)  if user.current_login_at %></td>

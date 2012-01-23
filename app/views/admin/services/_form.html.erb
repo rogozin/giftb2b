@@ -5,6 +5,14 @@
         <%= f.label :name, "Название" %>
         <%= f.text_field :name %>
       </div>
+      <% if @service.new_record? -%>
+      <div class="b-formfield-div">
+        <%= f.label :code, "Кодовое имя" %>
+        <%= f.text_field :code %>
+      </div>      
+      <% else -%>
+      Кодовое имя: <strong><%= @service.code %></strong>
+      <% end -%>      
       <div class="b-formfield-div">
         <%= f.submit "Сохранить"  %>
       </div>

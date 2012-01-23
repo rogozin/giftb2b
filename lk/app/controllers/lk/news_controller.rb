@@ -1,7 +1,7 @@
 #encoding:utf-8;
 class Lk::NewsController < Lk::BaseController
   access_control do
-    allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"     
+    allow :admin, :lk_news 
   end
     
   before_filter :check_firm

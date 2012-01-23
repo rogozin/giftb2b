@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Admin::BannersController < Admin::BaseController
   access_control do
-     allow :Администратор
+     allow :admin, :admin_content
   end
   
   before_filter :find_banner, :only => [:edit, :update, :destroy]

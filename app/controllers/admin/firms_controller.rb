@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Admin::FirmsController < Admin::BaseController
   access_control do
-     allow :Администратор, "Менеджер продаж"
+     allow :admin, :admin_users
   end
   
   before_filter :find_services

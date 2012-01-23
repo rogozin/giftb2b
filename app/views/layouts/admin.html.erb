@@ -40,15 +40,15 @@
 	<div class="clear"></div>  
   <div id="admin-menu" class="grid_16">
       <ul>
-      <% if current_user.has_role?(:Администратор) || current_user.has_role?("Редактор каталога")  %>
+      <% if current_user.has_role?(:admin) || current_user.has_role?("admin_catalog")  %>
         <%= tab :categories, :route => :catalog_admin_categories, :label=>'Категории' %>
         <%= tab :products, :label=>'Товары'  %>      
         <%= tab :url => all_admin_images_path, :label => 'Изображения', :match_path => "/images" %>
       <% end -%>
-        <%= tab :accounts, :label=>'Пользователи' if current_user.has_role?(:Администратор)   %>      
+        <%= tab :accounts, :label=>'Пользователи' if current_user.has_role?(:admin) || current_user.has_role?(:admin_users)   %>      
         <%= tab :firms, :label=>'Фирмы' if current_user.has_role?("Менеджер продаж")  %>
-        <%= tab :contents, :label=>'Контент' if current_user.has_role?(:Администратор) || current_user.has_role?("Редактор контента")   %>      
-        <%= tab :data_changes, :label=> 'Обмен данными' if current_user.has_role?(:Администратор)  %>        
+        <%= tab :contents, :label=>'Контент' if current_user.has_role?(:admin) || current_user.has_role?("admin_content")   %>      
+        <%= tab :data_changes, :label=> 'Обмен данными' if current_user.has_role?(:admin)  %>        
       </ul>
       <br class="clr" />
     </div>

@@ -1,7 +1,7 @@
 #encoding:utf-8;
 class Admin::RolesController < Admin::BaseController
   access_control do
-    allow :Администратор  
+    allow :admin  
   end
 
   

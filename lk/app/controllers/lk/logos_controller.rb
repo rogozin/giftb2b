@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Lk::LogosController < Lk::BaseController
     access_control do
-     allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
+     allow :admin, :lk_logo
   end
   
   before_filter :find_co
