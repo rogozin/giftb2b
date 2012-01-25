@@ -5,14 +5,13 @@
   <p>Дата создания: <%= I18n.l(@commercial_offer.created_at, :format => :long) %></p>
 </div>
 
-<script type="text/javascript">
-</script>
 <div class="spacer clear"></div>
-
-<div id="co_client">
-Клиент: <%= select_tag :lk_firm_id, options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm_id) %>
-<%= link_to 'Новый',  new_firm_path, :remote => true, :class=>"add-link" %>
-</div>
+<% if current_user.has_role? :lk_client -%> 
+  <div id="co_client">
+  Клиент: <%= select_tag :lk_firm_id, options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm_id) %>
+  <%= link_to 'Новый',  new_firm_path, :remote => true, :class=>"add-link" %>
+  </div>
+<% end -%>
 <div id="co_messages">
 <div class="ajax_animation"></div>
 

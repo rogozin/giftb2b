@@ -6,9 +6,13 @@ describe Lk::AccountsController do
   let(:page) { Capybara::Node::Simple.new(@response.body) }  
   
   before(:each) do     
-    direct_login_as :firm_manager
-    @firm = Factory :firm
+    direct_login_as :user
+    @user.role_objects << Factory(:r_admin)
+    @role = Factory :r_search
+    @service = Factory :service, :roles => [@role]
+    @firm = Factory :firm, :services => [@service]
     @user.update_attribute :firm_id, @firm.id
+    
   end
   
   def valid_attributes
@@ -62,8 +66,8 @@ describe Lk::AccountsController do
       post :create, valid_attributes
       assigns(:account).should be_a(User)
       assigns(:account).should be_persisted
-      assigns(:account).should have_role("Пользователь фирмы")
       assigns(:account).username.should eq next_username
+      assigns(:account).role_objects.should eq [@role]
     end
     
     it 'добавление следующего пользователя' do

@@ -1,5 +1,5 @@
 #encoding: utf-8;
-class User < ActiveRecord::Base
+class User < ActiveRecord::Base  
   has_many :lk_orders
   acts_as_authentic do |c| 
     c.maintain_sessions = false
@@ -23,15 +23,15 @@ class User < ActiveRecord::Base
   attr_accessible :username, :password, :password_confirmation, :birth_date, :active,  :expire_date, :firm_id, :role_object_ids, :as => :crm
   
   def is_admin?
-    Rails.cache.fetch("#{cache_key}.is_admin?", :expires_in=>60) {has_role? 'admin'}
+    Rails.cache.fetch("#{cache_key}.is_admin?") {has_role? 'admin'}
   end
   
   def is_lk_user?
-     Rails.cache.fetch("#{cache_key}.is_lk_user?", :expires_in=>60) {role_objects.exists?(["roles.group>1"])}
+     Rails.cache.fetch("#{cache_key}.is_lk_user?") {role_objects.exists?(["roles.group=2"])}
   end
   
   def is_admin_user?
-     Rails.cache.fetch("#{cache_key}.is_admin_user?", :expires_in=>60) {role_objects.exists?(["roles.group=0"])}
+     Rails.cache.fetch("#{cache_key}.is_admin_user?") {role_objects.exists?(["roles.group=0"])}
   end
   
   def is_first_manager?
@@ -43,24 +43,35 @@ class User < ActiveRecord::Base
   end    
   
   def is_simple_user?
-     Rails.cache.fetch("#{cache_key}.is_simple_user?", :expires_in=>60) {role_objects.exists?(["roles.group=1"])}
+     Rails.cache.fetch("#{cache_key}.is_simple_user?") {role_objects.exists?(["roles.group=3"])}
   end
   
   def is_firm_user?
-     Rails.cache.fetch("#{cache_key}.is_firm_user?", :expires_in=>60) {role_objects.exists?(["roles.group=2"])}
+     Rails.cache.fetch("#{cache_key}.is_firm_user?") {role_objects.exists?(["roles.group=2"])}
   end
-  
-  def is_e_shop_user?
-     Rails.cache.fetch("#{cache_key}.is_e_shop_user?", :expires_in=>60) {role_objects.exists?(["roles.group=3"])}
-  end
-  
+    
   def is_firm_manager?
-    Rails.cache.fetch("#{cache_key}.is_firm_manager?", :expires_in=>60) { has_role?("Менеджер фирмы")}    
+    Rails.cache.fetch("#{cache_key}.is_firm_manager?") { has_role?("lk_admin")}    
+  end
+    
+#===============================
+  # Если у пользователя доступна роль Коммерческое предложение или это конечный клиент
+  def is_e_commerce?
+    Rails.cache.fetch("#{cache_key}.is_e_commerce?") { has_role?("simple_user") || has_role?("lk_co") || has_role?("lk_order")}        
   end
   
-  def is_supplier?
-    Rails.cache.fetch("#{cache_key}.is_supplier?", :expires_in=>60) { has_role?("Поставщик")}    
+  #ids назначенных пользователю поставщиков
+  def assigned_supplier_ids
+    Rails.cache.fetch("#{cache_key}.supplier_ids?") { role_objects.where("roles.authorizable_type='Supplier'").map(&:authorizable_id).uniq}        
   end
+  
+  
+  #есть ли доступ к расширенному поиску
+  def has_ext_search?
+    Rails.cache.fetch("#{cache_key}.ext_search") { has_role?(:ext_search)}        
+  end  
+  
+#===============================  
   
   def activate!
     self.update_attribute :active, true

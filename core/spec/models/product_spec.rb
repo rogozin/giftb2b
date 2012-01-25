@@ -88,6 +88,11 @@ describe Product do
       @property.property_values.create(:value => "not_existed_article" )
       @product.color_variants[@property.name].should have(1).item
     end
+    
+    it 'выключенный товар не отображается в ЦВ' do
+      @product1.update_attribute :active, false
+      @product.color_variants[@property.name].should be_empty
+    end
   end
 
   context 'Аналогичные товары' do

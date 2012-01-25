@@ -1,7 +1,12 @@
 #encoding:utf-8;
 class SearchController < BaseController
     helper_method :can_ext_search?
-    before_filter :require_ra_user  
+    before_filter :require_ra_user, :load_search_data 
+    
+#    access_control do 
+#      allow :ext_search, :if => :giftpoisk?
+#      allow all, :if => :giftb2b?
+#    end
   
     def index
      params[:per_page] ||="20"
@@ -17,7 +22,8 @@ class SearchController < BaseController
       price[1] = params[:price_to].to_i
       
       s_options =  if can_ext_search?    
-       opts =  {:article => params[:article].present? ? params[:article].strip : "", :search_text => params[:name],:category => params[:category_ids], :manufactor => params[:manufactor_id], :supplier => params[:supplier_ids], :eq => params[:eq]}
+      supplier_ids = params[:supplier_ids].present? ? params[:supplier_ids].delete_if{|x| current_user.assigned_supplier_ids.exclude?(x.to_i)} : current_user.assigned_supplier_ids
+       opts =  {:article => params[:article].present? ? params[:article].strip : "", :search_text => params[:name],:category => params[:category_ids], :manufactor => params[:manufactor_id], :supplier => supplier_ids, :eq => params[:eq]}
        opts.merge!(params.select{ |k,v| k =~ /pv_\d+/ && v.reject(&:blank?).present? })
      else
        opts = {:search_text => params[:name], :eq => params[:eq]}
@@ -51,7 +57,7 @@ class SearchController < BaseController
   protected
   
   def can_ext_search?
-    ext_user?
+    current_user && current_user.has_ext_search?
   end
     
 end

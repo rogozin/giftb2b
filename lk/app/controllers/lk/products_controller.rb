@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Lk::ProductsController < Lk::BaseController
   access_control do
-     allow :admin, :lk_products 
+     allow :admin, :lk_product
   end
   
   before_filter :find_lk_product, :only => [:edit, :update, :destroy]

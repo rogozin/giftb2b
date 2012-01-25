@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Lk::AccountsController < Lk::BaseController
   access_control do
-     allow :admin, :lk_users
+     allow :admin, :lk_admin
   end
 
   before_filter :find_account, :only => [:edit, :update, :destroy, :activate]  
@@ -20,17 +20,17 @@ class Lk::AccountsController < Lk::BaseController
   
   def create
     @password = User.friendly_pass  
-    @account = User.new(params[:user].merge(:password => @password, :password_confirmation => @password, 
-                        :username => User.next_username(current_user.firm_id), :company_name => current_user.firm.name ))
+    @account = User.new(params[:user].merge(:password => @password, :password_confirmation => @password, :company_name => current_user.firm.name ))
     @account.active = true
+    @account.username = User.next_username(current_user.firm_id)
     @account.firm_id = current_user.firm_id
     @account.city = current_user.firm.city.present? ? current_user.firm.city : "Default"
-    @account.role_object_ids = current_user.firm.services.map(&:role_ids).flatten.uniq
+    @account.role_object_ids = current_user.firm.services.map(&:role_ids).flatten.uniq if current_user.firm.services.present?
     if @account.save       
       flash[:notice] = "Пользователь успешно создан!"
       render 'account'
     else
-      flash[:alert] = "Ошибка при создании пользователя!"
+      flash[:alert] = "Ошибка при создании нового пользователя!"
       render 'new'
     end
   end

@@ -9,17 +9,17 @@ class MoveRolesToServices < ActiveRecord::Migration
     r_a_ca.update_attributes(:name => "admin_catalog", :description => "Админка, каталог", :group => 0)                    
     r_a_co =Role.find_by_name("Редактор контента")
     r_a_co.update_attributes(:name => "admin_content", :description => "Админка, контент", :group => 0)                    
-    r_a_us = Role.create(:name => "admin_users", :description => "Админка, пользователи", :group => 0)                    
+    r_a_us = Role.create(:name => "admin_user", :description => "Админка, пользователи", :group => 0)                    
     say "creating new roles"    
     r_ca = Role.create(:name => "catalog", :description => "Доступ к каталогу", :group => 2)    
     r_s = Role.create(:name => "ext_search", :description => "Доступ к поиску", :group => 2)
     r_co = Role.create(:name => "lk_co", :description => "Доступ к коммерческому предложению", :group => 2)
     r_logo = Role.create(:name => "lk_logo", :description => "Доступ к нанесению логотипа", :group => 2)
-    r_c = Role.create(:name => "lk_clients", :description => "Доступ к клиентам", :group => 2)    
-    r_samp = Role.create(:name => "lk_samples", :description => "Доступ к образцам", :group => 2)    
-    r_p = Role.create(:name => "lk_products", :description => "Доступ к моим товарам", :group => 2)    
+    r_c = Role.create(:name => "lk_client", :description => "Доступ к клиентам", :group => 2)    
+    r_samp = Role.create(:name => "lk_sample", :description => "Доступ к образцам", :group => 2)    
+    r_p = Role.create(:name => "lk_product", :description => "Доступ к моим товарам", :group => 2)    
     r_news = Role.create(:name => "lk_news", :description => "Доступ к новостям", :group => 2)        
-    r_orders = Role.create(:name => "lk_orders", :description => "Доступ к заказам", :group => 2)            
+    r_orders = Role.create(:name => "lk_order", :description => "Доступ к заказам", :group => 2)            
 
     r_sup = Role.create(:name => "supplier_viewer", :description => "Доступ к странице поставщика", :group => 2)    
     
@@ -49,11 +49,11 @@ class MoveRolesToServices < ActiveRecord::Migration
     
     
     say "update users access rights and add services to firms"
-    User.joins(:role_objects).where("roles.id=?", firm_manager.id).each do |user|
-      [s_s, s_s30, s_co_logo, s_sc, s_mp].each{|ss| user.firm.commit_service(ss) if user.firm && user.active?}
+    User.joins(:role_objects).where("roles.id=?", firm_manager.id).each do |user|      
+      [s_s, s_s30, s_co_logo, s_sc, s_mp].each{|ss| user.firm.services << ss if user.firm && user.active?}
     end
 
-    firm_manager.update_attributes(:name => "lk_users", :description => "Доступ к упралению пользователями", :group => 2)    
+    firm_manager.update_attributes(:name => "lk_admin", :description => "Доступ к упралению пользователями", :group => 2)    
              
   end
 

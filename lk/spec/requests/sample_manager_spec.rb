@@ -3,7 +3,9 @@ require 'spec_helper'
 
 describe 'Роль учет образцов' do
   before(:each) do
-    login_as :firm_user
+    login_as :user
+    @user.role_objects << Factory(:r_samples)
+    @user.role_objects << Factory(:r_clients)
     @firm = Factory(:firm)
     @user.update_attributes(:firm => @firm, :fio => "Петя")    
     @lk_firm = Factory(:lk_firm, :firm_id => @firm.id)    

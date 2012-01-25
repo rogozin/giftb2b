@@ -5,7 +5,10 @@ require 'spec_helper'
 describe 'Роль Интернет-магазин' do
   
   before(:each) do
-     login_as :web_store_manager
+     login_as :user
+     @user.role_objects << Factory(:r_orders)
+     @user.role_objects << Factory(:r_clients)
+     @user.role_objects << Factory(:r_products)
      @firm = Factory(:firm)
      @user.update_attributes(:firm => @firm, :fio => "Петр Иванов")    
      Factory(:color_property, :name => "Цвет", :property_values => [PropertyValue.create(:value => "красный")])
@@ -42,20 +45,17 @@ describe 'Роль Интернет-магазин' do
     visit "/lk"
     page.should have_selector "#user_menu a", :count => 3     
     within "#user_menu" do
-      page.should have_content "Список заказов"
+      page.should have_content "Поступившие заказы"
       page.should have_content "Клиенты"
-      page.should have_content "Список товаров"
+      page.should have_content "Моя база сувениров"
     end
   end
   
   it 'навигация' do
     visit "/lk"
-    click_link "Список заказов"
-    save_and_open_page
+    click_link "Поступившие заказы"
     click_link "Клиенты"
-    save_and_open_page
-    click_link "Список товаров"
-    save_and_open_page        
+    click_link "Моя база сувениров"
   end
   
   end

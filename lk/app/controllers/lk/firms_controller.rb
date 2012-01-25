@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Lk::FirmsController < Lk::BaseController
   access_control do
-     allow :admin, :lk_clients
+     allow :admin, :lk_client
 #     allow "Учет образцов", :to => [:new, :create, :edit, :update]     
   end
   

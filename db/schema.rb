@@ -499,6 +499,28 @@ ActiveRecord::Schema.define(:version => 20120120101744) do
 
   add_index "services", ["code"], :name => "index_services_on_code", :unique => true
 
+  create_table "store_units", :id => false, :force => true do |t|
+    t.integer  "store_id",                  :null => false
+    t.integer  "product_id",                :null => false
+    t.integer  "count",      :default => 0
+    t.datetime "updated_at"
+    t.integer  "option",     :default => 1
+    t.datetime "created_at"
+  end
+
+  add_index "store_units", ["product_id"], :name => "index_store_units_on_product_id"
+  add_index "store_units", ["store_id", "product_id", "option"], :name => "index_store_units_on_store_id_and_product_id_and_option", :unique => true
+  add_index "store_units", ["store_id"], :name => "index_store_units_on_store_id"
+
+  create_table "stores", :force => true do |t|
+    t.integer  "supplier_id"
+    t.string   "name"
+    t.string   "location"
+    t.string   "delivery_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "suppliers", :force => true do |t|
     t.string  "name",         :limit => 80
     t.text    "address"
@@ -543,9 +565,5 @@ ActiveRecord::Schema.define(:version => 20120120101744) do
 
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token"
   add_index "users", ["username"], :name => "index_users_on_username"
-
-  create_table "xml_data", :force => true do |t|
-    t.string "original_name", :null => false
-  end
 
 end

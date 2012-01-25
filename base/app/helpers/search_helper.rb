@@ -2,7 +2,7 @@
 module SearchHelper
   
   def show_ext_search?
-    (ext_user? || giftpoisk?) && !(current_user && current_user.is_e_shop_user?)
+    current_user && current_user.has_ext_search?
   end
   
   

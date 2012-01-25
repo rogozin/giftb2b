@@ -1,6 +1,6 @@
 class CreateTableFirmServices < ActiveRecord::Migration
   def change
-    create_table :firm_services  do |t|
+    create_table :firm_services, :force => true  do |t|
       t.integer :firm_id
       t.integer :service_id
       t.datetime :created_at

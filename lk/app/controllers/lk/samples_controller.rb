@@ -4,7 +4,7 @@ class Lk::SamplesController < Lk::BaseController
   before_filter :prepare_collections, :only => [:index,:new,:edit, :create, :update]
   helper_method :can_edit_sample?
   access_control do
-     allow :admin, :lk_samples
+     allow :admin, :lk_sample
   end
   
   def index

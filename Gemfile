@@ -27,7 +27,7 @@ gem "gift-lk", :path => "lk"
 gem "gift-base", :path => "base"
 gem 'whenever'
  group :development, :test do
-   gem "rspec-rails"
+   gem "rspec-rails", '~>2.8.1'
    gem 'database_cleaner'
    gem 'autotest'
    gem 'capybara' #, :git => "http://github.com/jnicklas/capybara.git"
