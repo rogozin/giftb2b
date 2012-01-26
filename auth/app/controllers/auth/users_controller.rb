@@ -85,7 +85,7 @@ def new
   
   private 
   def notify_admins(user)
-    User.joins(:role_objects).where("active = 1 and (roles.name='Администратор' or roles.name='Главный менеджер')").each do |admin|
+    User.joins(:role_objects).where("active = 1 and (roles.name='admin' or roles.name='Главный менеджер')").each do |admin|
       Auth::AdminMailer.new_user_registered(user, admin).deliver
     end
   end 
@@ -110,7 +110,7 @@ def new
       @user.expire_date = Date.today.next_day(5)
       @user.username = User.next_username(@firm.id)      
       if @user.save
-        @user.has_role! "Пользователь фирмы" 
+        Service.where(:code => ["base_ext_search", "sup_max", "co_logo", "s_cli", "my_goods"]).each{|s| @firm.commit_service(s)}
         Auth::AccountMailer.new_account(@user, pass).deliver
       end      
     end
@@ -122,7 +122,7 @@ def new
     @user.username = @user.username_from_email
     @user.active = true
     if @user.save
-      @user.has_role! "Пользователь" 
+      @user.has_role! "simple_user" 
       Auth::AccountMailer.new_account(@user, pass).deliver
     end
       

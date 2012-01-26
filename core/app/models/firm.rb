@@ -2,6 +2,9 @@
 class Firm < ActiveRecord::Base
   has_many :attach_images, :as => :attachable, :conditions => {:attachable_type =>"Firm"}, :dependent => :destroy, :foreign_key => :attachable_id
   has_many :images, :through => :attach_images
+  has_many :firm_services, :dependent => :delete_all
+  has_many :services, :through => :firm_services, :conditions => "deleted_at is null"
+  has_many :archived_services, :through => :firm_services, :conditions => "deleted_at is not null", :source => "service"
   has_many :users
   has_one :client
   validates :name, :presence => true, :uniqueness => true
@@ -38,6 +41,20 @@ class Firm < ActiveRecord::Base
  def logo_geometry
    Paperclip::Geometry.from_file(images.first.picture.path) if images.present?
  end
+ 
+  def commit_service(service)
+    users.each do |user|
+      user.role_object_ids = (user.role_object_ids + service.role_ids).uniq
+    end
+  end
+
+  def rollback_service(service)
+    other_service_ids = service_ids - [service.id]
+    other_role_ids = ServiceRole.where(:service_id => other_service_ids).map(&:role_id).uniq
+    users.each do |user|
+      user.role_object_ids = other_role_ids
+    end  
+  end
 
 private 
 
@@ -52,5 +69,6 @@ private
      AttachImage.create(:attachable => self, :image => img)
      f.close
   end
+  
   
 end

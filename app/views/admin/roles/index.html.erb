@@ -1,0 +1,26 @@
+<%= render :partial => 'admin/shared/sub_menu_users' %>
+<% title "Список ролей" -%>
+
+<div class="b-command-menu">
+<%= link_to 'Добавить новую роль', new_admin_role_path  %>
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Имя</th>
+  <th>Человеческое название</th>  
+  <th>Группа</th>
+  <th></th>
+</tr>
+<% @roles.each do |role| -%>
+  <tr>
+    <td><%= link_to image_tag('edit.png'), edit_admin_role_path(role) %></td>
+    <td><%= role.name %></td>    
+    <td><%= role.description %></td>
+    <td><%= Role.group_names[role.group] %></td>
+    <td><%= link_to image_tag('bin.png'), admin_role_path(role), :method => :delete, :confirm => "Удалить роль?" %></td>
+  </tr>  
+<% end -%>
+</table>
+

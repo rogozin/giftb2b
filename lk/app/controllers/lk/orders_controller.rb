@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Lk::OrdersController < Lk::BaseController
   access_control do
-     allow :Администратор, "Менеджер фирмы", "Пользователь фирмы", "Интернет магазин"
+     allow :admin, :lk_order
   end
 
   before_filter :find_order, :only => [:edit, :update, :destroy, :calculate, :add_product]

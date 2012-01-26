@@ -2,7 +2,7 @@
 require "excel"
 class Lk::CommercialOffersController < Lk::BaseController
   access_control do
-     allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
+     allow :admin, :lk_co
   end
   include Gift::Export::Excel
   before_filter :find_co, :except => [:index, :create]
@@ -77,9 +77,9 @@ class Lk::CommercialOffersController < Lk::BaseController
       notice << "Установлена скидка в размере #{sale}% для #{t(:product_p, :count => cnt_sale)}" if params[:sale].present? && cnt_sale > 0 
       notice << "Добавлено нанесение в размере #{logo} руб. для #{t(:product_p, :count => cnt_price)}" if params[:logo].present? && cnt_price > 0 
       notice << "Добавлена наценка в размере #{delta} #{params[:unit]=="1" ? "%" : "руб."} для #{t(:product_p, :count => cnt_price)}" if params[:delta].present? && cnt_price > 0 
-      flash[:alert] = alert if alert.present?
-      flash[:notice] = notice if notice.present?      
     end    
+    flash[:alert] = alert if alert.present?
+    flash[:notice] = notice if notice.present?      
     respond_to do |format|
       format.js { render 'modify' }
       format.html { redirect_to commercial_offer_path(@commercial_offer)}

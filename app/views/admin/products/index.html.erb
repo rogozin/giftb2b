@@ -12,7 +12,7 @@
 <%= form_tag admin_products_path, :method=>:get, :class=>'filter' do -%>
 <%= raw tree_select(Category.cached_all_categories,  'category',nil,{:value=>"-1", :name => "<-Без категории->"} ,params[:category].to_i ) %>
  <%= select(nil ,'manufactor', options_for_select( Manufactor.all.collect{|i| [i.name, i.id] },params[:manufactor].to_i),{:prompt=>'<-Производитель->'}, {:name=>'manufactor'}) %>
-  <%= select(nil ,'supplier', options_for_select( Supplier.all.collect{|i| [i.name, i.id] },params[:supplier].to_i),{:prompt=>'<-Поставщик->'}, {:name=>'supplier'}) unless current_user.has_role?("Редактор каталога") %>
+  <%= select(nil ,'supplier', options_for_select( Supplier.all.collect{|i| [i.name, i.id] },params[:supplier].to_i),{:prompt=>'<-Поставщик->'}, {:name=>'supplier'}) unless current_user.has_role?("admin_catalog") %>
  назв: <%= text_field_tag :search_text, params[:search_text] %>
  арт: <%= text_field_tag :article, params[:article] %>
  код: <%= text_field_tag :code, params[:code] %>

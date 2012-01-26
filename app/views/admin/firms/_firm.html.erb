@@ -1,4 +1,5 @@
 <%= form_for [:admin, @firm] do |f| -%>
+<div class="grid_8 alpha">
 <div class="one_line_form">
   <%= hidden_field_tag :back_url, params[:back_url] %>
    <%= render :partial => 'shared/error_messages', :locals => {:target => @firm} %>
@@ -54,14 +55,38 @@
   <div class="b-formfield-div">
     <%= f.label :is_supplier, 'Это поставщик' %>
     <%= f.check_box :is_supplier %>
-  </div>    
-</div>
-<div class="clear"></div>  
+  </div>
   <div class="b-description">
     <%= f.label :description, 'Описание' %> <br />
     <%= f.text_area :description %>
-  </div>      
-  
+  </div>            
+ </div>
+</div>
+  <div class="grid_8 omega">  
+    <div class="services">
+      <div class="active-services">
+      <h2>Пакеты услуг</h2>
+        <ul>
+        <% @services.each do |item| -%>
+          <li><%= check_box_tag "firm[service_ids][]", item.id, @firm.service_ids.include?(item.id), :id => dom_id(item) %>
+            <%= link_to item.name, edit_admin_service_path(item) %>
+          </li>    
+        <% end -%>
+        </ul>    
+      </div>  
+      <div class="archived-services">
+        <h2>Ранее использованные пакеты</h2>
+        <ul>
+          <% @firm.firm_services.history.each do |item| -%>
+            <li><%= link_to item.service.name, edit_admin_service_path(item.service) %>
+            <span><%= I18n.l(item.created_at,:format => :digital) %> - <%= I18n.l(item.deleted_at,:format => :digital) %> </span>
+            </li>        
+          <% end -%>
+        </ul>
+      </div>   
+    </div>        
+  </div>
+  <div class="clear"></div>
   <div class="b-formfield-div">
     <%= f.submit "Сохранить" %>
   </div>

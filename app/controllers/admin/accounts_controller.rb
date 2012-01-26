@@ -2,7 +2,7 @@
 module Admin
 class AccountsController < Admin::BaseController
   access_control do
-    allow :Администратор
+    allow :admin, :admin_users
   end
 
   def index

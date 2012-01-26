@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Admin::ContentCategoriesController < Admin::BaseController
   access_control do
-     allow :Администратор, "Редактор контента"
+     allow :admin, :admin_content
   end
   
   def index

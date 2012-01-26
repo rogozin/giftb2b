@@ -45,7 +45,7 @@
 <h2>Список товаров:</h2>
 <%= render :partial => 'order_items' %>
 <div class="spacer"></div>
-<% unless current_user.is_e_shop_user? -%>
+<% if  current_user.is_e_commerce? -%>
 <p><%= link_to 'Добавить товар из отложенных', cart_products_path(:id => @order.id, :object_type => "LkOrder"), :remote => true  %></p>
 <div id="add_cart_prodcut"></div>  
 <% end -%>

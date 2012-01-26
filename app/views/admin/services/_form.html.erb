@@ -1,0 +1,53 @@
+<%= form_for [:admin,@service] do |f| %>
+  <div class="grid_6 alpha">
+    <div class="one_line_form">
+      <div class="b-formfield-div">
+        <%= f.label :name, "Название" %>
+        <%= f.text_field :name %>
+      </div>
+      <% if @service.new_record? -%>
+      <div class="b-formfield-div">
+        <%= f.label :code, "Кодовое имя" %>
+        <%= f.text_field :code %>
+      </div>      
+      <% else -%>
+      Кодовое имя: <strong><%= @service.code %></strong>
+      <% end -%>      
+      <div class="b-formfield-div">
+        <%= f.submit "Сохранить"  %>
+      </div>
+    </div>  
+   </div>    
+   <div class="grid_5">
+   <h2>Функциональные роли</h2>
+   <% @roles.where("`group` <> 5").group_by(&:group).each do |group, items| -%>
+    <strong><%= Role.group_names[group] %></strong>
+    <% items.each do |item| -%>
+     <ul>
+      <li> 
+        <%= check_box_tag "service[role_ids][]",  item.id, @service.service_roles.map(&:role_id).include?(item.id), :id => dom_id(item) %>
+        <%= label_tag dom_id(item), item.description, :title => item.name %>
+      </li>     
+    </ul>   
+    <% end -%>
+    <div class="spacer"></div>    
+   <% end -%>
+  </div>
+   <div class="grid_5 omega">
+   <h2>Доступ к объектам</h2>
+   <% @roles.where(:group => 5).group_by(&:authorizable_type).each do |group, items| -%>
+    <strong><%= group %></strong>
+    <% items.each do |item| -%>
+     <ul>
+      <li> 
+        <%= check_box_tag "service[role_ids][]",  item.id, @service.service_roles.map(&:role_id).include?(item.id), :id => dom_id(item) %>
+        <%= label_tag dom_id(item), item.description, :title => item.name %>
+      </li>     
+    </ul>   
+    <% end -%>
+    <div class="spacer"></div>    
+   <% end -%>
+  </div>
+  
+<% end -%>
+

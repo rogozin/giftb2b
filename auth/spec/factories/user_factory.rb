@@ -28,17 +28,23 @@ Factory.define :admin, :class => User, :parent => :user do |record|
 end
 
 Factory.define :catalog_editor, :class => User, :parent => :user do |record|    
-  record.role_objects {|role|  [role.association(:role_catalog_editor)]}
+  record.role_objects {|role|  [role.association(:role_catalog_editor) ]}
 end
 
 Factory.define :firm_manager, :class => User, :parent => :user do |record|    
   record.firm_id 1
-  record.role_objects {|role|  [role.association(:role_firm_manager)]}
+  record.role_objects {|role|  [role.association(:r_search),
+  role.association(:r_catalog),  role.association(:r_logo),  role.association(:r_co),
+  role.association(:r_clients), role.association(:r_products), role.association(:r_samples),
+  role.association(:r_news),   role.association(:r_orders), role.association(:r_admin), role.association(:r_supplier)]}
 end
 
 Factory.define :firm_user, :class => User, :parent => :user do |record|    
   record.firm_id 1
-  record.role_objects {|role|  [role.association(:role_firm_user)]}
+  record.role_objects {|role|  [role.association(:r_search),
+  role.association(:r_catalog),  role.association(:r_logo),  role.association(:r_co),
+  role.association(:r_clients), role.association(:r_products), role.association(:r_samples),
+  role.association(:r_news),   role.association(:r_orders), role.association(:r_supplier)]}
 end
 
 
@@ -66,17 +72,17 @@ def add_role(user, factory_name)
 end
 
 Factory.define :role_admin, :class => Role do |f|
-  f.name "Администратор"
+  f.name "admin"
   f.group 0
 end
 
 Factory.define :role_catalog_editor, :class => Role do |f|
-  f.name "Редактор каталога"
+  f.name "admin_catalog"
   f.group 0
 end
 
 Factory.define :role_content_editor, :class => Role do |f|
-  f.name "Редактор контента"
+  f.name "admin_content"
   f.group 0
 end
 
@@ -91,24 +97,10 @@ Factory.define :second_manager_role, :class => Role do |f|
 end
 
 Factory.define :role_user, :class => Role do |f|
-  f.name "Пользователь"
+  f.name "simple_user"
   f.group 1
 end
 
-Factory.define :role_firm_manager, :class => Role do |f|
-  f.name "Менеджер фирмы"
-  f.group 2
-end
-
-Factory.define :role_firm_user, :class => Role do |f|
-  f.name "Пользователь фирмы"
-  f.group 2
-end
-
-Factory.define :web_store, :class => Role do |f|
-  f.name "Интернет магазин"
-  f.group 3
-end
 
 Factory.sequence :firm_seq do |n|
    "ООО Рога и копыта, клон #{n}"
@@ -128,3 +120,72 @@ Factory.define :firm do |f|
   f.after_create { |firm| firm.update_attribute :short_name, firm.name   }  
 end
 
+
+Factory.define :service do |f|
+  f.name "услуга"
+  f.code "serv"  
+end
+
+Factory.define( :r_catalog, :class => Role) do |f|
+  f.name "catalog"
+  f.description "Доступ к каталогу"
+  f.group  2
+end
+Factory.define(:r_search, :class => Role) do |f|
+  f.name "ext_search"
+  f.description "Доступ к поиску"
+  f.group  2
+end
+Factory.define(:r_co, :class => Role) do |f|
+  f.name "lk_co"
+  f.description "Доступ к коммерческому предложению"
+  f.group  2
+end
+Factory.define(:r_logo, :class => Role) do |f|
+  f.name "lk_logo"
+  f.description "Доступ к нанесению логотипа"
+  f.group  2
+end
+Factory.define(:r_clients, :class => Role) do |f|
+  f.name "lk_client"
+  f.description "Доступ к клиентам"
+  f.group  2
+end
+Factory.define(:r_samples, :class => Role) do |f|
+  f.name "lk_sample"
+  f.description "Доступ к образцам"
+  f.group  2
+end
+Factory.define(:r_products, :class => Role) do |f|
+  f.name "lk_product"  
+  f.description "Доступ к моим товарам"
+  f.group  2
+end
+Factory.define(:r_news, :class => Role) do |f|
+  f.name "lk_news"
+  f.description "Доступ к новостям"
+  f.group  2
+end
+Factory.define(:r_orders, :class => Role) do |f|
+  f.name "lk_order"
+  f.description "Доступ к заказам"
+  f.group  2
+end
+Factory.define(:r_supplier, :class => Role) do |f|
+  f.name "supplier_viewer"
+  f.description "Доступ к странице поставщика"
+  f.group  2
+end
+Factory.define(:r_admin, :class => Role) do |f|
+  f.name "lk_admin"
+  f.description "Доступ к управлению пользователей"
+  f.group  2
+end
+
+Factory.define :all_inclusive, :class =>  :service do |f|
+  f.name "Все включено"
+  f.code "all_inclusive"
+  f.roles { [Factory(:r_orders), Factory(:r_samples), Factory(:r_catalog), Factory(:r_logo), 
+             Factory(:r_search), Factory(:r_co), Factory(:r_clients), Factory(:r_products)]}
+end
+  

@@ -2,6 +2,7 @@
       <tr>
         <th></th>
         <th>Поставщик</th>
+        <th>Код группы</th>        
         <th></th>
        <% suppliers_list.each do |item| %>
   	    <tr>
@@ -9,8 +10,9 @@
         		<%= link_to image_tag('edit.png'), edit_admin_supplier_path(item.id)  %>
     	    </td>
     	   	<td>
-      		  <span id="<%="item_#{item.id}"%>"><%=h item.name %></span>
+      		  <span id="<%="item_#{item.id}"%>"><%=item.name %></span>
       		</td>
+      		<td><%= item.group_id %></td>
       		<td>
       		  <%= link_to image_tag('bin.png'), admin_supplier_path(item.id) , :method => :delete, :confirm=>"Уверены?", :html => {:title =>'Удалить'}  %>
       		</td>

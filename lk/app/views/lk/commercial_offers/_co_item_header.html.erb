@@ -10,6 +10,8 @@
     <% else %>
        <th>Сумма </th>       
     <% end -%>
+    <% if current_user.has_role? :lk_logo -%> 
     <th class="th_lk">Лого</th>
+    <% end -%>
     <th class="th_lk"></th>
     <th class="th_lk"></th>

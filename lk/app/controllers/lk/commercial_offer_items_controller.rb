@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Lk::CommercialOfferItemsController < Lk::BaseController
   access_control do
-     allow :Администратор, "Менеджер фирмы", "Пользователь фирмы"
+     allow :admin, :lk_co
   end
   
   before_filter :find_co, :except => [:calc_single]

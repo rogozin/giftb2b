@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111209081022) do
+ActiveRecord::Schema.define(:version => 20120120101744) do
 
   create_table "attach_images", :id => false, :force => true do |t|
     t.integer "attachable_id"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20111209081022) do
     t.integer  "go_cnt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   :default => 0
+    t.integer  "position",   :default => 1
     t.integer  "site",       :default => 0
     t.text     "pages"
   end
@@ -63,9 +63,10 @@ ActiveRecord::Schema.define(:version => 20111209081022) do
     t.string   "permalink",                                         :null => false
     t.integer  "virtual_id"
     t.boolean  "show_description",               :default => false
-    t.string   "meta_keywords"
-    t.string   "meta_description"
+    t.text     "meta_keywords"
+    t.text     "meta_description"
     t.boolean  "outline",                        :default => false
+    t.string   "custom_title"
   end
 
   add_index "categories", ["permalink"], :name => "index_categories_on_permalink", :unique => true
@@ -201,6 +202,13 @@ ActiveRecord::Schema.define(:version => 20111209081022) do
     t.integer "status"
   end
 
+  create_table "firm_services", :force => true do |t|
+    t.integer  "firm_id"
+    t.integer  "service_id"
+    t.datetime "created_at"
+    t.datetime "deleted_at"
+  end
+
   create_table "firms", :force => true do |t|
     t.string   "name"
     t.string   "short_name"
@@ -219,11 +227,6 @@ ActiveRecord::Schema.define(:version => 20111209081022) do
     t.float    "long"
     t.string   "permalink"
     t.boolean  "show_on_site",                :default => false
-    t.text     "comment"
-    t.string   "phone2"
-    t.string   "phone3"
-    t.string   "email2"
-    t.integer  "state_id",                    :default => 1
   end
 
   add_index "firms", ["city"], :name => "index_firms_on_city"
@@ -348,33 +351,11 @@ ActiveRecord::Schema.define(:version => 20111209081022) do
     t.integer  "site",                 :default => 0
   end
 
-  create_table "people", :force => true do |t|
-    t.integer  "firm_id",    :null => false
-    t.integer  "user_id"
-    t.string   "fio"
-    t.string   "appoint"
-    t.string   "phone"
-    t.string   "phone2"
-    t.string   "phone3"
-    t.string   "email"
-    t.string   "email2"
-    t.text     "comment"
-    t.integer  "created_by"
-    t.integer  "updated_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "persons", :force => true do |t|
     t.integer  "client_id",  :null => false
     t.integer  "user_id"
     t.string   "fio"
     t.string   "appoint"
-    t.string   "phone"
-    t.string   "phone2"
-    t.string   "phone3"
-    t.string   "email"
-    t.string   "email2"
     t.text     "comment"
     t.integer  "created_by"
     t.integer  "updated_by"
@@ -471,7 +452,8 @@ ActiveRecord::Schema.define(:version => 20111209081022) do
     t.string  "name",              :limit => 40
     t.integer "group",                           :default => 0
     t.integer "authorizable_id"
-    t.integer "authorizable_type"
+    t.string  "authorizable_type"
+    t.string  "description"
   end
 
   create_table "roles_users", :id => false, :force => true do |t|
@@ -496,6 +478,26 @@ ActiveRecord::Schema.define(:version => 20111209081022) do
     t.boolean  "closed",                                              :default => false
     t.integer  "lk_firm_id"
   end
+
+  create_table "service_roles", :id => false, :force => true do |t|
+    t.integer "service_id"
+    t.integer "role_id"
+  end
+
+  add_index "service_roles", ["service_id", "role_id"], :name => "index_service_roles_on_service_id_and_role_id", :unique => true
+
+  create_table "services", :force => true do |t|
+    t.string   "name",                      :null => false
+    t.string   "code",                      :null => false
+    t.integer  "type_id",    :default => 0
+    t.integer  "price",      :default => 0
+    t.datetime "date_from"
+    t.datetime "date_to"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "services", ["code"], :name => "index_services_on_code", :unique => true
 
   create_table "store_units", :id => false, :force => true do |t|
     t.integer  "store_id",                  :null => false
@@ -525,6 +527,7 @@ ActiveRecord::Schema.define(:version => 20111209081022) do
     t.boolean "allow_upload",               :default => true
     t.text    "terms"
     t.string  "permalink",                                    :null => false
+    t.integer "group_id"
   end
 
   add_index "suppliers", ["permalink"], :name => "index_suppliers_on_permalink", :unique => true

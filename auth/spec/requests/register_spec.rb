@@ -20,13 +20,13 @@ end
 
   
   it 'рекалмное агентство' do
+    service  = Factory(:service, :code => "my_goods", :roles => [Role.create(:name => "bla bla bla", :group => 2)])
     ActionMailer::Base.default_url_options[:host] = "giftpoisk.ru"
     Settings.stub(:giftpoisk?).and_return(true)    
     Settings.stub(:giftb2b?).and_return(false)        
     visit "/auth/register"
     choose "Рекламное агентство"
     click_button "Далее"
-    save_and_open_page
     page.should have_selector "h1", :text => "Рекламное агентство"      
     fill_in "Имя, фамилия", :with => "demo"
     fill_in "Компания", :with => "Копыта"

@@ -31,4 +31,19 @@ describe User do
     User.next_username(234).should eq "f234.2"
   end
   
+  
+  it 'update cache_key' do
+    u = Factory(:user, :updated_at => 5.seconds.ago)
+    cc = u.cache_key
+    u.update_attributes :role_object_ids =>  [1]
+    u.cache_key.should_not eq cc
+  end
+  
+  it 'assigned_supplier_ids' do
+    u = Factory(:user)
+    s = Factory(:supplier)
+    u.role_objects << Role.create(:name => s.name, :description => s.name, :group => 5, :authorizable_id => s.id, :authorizable_type => "Supplier")
+    u.assigned_supplier_ids.should eq [s.id]
+  end
+  
 end

@@ -3,7 +3,7 @@ class UserOrdersController < ApplicationController
 #  layout 'lk'
   before_filter :require_user
   access_control do
-     allow "Пользователь"
+     allow :simple_user
   end
 
   def index

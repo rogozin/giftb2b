@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class Admin::PropertyValuesController < Admin::BaseController
   access_control do
-     allow :Администратор, "Редактор каталога"
+     allow :admin, :admin_catalog
   end
 
   before_filter :find_pv, :only => [:edit, :update, :destroy, :show, :join]

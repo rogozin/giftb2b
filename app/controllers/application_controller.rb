@@ -3,7 +3,7 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base  
 
-  rescue_from  'Acl9::AccessDenied',  :with => :access_denied
+
   rescue_from  'ActiveRecord::RecordNotFound' do |ex|
     render :file => 'public/404.html', :status => 404, :layout => false
   end
@@ -28,17 +28,6 @@ class ApplicationController < ActionController::Base
 
     
   private
-  def access_denied
-     if current_user
-       # It's presumed you have a template with words of pity and regret
-       #  # for unhappy user who is not authorized to do what he wanted
-       render :template => 'access_denied'
-     else
-       ## In this case user has not even logged in. Might be OK after login.
-     flash[:alert] = 'Доступ запрещен. Попробуйте выполнить вход в систему'
-     redirect_to auth_engine.login_path
-    end
-  end
 
   def redirect_back_or_default(default)
     redirect_to(session[:return_to] || default)

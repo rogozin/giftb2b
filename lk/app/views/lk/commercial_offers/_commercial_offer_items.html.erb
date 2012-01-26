@@ -15,9 +15,11 @@
   <p><%= link_to 'Добавить товар из Отложенных', cart_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true, :class => "add-link"  %></p>
   <div id="add_cart_prodcut"></div>
   <div class="spacer"></div>
+  <% if current_user.has_role?("lk_product") -%>    
   <p><%= link_to 'Добавить товар из Моей базы сувениров', load_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true, :class => "add-link"   %>
   </p>
   <div id="add_lk_prodcut"></div>
+  <% end -%>
   <div class="spacer"></div>
 <%#= link_to 'Преобразовать в заказ', move_to_order_commercial_offer_path(@commercial_offer), :method => :post, :confirm => "Коммерческое предлоежние будет преобразовано в заказ. Продолжить?"  %>
 </div>

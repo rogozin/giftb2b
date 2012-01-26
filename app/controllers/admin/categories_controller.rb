@@ -1,8 +1,8 @@
 #encoding: utf-8;
 class Admin::CategoriesController < Admin::BaseController
   access_control do
-     allow :Администратор
-     allow "Редактор каталога", :except => [:new, :create, :destroy]
+     allow :admin
+     allow :admin_catalog, :except => [:new, :create, :destroy]
   end
   respond_to :html, :js
   before_filter :find_catalog_items, :only => [:catalog, :thematic, :analogs, :virtuals]
@@ -110,7 +110,7 @@ class Admin::CategoriesController < Admin::BaseController
   
   def show_products_list    
     @category= Category.find(params[:id])
-    @products = if current_user.has_role?("Редактор каталога")
+    @products = if current_user.has_role?("admin_catalog")
       current_user.supplier ?  @category.products.sorted.where(:supplier_id => current_user.supplier_id) : []        
     else
       @category.products.sorted

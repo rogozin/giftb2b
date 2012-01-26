@@ -1,0 +1,28 @@
+<%= render :partial => 'admin/shared/sub_menu_users' %>
+<% title "Управление услугами" -%>
+
+<div class="b-command-menu">
+<%= link_to 'Добавить новую услугу', new_admin_service_path  %>
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Название услуги</th>
+  <th>Тип</th>  
+  <th>Период действия</th>
+  <th>Создано</th>
+  <th></th>
+</tr>
+<% @services.each do |service| -%>
+  <tr>
+    <td><%= link_to image_tag('edit.png'), edit_admin_service_path(service) %></td>
+    <td><%= service.name %></td>    
+    <td><%= service.type_id %></td>
+    <td><%= I18n.l(service.date_from, :format => :short) if service.date_from %> - <%= I18n.l(service.date_to, :format => :short) if service.date_to %> </td>    
+    <td><%= I18n.l(service.created_at, :format => :short) %></td>
+    <td><%= link_to image_tag('bin.png'), admin_service_path(service), :method => :delete, :confirm => "Удалить услугу?" %></td>
+  </tr>  
+<% end -%>
+</table>
+

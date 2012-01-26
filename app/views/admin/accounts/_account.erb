@@ -72,8 +72,9 @@
 <h3>Роль пользователя:</h3>
    <% Role.all.group_by(&:group).each do |gr, items| %>
    <p>
+   <strong><%= Role.group_names[gr] %></strong><br />
    <% items.each do |r| -%>
-      <%= check_box_tag "admin_account[role_object_ids][]", r.id, @account.role_objects.include?(r), :id => r.id  %> <%= label_tag r.id, r.name %> <br />
+      <%= check_box_tag "admin_account[role_object_ids][]", r.id, @account.role_objects.include?(r), :id => r.id  %> <%= label_tag r.id, r.description, :title => r.name %> <br />
    <% end -%>
    </p>       
   <%end%>
