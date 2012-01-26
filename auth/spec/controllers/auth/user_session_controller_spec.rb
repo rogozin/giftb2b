@@ -44,6 +44,7 @@ describe Auth::UserSessionController do
   it 'Если логин на гифтпоиске, редирект на главную страницу.' do
     user = Factory(:firm_manager, :password => "test")
     Settings.stub(:giftpoisk?).and_return(true)
+    Settings.stub(:giftb2b?).and_return(false)
     post :create,  {:user_session => {:username => user.username, :password => "test"},:use_route => :auth_engine }
     response.code.should eq "302"
     flash[:login_error].should be_nil
