@@ -17,7 +17,7 @@
     <%= link_to 'Все новости', news_index_path  %>
   </div>
   <div id="news_owner">
-    <span class="red-square"></span><%= @news.firm.short_name %>
+    <span class="red-square"></span><%= link_to @news.firm.short_name, firm_path(@news.firm) %>
   </div>
   <div class="clear"></div>
 </div>

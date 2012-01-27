@@ -20,7 +20,7 @@ end
     @products = Product.find_all({:sale => "1"}, "categories")
     @products = @products.paginate(:page => params[:page], :per_page => params[:per_page])
     render :products
-    #fresh_when(:etag => @category, :last_modified => @products.max_by(&:updated_at).try(:updated_at) || Time.now, :public => true) unless current_user             
+    fresh_when(:etag => @category, :last_modified => @products.max_by(&:updated_at).try(:updated_at) || Time.now, :public => true) unless current_user             
   end
 
   def best_price
@@ -29,7 +29,7 @@ end
     @products = Product.find_all({:best_price => "1"}, "categories")
     @products = @products.paginate(:page => params[:page], :per_page => params[:per_page])
     render :products
-    #fresh_when(:etag => @category, :last_modified => @products.max_by(&:updated_at).try(:updated_at) || Time.now, :public => true) unless current_user             
+    fresh_when(:etag => @category, :last_modified => @products.max_by(&:updated_at).try(:updated_at) || Time.now, :public => true) unless current_user             
   end
   
 end
