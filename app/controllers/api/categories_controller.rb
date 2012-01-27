@@ -1,9 +1,9 @@
 #encoding: utf-8;
 class Api::CategoriesController < Api::BaseController
   def index
-    @categories = Category.cached_catalog_categories
-    
+    @categories = Category.cached_catalog_categories   
     #puts request.headers
+    expire_cache(300)    
     respond_with(@categories)
   end
   
