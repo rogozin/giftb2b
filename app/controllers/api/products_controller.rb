@@ -11,6 +11,7 @@ class Api::ProductsController < Api::BaseController
     else
       []
     end
+   expire_cache(300)    
    render :json => @products.map{|x| x.as_json({:min => true}) }, :status => @products.present? ? :ok : :not_found
   end
   
@@ -32,6 +33,7 @@ class Api::ProductsController < Api::BaseController
   def show
     @product = []
     @product = is_lk_product? ? find_lk_product : Product.active.find_by_permalink(params[:id])
+    expire_cache(300)    
     respond_with(@product)
   end
   
@@ -42,11 +44,13 @@ class Api::ProductsController < Api::BaseController
   
   def novelty
     @products = Product.cached_novelty
+    expire_cache(300)    
     respond_with(@products)          
   end
   
   def sale
     @products = Product.cached_sale
+    expire_cache(300)    
     respond_with(@products)          
   end
 

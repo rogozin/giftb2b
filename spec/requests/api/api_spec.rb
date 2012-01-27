@@ -75,7 +75,6 @@ describe 'api testing' do
       get "api/products", {:format => :json, :category => cat.id}, {'HTTP_AUTHORIZATION' => "Token token=#{@token}"}
       ActiveSupport::JSON.decode(response.body).should have(1).item
       @json_object = ActiveSupport::JSON.decode(response.body).first["product"]
-      puts response.body
       @json_object.should_not have_key("colors")
       @json_object.should_not have_key("properties")
       @json_object.should_not have_key("similar")

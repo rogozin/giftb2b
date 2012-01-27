@@ -24,6 +24,12 @@ class Api::BaseController < ActionController::Base
     super(object, options)
   end
 
+  protected 
+  
+  def expire_cache(seconds)
+    expires_in seconds, :public => true
+  end
+  
   
   private
   def authorization
