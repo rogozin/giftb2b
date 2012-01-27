@@ -1,5 +1,5 @@
 #encoding: utf-8;
-class LkMailer < ActionMailer::Base
+class Lk::LkMailer < ActionMailer::Base
    default :from => "notification@giftb2b.ru", :charset => "UTF-8"
    layout "/layouts/mailers/firms"
 
