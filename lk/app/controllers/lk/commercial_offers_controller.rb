@@ -136,7 +136,7 @@ class Lk::CommercialOffersController < Lk::BaseController
        lk_product = LkProduct.copy_from_product(item.product, @co.firm_id, item.start_price)
        @co.commercial_offer_items.create({:lk_product=>lk_product, :quantity => item.quantity})
       end
-      @cart.items.clear
+      @cart.items.clear if @cart.items.size == @co.commercial_offer_items.size
       redirect_to commercial_offer_path(@co)
     else 
       flash[:alert] = "Коммерческое предложение не может быть сгенерировано!" 
