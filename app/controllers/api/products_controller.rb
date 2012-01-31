@@ -7,7 +7,7 @@ class Api::ProductsController < Api::BaseController
     params[:per_page] = 100 if params[:per_page].to_i > 100
     @products = if params[:category].to_i > 0
     cat = Category.find(params[:category])
-    Rails.cache.fetch("#{cat.cache_key}/products/per_page_#{params[:per_page]}/page_#{params[:page]}") { Product.active.sorted.all_by_category(Category.tree_childs(Category.cached_active_categories, params[:category].to_i)).paginate(:page => params[:page], :per_page => params[:per_page]).all}
+    Rails.cache.fetch("#{cat.cache_key}/products/per_page_#{params[:per_page]}/page_#{params[:page]}") { Product.active.sorted.all_by_category(Category.tree_childs(Category.cached_active_categories, cat.id)).paginate(:page => params[:page], :per_page => params[:per_page]).all}
     else
       []
     end
