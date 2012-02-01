@@ -182,6 +182,12 @@ Factory.define(:r_admin, :class => Role) do |f|
   f.group  2
 end
 
+Factory.define(:lk_supplier, :class => Role) do |f|
+  f.name "lk_supplier"
+  f.description "Личный кабинет поставщика"
+  f.group  6
+end
+
 Factory.define :all_inclusive, :class =>  :service do |f|
   f.name "Все включено"
   f.code "all_inclusive"

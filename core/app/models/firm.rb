@@ -7,12 +7,12 @@ class Firm < ActiveRecord::Base
   has_many :archived_services, :through => :firm_services, :conditions => "deleted_at is not null", :source => "service"
   has_many :users
   has_one :client
+  belongs_to :supplier  
   validates :name, :presence => true, :uniqueness => true
   validates :email, :email => {:allow_blank => true},  :length => {:maximum => 40, :allow_nil => true}  
   validates :permalink, :presence => true, :uniqueness => true
   validates :phone, :presence => true
-  
-  
+    
 #  validates :url,
 #  :format => { :with => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :allow_blank => true},
 #  :length => {:maximum => 40, :allow_nil => true}
@@ -24,6 +24,8 @@ class Firm < ActiveRecord::Base
   scope :where_city_present, clients.where(:show_on_site => true).where("length(city) > 0").order("city")
   before_validation :set_permalink
   after_create :set_default_logo
+  
+ attr_accessible :name, :addr_f, :description, :as => :supplier
   
  def logo
    images.first.picture if images.present?

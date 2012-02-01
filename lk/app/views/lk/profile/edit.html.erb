@@ -1,0 +1,48 @@
+<% title "Изменение профиля компании" -%>
+
+<%= form_for  @firm, :url => change_profile_path, :html => {:id => "firm_profile"} do |f| -%>
+<div class="one_line_form">
+   <%= render :partial => 'shared/error_messages', :locals => {:target => @firm} %>
+  <div class="b-formfield-div">
+    <%= f.label :name, 'Название компании*' %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="b-formfield-div">
+    <%= f.label :picture, 'Текущий логотип' %>
+    <%= image_tag @firm.logo, :width => 200 %>
+  </div>    
+  
+  <div class="b-formfield-div">    
+    <%= f.label :picture, 'Загрузить новый логотип (.jpg, .png, .gif)' %>
+    <%= f.file_field :picture %>         
+  </div>    
+</div>  
+<div class="clear"></div>
+  <h2>Информация о комании:  <%= link_to_function 'Изменить',"$(this).hide().parent().next().hide('fast', function() {$(this).next().show('fast')})"   %>  </h2>
+    <div class="b-supplier-content">
+      <%= sanitize @firm.addr_f %>            
+    </div>
+    
+  <div class="tinymce g-hidden">
+    <%= f.text_area :addr_f, :cols=>100, :rows=>10 %>
+  </div>  
+
+   <h2>Условия работы:<%= link_to_function 'Изменить',"$(this).hide().parent().next().hide('fast', function() {$(this).next().show('fast')})"   %>  </h2>
+    <div class="b-supplier-content">
+      <%= sanitize @firm.description %>            
+    </div>
+  
+  <div class="tinymce g-hidden">
+    <%= f.text_area :description, :cols=>100, :rows=>10 %>
+  </div>    
+  
+  <div class="b-formfield-div">
+    <%= f.submit "Сохранить" %>
+  </div>
+ <% end -%>
+
+
+<div class="spacer clear"></div>
+
+
+<%= link_to 'Посмотреть мою страницу', main_app.supplier_path(@firm.supplier.permalink)  %>

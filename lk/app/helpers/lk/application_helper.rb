@@ -13,6 +13,7 @@ module Lk::ApplicationHelper
     res << lk_menu_item('Моя база сувениров', lk_engine.products_path) if current_user.has_role?(:lk_product)
     res << lk_menu_item('Мои новости', lk_engine.news_index_path) if current_user.has_role?(:lk_news)
     res << lk_menu_item('Образцы', lk_engine.samples_path)  if current_user.has_role?(:lk_sample)
+    res << lk_menu_item('Профиль компании', lk_engine.profile_path, "l-users") if current_user.has_role?(:lk_supplier)
     res << lk_menu_item('Пользователи', lk_engine.accounts_path, "l-users") if  current_user.is_firm_manager?
     raw res
   end

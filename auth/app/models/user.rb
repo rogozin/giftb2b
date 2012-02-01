@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
                   :active,  :expire_date, :firm_id, :supplier_id, :role_object_ids, :as => :admin
   attr_accessible :username, :password, :password_confirmation, :birth_date, :active,  :expire_date, :firm_id, :role_object_ids, :as => :crm
   
+  def is?(role_name)
+    Rails.cache.fetch("#{cache_key}.has_role_#{role_name}") {has_role? role_name}    
+  end
+  
   def is_admin?
     Rails.cache.fetch("#{cache_key}.is_admin?") {has_role? 'admin'}
   end

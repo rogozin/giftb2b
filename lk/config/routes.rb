@@ -3,6 +3,9 @@ Lk::Engine.routes.draw do
   root :to => "base#index"
 #  resources :lk, :only =>[:index]
     match 'load_cart_products' =>  'base#load_cart_products', :as => :cart_products    
+    match 'profile' => "profile#edit", :as => :profile
+    put 'change_profile' => "profile#update", :as => :change_profile
+    
     resources :accounts
     resources :firms
     resources :news do

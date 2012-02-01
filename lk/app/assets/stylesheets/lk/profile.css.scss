@@ -1,0 +1,19 @@
+@import "giftpoisk_vars";
+#firm_profile {
+    h2 {
+        padding:10px 0 5px; 
+        color:#666;
+        a {
+            margin-left:10px;
+            color:$c_braun;
+            font-size: 10pt;
+            font-weight:normal;
+            text-decoration:none;
+            border-bottom:1px dotted;
+        }
+    }
+    .b-supplier-content { 
+        padding-left:10px;
+    }
+
+}
