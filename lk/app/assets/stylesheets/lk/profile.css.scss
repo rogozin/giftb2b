@@ -1,6 +1,9 @@
 @import "giftpoisk_vars";
 #firm_profile {
-    h2 {
+    .one_line_form {padding-top:10px;}
+    input[type="text"], input[type="file"] {width:300px;}
+    label {font-size:1.2em; color:#666;font-weight:bold;}    
+    h2 {        
         padding:10px 0 5px; 
         color:#666;
         a {
@@ -12,8 +15,8 @@
             border-bottom:1px dotted;
         }
     }
-    .b-supplier-content { 
-        padding-left:10px;
-    }
+    .b-supplier-content {padding-left:10px;}
+    .b-supplier-header {margin-bottom:0px;}
+    .b-submit { padding-right:100px;}
 
 }

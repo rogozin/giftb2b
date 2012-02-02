@@ -19,13 +19,17 @@ class Firm < ActiveRecord::Base
 #  
   validates :lat, :inclusion => { :in => -90..90, :allow_nil => true }
   validates :long, :inclusion => { :in => -180..180, :allow_nil => true }
-  scope :clients, where(:is_supplier => false)
+  scope :clients, where("supplier_id is null")
   scope :default_city, clients.where("upper(city) = 'МОСКВА'")
   scope :where_city_present, clients.where(:show_on_site => true).where("length(city) > 0").order("city")
   before_validation :set_permalink
   after_create :set_default_logo
   
  attr_accessible :name, :addr_f, :description, :as => :supplier
+
+ def smart_name 
+   short_name.presence || name
+ end
   
  def logo
    images.first.picture if images.present?

@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
     Rails.cache.fetch("#{cache_key}.has_role_#{role_name}") {has_role? role_name}    
   end
   
+  
   def is_admin?
     Rails.cache.fetch("#{cache_key}.is_admin?") {has_role? 'admin'}
   end
@@ -39,11 +40,11 @@ class User < ActiveRecord::Base
   end
   
   def is_first_manager?
-     is_admin? || has_role?("Главный менеджер")
+     is_admin? || is?("Главный менеджер")
   end
   
   def is_second_manager?
-     has_role?("Менеджер продаж")
+     is?("Менеджер продаж")
   end    
   
   def is_simple_user?
@@ -55,32 +56,33 @@ class User < ActiveRecord::Base
   end
     
   def is_firm_manager?
-    Rails.cache.fetch("#{cache_key}.is_firm_manager?") { has_role?("lk_admin")}    
+    is?("lk_admin")
   end
     
-#===============================
   # Если у пользователя доступна роль Коммерческое предложение или это конечный клиент
   def is_e_commerce?
-    Rails.cache.fetch("#{cache_key}.is_e_commerce?") { has_role?("simple_user") || has_role?("lk_co") || has_role?("lk_order")}        
+    is?("simple_user") || is?("lk_co") || is?("lk_order")        
   end
   
   #ids назначенных пользователю поставщиков
   def assigned_supplier_ids
     Rails.cache.fetch("#{cache_key}.supplier_ids?") { role_objects.where("roles.authorizable_type='Supplier'").map(&:authorizable_id).uniq}        
   end
-  
+
+  # Личный кабинет поставщика  
+  def is_lk_supplier?
+    is?(:lk_supplier)
+  end
   
   #есть ли доступ к расширенному поиску
   def has_ext_search?
-    Rails.cache.fetch("#{cache_key}.ext_search") { has_role?(:ext_search)}        
+    is?(:ext_search)
   end  
-  
-#===============================  
-  
+    
   def activate!
     self.update_attribute :active, true
   end
-    
+
   def self.friendly_pass
       fr_chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
         newpass = ""

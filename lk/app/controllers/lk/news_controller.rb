@@ -37,6 +37,7 @@ class Lk::NewsController < Lk::BaseController
     @news.firm_id = current_user.firm_id
     @news.created_by = current_user.id
     @news.state_id = 3
+    @news.site = current_user.is_lk_supplier? ? 1 : 0
     if @news.save
       if params[:moderate].present?
         @news.update_attribute :state_id, 0 
