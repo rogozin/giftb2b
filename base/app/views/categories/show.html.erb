@@ -29,7 +29,7 @@
 </div> <!-- end center_block --> 
 
 <div class="center_block"> 
-<div class="descript_category"><%=raw RedCloth.new(@category.description).to_html if @category.show_description && @category.description.present? %></div>
+<div class="descript_category"><%= sanitize @category.description if @category.show_description && @category.description.present? %></div>
 </div> <!-- end center_block --> 
  
  
