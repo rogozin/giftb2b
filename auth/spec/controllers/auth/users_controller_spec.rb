@@ -23,6 +23,21 @@ describe Auth::UsersController do
        response.should be_success
     end
     
+    it "регистрация поставщика агентства" do
+       post :create, valid_attributes.merge(:i_am => "3")             
+       assigns(:user).should be_persisted
+       assigns(:user).should be_a(User)
+       assigns(:firm).should be_a(Firm)
+       assigns(:firm).should be_persisted
+       assigns(:firm).city.should eq assigns(:user).city
+       assigns(:firm).url.should eq assigns(:user).url
+       assigns(:firm).phone.should eq assigns(:user).phone
+       assigns(:firm).email.should eq assigns(:user).email       
+       assigns(:user).expire_date.should be_nil
+       assigns(:user).username.should eq assigns(:firm).name
+       response.should be_success
+    end    
+    
     it "регистрация конечного клиента" do
        post :create, valid_attributes.merge(:i_am => 0)      
        assigns(:user).should be_persisted
