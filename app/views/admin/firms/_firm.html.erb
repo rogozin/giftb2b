@@ -1,5 +1,5 @@
 <%= form_for [:admin, @firm] do |f| -%>
-<div class="grid_8 alpha">
+<div class="grid_10 alpha">
 <div class="one_line_form">
   <%= hidden_field_tag :back_url, params[:back_url] %>
    <%= render :partial => 'shared/error_messages', :locals => {:target => @firm} %>
@@ -24,14 +24,6 @@
     <%= f.text_field :subway %>
   </div>    
   <div class="b-formfield-div">
-    <%= f.label :addr_u, 'Юр. адрес' %>
-    <%= f.text_area :addr_u, :cols=>22, :rows => 3 %>
-  </div>
-  <div class="b-formfield-div">
-    <%= f.label :addr_f, 'Физ. адрес' %>
-    <%= f.text_area :addr_f, :cols=>22, :rows => 3 %>
-  </div>  
-  <div class="b-formfield-div">
     <%= f.label :phone, 'Тел/факс' %>
     <%= f.text_field :phone %>
   </div>
@@ -53,16 +45,30 @@
     <%= f.check_box :show_on_site %>
   </div>      
   <div class="b-formfield-div">
-    <%= f.label :is_supplier, 'Это поставщик' %>
-    <%= f.check_box :is_supplier %>
+    <%= f.label :supplier_id, 'ID поставщика' %>
+    <%= f.text_field :supplier_id %>
   </div>
   <div class="b-description">
-    <%= f.label :description, 'Описание' %> <br />
-    <%= f.text_area :description %>
-  </div>            
+    <%= f.label :addr_u, 'Юр. адрес' %>
+    <%= f.text_area :addr_u, :cols=>22, :rows => 3 %>
+  </div>
+  <div class="b-description">
+    <%= f.label :addr_f, 'Физ. адрес' %>
+    <div class="tinymce">
+      <%= f.text_area :addr_f, :cols=>22, :rows => 3 %>
+    </div>  
+  </div>    
+  
+  <div class="b-description">
+    <%= f.label :description, 'Описание' %>
+    <div class="tinymce">
+      <%= f.text_area :description, :cols=>22, :rows => 3 %>
+    </div>  
+  </div>      
+        
  </div>
 </div>
-  <div class="grid_8 omega">  
+  <div class="grid_6 omega">  
     <div class="services">
       <div class="active-services">
       <h2>Пакеты услуг</h2>

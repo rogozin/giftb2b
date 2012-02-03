@@ -11,7 +11,7 @@ ru:
       news: "Новость"
     attributes:
       firm:
-        name: "Полное наименование"        
+        name: "Название компании"        
         short_name: "Название"
         city: "Город"
         addr_u: "Юридич. адрес"

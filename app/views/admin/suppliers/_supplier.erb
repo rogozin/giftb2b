@@ -9,12 +9,8 @@
   <%= f.text_field :permalink %>
 </div>
 <div class="b-formfield-div">
-  <%= f.label :terms, 'Условия работы' %>
-  <%= f.textile_editor :terms, :cols=>60, :rows=>20 %>
-</div>
-<div class="b-formfield-div">
-  <%= f.label :address, 'Контакты' %>
-  <%= f.textile_editor :address, :cols=>60, :rows=>10 %>
+  <%= f.label "Связан с фирмой" %>
+  <%= link_to @supplier.firm.name, edit_admin_firm_path(@supplier.firm) if @supplier.persisted? && @supplier.firm %>
 </div>
 <div class="b-formfield-div">
   <%= f.label :allow_upload, 'Разрешить обработку xml' %>

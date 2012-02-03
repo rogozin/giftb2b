@@ -39,6 +39,15 @@ describe User do
     u.cache_key.should_not eq cc
   end
   
+  it 'method is?(role_name)' do
+    r = Role.create(:name => "test")
+    u = Factory(:user, :role_objects => [r], :updated_at => 5.seconds.ago)
+    u.is?(:test).should be_true   
+    u.update_attributes({:role_object_ids => []}, :as => :admin)
+    u.is?(:test).should be_false
+    
+  end
+  
   it 'assigned_supplier_ids' do
     u = Factory(:user)
     s = Factory(:supplier)

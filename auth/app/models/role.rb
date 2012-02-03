@@ -5,6 +5,6 @@ class Role < ActiveRecord::Base
   acts_as_authorization_role :subject_class_name => 'User', :join_table_name => :roles_users
   
   def self.group_names
-    ["Администрирование", "CRM",  "Рекламное агентство", "Конечный клиент", "Интернет-магазин", "Поставщик", "Объект", "Прочее"]
+    ["Администрирование", "CRM",  "Рекламное агентство", "Конечный клиент", "Интернет-магазин", "Объект", "Поставщик", "Прочее"]
   end
 end

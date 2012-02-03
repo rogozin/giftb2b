@@ -2,6 +2,7 @@
 class Supplier < ActiveRecord::Base
   has_many :products, :dependent => :destroy
   has_many :stores, :dependent => :destroy
+  has_one :firm
   validates :name, :uniqueness => true
   validates :permalink, :presence => true, :uniqueness => true
   before_validation :set_permalink

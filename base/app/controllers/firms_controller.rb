@@ -1,5 +1,5 @@
 #encoding: utf-8;
-class FirmsController < ApplicationController
+class FirmsController < BaseController
 #  before_filter :require_user
 
   def index

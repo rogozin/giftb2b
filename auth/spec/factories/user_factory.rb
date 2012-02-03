@@ -47,6 +47,13 @@ Factory.define :firm_user, :class => User, :parent => :user do |record|
   role.association(:r_news),   role.association(:r_orders), role.association(:r_supplier)]}
 end
 
+Factory.define :supplier_manager, :class => User, :parent => :user do |record|    
+  record.association :firm
+  record.association :supplier
+  record.role_objects {|role|  [
+  role.association(:r_news),   role.association(:lk_supplier)]}
+#  record.after_create { |user| add_role(user,:role_user) }      
+end
 
 Factory.define :content_editor, :parent => :catalog_editor, :class => User do |record|    
   record.role_objects {|role|  [role.association(:role_content_editor)]}
@@ -180,6 +187,12 @@ Factory.define(:r_admin, :class => Role) do |f|
   f.name "lk_admin"
   f.description "Доступ к управлению пользователей"
   f.group  2
+end
+
+Factory.define(:lk_supplier, :class => Role) do |f|
+  f.name "lk_supplier"
+  f.description "Личный кабинет поставщика"
+  f.group  6
 end
 
 Factory.define :all_inclusive, :class =>  :service do |f|

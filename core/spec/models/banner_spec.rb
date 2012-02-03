@@ -18,17 +18,39 @@ describe Banner do
     b.type.should == "Image"
   end
   
-  it 'кеш' do
+  it 'active after create' do
     b = Banner.create(:firm_id => 1, :text => "КУПИТЕ СУВЕНИРЫ", :active => true, :position => 1)
-    Banner.active(1).should have(1).record
-    b1 = Banner.create(:firm_id => 1, :text => "КУПИТЕ СУВЕНИРЫ1", :active => true, :position => 1)
-    Banner.cached_active_banners(1).should have(2).record            
-    Rails.cache.fetch("site/#{Settings.site_id}/active_banners/1").should have(2).items        
-    b1.toggle! :active
-    Rails.cache.fetch("site/#{Settings.site_id}/active_banners/1").should be_nil
-    Banner.cached_active_banners(1).should have(1).record
-    b1.update_attribute(:position, 2)
-    Rails.cache.fetch("site/#{Settings.site_id}/active_banners/2").should be_nil
+    Banner.active(1).should have(1).record    
+  end
+  
+  context "CACHING" do
+    before(:each) do
+      @b = Banner.create(:firm_id => 1, :text => "КУПИТЕ СУВЕНИРЫ1", :active => true, :position => 1)
+    end
+
+    it 'cached after create' do
+      Banner.cached_active_banners(1).should have(1).record            
+      Rails.cache.fetch("site/#{Settings.site_id}/active_banners/1").should have(1).items        
+    end  
+    
+    it 'after deactivate cache should be nil' do
+      @b.toggle! :active
+      Rails.cache.fetch("site/#{Settings.site_id}/active_banners/1").should be_nil
+      Banner.cached_active_banners(1).should be_empty
+    end
+
+    it 'after update text' do
+      @b.update_attributes(:text => "AAA")
+      Banner.cached_active_banners(1).should have(1).record
+      Rails.cache.fetch("site/#{Settings.site_id}/active_banners/1").should eq [@b]
+    end
+    
+    it 'after update position' do
+      @b.update_attributes(:position =>  2)
+      Rails.cache.fetch("site/#{Settings.site_id}/active_banners/2").should be_nil
+      Banner.cached_active_banners(1).should be_empty      
+    end
+  
   end
   
   it 'show_on_page' do

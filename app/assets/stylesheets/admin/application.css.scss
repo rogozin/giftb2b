@@ -483,13 +483,15 @@ a.toggle-category {
 }   
 
 
-.b-description textarea {
-  width:100%;
-  height:150px;
-}
-
-.b-description label {
-  font-weight:bold;
+.b-description {
+    margin-bottom:10px;
+    textarea {
+      width:100%;
+      height:150px;
+    }
+    label {
+      font-weight:bold;
+    }
 }
 
 .b-store-unit input[type="text"] { width:40px;}

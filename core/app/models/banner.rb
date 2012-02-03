@@ -24,15 +24,17 @@ class Banner < ActiveRecord::Base
     pages.blank? || (pages_list.delete("/") == page) || pages_list.any?{|x| page.match(x) }
   end
   
-  private 
+  protected
   
-  def del_cache(position, site_no)
-    Rails.cache.delete("site/#{Settings.site_id}/active_banners/#{position}")        
+  def self.del_cache(position, site_no)
+    Rails.cache.delete("site/#{site_no}/active_banners/#{position}")        
   end
   
+  private 
   def clear_cache
-     del_cache(position, site)
-     del_cache(position_was, site) if position_changed?
-     del_cache(position, site_was) if site_changed?
+     
+     self.class.del_cache(position, site)
+     self.class.del_cache(position_was, site) if position_changed?
+     self.class.del_cache(position, site_was) if site_changed?
   end
 end

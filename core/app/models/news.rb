@@ -43,7 +43,7 @@ class News < ActiveRecord::Base
   private     
   
   def clear_cache
-    Rails.cache.delete("site/#{Settings.site_id}/latest_news")
+    Rails.cache.delete("site/#{site}/latest_news")
   end
   
   def prepare_permalink
