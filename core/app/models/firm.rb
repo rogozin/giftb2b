@@ -26,6 +26,8 @@ class Firm < ActiveRecord::Base
   after_create :set_default_logo
   
  attr_accessible :name, :addr_f, :description, :as => :supplier
+ attr_accessible :name, :addr_f, :addr_f, :phone, :email, :supplier_id, :city, :subway, :show_on_site, :url, :description, :permalink, :as => :admin
+ attr_accessible :name, :phone, :email, :city, :url, :permalink, :as => :register
 
  def smart_name 
    short_name.presence || name

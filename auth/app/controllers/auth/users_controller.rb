@@ -91,7 +91,7 @@ def new
   end 
   
   def create_firm_user
-    @firm = Firm.new(:name => params[:user][:company_name], :city => params[:user][:city], :url => params[:user][:url], :phone => params[:user][:phone], :email => params[:user][:email])        
+    @firm = Firm.new({:name => params[:user][:company_name], :city => params[:user][:city], :url => params[:user][:url], :phone => params[:user][:phone], :email => params[:user][:email]}, :as => :register)        
     unless @firm.valid?
       if @firm.errors[:name].present? || @firm.errors[:permalink].present? 
         new_name = @firm.name + "-1"
