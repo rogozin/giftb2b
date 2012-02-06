@@ -9,6 +9,8 @@ describe Auth::UsersController do
   
   describe "POST Create" do
     it "регистрация рекламного агентства" do
+       services = []
+      ["base_ext_search", "sup_max", "co_logo", "s_cli", "my_goods"].each {|cc| services << Factory(:service, :code => cc)}
        post :create, valid_attributes       
        assigns(:user).should be_persisted
        assigns(:user).should be_a(User)
@@ -18,12 +20,15 @@ describe Auth::UsersController do
        assigns(:firm).url.should eq assigns(:user).url
        assigns(:firm).phone.should eq assigns(:user).phone
        assigns(:firm).email.should eq assigns(:user).email       
+       assigns(:firm).services.should eq services
        assigns(:user).expire_date.should eq Date.today.next_day(5)
        assigns(:user).username.should eq "f#{assigns(:firm).id}.1"       
        response.should be_success
     end
     
-    it "регистрация поставщика агентства" do
+    it "регистрация поставщика" do
+       role = Factory(:lk_supplier)
+       service = Factory(:service, :code => "lk_supplier", :roles =>[role])
        post :create, valid_attributes.merge(:i_am => "3")             
        assigns(:user).should be_persisted
        assigns(:user).should be_a(User)
@@ -34,12 +39,14 @@ describe Auth::UsersController do
        assigns(:firm).phone.should eq assigns(:user).phone
        assigns(:firm).email.should eq assigns(:user).email       
        assigns(:user).expire_date.should be_nil
-       assigns(:user).username.should eq assigns(:firm).name
+       assigns(:firm).services.should eq [service]
+       assigns(:user).should be_is_lk_supplier
+       assigns(:user).username.should eq "s#{assigns(:firm).id}.1"
        response.should be_success
     end    
     
     it "регистрация конечного клиента" do
-       post :create, valid_attributes.merge(:i_am => 0)      
+       post :create, valid_attributes.merge(:i_am => "2")      
        assigns(:user).should be_persisted
        assigns(:user).should be_a(User)
        assigns(:firm).should be_nil

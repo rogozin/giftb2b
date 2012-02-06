@@ -50,4 +50,4 @@
 <div class="spacer clear"></div>
 
 
-<%= link_to 'Посмотреть как пользователи видят мою страницу', main_app.supplier_path(@firm.supplier.permalink)  %>
+<%= link_to 'Посмотреть как рекламные агентства видят мою страницу', main_app.supplier_path(@firm.supplier.permalink) if @firm.supplier  %>

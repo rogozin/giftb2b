@@ -1,6 +1,6 @@
 #encoding: utf-8;
 class Auth::AccountMailer < ActionMailer::Base
-   default :from => "#{default_url_options[:host]} - Сувениры для бизнеса <notification@#{default_url_options[:host] }>", :charset => "UTF-8"
+   default :from => "#{default_url_options[:host]} - Единый Каталог Сувенирной продукции <notification@#{default_url_options[:host] }>", :charset => "UTF-8"
    layout "/layouts/mailers/account"
   
   
