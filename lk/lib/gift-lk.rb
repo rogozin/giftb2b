@@ -6,6 +6,7 @@ require "composite_primary_keys"
 require "paperclip"
 require "magic_routes"
 require "remotipart"
+require "bootstrap-rails"
 module Lk
 end
 
