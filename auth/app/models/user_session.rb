@@ -1,5 +1,6 @@
 #encoding: utf-8;
 class UserSession < Authlogic::Session::Base
+  logout_on_timeout Rails.env.production?  
   #before_validation :check_if_expired
   self.last_request_at_threshold(10.minutes)
 
