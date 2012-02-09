@@ -21,7 +21,7 @@ describe Auth::UsersController do
        assigns(:firm).phone.should eq assigns(:user).phone
        assigns(:firm).email.should eq assigns(:user).email       
        assigns(:firm).services.should eq services
-       assigns(:user).expire_date.should eq Date.today.next_day(5)
+       assigns(:user).expire_date.should be_nil
        assigns(:user).username.should eq "f#{assigns(:firm).id}.1"       
        response.should be_success
     end

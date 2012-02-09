@@ -107,7 +107,7 @@ def new
       @user = User.new(params[:user].merge( :password => pass, :password_confirmation => pass))
       @user.firm_id = @firm.id
       @user.active = true
-      @user.expire_date = Date.today.next_day(5) unless i_am_supplier
+      #@user.expire_date = Date.today.next_day(5) unless i_am_supplier
       @user.username = User.next_username(@firm.id, i_am_supplier ? "s" : "f")       
       service_codes = i_am_supplier ?  ["lk_supplier"] : ["base_ext_search", "sup_max", "co_logo", "s_cli", "my_goods"]
       if @user.save
