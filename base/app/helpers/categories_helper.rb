@@ -22,6 +22,7 @@ module CategoriesHelper
   end
   
   def hashed_categories_tree(categories_hash,  checked_items, init = true, expand_block = false,  options = {})
+    categories_hash = [] if categories_hash.nil?
     options[:class] ||= "treeview"
     options[:field_name] ||= "lk_product[category_ids]"
     options[:select_children] ||= false

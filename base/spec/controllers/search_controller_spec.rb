@@ -69,28 +69,60 @@ describe SearchController do
       end    
     end
 
-    context 'POST INDEX' do
-      before(:each) do
-          direct_login_as :firm_manager
+    describe 'POST INDEX' do
+      
+      context 'интернет-магазин' do
+        before(:each) do
+          direct_login_as :user
+          @user.role_objects << Factory(:r_orders)
+        end
+        
+        it 'при наличии роли "Мои заказы" возможен поиск по коду товара через форму расш. поиска' do
+          post :index, :article => @p1.unique_code
+          response.should be_success
+          assigns(:products).should eq [@p1]          
+        end
+        
+        it 'при этом поиск по артикулу поставщика не работает' do
+          post :index, :article => @p1.article
+          response.should be_success          
+          assigns(:products).should be_empty          
+        end
       end
       
-      it 'search by supplier' do
-        add_supplier_to_user(@s1)        
-        post :index, :supplier_ids => [@s1.id, @s2.id]
-        response.should be_success
-        assigns(:products).should eq [@p1]
-      end
-      
-      it 'search_by_article assigned supplier' do
-        add_supplier_to_user(@s1)        
-        post :index, :article => @p1.article
-        assigns(:products).should eq [@p1]
-      end
-      
-      it 'search_by_article unassigned supplier' do
-        add_supplier_to_user(@s1)        
-        post :index, :article => @p2.article
-        assigns(:products).should eq []
+      context "as firm manager" do      
+        before(:each) do
+            direct_login_as :firm_manager
+        end
+        
+        it 'товар в евро, цена ищится нормально' do
+          CurrencyValue.stub(:kurs).with("EUR").and_return(40)
+          CurrencyValue.stub(:kurs).with("RUB").and_return(1)
+          @p1.update_attributes(:currency_type => "EUR", :price => 10)
+          @p2.update_attributes(:currency_type => "RUB", :price => 10)          
+          post :index, :price_from => 0, :price_to => 20
+          response.should be_success
+          assigns(:products).should eq [@p2]
+        end
+        
+        it 'search by supplier' do
+          add_supplier_to_user(@s1)        
+          post :index, :supplier_ids => [@s1.id, @s2.id]
+          response.should be_success
+          assigns(:products).should eq [@p1]
+        end
+        
+        it 'search_by_article assigned supplier' do
+          add_supplier_to_user(@s1)        
+          post :index, :article => @p1.article
+          assigns(:products).should eq [@p1]
+        end
+        
+        it 'search_by_article unassigned supplier' do
+          add_supplier_to_user(@s1)        
+          post :index, :article => @p2.article
+          assigns(:products).should eq []
+        end      
       end
             
     end

@@ -27,6 +27,7 @@ class SearchController < BaseController
        opts.merge!(params.select{ |k,v| k =~ /pv_\d+/ && v.reject(&:blank?).present? })
      else
        opts = {:search_text => params[:name], :eq => params[:eq]}
+       opts.merge!({:code => params[:article]}) if current_user &&  current_user.is?(:lk_order)
        color =  Property.where(:name => "Цвет").first             
        opts.merge!(params.select{ |k,v| k == "pv_#{color.id}" && v.reject(&:blank?).present? })
      end
