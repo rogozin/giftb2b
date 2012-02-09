@@ -21,11 +21,13 @@ gem 'dalli'
 gem 'delayed_job'
 gem 'nokogiri'
 gem 'unicorn'
+gem "gift-export", :path => "export"
 gem "gift-auth", :path => "auth"
 gem "gift-core", :path => "core"
 gem "gift-lk", :path => "lk"
 gem "gift-base", :path => "base"
 gem 'whenever'
+gem "letter_opener", :group => :development
  group :development, :test do
    gem "rspec-rails", '~>2.8.1'
    gem 'database_cleaner'
