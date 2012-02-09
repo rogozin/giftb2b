@@ -24,13 +24,13 @@
   <td/>
   <td align="left">
     <span style="font-family:Tahoma; font-size:12px; color:#404040;">
-   ©  <a href="<%= @firm.url %>"><%= @firm.name %></a>  <%= Date.current.year %></span>
+   ©  <a href="<%= @firm.url %>"><%= @firm.smart_name %></a>  <%= Date.current.year %></span>
   </td>
 </tr>
 <tr>
   <td width="20" height="20"></td>    
   <td align="left"><span style="font-family:Tahoma; font-size:12px; color:#404040;">
-    <%= @firm.addr_u %>, тел. <%= @firm.phone %></span></td>
+    <%= @firm.addr_f %>, тел. <%= @firm.phone %></span></td>
   <td width="20" height="20"></td>
 </tr>
 </table>
