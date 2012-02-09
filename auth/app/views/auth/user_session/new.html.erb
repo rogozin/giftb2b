@@ -1,7 +1,7 @@
 <% page_title "Авторизация" %>
 <%= render :partial => 'shared/flashes' %>
 <div id="login">
-<h1>Введите пароль</h1>
+<h1>Введите имя и пароль</h1>
 <%= form_for @user_session, :url => auth_engine.create_session_path, :html => { :class => 'one_line_form'} do |form| %>
   <%= render :partial => 'shared/error_messages', :locals => {:target => @user_session} %>    
 
@@ -20,9 +20,20 @@
 <div class="clear"></div>
 </div>
 
+<% if giftpoisk? -%>
+  
 <div class="b-want-to-register">
-<h1> или 
-<%= link_to 'зарегистрируйтесь', auth_engine.register_user_path  %>
-</h1>
+<h3>Данный сайт создан специально для рекламных агентств.</h3> 
+<p>
+Пройдите <%= link_to 'регистрацию', auth_engine.register_user_path  %>, после чего Вам будет доступен каталог с более чем 60 000 сувениров с возможностью расширенного поиска. Для каждого из них Вы сможете посмотреть информацию по поставщику и наличию на складе, а так же откроете для себя <a href="http://giftpoisk.ru/p/dlya-reklamnyh-agenstv">уникальный функционал</a>, который станет надежным инструментом в работе Вашего рекламного агентства. 
+</p>
+<p>
+На сайте <a href="http://giftb2b.ru" title="Единый каталог бизнес сувениров">giftb2b.ru</a> можно ознакомится с нашим каталогом <strong>без регистрации</strong>
+</p>
+  <div class="additional">
+  <em>Более подробную информацию о нашем функционале прочитайте на сайте <a href="http://sale.giftpoisk.ru">http://sale.giftpoisk.ru</a></em>
+  </div> 
 </div>
+<% end -%>
+
 
