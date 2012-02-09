@@ -28,7 +28,7 @@ module Auth
     end
   
     def ext_user?
-      current_user && (current_user.is_firm_user? || current_user.is_admin?) 
+      current_user && (current_user.is?(:catalog) || current_user.is_admin?) 
     end
 
     def load_search_data

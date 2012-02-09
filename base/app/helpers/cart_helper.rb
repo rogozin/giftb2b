@@ -34,7 +34,7 @@ module CartHelper
   
   private
   def add_to_cart_icon
-        giftpoisk? ? "Добавить в предложение" + image_tag("addtokp.png") : "Добавить в корзину" + image_tag("cart_add.png")     
+      giftpoisk? ? "Добавить к отложенным" + image_tag("addtokp.png") : "Добавить в корзину" + image_tag("cart_add.png")     
   end
 
   
