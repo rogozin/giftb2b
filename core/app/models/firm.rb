@@ -7,10 +7,10 @@ class Firm < ActiveRecord::Base
   has_many :archived_services, :through => :firm_services, :conditions => "deleted_at is not null", :source => "service"
   has_many :users
   has_many :commercial_offers, :class_name => "::Lk::CommercialOffer"
-  has_many :lk_orders , :class_name => "::Lk::LkOrder"  
-  has_many :lk_firms , :class_name => "::Lk::LkFirm"    
-  has_many :lk_products , :class_name => "::Lk::LkProduct"      
-  has_many :samples , :class_name => "::Lk::Sample"        
+  has_many :lk_orders , :class_name => "LkOrder"  
+  has_many :lk_firms , :class_name => "LkFirm"    
+  has_many :lk_products , :class_name => "LkProduct"      
+  has_many :samples , :class_name => "Sample"        
   has_one :client
   belongs_to :supplier  
   validates :name, :presence => true, :uniqueness => true
