@@ -6,7 +6,7 @@ class Firm < ActiveRecord::Base
   has_many :services, :through => :firm_services, :conditions => "deleted_at is null"
   has_many :archived_services, :through => :firm_services, :conditions => "deleted_at is not null", :source => "service"
   has_many :users
-  has_many :commercial_offers, :class_name => "Lk::CommercialOffer"
+  has_many :commercial_offers, :class_name => "CommercialOffer"
   has_many :lk_orders , :class_name => "LkOrder"  
   has_many :lk_firms , :class_name => "LkFirm"    
   has_many :lk_products , :class_name => "LkProduct"      
