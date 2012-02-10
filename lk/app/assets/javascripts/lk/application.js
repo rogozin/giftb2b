@@ -9,6 +9,19 @@
 //= require tinymce-jquery
 //= require_tree .
 //= require search
+//= require bootstrap-transition
+//= require bootstrap-alert
+//= require bootstrap-modal
+//= require bootstrap-dropdown
+//= require bootstrap-scrollspy
+//= require bootstrap-tab
+//= require bootstrap-tooltip
+//= require bootstrap-popover
+//= require bootstrap-button
+//= require bootstrap-collapse
+//= require bootstrap-carousel
+//= require bootstrap-typeahead
+
 
 $(function() {
  $("#tabs").tabs();  
@@ -18,13 +31,13 @@ $(function() {
    return false;
   });  
   $("#select_category").live('click', function() {
-    $("#categories_dialog").dialog({ 
-        buttons: {"Очистить": function(){$(this).find(":checked").attr('checked', false);} , "Ok": function() { $(this).dialog("close");} },
-        close: function(event, ui) { 
-          $('#category_ids').empty();          
-          setValues(this);
-         }                                             
-     });
+//    $("#categories_dialog").dialog({ jq
+//        buttons: {"Очистить": function(){$(this).find(":checked").attr('checked', false);} , "Ok": function() { $(this).dialog("close");} },
+//        close: function(event, ui) { 
+//          $('#category_ids').empty();          
+//          setValues(this);
+//         }                                             
+//     });
     return false;
     });
 
