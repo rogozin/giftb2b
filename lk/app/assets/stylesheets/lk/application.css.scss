@@ -4,15 +4,18 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  
 
- *= require base/reset
-*= require jquery.treeview
- *= require lk/jquery-ui
- *= require base/layout
- *= require lk/ra
- *= require base/search 
- *= require news 
- *= require_tree . 
+ *= require bootstrap
+ *= require jquery.treeview
 */
+
+ 
+//  require base/reset 
+//  require lk/jquery-ui
+//  require base/layout
+//  require lk/ra
+//  require base/search 
+//  require news 
+//  require_tree . 
 
 @import "giftpoisk_vars";
 
