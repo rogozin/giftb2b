@@ -1,45 +1,37 @@
 <% remote = false unless defined?(remote) -%>
-<%=  form_for @firm, :url => @firm.new_record? ? firms_path : firm_path(@firm), :method => @firm.new_record? ? "post" : "put", :html => {:remote => remote, :class => "one_line_form"} do |form| -%>
+<%=  twitter_bootstrap_form_for @firm, :url => @firm.new_record? ? firms_path : firm_path(@firm), :method => @firm.new_record? ? "post" : "put", :html => {:remote => remote, :class => "form-horizontal well"} do |form| -%>
     <%= hidden_field_tag :back_url, params[:back_url] %>     
-    <div class ="b-formfield-div">
+    <div class ="control-group">
     <%= render :partial => 'shared/error_messages', :locals => {:target => @firm} %>
     </div>
-    <div class ="b-formfield-div">
-      <%= form.label :name %> <span>*</span>
-      <%= form.text_field :name %>
+    <div class ="control-group">
+      <%= form.text_field :name, "Название (*)" %>
     </div>
-    <div class ="b-formfield-div">
-      <%= form.label :contact %>
+    <div class ="control-group">
       <%= form.text_field :contact %>
     </div>    
-    <div class ="b-formfield-div">
-      <%= form.label :phone %>
+    <div class ="control-group">
       <%= form.text_field :phone %>
     </div>     
-    <div class ="b-formfield-div">
-      <%= form.label :email %>
+    <div class ="control-group">
       <%= form.text_field :email %>
     </div> 
-    <div class ="b-formfield-div">
-      <%= form.label :url %>
+    <div class ="control-group">
       <%= form.text_field :url %>
     </div>    
-    <div class ="b-formfield-div">
-      <%= form.label :addr_u %>
-      <%= form.text_area :addr_u %>
+    <div class ="control-group">
+      <%= form.text_area :addr_u, :rows => 3 %>
     </div>        
-    <div class ="b-formfield-div">
-      <%= form.label :addr_f %>
-      <%= form.text_area :addr_f %>
+    <div class ="control-group">
+      <%= form.text_area :addr_f, :rows => 3 %>
     </div> 
-    <div class ="b-formfield-div">
-      <%= form.label :description %>
-      <%= form.text_area :description %>
+    <div class ="control-group">
+      <%= form.text_area :description, :rows => 3 %>
     </div>   
-    <div class="b-formfield-div">
+    <%= form.actions do %>
      <%= form.submit "Сохранить" %>
-     <% if remote -%>      
+     <% if remote -%>       
        <button type="button" id="close_dialog">Отмена</button>
      <% end -%>
-    </div>                
+    <% end -%>
 <% end -%>
