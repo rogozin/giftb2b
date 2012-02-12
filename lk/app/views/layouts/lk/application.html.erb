@@ -20,15 +20,8 @@
 </script>
 </head> 
 <body> 
-  <div class="container">
-    <div class="row">
-      <div class="span3"><%= link_to 'Каталог сувениров', "http://giftb2b.ru"  %></div>
-      <div class="span5"><%= link_to 'Профессиональный инструмент для продажи сувениров', "http://giftpoisk.ru"  %></div>
-      <div class="span4"> <%= link_to 'Каталог на свой сайт', "http://sale.giftpoisk.ru"  %></div>
-    </div>
-  </div>
-
 <div class="container-fluid">
+    <%= render :partial => 'lk/shared/navbar' %>
   <div class="row-fluid">
     <div class="span2">
         <%= link_to  image_tag("pix.gif", :alt => "giftpoisk.ru", :id => "gift_logo" ), main_app.root_path  %>
@@ -75,35 +68,6 @@
     
       <div id="left_content">
            
-<!--        <div class="left_block b-background">
-          
-          <div class="cat-name">
-            <p>Каталог сувениров</p>
-            <a id="catalog_0" href="#0" class="b-down"></a>
-          </div>
-
-          <div class="catalog-tree js-hidden">
-           <%#= render :partial => 'shared/catalog' %>
-          </div>
-
-          <div class="cat-name">
-            <p>Тематические сувениры</p>
-            <a  id="catalog_1" href="#1" class="b-down"></a>
-          </div>
-
-          <div class="catalog-tree js-hidden">
-           <%#= render :partial => 'shared/tematicheskie' %>
-          </div>
-
-          <div class="cat-name">
-            <p>Сувениры к праздникам</p>
-            <a  id="catalog_2" href="#2" class="b-down"></a>
-          </div>
-          <div class="catalog-tree js-hidden">
-           <%#= render :partial => 'shared/analogs' %>
-          </div>              
-        </div> <!-- end left_block -->
-
         
         <div class="left_block">
           <% if News.cached_latest_news.present? -%>
@@ -113,26 +77,16 @@
       </div> <!--end left_content -->     
     </div>
     <div class="span8">
-      <div id="all_content"> 
-      <div class="content">
-         <%#= render :partial => 'search/ext_search2', :locals => { :hidden => true } %>
-        <h3 class="h3-lk">Вы находитесь в личном кабинете</h3>
-      </div>
-      <div class="clear"></div>   
-      <div id="flashes" class="content">
+      <%#= render :partial => 'search/ext_search2', :locals => { :hidden => true } %>
         <%= render :partial => 'shared/flashes' %>
-      </div>
-       <div id="main_content" class="content">
-         <%- if @show_title -%>
+        <%- if @show_title -%>
            <div id="title">
                <h1><%=  @page_title %></h1>
             </div>
           <%end%>
-        <div class="center_block">   
+
           <%= yield :layout  %>
-        </div>
-      </div>
-      </div> <!-- end all_content --> 
+
     </div>
     <div class="span2">
         <div id="right_content"> 
@@ -156,13 +110,15 @@
     
     </div>    
   </div>
-</div>
   
-<div class="clear"></div> 
-<div id="footer">	<div class="f-block">
+<footer class="footer">
 	<p>+7 (495) 741-06-95 e-mail:info@giftb2b.ru</p>
 	<p>© 2011 Giftb2b - Все сувениры для бизнеса.</p>
-	</div></div> <!-- end footer --> 
+</footer> <!-- end footer --> 
+  
+</div> <!--container-->
+  
+
 	<% unless local_request? -%>
     <%= render :partial => 'lk/shared/counters' %>	    	  
     <%= render :partial => 'shared/zopim' %>	    

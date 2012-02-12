@@ -1,0 +1,30 @@
+.no-wrap {white-space: nowrap;}
+
+.footer {
+  margin-top: 45px;
+  padding: 35px 0 36px;
+  border-top: 1px solid #e5e5e5;
+}
+.footer p {
+  margin-left:250px;
+  margin-bottom: 0;
+  color: #555;
+}
+
+.table-valgined td {vertical-align:middle;}
+
+.icon  {
+      display:inline-block;
+      width:16px;
+      height:16px;
+      background: image_url("lk/images/logo_panel.png") no-repeat;
+}
+.picture-add-logo {
+  background-position: -96px 0;      
+}
+.picture-edit {
+  background-position: -64px -16px;      
+}
+.picture-remove {
+  background-position: -80px -16px;      
+}

@@ -1,5 +1,5 @@
 <%= form_tag calculate_commercial_offer_path(@commercial_offer), :remote => true, :id => "co_form" do %>
-<table width="100%">
+<table class="table table-striped table-bordered table-condensed table-valgined">
 <tr id="co_items_header">
 <%= render :partial => "co_item_header" %>
 </tr>
@@ -28,9 +28,10 @@
 
 
 <%= render :partial => "modify" %>      
+
  <h3>Комментарий к коммерческому предложению:</h3> 
 <div class="b-co-description">
-  <%= text_area_tag :signature,  @commercial_offer.signature, :rows => 5 %>
+  <%= text_area_tag :signature,  @commercial_offer.signature, :rows => 5, :class => "span8" %>
 </div>
 
 <div class="clear"></div>

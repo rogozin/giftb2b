@@ -1,48 +1,23 @@
 <% page_title "Заказ № #{@order.id}" -%>
 <h1>Заказ <%= @order.id %></h1>
-<div class="spacer"></div>
-<div id="order" class="b-bg corner-all">
-  <%= form_for @order, :url => order_path(@order), :method => :put do |f| -%>
-   <div class="one_line_form col1">
-     <div class="b-formfield-div">
-      <%= f.label :lk_firm_id %>
-      <%= f.select :lk_firm_id, options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @order.lk_firm_id) %>
-    </div>
-     <div class="b-formfield-div">
-     <%= f.label :status_id %>
-     <%= f.select :status_id, options_for_select(LkOrder.statuses, @order.status_id) %>
-     </div>
-   </div> 
-   <div class="one_line_form col2">
-     <div class="b-formfield-div">
-       <%= f.label :user_name %>
-       <%= f.text_field :user_name %>
-     </div>          
-     <div class="b-formfield-div">
-       <%= f.label :user_email %>
-       <%= f.email_field :user_email %>
-     </div>
-     <div class="b-formfield-div">
-       <%= f.label :user_phone %>
-       <%= f.text_field :user_phone %>
-     </div>
-   </div>   
-   
-   <div class="clear"></div>
-
-   <div class="b-user-comment">
-     <div class="">
-       <%= f.label :user_comment, "Комментарий к заказу:" %> <br />
-       <%= f.text_area :user_comment,  :rows => 3 %>
-     </div>
-   </div>
-   <div class="clear"></div>
+  <%= twitter_bootstrap_form_for @order, :url => order_path(@order), :method => :put, :html => { :class => "form-horizontal well"} do |f| -%>
+  <fieldset>
+    <legend>Информация о заказчике</legend>
+     <%= f.select :lk_firm_id, "Клиент", options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @order.lk_firm_id) %>
+     <%= f.select :status_id, "Статус", options_for_select(LkOrder.statuses, @order.status_id) %>
+     <%= f.text_field :user_name %>
+     <%= f.email_field :user_email %>
+     <%= f.text_field :user_phone %> 
+     <%= f.text_area :user_comment,  :rows => 3 %>
+   <%= f.actions do -%>
    <%= f.submit "Сохранить" %>
+   <% end -%>
+  </fieldset>   
   <% end -%>
-</div>
+
 
 <div class="spacer"></div>
-<h2>Список товаров:</h2>
+<h3>Перечень товаров, входящих в заказ:</h3>
 <%= render :partial => 'order_items' %>
 <div class="spacer"></div>
 <% if  current_user.is_e_commerce? -%>
@@ -54,21 +29,24 @@
 <div id="add_lk_prodcut"></div>
 <div class="spacer"></div>
 
-<h2>История изменения заказа:</h2>
-<table>
+<h3>История изменения заказа:</h3>
+
+<div class="row">
+<div class="span4">
+<table class="table table-striped table-bordered table-condensed" >
 <tr>
   <th>Дата</th>
-  <th>Автор</th>
   <th>Статус</th>
 </tr>
 <% @order.lk_order_logs.order("id desc").each do |log| -%>
   <tr>
     <td><%= I18n.l(log.created_at, :format => :long) %></td>
-    <td><%= log.user.username if log.user  %></td>
     <td><%= log.status %></td>
   </tr>
 <% end -%>
 </table>
+</div>
+</div>
 <p class="navi">
   <%= link_to '<< Перейти к списку заказов', orders_path %>
 </p>
