@@ -1,5 +1,12 @@
-<div id="logo_dialog">
-  <div class="workplace">
+<div id="logo_dialog" class="modal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Нанесение логотипа</h3>
+  </div>
+  
+  <div class="modal-body">
+  <div class="row">
+  <div class="workplace span6 well">
     <h3>Изображение товара</h3>
     <div class="controls">
       <div class="button-container" title="Удалить белый фон"><span class="remove-bg"></span></div>
@@ -10,18 +17,19 @@
       <div></div>
       <div class="clear"></div>
     </div>  
-    <%= content_tag :div, image_tag(@item.lk_product.picture.url, :width => 450) , :id => "logo", :data => {
+    <% geometry = Paperclip::Geometry.from_file(@item.lk_product.picture.path) -%>
+    <%= content_tag :div, image_tag(@item.lk_product.picture.url, geometry.width >= geometry.height ?  {:width => 450} : {:height => 450}) , :id => "logo", :data => {
         :save_url => commercial_offer_logo_path(@commercial_offer, @item), 
         :picture_url => @item.lk_product.picture.url } %>   
     <div class="status">
-        x: <input name="l_x" id="l_x" value="" size="3" />  
-        y: <input name="l_y" id="l_y" value="" size="3" />  
-        увел: <input name="sc" id="sc" value="" size="3" />
-        град: <input name="rt" id="rt" value="" size="3" />  
+        x: <span id="l_x">0</span>  
+        y: <span id="l_y">0</span>
+        увел: <span  id="sc">100%</span>
+        град: <span id="rt">0</span>
     </div>      
   </div>  
 
-  <div class="palette">
+  <div class="palette span3">
    <h3>Загрузка логотипа</h3>  
     <%= form_tag load_commercial_offer_logo_path(@commercial_offer, @item), :remote => true do %>     
     <div>
@@ -30,11 +38,15 @@
     <div id="logo_stack"></div>            
     <% end -%>
   </div>    
-  <div class="clear"></div>
-  <div class="beta-version">
+  
+  </div> <!--row-->
+  
+  <div class="modal-footer">
+    <div class="muted pull-left">
     Внимание! Данный функционал работает в режиме тестирования!
   </div>
-  <div class="buttons">
-      <button id="save">Сохранить</button> 
+      <button id="save" class="btn btn-primary">Сохранить</button> 
+      <a href="#" class="btn" data-dismiss="modal">Отмена</a>      
+  </div>
   </div>
 </div>    

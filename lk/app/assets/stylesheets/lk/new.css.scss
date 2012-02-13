@@ -1,5 +1,18 @@
-.no-wrap {white-space: nowrap;}
+@import "giftpoisk_vars";
+body {padding-top: 40px;}
 
+.navbar .brand {padding-left:30px;}
+
+#gift_logo {
+  width: 208px;
+  height: 86px;
+  margin:13px 0px 10px;
+  margin-left:-15px;
+  background: $logo_url no-repeat top left;  
+}
+
+.no-wrap {white-space: nowrap;}
+.clear {clear: both;}      	    
 .footer {
   margin-top: 45px;
   padding: 35px 0 36px;
@@ -27,4 +40,70 @@
 }
 .picture-remove {
   background-position: -80px -16px;      
+}
+
+#new_client_modal {max-height:700px; top:40%;}
+
+#logo_dialog {
+  max-height:750px; top:37%;width:790px;left:42%;
+    .status {
+    font-size:9pt;
+    background:#ccc;
+    padding:5px;
+    input {font-size:8pt;width:35px; border: 1px solid darken(#ccc, 20%)}
+    border:1px solid darken(#ccc,20%);    
+    span {display:inline-block;width:40px;background:#fff;padding:0 3px;border: 1px solid darken(#ccc, 20%)}
+  } 
+  
+.controls {
+    padding:3px;
+    background: #ccc;
+    border:1px solid darken(#ccc,20%);    
+  }
+  
+    
+  .button-container {
+     float:left; 
+      width:16px;
+      height:16px;  
+      border:1px solid darken(#ccc,20%);	      
+      padding:4px;
+      cursor:pointer;
+      margin-left:3px;
+    	border-radius: 5px;
+	    -moz-border-radius: 5px;
+	    -webkit-border-radius: 5px;
+	    -khtml-border-radius: 5px;
+      @extend .no-select;
+	    &:hover { 
+	      border:1px solid darken(#ccc,30%);
+	      background: lighten(#ccc,5%);
+      }
+	  &:active {
+      -webkit-box-shadow: inset #666 1px 1px 3px;
+      -moz-box-shadow: inset #666 1px 1px 3px;
+      box-shadow: inset #666 1px 1px 3px;
+	  }    
+	  span {
+      display:block;
+      width:16px;
+      height:16px;
+      background: image_url("lk/images/logo_panel.png") no-repeat;
+    &.remove-bg {	background-position: 0 0;  }
+    &.zoom-out {	background-position: -32px 0 }
+    &.zoom-in {	background-position: -48px 0 }
+    &.rotate-left {	background-position: -64px 0 }
+    &.rotate-right {	background-position: -80px 0 }
+	  }
+  }   
+  
+  .no-select {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  }
+   @extend .no-select; 
 }

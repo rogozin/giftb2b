@@ -1,11 +1,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.remotipart
-//= require jquery-ui
+// require jquery-ui
+//= require effects
 //= require jquery.treeview
 //= require jquery.cookie
 //= require layout
-//= require ui.datepicker-ru
+// require ui.datepicker-ru
 //= require tinymce-jquery
 //= require_tree .
 //= require search
@@ -24,7 +25,11 @@
 
 
 $(function() {
- $("#tabs").tabs();  
+ $(".collapse").collapse();
+//    $('.tooltip-demo.well').tooltip({
+//      selector: "a[rel=tooltip]"
+//    })
+// $("#tabs").tabs();  
  $("#close_dialog").live('click', function(){ $(this).parents('form').dialog("close") });
  $('a.toggle-category').live('click', function(){
    $(this).next().toggle();
