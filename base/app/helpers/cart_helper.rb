@@ -8,6 +8,10 @@ module CartHelper
     I18n.t(:product, :count => session[:cart]  ? session[:cart].total_items : 0 )
   end
   
+  def cart_items_count
+    my_cart.items.size  if my_cart && my_cart.items.size  > 0
+  end
+  
   def full_cart?
     my_cart and my_cart.total_items >0
   end

@@ -1,6 +1,10 @@
-
-$navbarBackground:#481f0d !default;
-$navbarHeight:20px;
-$linkColor: red;
+@import "giftpoisk_vars";
+$navbarBackground:$c_braun;
+$navbarBackgroundHighlight:darken($c_braun, 15%);
+//$linkColor: red;
+@import "variables";
+$navbarText:$grayLighter;
+$navbarLinkColor:darken($grayLighter,10%);
 @import "bootstrap";
-
+//h1 {font-size: 24px;}
+//h2 {font-size: 20px;}

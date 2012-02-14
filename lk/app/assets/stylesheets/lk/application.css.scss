@@ -7,6 +7,7 @@
  *= require lk/app_bootstrap
  *= require jquery.treeview
  *= require lk/new
+ *= require lk/logos
 */
 
  
@@ -72,7 +73,7 @@ td.right {text-align:right;}
 
 .ui-widget-content { text-align:left;}
  
- .ui-dialog, .ui-dialog-buttonpane, .ui-dialog-content, #filter { 
+ .ui-dialog, .ui-dialog-buttonpane, .ui-dialog-content { 
   background: $background_color_search;
   border:solid 1px darken($background_color_search,20%);
 /*  background-color:#FFFFDC;*/

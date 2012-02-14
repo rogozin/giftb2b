@@ -23,47 +23,12 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span2">
-        <%= link_to  image_tag("pix.gif", :alt => "giftpoisk.ru", :id => "gift_logo" ), main_app.root_path  %>
+        <%#= link_to  image_tag("pix.gif", :alt => "giftpoisk.ru", :id => "gift_logo" ), main_app.root_path  %>
         <%= image_tag current_user.firm.logo.url(:thumb) if firm_logo_present? %>
     
-    <div class="accordion" id="accordion2">
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                  Каталог сувениров
-                </a>
-              </div>
-              <div id="collapseOne" class="accordion-body in collapse" style="height: 0px; ">
-                <div class="accordion-inner">
-           <%= render :partial => 'shared/catalog' %>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                  Тематические сувениры
-                </a>
-              </div>
-              <div id="collapseTwo" class="accordion-body in collapse" style="height: 0px; ">
-                <div class="accordion-inner">
-                  <%= render :partial => 'shared/tematicheskie' %>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-                  Сувениры к праздникам
-                </a>
-              </div>
-              <div id="collapseThree" class="accordion-body in collapse" style="height: auto; ">
-                <div class="accordion-inner">
-                 <%= render :partial => 'shared/analogs' %>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="categories-tree">
+           <%= render :partial => 'lk/shared/categories_accordion' %>        
+        </div>
     
       <div id="left_content">
            
@@ -87,28 +52,6 @@
           <%= yield :layout  %>
 
     </div>
-<!--
-    <div class="span2">
-        <div id="right_content"> 
-      <div class="lk-short" id="lk"> 
-          <%#= render  :partial =>'shared/lk_short' if current_user %>
-       </div> <!-- end lk -->	
-     
-      <% if current_user && current_user.is_firm_user? -%>
-  <!--   <div id="cart" class="basket_right">
-        <%#= render :partial => "cart/cart" %>
-      </div>
-      <% end -%>
-      <div id="user_menu" class="left_block">
-        <div class="line"></div>
-        <h3>Личный кабинет</h3>
-      	<%#= render_lk_menu %>
-        <div class="line"></div>
-      </div> 
-    </div> 
-
-    
-    </div>    -->
   </div>
   
 <footer class="footer">

@@ -1,12 +1,20 @@
 <% page_title "Список товаров" -%>
+<div class="page_header">
 <h1>Моя база сувениров</h1>
+<p class="muted">
+Товары из этого списка можно добавлять в заказы и коммерческие предложения, или выводить в каталоге на Вашем сайте.
+</p>
+</div> 
+
 <div>
 <%= render :partial => 'filter', :locals => {:path => products_path, :remote => false} %>
 </div>
-<div class="spacer"></div>
-<%= render :partial => 'shared/paginate2', :locals => {:products => @products, :no_ajax => true} %>
-  <div class="spacer"></div>
+
+<%#= render :partial => 'shared/paginate2', :locals => {:products => @products, :no_ajax => true} %>
+
 <%= render :partial => "products", :locals => {:products => @products, :should_check => false} %>
-  <div class="spacer"></div>
-<%= render :partial => 'shared/paginate2', :locals => {:products => @products, :no_ajax => true} %>
+
+
+<%= will_paginate @products %>
+<%#= render :partial => 'shared/paginate2', :locals => {:products => @products, :no_ajax => true} %>
 

@@ -10,7 +10,7 @@ class Lk::ProductsController < Lk::BaseController
   
   def index
     params[:page] ||= "1"
-    params[:per_page] ||= "20"
+    params[:per_page] ||= "10"
     if current_user.firm_id.present?
       @products = set_filter.paginate(:page => params[:page], :per_page => params[:per_page])
     else 

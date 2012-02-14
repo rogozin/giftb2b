@@ -11,16 +11,16 @@ $(function() {
 });
 </script>
 
-<%= form_tag path, :remote => remote, :method => :get, :id => "filter" do %>
-Поиск:
-<span><%= text_field_tag :request, params[:request], :placeholder => "Название, артикул" %></span>
-<span>
+<%= form_tag path, :remote => remote, :method => :get, :id => "filter", :class => "form-search well"  do %>
+
+<%= text_field_tag :request, params[:request], :placeholder => "Название, артикул", :class => "input-medium search-query" %>
+
 <% if @category_ids.present? -%>
   <%= link_to 'Выбрать категорию товара', "#", :id => "select_category", :class => "pseudo-link" %>
 <% end -%>
-</span>
+
 <span id="category_ids"></span>
-<div id="categories_dialog" title="Выбор категории" class="g-hidden">
+<div id="categories_dialog" title="Выбор категории" class="hide">
 
   <div class="radio-buttons">
     <a href="#catalog" class="selected">Каталог</a>
@@ -39,5 +39,5 @@ $(function() {
     </div>    
   </div>  
 </div>
-<span><%= submit_tag "Найти", :name => nil %></span>
+<button class="btn" type="submit"><i class="icon-search"></i> Найти</button>
 <% end %>
