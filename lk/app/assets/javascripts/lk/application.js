@@ -26,6 +26,8 @@
 
 $(function() {
  $(".collapse").collapse();
+//$(".tabs").collapse(); 
+ 
 //    $('.tooltip-demo.well').tooltip({
 //      selector: "a[rel=tooltip]"
 //    })
@@ -53,14 +55,14 @@ $(function() {
         
 });
 
-function setValues(dialog) {
-          arr = [];
-          $(dialog).find(':checked').each(function(index){ 
-            arr[index] = $(dialog).find('label[for="'+this.id+'"]').text();
-            $("<input type='hidden' name='category_ids[]' value='" + this.value + "'>").appendTo('#category_ids'); 
-           });
-          $("#select_category").text( arr.length == 0 ? "Искать в разделах" : arr.join(', ')); 
-          return false;
-}         
+//function setValues(dialog) {
+//          arr = [];
+//          $(dialog).find(':checked').each(function(index){ 
+//            arr[index] = $(dialog).find('label[for="'+this.id+'"]').text();
+//            $("<input type='hidden' name='category_ids[]' value='" + this.value + "'>").appendTo('#category_ids'); 
+//           });
+//          $("#select_category").text( arr.length == 0 ? "Искать в разделах" : arr.join(', ')); 
+//          return false;
+//}         
 
 

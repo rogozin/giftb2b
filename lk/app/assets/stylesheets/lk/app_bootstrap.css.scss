@@ -1,10 +1,12 @@
 @import "giftpoisk_vars";
 $navbarBackground:$c_braun;
 $navbarBackgroundHighlight:darken($c_braun, 15%);
-//$linkColor: red;
 @import "variables";
+//$linkColor: red;
 $navbarText:$grayLighter;
 $navbarLinkColor:darken($grayLighter,10%);
 @import "bootstrap";
+#flash_alert { @extend .alert-error;}
+#flash_notice { @extend .alert-success;}
 //h1 {font-size: 24px;}
 //h2 {font-size: 20px;}

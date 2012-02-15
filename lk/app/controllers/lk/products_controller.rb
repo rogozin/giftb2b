@@ -40,6 +40,7 @@ class Lk::ProductsController < Lk::BaseController
       flash[:notice] = "Товар изменен!"
       redirect_to (params[:redirect].present? ?  params[:redirect] :  edit_product_path(@product))
     else
+      flash[:alert] = "Не удалось сохранить изменения!"
       render 'edit'
     end
   end
@@ -69,9 +70,10 @@ class Lk::ProductsController < Lk::BaseController
   end
 
   def set_filter
+    params[:category_ids].delete "" if params[:category_ids]
     res = LkProduct.active.where(:firm_id => current_user.firm.id)
     res = res.search(params[:request]) if params[:request]
-    res = res.by_category(params[:category_ids]) if params[:category_ids]    
+    res = res.by_category(params[:category_ids]) if  params[:category_ids].present?
     res
   end
   

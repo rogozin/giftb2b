@@ -19,7 +19,7 @@
   <tr>
     <%= content_tag(:td, check_box_tag("lk_product_ids[]", item.id, false, :id => "lk_product_ids_#{item.id}")) if should_check %>
     <td><%= link_to image_tag('edit.png'), edit_product_path(item) %></td>
-    <td><%= image_tag(item.picture.url, :width=>"120")  %></td>
+    <td class="product-picture"><%= image_tag(item.picture.url)  %></td>
     <td><%= item.article %></td>
     <td><%= item.short_name %></td>
     <td><%= item.categories.map(&:name).join(', ') %></td>
