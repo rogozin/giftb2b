@@ -1,5 +1,11 @@
 #encoding: utf-8;
 module Lk::ApplicationHelper
+  
+  def submit_action form
+   form.actions do
+     submit_tag "Сохранить",  :class => "btn btn-primary"
+    end 
+  end
          
   def firm_logo_present?
     current_user && current_user.firm && current_user.firm.images.present?

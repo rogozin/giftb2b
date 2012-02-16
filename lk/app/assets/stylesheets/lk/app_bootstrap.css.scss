@@ -2,7 +2,8 @@
 $navbarBackground:$c_braun;
 $navbarBackgroundHighlight:darken($c_braun, 15%);
 @import "variables";
-//$linkColor: red;
+$linkColor: lighten($c_braun, 10%);
+$linkColorHover: darken($linkColor, 10%);
 $navbarText:$grayLighter;
 $navbarLinkColor:darken($grayLighter,10%);
 @import "bootstrap";
@@ -10,3 +11,8 @@ $navbarLinkColor:darken($grayLighter,10%);
 #flash_notice { @extend .alert-success;}
 //h1 {font-size: 24px;}
 //h2 {font-size: 20px;}
+
+.treeview li ul li a { 
+  color: darken($linkColor, 10%); 
+  &:hover {color:darken($linkColor, 20%);} 
+}
