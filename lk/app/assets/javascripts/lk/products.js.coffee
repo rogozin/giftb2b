@@ -14,5 +14,5 @@ jQuery ->
     $('#categories_dialog :checked').attr 'checked', false
     false
     
-  $('#categories_dialog').on 'hide', -> 
+  $('#categories_dialog').live 'hide', -> 
     setCateogryFilterValues(this)

@@ -11,28 +11,35 @@
  </div>
 <% end %>
 
-<div class="b-co-change-links">
-  <p><%= link_to 'Добавить товар из Отложенных', cart_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true, :class => "add-link"  %></p>
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <a href="#" data-toggle="dropdown" class="btn btn-info dropdown-toggle">
+    Добавить еще товары
+    <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li> 
+       <%= link_to 'из отложенных', cart_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true %>     
+      </li>
+      <% if current_user.has_role?("lk_product") -%>    
+      <li>
+     <%= link_to 'из Моей базы сувениров', load_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true %>  
+      </li>
+      <% end -%>
+    </ul>
+  </div>
+
   <div id="add_cart_prodcut"></div>
-  <div class="spacer"></div>
-  <% if current_user.has_role?("lk_product") -%>    
-  <p><%= link_to 'Добавить товар из Моей базы сувениров', load_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true, :class => "add-link"   %>
-  </p>
   <div id="add_lk_prodcut"></div>
-  <% end -%>
-  <div class="spacer"></div>
 <%#= link_to 'Преобразовать в заказ', move_to_order_commercial_offer_path(@commercial_offer), :method => :post, :confirm => "Коммерческое предлоежние будет преобразовано в заказ. Продолжить?"  %>
 </div>
+
 <div id="delta_messages">
 </div>
-
 
 <%= render :partial => "modify" %>      
 
  <h3>Комментарий к коммерческому предложению:</h3> 
-<div class="b-co-description">
+<div class="b-co-description well">
   <%= text_area_tag :signature,  @commercial_offer.signature, :rows => 5, :class => "span8" %>
 </div>
-
-<div class="clear"></div>
-

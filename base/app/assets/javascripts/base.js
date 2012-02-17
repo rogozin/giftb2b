@@ -27,7 +27,7 @@ function changeImage(img_nr) {
 
 $(function() {
   bindAnimation();
-  $(".pager a").live("click", function(e) {
+  $(".ajax-pagination a").live("click", function(e) {
   	$.getScript(this.href, function(){ bindAnimation();});  
   	return false;
   });

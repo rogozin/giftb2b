@@ -1,4 +1,4 @@
-  <table width="100%">
+  <table class="table table-striped table-bordered table-condensed">
   <tr>
     <th  class="th_date_long"><%= action_name == "archived" ? "Отправлено в архив" : "Опубликовано" %></th>
     <th>Автор</th>
@@ -7,9 +7,8 @@
    <% @news.each do |item| -%>
      <tr>
        <td><%= I18n.l(item.updated_at, :format => :digital) %></td>
-       <td><%= item.created_author.username %></td>      
+       <td><%= user_name item.created_author %></td>      
        <td><%= link_to item.title, main_app.news_url(item.permalink, :host => "giftb2b.ru") %></td>
      </tr>
    <% end -%>
 </table>
-

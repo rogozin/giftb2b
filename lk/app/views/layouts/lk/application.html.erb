@@ -24,21 +24,19 @@
   <div class="row-fluid">
     <div class="span2">
         <%#= link_to  image_tag("pix.gif", :alt => "giftpoisk.ru", :id => "gift_logo" ), main_app.root_path  %>
-        <%= image_tag current_user.firm.logo.url(:thumb) if firm_logo_present? %>
+        <div class="firm-logo">
+        <%= image_tag current_user.firm.logo if firm_logo_present? %>
+        </div>
     
         <div class="categories-tree">
            <%= render :partial => 'lk/shared/categories_accordion' %>        
         </div>
     
-      <div id="left_content">
-           
-        
-        <div class="left_block">
+      <div class="well">                 
           <% if News.cached_latest_news.present? -%>
-           <div class="b-n-header latest-news"><div class="b-b-block"><div class="b-t-block"><%= render :partial => 'shared/latest_news' %></div></div></div>        
+           <%= render :partial => 'shared/latest_news' %>
           <% end -%>
-       	</div>
-      </div> <!--end left_content -->     
+      </div> <!--end news -->     
     </div>
     <div class="span10">
       <%#= render :partial => 'search/ext_search2', :locals => { :hidden => true } %>

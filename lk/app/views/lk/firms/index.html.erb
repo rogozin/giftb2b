@@ -1,10 +1,7 @@
 <% page_title "Клиенты" -%>
 <h1>Клиенты</h1>
-<div class="spacer"></div>
-<div class="b-command-menu">
-  <%= link_to 'Новый клиент', new_firm_path %>
-</div>
-<div class="spacer"></div>
+<hr />
+<div class="btn-toolbar"><%= link_to 'Новый клиент', new_firm_path, :class => "btn btn-info" if current_user.firm %></div>
 <% if @firms.present? -%>
   <table class="table table-striped table-bordered table-condensed">
   <tr>

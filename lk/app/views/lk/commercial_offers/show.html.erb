@@ -1,53 +1,25 @@
 <% page_title "Коммерческое предложение № #{@commercial_offer.id}" -%>
+   <p class="muted pull-right">Дата создания: <%= I18n.l(@commercial_offer.created_at, :format => :long) %></p>
   <h1>Коммерческое предложение № <%= @commercial_offer.id%></h1>
-
-  <p class="muted">Дата создания: <%= I18n.l(@commercial_offer.created_at, :format => :long) %></p>
-
+  <hr />
 <% if current_user.has_role? :lk_client -%> 
   <div id="co_client" class="form-inline">
     <div class="control-group">
     <label for="lk_firm_id">Клиент: </label>
-
       <%= select_tag :lk_firm_id, options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm_id) %>
-
-    <%= link_to 'Новый клиент',  new_firm_path, :remote => true, :class=>"add-link" %>
+      <%= link_to 'Новый клиент',  new_firm_path, :remote => true, :class=>"btn btn-info" %>
     </div>
-  </div>
-  
-  
-<div id="myModal" class="modal hide fade" style="display: none; ">
-            <div class="modal-header">
-              <a class="close" data-dismiss="modal">×</a>
-              <h3>Modal Heading</h3>
-            </div>
-            <div class="modal-body">
-              <h4>Text in a modal</h4>
-              <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem.</p>
-
-              <h4>Popover in a modal</h4>
-              <p>This <a href="#" class="btn popover-test" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">button</a> should trigger a popover on hover.</p>
-
-              <h4>Tooltips in a modal</h4>
-              <p><a href="#" class="tooltip-test" data-original-title="Tooltip">This link</a> and <a href="#" class="tooltip-test" data-original-title="Tooltip">that link</a> should have tooltips on hover.</p>
-            </div>
-            <div class="modal-footer">
-              <a href="#" class="btn btn-primary">Save changes</a>
-              <a href="#" class="btn" data-dismiss="modal">Close</a>
-            </div>
-          </div>
+  </div>    
 <% end -%>
-<div id="co_messages">
-<div class="ajax_animation"></div>
 
-</div>
-<div class="spacer clear"></div>
+<div id="co_messages"><div class="ajax_animation"></div></div>
+
 <div id="commercial_offer_items">
   <%= render :partial => "commercial_offer_items" %>
 </div>
 
-
-<h3>Выгрузка коммерческого предложения:</h3>
-<div class="form-inline">
+  <h3>Выгрузка коммерческого предложения:</h3>
+  <div class="form-inline well">
     <div id="control-group">      
       <label for="sa" class="checkbox"><%= check_box_tag :sa, 1, true %>Выводить артикул товара</label>
     </div>
@@ -57,12 +29,5 @@
     <div id="co_output_links">
     <%= link_to image_tag('big-pdf.png'), url_for(:action => :export, :id=>@commercial_offer, :format => :pdf, :sa => "1", :sd => "1"), :title => "Выгрузить в формате PDF" %>
     <%= link_to image_tag('big-xls.png'), url_for(:action => :export, :id=>@commercial_offer, :format => :xls, :sa => "1", :sd => "1"), :title => "Выгрузить в формате Excel" %>      
-    
     </div>
-</div>
-
-<div class="spacer clear"></div>
-<p class="navi">
-<%= link_to '<< Перейти к списку коммерческих предложений', commercial_offers_path %>
-</p>
-
+  </div>

@@ -1,29 +1,18 @@
-<%= form_for  @news, :html => {:class=> "one_line_form", :id => "news_form"} do |f| %>
-   <%= render :partial => 'shared/error_messages', :locals => {:target => @news} %>
-  <div class="b-formfield-div">
-    <%= f.label :title, 'Заголовок*' %>
-    <%= f.text_field :title %>
-  </div>
-  <div class="b-formfield-div">
-    <%= f.label :picture, 'Изображение' %>
-    <%= f.file_field :picture %>     
-    (.jpg, .png, .gif)
-  </div>  
-    <% if @news.picture.present? -%>
-    <div class="news-picture">
+<%= twitter_bootstrap_form_for  @news, :html => {:class=> "well", :id => "news_form"} do |f| %>
+    <div class="pull-right">
        <%= image_tag(@news.picture.url(:thumb)) %>
     </div>
+    <%= f.text_field :title %>
+    <%= f.file_field :picture %>     
+    <% if @news.picture.present? -%>
     <% end -%>
-  <div class="clear"></div>
   <div class="tinymce">
-    <div>Текст новости:</div>
     <%= f.text_area :body, :cols=>110, :rows=>25 %>
   </div>  
-  <div class="spacer"></div>
-    <div class="b-formfield-div">
-    <%= link_to "Предпросмотр", main_app.news_url(@news, :host => "giftb2b.ru"), :class => "br_button", :id => "preview" unless @news.new_record? %><%= f.submit "Сохранить в черновики" %><%= f.submit "Отправить на модерацию", :name => "moderate" %> 
-  </div>
-  <div class="clear"></div>
+  <%= f.actions do %>
+    <%= link_to "Предпросмотр", main_app.news_url(@news, :host => "giftb2b.ru"), :class => "btn", :id => "preview" unless @news.new_record? %>
+    <%= f.submit "Сохранить в черновики" %>
+    <%= f.submit "Отправить на модерацию", :name => "moderate" %> 
+  <% end -%>
 <% end %>
-<div class="clear spacer"></div>
 <%= render :partial => 'warn' %>

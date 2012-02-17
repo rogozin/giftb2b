@@ -1,9 +1,8 @@
 <% page_title "Коммерческие предложения" -%>
 <h1>Коммерческие предложения</h1>
-
+<hr />
 <% if @commercial_offers && @commercial_offers.present? -%>
 <%= render :partial => "comercial_offers" %>
-<div class="spacer"></div>
 <%= will_paginate(@comercial_offers) %>
 <% else -%>
 <p>Коммерческие предложения отсутствуют</p>

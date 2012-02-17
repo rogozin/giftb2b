@@ -16,3 +16,13 @@ $navbarLinkColor:darken($grayLighter,10%);
   color: darken($linkColor, 10%); 
   &:hover {color:darken($linkColor, 20%);} 
 }
+
+.form-actions input[type="submit"] {margin-bottom:0px;}
+.clear::before, .clear::after {
+  display: table;
+  content: "";
+}
+
+.firm-logo img { 
+width:100%;
+}

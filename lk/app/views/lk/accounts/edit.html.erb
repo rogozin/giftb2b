@@ -1,9 +1,4 @@
 <% page_title "Изменение профиля пользователя" -%>
 <h1>Изменение профиля пользователя</h1>
-<%= form_for  @account, :url => account_path(@account), :html => {:method => :put, :class => :one_line_form} do |form| -%>
-<%= render :partial => 'account', :locals => {:form => form} %>
- <% end -%>
- <div class="clear"></div>
- <p class="navi">
- <%= link_to '<< К списку пользователей', accounts_path %>
- </p>
+<hr />
+<%= render :partial => 'account' %>

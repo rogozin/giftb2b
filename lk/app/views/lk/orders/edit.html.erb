@@ -1,5 +1,5 @@
 <% page_title "Заказ № #{@order.id}" -%>
-<h1>Заказ <%= @order.id %></h1>
+<h1>Заказ № <%= @order.id %></h1>
   <%= twitter_bootstrap_form_for @order, :url => order_path(@order), :method => :put, :html => { :class => "form-horizontal well"} do |f| -%>
   <fieldset>
     <legend>Информация о заказчике</legend>

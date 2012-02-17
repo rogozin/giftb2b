@@ -58,7 +58,7 @@ class Lk::ProductsController < Lk::BaseController
  
    def load_lk_products
     params[:page] ||="1"
-    params[:per_page] ||= "20"
+    params[:per_page] ||= "10"
     @object_type = params[:object_type]
     #@object_id = params[:object_id]
     set_post_url    

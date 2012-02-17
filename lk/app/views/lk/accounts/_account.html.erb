@@ -1,42 +1,15 @@
-    <%= render :partial => 'shared/error_messages', :locals => {:target => @account} %>
-    <div class ="b-formfield-div">
-      <%= form.label :email %>
+<%= twitter_bootstrap_form_for  @account, :url => @account.new_record? ? accounts_path : account_path(@account), :html => {:method => @account.new_record? ? :post : :put, :class => "form-horizontal well"} do |form| -%>
       <%= form.text_field :email %>
-    </div>
     <% unless @account.new_record? -%>
-     <div class ="b-formfield-div">
-      <%= form.label :password %>
       <%= form.password_field :password %>
-    </div>    
-    <div class ="b-formfield-div">
-      <%= form.label :password_confirmation %>
       <%= form.password_field :password_confirmation %>
-    </div>    
     <% end -%>
-    <div class ="b-formfield-div">
-      <%= form.label :fio %>
       <%= form.text_field :fio %>
-    </div>
-    <div class ="b-formfield-div">
-      <%= form.label :appoint %>
       <%= form.text_field :appoint %>
-    </div>    
-    <div class ="b-formfield-div">
-      <%= form.label :phone %>
       <%= form.text_field :phone %>
-    </div>
-    <div class ="b-formfield-div">
-      <%= form.label :cellphone %>
       <%= form.text_field :cellphone %>
-    </div>    
-    <div class ="b-formfield-div">
-      <%= form.label :skype %>
       <%= form.text_field :skype %>
-    </div>  
-    <div class ="b-formfield-div">
-      <%= form.label :icq %>
       <%= form.text_field :icq %>
-    </div>      
-    <div class ="b-formfield-div">
-      <%= form.submit "Сохранить" %>
-    </div>
+      <%= submit_action form %>
+      
+<% end -%>      
