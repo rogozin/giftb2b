@@ -1,4 +1,5 @@
 @import "giftpoisk_vars";
+@import url(http://fonts.googleapis.com/css?family=Exo);
 $navbarBackground:$c_braun;
 $navbarBackgroundHighlight:darken($c_braun, 15%);
 @import "variables";
@@ -23,6 +24,13 @@ $navbarLinkColor:darken($grayLighter,10%);
   content: "";
 }
 
-.firm-logo img { 
-width:100%;
+.navbar  {
+
+  .brand {
+  font-family: 'Exo', sans-serif;
+   padding: 2px 20px 4px;
+   a { display:block; color: $white; text-decoration:none;}
+   .site-name {margin-bottom:2px;}
+   .service-name { font-size:12px; text-align:center;}
+  }
 }

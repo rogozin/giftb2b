@@ -1,12 +1,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.remotipart
-// require jquery-ui
 //= require effects
 //= require jquery.treeview
 //= require jquery.cookie
 //= require layout
-// require ui.datepicker-ru
 //= require tinymce-jquery
 //= require_tree .
 //= require search

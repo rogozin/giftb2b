@@ -38,3 +38,7 @@ gem "letter_opener", :group => :development
    gem 'spork'
    gem 'launchy', "~> 2.0.5"
  end
+ 
+gem "twitter_bootstrap_form_for", :path =>  "/home/ilya/ROR/github/twitter_bootstrap_form_for"
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+                              :git => 'git://github.com/anjlab/bootstrap-rails.git' 

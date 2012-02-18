@@ -5,6 +5,7 @@
         <p><%= link_to item.title, main_app.news_path(item.permalink), :class => "menu_left"  %></p>
         </div>
       <% end -%>
+      <hr />
      <p class="b-all-news">
-      <%= link_to 'Все новости', main_app.news_index_path, :class => "green-link" %>
+      <%= link_to 'Все новости', main_app.news_index_path %>
      </p> 

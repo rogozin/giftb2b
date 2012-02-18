@@ -1,6 +1,7 @@
 <% if @cart.items.present? -%>
-<%= form_tag @post_url do -%>
-<table width="100%">
+<h3>Товары из корзины:</h3>
+<%= form_tag @post_url, :class => "well" do -%>
+<table class="table table-striped table-bordered table-condensed">
   <tr>
     <th></th>
     <th>Изображение</th>
@@ -18,7 +19,7 @@
     </tr>
   <% end -%>
 </table>
-<div class="b-submit"><%= submit_tag "Добавить" if @cart.items.present? %></div>
+<%= submit_tag "Добавить отмеченные товары", :class => "btn btn-primary" if @cart.items.present? %>
 <% end -%>
 <% else -%>
 <p style="padding-top:10px">Если Вы хотите добавить еще товар из Базы Данных в Ваше КП, сначала нужно отложить его</p>

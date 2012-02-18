@@ -572,3 +572,13 @@ a.br_button, a.r_button, a.b_button, a.g_button {color:#e8eef4; text-decoration:
    
    line-height:2em;
 }
+.pagination {
+  float:right;
+   ul { 
+    display: inline;
+     li {
+      display: inline;
+      &.active a {color:$background_color; text-decoration:none; font-weight:bold;}
+    }  
+  }  
+}

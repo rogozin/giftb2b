@@ -19,11 +19,11 @@
     </a>
     <ul class="dropdown-menu">
       <li> 
-       <%= link_to 'из отложенных', cart_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true %>     
+       <%= link_to 'из корзины', cart_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true %>     
       </li>
       <% if current_user.has_role?("lk_product") -%>    
       <li>
-     <%= link_to 'из Моей базы сувениров', load_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true %>  
+     <%= link_to 'из моей базы сувениров', load_products_path(:id => @commercial_offer.id, :object_type => "LkCommercialOffer"), :remote => true %>  
       </li>
       <% end -%>
     </ul>

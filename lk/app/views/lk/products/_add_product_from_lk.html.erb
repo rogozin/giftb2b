@@ -1,13 +1,17 @@
-<h3>Список товаров:</h3>
+<h3>Мои сувениры:</h3>
 <%= render :partial => "filter", :locals => {:path => load_products_path(:id => params[:id], :object_type => @object_type ), :remote => true }%>
+<%= form_tag post_url, :class => "well" do -%>
+<div class="pull-left ajax_animation" style="display:none;"><img src="/assets/ajax-loader.gif" alt="loading..." /></div>
+<div class="pull pull-right">
 <%= render :partial => 'ajax_pagination' %>
-<%= form_tag post_url do -%>
-<%= render :partial => 'products', :locals => {:products => @lk_products, :should_check => true, :should_remove => false} %>
-<div class="row pull-right">
-  <%= submit_tag "Добавить отмеченные товары в КП", :class => "btn btn-primary"  if @lk_products.present? %>
 </div>
-<div class="clear">
+<%= render :partial => 'products', :locals => {:products => @lk_products, :should_check => true, :should_remove => false} %>
+<div class="pull">
+<div class="pull-left">
+  <%= submit_tag "Добавить отмеченные товары", :class => "btn btn-primary"  if @lk_products.present? %>
+</div>
+<div class="pull-right">
 <%= render :partial => 'ajax_pagination' %>
+</div>
 </div>
 <% end -%>
-
