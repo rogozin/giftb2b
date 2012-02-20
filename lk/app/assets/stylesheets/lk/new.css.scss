@@ -66,6 +66,25 @@ td {min-width:16px;
   background-position: -80px -16px;      
 }
 
+
+.navbar .nav > li > a.icon-social {
+      padding:0;
+      margin-top:12px;
+      margin-right:40px;
+}
+
+.icon-social {
+      display:inline-block;
+      width:16px;
+      height:16px;
+      background: image_url("social.png") no-repeat;
+}      
+
+.picture-twitter {
+  background-position: 0 -48px;      
+}
+
+
 #new_client_modal {max-height:700px; top:40%;}
 
 .cart-indicator { font-size:9.9pt;}
