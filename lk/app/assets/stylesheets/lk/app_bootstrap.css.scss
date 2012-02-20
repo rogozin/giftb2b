@@ -34,3 +34,7 @@ $navbarLinkColor:darken($grayLighter,10%);
    .service-name { font-size:12px; text-align:center;}
   }
 }
+
+.primary {
+  @extend .btn-primary;
+}
