@@ -1,14 +1,14 @@
 <%= content_tag :div, :id => "modify_form", :data => {:action => modify_commercial_offer_path(@commercial_offer)} do %>
   <div class="form-horizontal well">
     <div class="control-group">
-      <%= label_tag :logo,"Добавить нанесение:" %> 
+      <%= label_tag :logo,"Добавить нанесение:", :class => "control-label" %> 
       <div class="controls">
         <%= text_field_tag :logo, nil, :class => "input-mini" %> <span class="help-inline">руб./шт</span>
         <button id="modify_logo" class="btn">Ok</button>      
       </div>
     </div>            
     <div class="control-group">     
-      <%= label_tag :delta, "Добавить наценку:" %> 
+      <%= label_tag :delta, "Добавить наценку:", :class => "control-label" %> 
       <div class="controls">
         <%= text_field_tag :delta, nil, :class => "input-mini" %> <span class="help-inline">к цене за 1 шт.</span>
         <select name="unit" id="unit" style="width:80px">
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="control-group">    
-      <%= label_tag :sale,"Добавить скидку:" %> 
+      <%= label_tag :sale,"Добавить скидку:", :class => "control-label" %> 
       <div class="controls">
       <%= text_field_tag :sale, nil, :class => "input-mini" %> <span class="help-inline">%</span>
       <button id="modify_sale" class="btn">Ok</button>      
