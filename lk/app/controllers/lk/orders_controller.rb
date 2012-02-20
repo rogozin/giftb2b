@@ -7,8 +7,9 @@ class Lk::OrdersController < Lk::BaseController
   before_filter :find_order, :only => [:edit, :update, :destroy, :calculate, :add_product]
   
   def index
+    params[:page] ||="1"
     if (current_user.is_lk_user?) && current_user.firm_id.present? 
-      @orders = LkOrder.where(:firm_id => current_user.firm.id).order("id desc")
+      @orders = LkOrder.page(params[:page]).where(:firm_id => current_user.firm.id).order("id desc")
     else 
       @orders  = []
       not_firm_assigned!

@@ -1,0 +1,11 @@
+<% @firm = LkFirm.new unless defined?(@client) -%>
+<div id="new_client_modal" class="modal hide fade">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3>Новый клиент</h3>
+            </div>
+            <div class="modal-body">
+            <%= render :partial => 'lk/firms/firm', :locals => {:modal => true} %>            
+            </div>           
+          </div>
+

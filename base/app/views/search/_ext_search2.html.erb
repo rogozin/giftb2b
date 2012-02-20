@@ -29,7 +29,7 @@
        </div>
        <div class="clear"></div>     
     </div>
-  <% if show_ext_search? -%>
+  <% if show_ext_search? || current_user && current_user.is?(:lk_order) -%>
     
     <div class="b-ext-search-inner">
        <div class="b-ext-search-center">     
@@ -42,6 +42,8 @@
        </div>
        <div class="clear"></div>
     </div>
+  <% end -%>
+  <% if show_ext_search? -%>    
     <div class="b-ext-search-inner even">
       <div class="header">
         <h3>Поставщик</h3> 

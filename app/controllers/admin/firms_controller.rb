@@ -19,7 +19,7 @@ class Admin::FirmsController < Admin::BaseController
   end
   
   def create
-    @firm = Firm.new(params[:firm])
+    @firm = Firm.new(params[:firm], :as => :admin)
     if @firm.save
       flash[:notice] = "Новая фирма успешно создана"      
       redirect_to (params[:back_url].present? ? params[:back_url] : edit_admin_firm_path(@firm))
@@ -36,7 +36,7 @@ class Admin::FirmsController < Admin::BaseController
     @firm = Firm.find(params[:id])
     new_service_ids = (params[:firm].delete(:service_ids) || []).map(&:to_i) 
     old_service_ids = @firm.service_ids
-    if @firm.update_attributes(params[:firm])      
+    if @firm.update_attributes(params[:firm], :as => :admin)      
       @firm.firm_services.active.where(:service_id => (old_service_ids-new_service_ids)).each{|s| s.destroy}
       @firm.service_ids += new_service_ids-old_service_ids
       flash[:notice] = "Атрибуты фирмы изменены"

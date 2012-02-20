@@ -1,10 +1,10 @@
 <% title 'Изменение категории товара' %>
 
-<div class="grid_8 alpha">
+<div class="grid_10 alpha">
 <%= render @category %>
 </div>
 
-<div class="grid_8 omega">
+<div class="grid_6 omega">
   <h3>Изображение для категории</h3>
     <div class="b-uploadfile">
   <%= render :partial => 'admin/images/upload_image', :object => add_image_admin_category_path(@category) %>

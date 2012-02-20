@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :lk_orders
   acts_as_authentic do |c| 
     c.maintain_sessions = false
+    c.logged_in_timeout = 3.hours
   end
   acts_as_authorization_subject :role_class_name => 'Role', :join_table_name => :roles_users
   belongs_to :firm
@@ -91,9 +92,9 @@ class User < ActiveRecord::Base
    end
    
   
-  def self.next_username(firm_id)
-    cnt = User.where("firm_id = :firm_id and username like :username", {:firm_id => firm_id, :username => "f#{firm_id}.%"}).count
-    "f#{firm_id}.#{cnt + 1}"
+  def self.next_username(firm_id, first_letter='f')
+    cnt = User.where("firm_id = :firm_id and username like :username", {:firm_id => firm_id, :username => "#{first_letter}#{firm_id}.%"}).count
+    "#{first_letter}#{firm_id}.#{cnt + 1}"
   end
   
   def username_from_email

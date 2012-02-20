@@ -31,9 +31,9 @@ class Lk::SamplesController < Lk::BaseController
     @sample = Sample.new(params[:sample])
     @sample.firm_id = current_user.firm_id
     if @sample.save
-      flash[:notice] = "Образец создан."
-      redirect_to edit_sample_path(@sample)
+      redirect_to edit_sample_path(@sample), :notice => "Образец успешно создан"
     else
+      flash[:alert] = "Образец не может быть сохранен"  
       render :new
     end
   end

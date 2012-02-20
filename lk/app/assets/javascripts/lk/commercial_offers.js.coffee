@@ -44,12 +44,12 @@ jQuery ->
   $("#select_all").toggle ->  
       this.src = "/assets/checked.gif"
       this.title = "Снять выделение"
-      $('td.checkbox input:checkbox').attr 'checked', true
+      $('td.checkbox-container input:checkbox').attr 'checked', true
     ,
     ->
       this.src="/assets/unchecked.gif";
       this.title="Выбрать все";
-      $('td.checkbox input:checked').attr 'checked', false
+      $('td.checkbox-container input:checked').attr 'checked', false
       
   $("#lk_firm_id").live 'change', ->
     save_co()

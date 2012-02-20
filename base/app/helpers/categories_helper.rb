@@ -22,6 +22,7 @@ module CategoriesHelper
   end
   
   def hashed_categories_tree(categories_hash,  checked_items, init = true, expand_block = false,  options = {})
+    categories_hash = [] if categories_hash.nil?
     options[:class] ||= "treeview"
     options[:field_name] ||= "lk_product[category_ids]"
     options[:select_children] ||= false
@@ -36,9 +37,11 @@ module CategoriesHelper
          concat link_to(category[:name], "#", :class => "toggle-category")         
          concat hashed_categories_tree(category[:children], checked_items, false, expand_block && find_value(category, checked_items).present?, options)
        else
-         concat smart_check_box_tag(options[:field_name], category[:id],checked_items.include?(category[:id])) 
-         concat " "
-         concat label_tag( "cat_#{category[:id]}", category[:name])
+         concat label_tag( "cat_#{category[:id]}", :class => "checkbox") {
+           concat smart_check_box_tag(options[:field_name], category[:id],checked_items.include?(category[:id]))
+           concat " "
+           concat category[:name]
+         }
        end
        concat raw("</li>\n")
       end

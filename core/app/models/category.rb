@@ -156,7 +156,7 @@ class Category < ActiveRecord::Base
   end
  
   def products_size
-    Rails.cache.fetch("category_#{id}.products_size", :expires_in =>24.hours){ Product.active.all_by_category(children_ids).uniq.size }
+    Rails.cache.fetch("#{cache_key}/products_size"){ Product.active.all_by_category(children_ids).uniq.size }
   end
 
 #  def cat_description

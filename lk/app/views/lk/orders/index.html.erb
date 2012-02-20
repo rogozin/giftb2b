@@ -1,8 +1,9 @@
 <% page_title "Заказы" -%>
 
-<h2>Список всех заказов</h2>
+<h1>Список всех заказов</h1>
+<hr />
 
-<table width="100%">
+<table class="table table-striped table-bordered table-condensed">
 <tr>
   <th></th>
   <th>№ заказа</th>
@@ -28,3 +29,5 @@
   </tr>
 <% end -%>
 </table>
+
+<%= will_paginate @orders %>

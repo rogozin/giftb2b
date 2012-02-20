@@ -7,108 +7,59 @@
   <%= stylesheet_link_tag  'lk/application' %>
   <%= javascript_include_tag 'lk/application' %>
   <%= csrf_meta_tag %>
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->  
   <script>
   $(document).ready(function()
   {
-    $(".datepicker").datepicker($.datepicker.regional['ru']);
-   
+    //$(".datepicker").datepicker($.datepicker.regional['ru']);
     <%= yield :document_ready %>
   })
 </script>
 </head> 
 <body> 
-  <div id="header_title">
-    <%= link_to 'Каталог сувениров', "http://giftb2b.ru"  %>
-    <%= link_to 'Профессиональный инструмент для продажи сувениров', "http://giftpoisk.ru"  %>
-    <%= link_to 'Каталог на свой сайт', "http://sale.giftpoisk.ru"  %>
-  </div> <!-- end header_title --> 
-
-<div id="header"> 
-</div> <!-- end header --> 
-  
-<div id="all_content"> 
-<div class="content">
-   <%= render :partial => 'search/ext_search2', :locals => { :hidden => true } %>
-  <h3 class="h3-lk">Вы находитесь в личном кабинете</h3>
-</div>
-<div class="clear"></div>   
-<div id="flashes" class="content">
-  <%= render :partial => 'shared/flashes' %>
-</div>
- <div id="main_content" class="content">
-   <%- if @show_title -%>
-     <div id="title">
-         <h1><%=  @page_title %></h1>
-      </div>
-    <%end%>
-  <div class="center_block">   
-    <%= yield :layout  %>
-  </div>
-</div>
-</div> <!-- end all_content --> 
-
-<div id="right_content"> 
-  <div class="lk-short" id="lk"> 
-      <%= render  :partial =>'shared/lk_short' if current_user %>
-   </div> <!-- end lk -->	
- 
-  <% if current_user && current_user.is_firm_user? -%>
- <div id="cart" class="basket_right">
-    <%= render :partial => "cart/cart" %>
-  </div>
-  <% end -%>
-  <div id="user_menu" class="left_block">
-    <div class="line"></div>
-    <h3>Личный кабинет</h3>
-  	<%= render_lk_menu %>
-    <div class="line"></div>
-  </div> <!-- end left_block -->   
-</div> <!--end right_content --> 
-
-<div id="left_content">
-  <%= link_to  image_tag("pix.gif", :alt => "giftpoisk.ru", :id => "gift_logo" ), main_app.root_path  %>
-  <%= image_tag current_user.firm.logo.url(:thumb) if firm_logo_present? %>
-     
-  <div class="left_block b-background">
+<%= render :partial => 'lk/shared/navbar' %>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2">
+        <%#= link_to  image_tag("pix.gif", :alt => "giftpoisk.ru", :id => "gift_logo" ), main_app.root_path  %>
+        <div class="firm-logo">
+        <%= image_tag current_user.firm.logo if firm_logo_present? %>
+        </div>
     
-    <div class="cat-name">
-      <p>Каталог сувениров</p>
-      <a id="catalog_0" href="#0" class="b-down"></a>
+        <div class="categories-tree">
+           <%= render :partial => 'lk/shared/categories_accordion' %>        
+        </div>
+    
+      <div class="well latest-news">                 
+          <% if News.cached_latest_news.present? -%>
+           <%= render :partial => 'shared/latest_news' %>
+          <% end -%>
+      </div> <!--end news -->     
     </div>
+    <div class="span10">
+      <%#= render :partial => 'search/ext_search2', :locals => { :hidden => true } %>
+        <%= render :partial => 'shared/flashes' %>
+        <%- if @show_title -%>
+           <div id="title">
+               <h1><%=  @page_title %></h1>
+            </div>
+          <%end%>
 
-    <div class="catalog-tree js-hidden">
-     <%= render :partial => 'shared/catalog' %>
-    </div>
+          <%= yield :layout  %>
 
-    <div class="cat-name">
-      <p>Тематические сувениры</p>
-      <a  id="catalog_1" href="#1" class="b-down"></a>
     </div>
-
-    <div class="catalog-tree js-hidden">
-     <%= render :partial => 'shared/tematicheskie' %>
-    </div>
-
-    <div class="cat-name">
-      <p>Сувениры к праздникам</p>
-      <a  id="catalog_2" href="#2" class="b-down"></a>
-    </div>
-    <div class="catalog-tree js-hidden">
-     <%= render :partial => 'shared/analogs' %>
-    </div>              
-  </div> <!-- end left_block -->
+  </div>
   
-  <div class="left_block">
-    <% if News.cached_latest_news.present? -%>
-     <div class="b-n-header latest-news"><div class="b-b-block"><div class="b-t-block"><%= render :partial => 'shared/latest_news' %></div></div></div>        
-    <% end -%>
- 	</div>
-</div> <!--end left_content --> 
-<div class="clear"></div> 
-<div id="footer">	<div class="f-block">
+<footer class="footer">
 	<p>+7 (495) 741-06-95 e-mail:info@giftb2b.ru</p>
 	<p>© 2011 Giftb2b - Все сувениры для бизнеса.</p>
-	</div></div> <!-- end footer --> 
+</footer> <!-- end footer --> 
+  
+</div> <!--container-->
+  
+
 	<% unless local_request? -%>
     <%= render :partial => 'lk/shared/counters' %>	    	  
     <%= render :partial => 'shared/zopim' %>	    

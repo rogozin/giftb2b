@@ -1,0 +1,38 @@
+ <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                  Каталог сувениров
+                </a>
+              </div>
+              <div id="collapseOne" class="accordion-body in collapse" style="height: 0px; ">
+                <div class="accordion-inner">
+           <%= render :partial => 'shared/catalog' %>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                  Тематические сувениры
+                </a>
+              </div>
+              <div id="collapseTwo" class="accordion-body in collapse" style="height: 0px; ">
+                <div class="accordion-inner">
+                  <%= render :partial => 'shared/tematicheskie' %>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                  Сувениры к праздникам
+                </a>
+              </div>
+              <div id="collapseThree" class="accordion-body in collapse" style="height: auto; ">
+                <div class="accordion-inner">
+                 <%= render :partial => 'shared/analogs' %>
+                </div>
+              </div>
+            </div>
+          </div>

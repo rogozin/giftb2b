@@ -70,4 +70,4 @@ ru:
         supplier_id: "Поставщик"
         user_id: "Автор"
         responsible_id: "Ответственный"
-    
+        closed: "Деньги возвращены"

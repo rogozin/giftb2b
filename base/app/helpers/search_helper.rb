@@ -2,7 +2,7 @@
 module SearchHelper
   
   def show_ext_search?
-    (giftpoisk? && controller_name =="main") || ( current_user && current_user.has_ext_search?)
+    (giftpoisk? && controller_name =="main" && current_user.nil?) || ( current_user && current_user.has_ext_search?)
   end
   
   

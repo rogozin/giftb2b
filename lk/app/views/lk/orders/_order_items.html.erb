@@ -8,7 +8,7 @@ $(function() {
 </script>
 
 <%= form_for :order_items, :url => calculate_order_path(@order) do |form| %>
-<table width="100%">
+<table class="table table-striped table-bordered table-condensed table-valgined">
   <tr>
     <th>Изображение</th>
     <th>Поставщик</th>
@@ -25,14 +25,14 @@ $(function() {
       <td><%= product_supplier item.product   %></td>
       <td><%= article_sup(item.product) %></td>
       <td><%= item.product.short_name %></td>
-      <td class="no-wrap"><%= text_field_tag "price[#{item.id}]", item.price, :class => "inp-numeric"  %> руб.</td>
-      <td><%= text_field_tag "quantity[#{item.id}]", item.quantity, :class => "inp-quantity" %></td>
-      <td class="no-wrap"><%= price_ru_label item.price * item.quantity %></td>
-      <td><%= link_to image_tag("bin.png"), "#", :title => "Удалить из заказа", :confirm => "Удалить товар из заказа?", :class => "remove-item" %></td>
+      <td class="span2"><%= text_field_tag "price[#{item.id}]", item.price, :class => "input-mini"  %> <span class="help-inline"> руб.</span> </td>
+      <td><%= text_field_tag "quantity[#{item.id}]", item.quantity, :class => "input-mini" %></td>
+      <td class="span2"><%= price_ru_label item.price * item.quantity %></td>
+      <td><%= link_to image_tag("remove.png"), "#", :title => "Удалить из заказа", :confirm => "Удалить товар из заказа?", :class => "remove-item" %></td>
     </tr>
   <% end -%>
   <tr>
-    <td colspan="4"><%= submit_tag "Пересчитать" %></td>
+    <td colspan="4"><%= submit_tag "Пересчитать", :class => "btn btn-primary" %></td>
     <td>Итого:</td>
     <td><%= @order.lk_order_items.size %> шт.</td>
     <td colspan="2"><%= price_ru_label @order.sum  %></td>

@@ -7,7 +7,12 @@ $(function(){
     });
 });
 
-
+$(function() {
+  $('.b-who_are_you input[type="radio"]').click(function() {
+    $('.b-who_are_you .info').hide('fast', function() {   });
+        $(this).parent().find('.info').show('fast');    
+   });
+});
 
 function changeImage(img_nr) {	    
    small_img_link= $('#small_img_'+img_nr).attr('src')	    
@@ -22,7 +27,7 @@ function changeImage(img_nr) {
 
 $(function() {
   bindAnimation();
-  $(".pager a").live("click", function(e) {
+  $(".ajax-pagination a").live("click", function(e) {
   	$.getScript(this.href, function(){ bindAnimation();});  
   	return false;
   });

@@ -1,23 +1,28 @@
 <% page_title "Учет образцов" -%>
 <h1>Учет образцов</h1>
-<div class="b-command-menu">
-  <%= link_to "Новая запись", new_sample_path %>
+<hr />
+<div class="btn-toolbar">
+  <%= link_to "Добавить новый образец", new_sample_path, :class => "btn btn-info" %>
 </div>
 
 <div id="filter">
-<%= form_tag "/lk/samples", :method => :get do -%>
+<%= form_tag "/lk/samples", :method => :get, :class=> "form-search well" do -%>
+<p>
 <%= text_field_tag :name, params[:name], :placeholder => "Название" %>
-<%= select_tag :supplier, options_from_collection_for_select(@suppliers, 'id', 'name', params[:supplier]), :include_blank => "<= Поставщик =>" %>
-<%= select_tag :client, options_from_collection_for_select(@firms, 'id', 'name', params[:client]), :include_blank => "<= Фирма =>" %>
-<%= select_tag :responsible, options_from_collection_for_select(@responsibles, 'id', 'fio', params[:responsible]), :include_blank => "<= Ответственный =>" %>
-<%= submit_tag "Найти", :name => nil %> <br />
-<%= check_box_tag :only_my, "1", params[:only_my].blank? || params[:only_my] == "1" %> <%= label_tag :only_my, "Только мои", :title => "Показывать только те образцы, которые я создал или назначен ответственным." %> 
+<%= select_tag :supplier, options_from_collection_for_select(@suppliers, 'id', 'name', params[:supplier]), :prompt => "<= Поставщик =>" %>
+<%= select_tag :client, options_from_collection_for_select(@firms, 'id', 'name', params[:client]), :prompt => "<= Фирма =>" %>
+<%= select_tag :responsible, options_from_collection_for_select(@responsibles, 'id', 'fio', params[:responsible]), :prompt => "<= Ответственный =>" %>
+<button class="btn" type="submit"><i class="icon-search"></i> Найти</button>
+</p>
+<p>
+<%= check_box_tag :only_my, "1", params[:only_my].blank? || params[:only_my] == "1" %> <%= label_tag :only_my, "Только мои", :title => "Показывать только те образцы, которые созданы Вами, или где Вы назначен ответственным." %> 
 <%= check_box_tag :hide_closed, "1", params[:hide_closed].blank? || params[:hide_closed] == "1" %> <%= label_tag :hide_closed, "Спрятать закрытые", :title => "Скрывать образцы, отмеченные менеджером как закрытые" %> 
+</p> 
 <% end -%>
 </div>
 
 <div id="samples_list">
-<table>
+<table class="table table-striped table-bordered table-condensed">
 <tr>
   <th></th>
   <th>Название</th>

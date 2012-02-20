@@ -5,7 +5,11 @@ describe 'Регистрация пользователя' do
 
 before(:each) do
   ActionMailer::Base.deliveries.clear
-  Factory(:role_firm_user)
+  Factory(:service, :code => "lk_supplier", :roles => [Factory(:lk_supplier)])
+  Factory(:service, :code => "base_ext_search", :roles => [Factory(:r_search)])
+  Factory(:service, :code => "co_logo", :roles => [Factory(:r_co), Factory(:r_logo)])
+  Factory(:service, :code => "my_goods", :roles => [Factory(:r_products)])
+  Factory(:service, :code => "s_cli", :roles => [Factory(:r_samples), Factory(:r_clients)])
   Factory(:role_user)
   Factory(:firm, :id => 1, :permalink => "test-auth-firm")
   @admin = Factory(:admin)
@@ -15,12 +19,12 @@ end
     visit "/auth/register"
     page.should have_field "Рекламное агентство"
     page.should have_field "Представитель компании (Юридическое лицо)"
+    page.should have_field "Поставщик сувенирной продукции"
   end
 
 
   
   it 'рекалмное агентство' do
-    service  = Factory(:service, :code => "my_goods", :roles => [Role.create(:name => "bla bla bla", :group => 2)])
     ActionMailer::Base.default_url_options[:host] = "giftpoisk.ru"
     Settings.stub(:giftpoisk?).and_return(true)    
     Settings.stub(:giftb2b?).and_return(false)        
@@ -92,6 +96,38 @@ end
     ActionMailer::Base.deliveries.first.body.should match(User.last.username)
   end
 
+  
+    it 'Поставщик' do
+    ActionMailer::Base.default_url_options[:host] = "giftpoisk.ru"
+    Settings.stub(:giftpoisk?).and_return(true)    
+    Settings.stub(:giftb2b?).and_return(false)        
+    visit "/auth/register"
+    choose "Поставщик сувенирной продукции"
+    click_button "Далее"
+    page.should have_selector "h1", :text => "Поставщик сувенирной продукции"      
+    fill_in "Имя, фамилия", :with => "demo"
+    fill_in "Компания", :with => "Копыта"
+    fill_in "Город", :with => "Москва"
+    fill_in "E-mail", :with => "kopyta@giftb2b.ru"    
+    fill_in "Телефон", :with => "903 129-432-4"    
+    fill_in "Сайт", :with => "http://dishouse.ru"    
+    click_button "Зарегистрироваться"
+    page.should have_selector "h2", :text => "Благодарим за регистрацию"
+    page.should have_content "giftpoisk.ru"
+    page.should have_content "поставщик"
+    Firm.where(:name =>  "Копыта").should have(1).record
+    Firm.last.city.should eq "Москва"    
+    Firm.last.url.should eq "http://dishouse.ru"
+    Firm.last.users.should have(1).records
+    User.last.should be_is_lk_supplier
+    Firm.first.attach_images.first.attachable_type.should eq "Firm"
+    Firm.first.logo.path.split("/").last.should eq "logo-default.jpg"
+    ActionMailer::Base.deliveries.should have(2).items
+    ActionMailer::Base.deliveries.map(&:to).should include([@admin.email])      
+    ActionMailer::Base.deliveries.map(&:to).should include(["kopyta@giftb2b.ru"])      
+    ActionMailer::Base.deliveries.last.body.should match("Поставщик")
+    ActionMailer::Base.deliveries.first.body.should match(User.last.username)
+  end
   
 #  context "регистрация РА или ЮР лица" do
 #    let(:product) {Factory(:product)}    

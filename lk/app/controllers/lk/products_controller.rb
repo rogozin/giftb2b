@@ -10,7 +10,7 @@ class Lk::ProductsController < Lk::BaseController
   
   def index
     params[:page] ||= "1"
-    params[:per_page] ||= "20"
+    params[:per_page] ||= "10"
     if current_user.firm_id.present?
       @products = set_filter.paginate(:page => params[:page], :per_page => params[:per_page])
     else 
@@ -40,6 +40,7 @@ class Lk::ProductsController < Lk::BaseController
       flash[:notice] = "Товар изменен!"
       redirect_to (params[:redirect].present? ?  params[:redirect] :  edit_product_path(@product))
     else
+      flash[:alert] = "Не удалось сохранить изменения!"
       render 'edit'
     end
   end
@@ -57,7 +58,7 @@ class Lk::ProductsController < Lk::BaseController
  
    def load_lk_products
     params[:page] ||="1"
-    params[:per_page] ||= "20"
+    params[:per_page] ||= "10"
     @object_type = params[:object_type]
     #@object_id = params[:object_id]
     set_post_url    
@@ -69,9 +70,10 @@ class Lk::ProductsController < Lk::BaseController
   end
 
   def set_filter
+    params[:category_ids].delete "" if params[:category_ids]
     res = LkProduct.active.where(:firm_id => current_user.firm.id)
     res = res.search(params[:request]) if params[:request]
-    res = res.by_category(params[:category_ids]) if params[:category_ids]    
+    res = res.by_category(params[:category_ids]) if  params[:category_ids].present?
     res
   end
   

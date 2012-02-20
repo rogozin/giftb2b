@@ -1,10 +1,8 @@
 <% page_title "Пользователи" -%>
-<h3>Пользователи  компании <%= current_user.firm.name  if current_user.firm%></h3>
-<div class="spacer"></div>
-
-<div class="b-command-menu"><%= link_to 'Новый пользователь', new_account_path if current_user.firm %></div>
-<div class="spacer"></div>
-<table width="100%">
+<h1>Пользователи  компании <%= current_user.firm.name  if current_user.firm%></h1>
+<hr />
+<div class="btn-toolbar"><%= link_to 'Добавить нового пользователя', new_account_path, :class => "btn btn-info" if current_user.firm %></div>
+<table class="table table-striped table-bordered table-condensed">
 <tr>
   <th></th>
   <th>Имя</th>

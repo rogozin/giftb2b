@@ -1,26 +1,20 @@
 #logo_dialog {
-   .workplace {float:left;}
-  .palette {float:right;}
-  .buttons {float:right;}
-  input[type="file"] {width: 256px;}
-  #logo_stack { 
-    padding:10px 0;
-    img {max-width:230px;} 
-  
-  }
-  .status {
+  max-height:760px; top:37%;width:800px;left:42%;
+    .status {
     font-size:9pt;
     background:#ccc;
     padding:5px;
     input {font-size:8pt;width:35px; border: 1px solid darken(#ccc, 20%)}
     border:1px solid darken(#ccc,20%);    
-  }
+    span {display:inline-block;width:40px;background:#fff;padding:0 3px;border: 1px solid darken(#ccc, 20%)}
+  } 
   
-  .controls {
+.controls {
     padding:3px;
     background: #ccc;
-    border:1px solid darken(#ccc,20%);
+    border:1px solid darken(#ccc,20%);    
   }
+  
     
   .button-container {
      float:left; 
@@ -34,7 +28,7 @@
 	    -moz-border-radius: 5px;
 	    -webkit-border-radius: 5px;
 	    -khtml-border-radius: 5px;
-      @extend .no-select;	    
+      @extend .no-select;
 	    &:hover { 
 	      border:1px solid darken(#ccc,30%);
 	      background: lighten(#ccc,5%);
@@ -65,20 +59,5 @@
     -o-user-select: none;
     user-select: none;
   }
-
-  #logo {
-    @extend .no-select;
-  }
-  .beta-version {
-    float:left;
-    padding-top:10px;
-    color:#666;
-    font-size:10pt;
-    }
- 
- .alert {
-   color: #B8233B;
-   width:300px;
-   padding:5px;
- }   
+   @extend .no-select; 
 }

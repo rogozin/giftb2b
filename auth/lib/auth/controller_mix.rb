@@ -22,13 +22,23 @@ module Auth
       end
     end
   
+    def giftpoisk?
+      #ActionMailer::Base.default_url_options[:host] == "giftpoisk.ru"
+      Settings.giftpoisk?
+    end
+      
+    def giftb2b?
+      #ActionMailer::Base.default_url_options[:host] == "giftb2b.ru"
+      Settings.giftb2b?
+    end  
+  
   
     def store_location
       session[:return_to] = request.fullpath
     end
   
     def ext_user?
-      current_user && (current_user.is_firm_user? || current_user.is_admin?) 
+      current_user && (current_user.is?(:catalog) || current_user.is_admin?) 
     end
 
     def load_search_data

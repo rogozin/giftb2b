@@ -190,10 +190,10 @@ class LogoTransform
     tmp_c.toDataURL('image/png')  
           
   updateDebug: ->
-    $("#l_x").val @logo.x
-    $("#l_y").val @logo.y
-    $("#sc").val Math.floor(@logo.sc * 100) + "%"
-    $("#rt").val @logo.grad % 360   
+    $("#l_x").html @logo.x
+    $("#l_y").html @logo.y
+    $("#sc").html Math.floor(@logo.sc * 100) + "%"
+    $("#rt").html @logo.grad % 360   
       
   removeLogoBg: ->   
     @drawBg()  

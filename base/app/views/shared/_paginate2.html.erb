@@ -1,4 +1,4 @@
-<%= content_tag :div, :class => defined?(no_ajax) && no_ajax ? "pager-no-ajax" : "pager" do %>
+<%= content_tag :div, :class => defined?(no_ajax) && no_ajax ? "pager-no-ajax" : "ajax-pagination" do %>
 <div class="products-per-page">
 <span>
 <% if products.total_entries >20 -%>
@@ -13,7 +13,7 @@
 </span>
 </div>
 <div>
-<%= will_paginate products, :class=>"paginate2" %>
+<%= will_paginate products, :class => "ajax-pagination pagination" %>
 <div class="ajax_animation b-left"><img src="/assets/ajax-loader.gif" alt="loading..." /></div>
 </div>
 <div class="clear"></div>

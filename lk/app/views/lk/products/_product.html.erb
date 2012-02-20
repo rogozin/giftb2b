@@ -1,111 +1,68 @@
-<%= form_for @product, :url => @product.new_record? ? products_path : product_path(@product), :method => @product.new_record? ? "post" : "put", :html => {:multipart => true} do |f| -%>
+<%= twitter_bootstrap_form_for @product, :url => @product.new_record? ? products_path : product_path(@product), :method => @product.new_record? ? "post" : "put", :html => {:multipart => true} do |f| -%>
 <%= hidden_field_tag :redirect, defined?(redirect) ? redirect : ""   %>
-<div><%= render :partial => 'shared/error_messages', :locals => {:target => @product} %></div>
-<div id="tabs">
-  <ul>
-    <li><a href="#tab-1">Информация о товаре</a></li>
-    <li><a href="#tab-2">Описание товара</a></li>
-    <li><a href="#tab-3">Категории</a></li>
-  </ul>
+<ul id="tab" class="nav nav-tabs">
+  <li class="active"><a href="#tab-1" data-toggle="tab">Общая информация</a></li>
+  <li><a href="#tab-2" data-toggle="tab">Описание товара</a></li>
+  <li><a href="#tab-3" data-toggle="tab">Категории</a></li> 
+</ul>
+<div class="tab-content">
 
-  <div id="tab-1">
-  <div class="one_line_form">
-
-  <div class="b-formfield-div">
-    <%= f.label :article %>
-    <%= f.text_field :article %>
-  </div> 
-  <div class="b-formfield-div">
-    <%= f.label :short_name %>
-    <%= f.text_field :short_name %>
-  </div>
-  <div class="b-formfield-div">
-    <%= f.label :price %>
-    <%= f.text_field :price %>
-  </div>
-  <div class="b-formfield-div">
-    <%= f.label :store_count %>
-    <%= f.text_field :store_count %>
-  </div>  
-  <div class="b-formfield-div">
-    <%= f.label :color %>
-    <%= f.text_field :color %>
-  </div>  
-  <div class="b-formfield-div">
-    <%= f.label :factur %>
-    <%= f.text_field :factur %>
-  </div>  
-  <div class="b-formfield-div">
-    <%= f.label :box %>
-    <%= f.text_field :box %>
-  </div>  
-  <div class="b-formfield-div">
-    <%= f.label :size %>
-    <%= f.text_field :size %>
-  </div> 
-  <div class="b-formfield-div">
-    <%= f.label :infliction %>
-    <%= f.text_field :infliction %>
-  </div>    
-  </div> <!-- .one_line_form -->
-
-  
-  <div class="margin-left4 one_line_form">
-     <div class="b-product-thumbnail">
-      <%= image_tag(@product.picture.url)   unless @product.new_record? %>
-     </div>
-     <div>
-        <%= f.file_field :picture %>
-     </div>
-  </div>
-  <div class="clear"></div>
-  <div class="b-submit">
-    <%= submit_tag "Сохранить",  :class => "br_button" %>	
-  </div>
-
+  <div id="tab-1" class="tab-pane active">
+    <div class="form-horizontal well">  
+      <div class="row">
+        <div class="pull-left">
+          <%= f.text_field :article %>
+          <%= f.text_field :short_name %>
+          <%= f.text_field :price %>
+          <%= f.text_field :store_count %>
+          <%= f.text_field :color %>
+          <%= f.text_field :factur %>
+          <%= f.text_field :box %>
+          <%= f.text_field :size %>
+          <%= f.text_field :infliction %>
+          <%= f.file_field :picture %>
+          <% if current_user.firm.has_foreign_access? -%>    
+            <%= f.toggles do %> 
+              <%= f.check_box :show_on_site, "Показывать товар на моем сайте (#{current_user.firm.foreign_access.first.name})" %>
+            <% end -%>
+          <% end -%>              
+        </div> 
+        <div class="pull-right">
+            <%= image_tag(@product.picture.url)   unless @product.new_record? %>
+        </div>
+      </div>
+      <%= submit_action f %>  
+    </div> <!-- form-horizontal -->
   </div> <!-- #tab-1 -->
-
-  <div id="tab-2">
-    <%= f.text_area :description, :cols => 0, :rows => 18 %>      
-    <div class="b-submit">
-    <%= submit_tag "Сохранить",  :class => "br_button" %>	
+  
+  <div id="tab-2" class="tab-pane">
+    <div class="form-horizontal well">      
+    <%= f.text_area :description, :rows => 5, :class =>"span8" %>          
+    <%= submit_action f %>  
     </div>
-  </div> <!-- #tab-4 -->
-
- <div id="tab-3">
-  <div>
-  <% if current_user.firm.has_foreign_access? -%>    
-    <%= f.check_box :show_on_site %>
-    <%= f.label :show_on_site, "Показывать товар на моем сайте (#{current_user.firm.foreign_access.first.name})" %>
-  <% end -%>
-  </div>
-  <div class="spacer"></div>
-    <div class="b-search-property">
-      <h3><%= link_to_function "Основной каталог", "$('#categories_tree').toggle();", :class=>"pseudo-link" %> </h3>
-      <div id="categories_tree" class="g-hidden">
-        <%= hashed_categories_tree(@catalog, @product.category_ids, true, true) %>
-      </div>
-    </div>
-    
-    <div class="b-search-property">
-      <h3><%= link_to_function "Тематический каталог", "$('#thematic_tree').toggle();", :class=>"pseudo-link" %> </h3>
-      <div id="thematic_tree" class="g-hidden">
-        <%= hashed_categories_tree(@thematic, @product.category_ids) %>
-      </div>
-    </div>
-    
-    <div class="b-search-property">
-      <h3><%= link_to_function "Праздники", "$('#analog_tree').toggle();", :class=>"pseudo-link" %> </h3>
-      <div id="analog_tree" class="g-hidden">
-        <%= hashed_categories_tree(@analogs, @product.category_ids) %>
-      </div>
-    </div>
-    <div class="clear"></div>
-   <div class="b-submit">
-    <%= submit_tag "Сохранить",  :class => "br_button" %>	
-  </div>
+  </div> <!-- #tab-2 -->
+  
+  <div id="tab-3" class="tab-pane" >
+    <div class="form-horizontal well">
+      <ul id="tab" class="nav nav-tabs">
+        <li class="active"><a href="#catalog" data-toggle="tab">Каталог</a></li>
+        <li><a href="#thematic" data-toggle="tab">Тематические</a></li>
+        <li><a href="#analogs" data-toggle="tab">Праздники</a></li>
+      </ul>
+      <div class="tab-content">
+        <div id="catalog" class="tab-pane active">
+            <%= hashed_categories_tree(@catalog, @product.category_ids, true, true) %>
+        </div>
+        <div id="thematic" class="tab-pane">
+           <%= hashed_categories_tree(@thematic, @product.category_ids) %>
+        </div>
+        <div id="analogs" class="tab-pane">
+            <%= hashed_categories_tree(@analogs, @product.category_ids) %>
+        </div>    
+      </div>  
+      <%= submit_action f %>  
+    </div>   
   </div> <!-- #tab-3 -->
-
+  
 </div> <!--end tabs -->
 <% end -%>
-

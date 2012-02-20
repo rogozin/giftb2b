@@ -2,13 +2,13 @@
 class Auth::UsersController < ApplicationController
 def new
     @can_register = params[:step] == "2"
-    @user_type = giftb2b? ? "2" : "1"
+    @user_type = params[:i_am].presence ||  (giftb2b? ? "2" : "1")
     @user = User.new
   end
 
   def who_are_you
-    if params[:i_am]=="1" 
-       return giftb2b?  ? redirect_to(register_user_url(:step => 2, :host => "giftpoisk.ru")) :  redirect_to(register_user_path( :step => 2 ) )
+    if params[:i_am]=="1" || params[:i_am]=="3"  
+       return giftb2b?  ? redirect_to(register_user_url(:step => 2, :host => "giftpoisk.ru")) :  redirect_to(register_user_path( :step => 2, :i_am => params[:i_am]) )
     else
        return giftpoisk?  ? redirect_to(register_user_url(:step =>2, :host => "giftb2b.ru")) :  redirect_to(register_user_path( :step => 2 ) )
     end
@@ -16,7 +16,7 @@ def new
   end
 
   def create    
-    params[:i_am] == "1" ?   create_firm_user : create_single_user
+    params[:i_am] == "2" ?  create_single_user : create_firm_user(params[:i_am]=="3")
     if @user.persisted?
       UserSession.create @user
       notify_admins(@user)
@@ -90,8 +90,8 @@ def new
     end
   end 
   
-  def create_firm_user
-    @firm = Firm.new(:name => params[:user][:company_name], :city => params[:user][:city], :url => params[:user][:url], :phone => params[:user][:phone], :email => params[:user][:email])        
+  def create_firm_user(i_am_supplier = false)
+    @firm = Firm.new({:name => params[:user][:company_name], :city => params[:user][:city], :url => params[:user][:url], :phone => params[:user][:phone], :email => params[:user][:email]}, :as => :register)        
     unless @firm.valid?
       if @firm.errors[:name].present? || @firm.errors[:permalink].present? 
         new_name = @firm.name + "-1"
@@ -107,10 +107,11 @@ def new
       @user = User.new(params[:user].merge( :password => pass, :password_confirmation => pass))
       @user.firm_id = @firm.id
       @user.active = true
-      @user.expire_date = Date.today.next_day(5)
-      @user.username = User.next_username(@firm.id)      
+      #@user.expire_date = Date.today.next_day(5) unless i_am_supplier
+      @user.username = User.next_username(@firm.id, i_am_supplier ? "s" : "f")       
+      service_codes = i_am_supplier ?  ["lk_supplier"] : ["base_ext_search", "sup_max", "co_logo", "s_cli", "my_goods"]
       if @user.save
-        Service.where(:code => ["base_ext_search", "sup_max", "co_logo", "s_cli", "my_goods"]).each{|s| @firm.commit_service(s)}
+        Service.where(:code => service_codes).each{|s| @firm.services << s}
         Auth::AccountMailer.new_account(@user, pass).deliver
       end      
     end

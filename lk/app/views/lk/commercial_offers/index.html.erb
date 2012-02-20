@@ -1,9 +1,17 @@
 <% page_title "Коммерческие предложения" -%>
-<h2>Список всех коммерческих предложений</h2>
-
+<h1>Коммерческие предложения</h1>
+<hr />
+<% if cart_items_count -%>
+  <div class="btn-toolbar">
+  <%= link_to "Сформировать коммерческое предложение", commercial_offers_path, :method => :post, :class => "btn btn-primary" %>
+  </div>
+<% else -%>  
+  <p class="muted">
+    Для создания нового коммерческого предложения отложите товары из каталога в корзину.
+  </p>
+<% end -%>
 <% if @commercial_offers && @commercial_offers.present? -%>
 <%= render :partial => "comercial_offers" %>
-<div class="spacer"></div>
 <%= will_paginate(@comercial_offers) %>
 <% else -%>
 <p>Коммерческие предложения отсутствуют</p>

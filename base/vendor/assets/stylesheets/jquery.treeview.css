@@ -9,6 +9,17 @@
 	margin-top: 4px;
 }
 
+.treeview li ul li {
+	font-size:9.5pt;
+	line-height:1.2;
+}
+
+.treeview li ul li label {
+	font-size:9.5pt;
+	line-height:1;
+	margin-bottom:0;
+}
+
 .treeview .hitarea {
 	background: url("/assets/images/treeview-default.gif") -64px -25px no-repeat;
 	height: 16px;

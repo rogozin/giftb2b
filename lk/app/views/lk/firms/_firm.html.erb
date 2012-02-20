@@ -1,45 +1,18 @@
-<% remote = false unless defined?(remote) -%>
-<%=  form_for @firm, :url => @firm.new_record? ? firms_path : firm_path(@firm), :method => @firm.new_record? ? "post" : "put", :html => {:remote => remote, :class => "one_line_form"} do |form| -%>
+<% modal = false unless defined?(modal) -%>
+<%=  twitter_bootstrap_form_for @firm, :url => @firm.new_record? ? firms_path : firm_path(@firm), :method => @firm.new_record? ? "post" : "put", :html => {:remote => modal, :class => "form-horizontal well"} do |form| -%>
     <%= hidden_field_tag :back_url, params[:back_url] %>     
-    <div class ="b-formfield-div">
-    <%= render :partial => 'shared/error_messages', :locals => {:target => @firm} %>
-    </div>
-    <div class ="b-formfield-div">
-      <%= form.label :name %> <span>*</span>
-      <%= form.text_field :name %>
-    </div>
-    <div class ="b-formfield-div">
-      <%= form.label :contact %>
+      <%= form.text_field :name, "Название (*)" %>
       <%= form.text_field :contact %>
-    </div>    
-    <div class ="b-formfield-div">
-      <%= form.label :phone %>
       <%= form.text_field :phone %>
-    </div>     
-    <div class ="b-formfield-div">
-      <%= form.label :email %>
       <%= form.text_field :email %>
-    </div> 
-    <div class ="b-formfield-div">
-      <%= form.label :url %>
       <%= form.text_field :url %>
-    </div>    
-    <div class ="b-formfield-div">
-      <%= form.label :addr_u %>
-      <%= form.text_area :addr_u %>
-    </div>        
-    <div class ="b-formfield-div">
-      <%= form.label :addr_f %>
-      <%= form.text_area :addr_f %>
-    </div> 
-    <div class ="b-formfield-div">
-      <%= form.label :description %>
-      <%= form.text_area :description %>
-    </div>   
-    <div class="b-formfield-div">
+      <%= form.text_area :addr_u, :rows => 3 %>
+      <%= form.text_area :addr_f, :rows => 3 %>
+      <%= form.text_area :description, :rows => 3 %>
+    <%= form.actions do %>
      <%= form.submit "Сохранить" %>
-     <% if remote -%>      
-       <button type="button" id="close_dialog">Отмена</button>
+     <% if modal -%>       
+     <a href="#" class="btn" data-dismiss="modal">Отмена</a>
      <% end -%>
-    </div>                
+    <% end -%>
 <% end -%>

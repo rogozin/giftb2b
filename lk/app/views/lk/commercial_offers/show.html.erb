@@ -1,41 +1,33 @@
 <% page_title "Коммерческое предложение № #{@commercial_offer.id}" -%>
-<div class="b-float-left">
+   <p class="muted pull-right">Дата создания: <%= I18n.l(@commercial_offer.created_at, :format => :long) %></p>
   <h1>Коммерческое предложение № <%= @commercial_offer.id%></h1>
-  <div class="spacer"></div>
-  <p>Дата создания: <%= I18n.l(@commercial_offer.created_at, :format => :long) %></p>
-</div>
-
-<div class="spacer clear"></div>
+  <hr />
 <% if current_user.has_role? :lk_client -%> 
-  <div id="co_client">
-  Клиент: <%= select_tag :lk_firm_id, options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm_id) %>
-  <%= link_to 'Новый',  new_firm_path, :remote => true, :class=>"add-link" %>
-  </div>
+  <div id="co_client" class="form-inline">
+    <div class="control-group">
+    <label for="lk_firm_id">Клиент: </label>
+      <%= select_tag :lk_firm_id, options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm_id) %>
+      <%= link_to 'Новый клиент',  new_firm_path, :remote => true, :class=>"btn btn-info" %>
+    </div>
+  </div>    
 <% end -%>
-<div id="co_messages">
-<div class="ajax_animation"></div>
 
-</div>
-<div class="spacer clear"></div>
+<div id="co_messages"><div class="ajax_animation"></div></div>
+
 <div id="commercial_offer_items">
   <%= render :partial => "commercial_offer_items" %>
 </div>
-<div class="spacer"></div>
 
-<div class="b-co-output">
-    <div id="co_settings">      
-      <%= check_box_tag :sa, 1, true %><%= label_tag :sa, "Выводить артикул товара" %> <br />
-      <%= check_box_tag :sd, 1, true %><%= label_tag :sd, "Выводить описание товара" %>      
+  <h3>Выгрузка коммерческого предложения:</h3>
+  <div class="form-inline well">
+    <div id="control-group">      
+      <label for="sa" class="checkbox"><%= check_box_tag :sa, 1, true %>Выводить артикул товара</label>
     </div>
+    <div id="control-group">      
+      <label for="sd" class="checkbox"><%= check_box_tag :sd, 1, true %>Выводить описание товара</label>
+    </div>  
     <div id="co_output_links">
     <%= link_to image_tag('big-pdf.png'), url_for(:action => :export, :id=>@commercial_offer, :format => :pdf, :sa => "1", :sd => "1"), :title => "Выгрузить в формате PDF" %>
     <%= link_to image_tag('big-xls.png'), url_for(:action => :export, :id=>@commercial_offer, :format => :xls, :sa => "1", :sd => "1"), :title => "Выгрузить в формате Excel" %>      
-    
     </div>
-</div>
-
-<div class="spacer clear"></div>
-<p class="navi">
-<%= link_to '<< Перейти к списку коммерческих предложений', commercial_offers_path %>
-</p>
-
+  </div>

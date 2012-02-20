@@ -52,11 +52,11 @@
 </div>
 <div class="b-formfield-div">
   <%= f.label :meta_keywords, 'META KEYWORDS' %>
-  <%= f.text_area :meta_keywords, :cols=>22, :rows=>3 %>
+  <%= f.text_area :meta_keywords, :cols=>40, :rows=>5 %>
 </div>
 <div class="b-formfield-div">
   <%= f.label :meta_description, 'META DESCRIPTION' %>
-  <%= f.text_area :meta_description, :cols=>22, :rows=>3 %>
+  <%= f.text_area :meta_description, :cols=>40, :rows=>5 %>
 </div>
 <div class="b-formfield-div">
   <%= f.label :show_description, 'Показывать описание' %>
@@ -64,8 +64,11 @@
 </div>
 <div>
   <%= f.label :show_description, 'Описание ' %>  <br /> <br />
-  <%= f.textile_editor :description, :cols=>54, :rows=>6%>  
-  <%= raw textile_editor_initialize(:framework => :jquery) %>
+  <div class="b-description">
+    <div class="tinymce">
+      <%= f.text_area :description, :cols=>22, :rows => 3 %>
+    </div>  
+  </div>      
 </div>  
 <div class="b-formfield-div">
   <%= f.submit "Сохранить" %>

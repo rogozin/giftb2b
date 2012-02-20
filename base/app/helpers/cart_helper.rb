@@ -8,6 +8,10 @@ module CartHelper
     I18n.t(:product, :count => session[:cart]  ? session[:cart].total_items : 0 )
   end
   
+  def cart_items_count
+    my_cart.items.size  if my_cart && my_cart.items.size  > 0
+  end
+  
   def full_cart?
     my_cart and my_cart.total_items >0
   end
@@ -34,7 +38,7 @@ module CartHelper
   
   private
   def add_to_cart_icon
-        giftpoisk? ? "Добавить в предложение" + image_tag("addtokp.png") : "Добавить в корзину" + image_tag("cart_add.png")     
+      giftpoisk? ? "Добавить к отложенным" + image_tag("addtokp.png") : "Добавить в корзину" + image_tag("cart_add.png")     
   end
 
   

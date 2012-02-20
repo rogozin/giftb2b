@@ -1,6 +1,7 @@
-<table width="100%">
+<table class="table table-striped table-bordered table-condensed">
   <tr>
     <th></th>   
+    <th>Номер</th>
     <th>Кому</th>
     <th>Автор</th>
     <th>Создано</th>
@@ -12,6 +13,7 @@
       <%= link_to image_tag('pdf.png'), url_for(:action => :export, :id=>item, :format => :pdf), :target => "_blank", :title => "Выгрузить в формате PDF" %>
       <%= link_to image_tag('xls.png'), url_for(:action => :export, :id=>item, :format => :xls), :title => "Выгрузить в формате Excel" %>      
       </td>
+      <td><%= item.id %></td>
       <td><%= item.lk_firm.name if item.lk_firm %></td>
       <td><%= who(item.user) %></td>
       <td><%= I18n.l(item.created_at, :format => :long) %></td>

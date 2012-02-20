@@ -1,0 +1,36 @@
+@import "giftpoisk_vars";
+@import url(http://fonts.googleapis.com/css?family=Exo);
+$navbarBackground:$c_braun;
+$navbarBackgroundHighlight:darken($c_braun, 15%);
+@import "variables";
+$linkColor: lighten($c_braun, 10%);
+$linkColorHover: darken($linkColor, 10%);
+$navbarText:$grayLighter;
+$navbarLinkColor:darken($grayLighter,10%);
+@import "bootstrap";
+#flash_alert { @extend .alert-error;}
+#flash_notice { @extend .alert-success;}
+//h1 {font-size: 24px;}
+//h2 {font-size: 20px;}
+
+.treeview li ul li a { 
+  color: darken($linkColor, 10%); 
+  &:hover {color:darken($linkColor, 20%);} 
+}
+
+.form-actions input[type="submit"] {margin-bottom:0px;}
+.clear::before, .clear::after {
+  display: table;
+  content: "";
+}
+
+.navbar  {
+
+  .brand {
+  font-family: 'Exo', sans-serif;
+   padding: 2px 20px 4px;
+   a { display:block; color: $white; text-decoration:none;}
+   .site-name {margin-bottom:2px;}
+   .service-name { font-size:12px; text-align:center;}
+  }
+}

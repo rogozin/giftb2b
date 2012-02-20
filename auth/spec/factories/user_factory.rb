@@ -105,7 +105,7 @@ end
 
 Factory.define :role_user, :class => Role do |f|
   f.name "simple_user"
-  f.group 1
+  f.group 3
 end
 
 

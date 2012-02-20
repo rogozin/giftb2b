@@ -1,14 +1,17 @@
-<div class="spacer"></div>
-<h3>Список товаров:</h3>
-<div class="spacer"></div>
-<div>
+<h3>Мои сувениры:</h3>
 <%= render :partial => "filter", :locals => {:path => load_products_path(:id => params[:id], :object_type => @object_type ), :remote => true }%>
+<%= form_tag post_url, :class => "well" do -%>
+<div class="pull-left ajax_animation" style="display:none;"><img src="/assets/ajax-loader.gif" alt="loading..." /></div>
+<div class="pull pull-right">
+<%= render :partial => 'ajax_pagination' %>
 </div>
-
-<%= render :partial => 'shared/paginate2', :locals => {:products => @lk_products} %>
-<%= form_tag post_url do -%>
 <%= render :partial => 'products', :locals => {:products => @lk_products, :should_check => true, :should_remove => false} %>
-<div class="b-submit"><%= submit_tag "Добавить товары в КП"  if @lk_products.present? %></div>
+<div class="pull">
+<div class="pull-left">
+  <%= submit_tag "Добавить отмеченные товары", :class => "btn btn-primary"  if @lk_products.present? %>
+</div>
+<div class="pull-right">
+<%= render :partial => 'ajax_pagination' %>
+</div>
+</div>
 <% end -%>
-<%= render :partial => 'shared/paginate2', :locals => {:products => @lk_products} %>
-

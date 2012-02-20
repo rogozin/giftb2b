@@ -1,4 +1,4 @@
  <%- flash.each do |name, msg| -%>
-    <%= content_tag :div, raw(msg), :id => "flash_#{name}", :class => "corner-all" if name.to_s.index("notice") or name.to_s.index("alert") %>
+    <%= content_tag :div, msg.html_safe +   "<a class=\"close\" data-dismiss=\"alert\" >×</a>".html_safe, :id => "flash_#{name}", :class => "alert" if name.to_s.index("notice") or name.to_s.index("alert") %>
   <%- end -%>
 

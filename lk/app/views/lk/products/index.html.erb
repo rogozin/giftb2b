@@ -1,12 +1,11 @@
 <% page_title "Список товаров" -%>
 <h1>Моя база сувениров</h1>
-<div>
+<p class="muted">
+Товары из этого списка можно добавлять в заказы и коммерческие предложения, или выводить в каталоге на Вашем сайте.
+</p>
+<hr />
+<div class="btn-toolbar"><%= link_to 'Добавить новый товар', new_product_path, :class => "btn btn-info"  %></div>
 <%= render :partial => 'filter', :locals => {:path => products_path, :remote => false} %>
-</div>
-<div class="spacer"></div>
-<%= render :partial => 'shared/paginate2', :locals => {:products => @products, :no_ajax => true} %>
-  <div class="spacer"></div>
-<%= render :partial => "products", :locals => {:products => @products, :should_check => false} %>
-  <div class="spacer"></div>
-<%= render :partial => 'shared/paginate2', :locals => {:products => @products, :no_ajax => true} %>
 
+<%= render :partial => "products", :locals => {:products => @products, :should_check => false} %>
+<%= will_paginate @products %>

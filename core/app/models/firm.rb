@@ -6,6 +6,11 @@ class Firm < ActiveRecord::Base
   has_many :services, :through => :firm_services, :conditions => "deleted_at is null"
   has_many :archived_services, :through => :firm_services, :conditions => "deleted_at is not null", :source => "service"
   has_many :users
+  has_many :commercial_offers, :class_name => "CommercialOffer"
+  has_many :lk_orders , :class_name => "LkOrder"  
+  has_many :lk_firms , :class_name => "LkFirm"    
+  has_many :lk_products , :class_name => "LkProduct"      
+  has_many :samples , :class_name => "Sample"        
   has_one :client
   belongs_to :supplier  
   validates :name, :presence => true, :uniqueness => true
@@ -26,6 +31,8 @@ class Firm < ActiveRecord::Base
   after_create :set_default_logo
   
  attr_accessible :name, :addr_f, :description, :as => :supplier
+ attr_accessible :name, :short_name, :addr_f, :addr_f, :phone, :email, :supplier_id, :city, :subway, :show_on_site, :url, :description, :permalink, :lat, :long, :as => :admin
+ attr_accessible :name, :phone, :email, :city, :url, :permalink, :as => :register
 
  def smart_name 
    short_name.presence || name

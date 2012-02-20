@@ -19,10 +19,9 @@ function read_cat_cookie() {
 }
 
 function bindAnimation() {
-  $(".ajax_animation").bind({
-      ajaxStart: function() { $(this).show(); },
-      ajaxStop: function() { $(this).hide(); }
-    });
+  $(".ajax_animation")
+  .on("ajaxStart", function() { $(this).show(); }) 
+  .on("ajaxStop", function() { $(this).hide(); });
 }
 
 $(function() {
