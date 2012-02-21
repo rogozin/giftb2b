@@ -18,17 +18,16 @@ class ChangeTableUsersForAuthlogic < ActiveRecord::Migration
     rename_column :users, :last_login_ip, :last_sign_in_ip
 
     #rename_column :users, :failed_login_count, :failed_attempts
-    add_column :users, :unlock_token, :string, :limit => 255
-    add_column :users, :locked_at, :timestamp
+#    add_column :users, :unlock_token, :string, :limit => 255
+#    add_column :users, :locked_at, :timestamp
 
     remove_column :users, :persistence_token
-    remove_column :users, :perishable_token
-    remove_column :users, :single_access_token
+    remove_column :users, :perishable_token    
 
     add_index :users, :email,                :unique => true
     add_index :users, :confirmation_token,   :unique => true
     add_index :users, :reset_password_token, :unique => true
-    add_index :users, :unlock_token,         :unique => true
+   # add_index :users, :unlock_token,         :unique => true
   end
 
   def self.down

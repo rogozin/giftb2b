@@ -1,7 +1,8 @@
 require "auth/engine"
 require "auth/controller_mix"
-require "acl9"
 require "devise"
+require "auth/devise"
+require "acl9"
 
 module Auth
 
