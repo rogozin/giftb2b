@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.1.3"
-  s.add_dependency "authlogic"
+  s.add_dependency "devise"
   s.add_dependency "acl9"
   # s.add_dependency "jquery-rails"
 end
