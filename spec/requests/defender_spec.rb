@@ -2,6 +2,8 @@
 require 'spec_helper'
 
 class ZeroDefender < Defender
+  LINKS_WHITELIST = [ /\/products\/my-white-product$/ ]
+  
   def clear(request)
     set_default_value cache_key(request)
   end
@@ -24,6 +26,15 @@ describe 'defender' do
       get "/products/#{@product.permalink}"
       response.code.should eq 403 if n== (100-1)
     end
+  end
+  
+  it 'неограниченно запросов если путь в белом списке' do
+    @product.update_attributes :permalink => "my-white-product"
+      (100).times do |n|
+      get "/products/#{@product.permalink}"
+      response.code.should eq 200 if n== (100)
+    end
+    
   end
   
  
