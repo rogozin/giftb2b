@@ -10,8 +10,10 @@ class Auth::UserSessionController < ApplicationController
       if @user_session.save
         @user = @user_session.record 
         if @user.password_salt.blank?
-          @user.password = params[:user_session][:password] 
-          @user.save(:validate => false)
+          salt = Authlogic::Random.friendly_token
+          @user.password_salt = salt
+          @user.crypted_password =  Authlogic::CryptoProviders::Sha512.encrypt params[:user_session][:password], salt
+          @user.save
         end
         return redirect_to_giftpoisk if @user && giftb2b? && @user.is_firm_user? && !@user.is_admin_user?
         return redirect_to_giftb2b if @user && giftpoisk? && @user.is_simple_user?
