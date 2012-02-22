@@ -1,8 +1,8 @@
-<%#= form_for :user_session, :url=> auth_engine.create_session_path , :html=>{:id=>"login_form", :name => "login_form"} do |form| %>
+<%= form_for resource, :url => auth_engine.user_session_path, :html=>{:id=>"login_form", :name => "login_form"} do |form| %>
       <div class="login-form one_line_form">
       <h2>Личный кабинет:</h2>
-        <p> <%#= label_tag :username, "имя:" %> <%#= form.text_field :username %></p>
-        <p><%#= label_tag :password, "пароль:" %> <%#= form.password_field :password %>
+        <p> <%= label_tag :username, "имя:" %> <%= form.text_field :username %></p>
+        <p><%= label_tag :password, "пароль:" %> <%= form.password_field :password %>
      		<a class="lk-login" onclick="login_form.submit();" ></a>
         </p>
 
