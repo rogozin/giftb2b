@@ -53,6 +53,8 @@ module Auth
       end
       @color = Property.where(:name => "Цвет").first             
     end
-
+    
+    private 
+    
   end
 end

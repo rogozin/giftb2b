@@ -4,7 +4,7 @@ Auth::Engine.routes.draw do
 
    devise_scope :user do
       get 'login' =>  "sessions#new", :as => :login
-      get 'logout', :to => "sessions#destroy", :as => :logout
+      delete 'logout', :to => "sessions#destroy", :as => :logout
       post 'signin' => "sessions#create", :as => :user_session      
       get 'users/register' => "users#new", :as => :new_refinery_user_registration
       post 'users/register' => "users#create", :as => :refinery_user_registration
