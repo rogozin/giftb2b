@@ -9,6 +9,10 @@ class Auth::UserSessionController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
       if @user_session.save
         @user = @user_session.record 
+        if @user.password_salt.blank?
+          @user.password = params[:user_session][:password] 
+          @user.save(:validate => false)
+        end
         return redirect_to_giftpoisk if @user && giftb2b? && @user.is_firm_user? && !@user.is_admin_user?
         return redirect_to_giftb2b if @user && giftpoisk? && @user.is_simple_user?
         redirect_to  session[:return_to].presence || request.referer.presence || "/"
