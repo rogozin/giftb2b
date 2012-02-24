@@ -1,5 +1,6 @@
 #encoding: utf-8;
 Giftr3::Application.routes.draw do
+  
   root :to => 'main#index'
   match 'admin' => 'admin/products#index', :as => :admin
   mount Lk::Engine => "/lk", :as => :lk_engine
