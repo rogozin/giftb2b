@@ -11,7 +11,7 @@
     <tr>
       <td>
         <p style="line-height:20px;">        
-            <% if @user.is_simple_user? -%>
+            <% if Settings.giftb2b? -%>
              <strong>Служба поддержки пользователей:</strong> <br />
              <a href="mailto:help@giftb2b.ru" target="_blank">help@giftb2b.ru</a>
            <% else -%>
@@ -38,7 +38,7 @@
   <td/>
   <td align="left">
     <span style="font-family:Tahoma; font-size:12px; color:#404040;">
-    <% if @user.is_simple_user? -%>
+    <% if Settings.giftb2b? -%>
      Gift Research (Гифт Ресерч) - IT решения для сувенирной отрасли. ©  <a href="http://giftb2b.ru">giftb2b.ru</a>  <%= Date.current.year %></span>                
     <% else -%>
      Gift Research (Гифт Ресерч) - IT решения для сувенирной отрасли. ©  <a href="http://giftpoisk.ru">giftpoisk.ru</a>  <%= Date.current.year %></span>            

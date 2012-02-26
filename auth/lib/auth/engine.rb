@@ -1,9 +1,8 @@
 module Auth
   class Engine < Rails::Engine
-    config.generators do |g|
-      g.test_framework :rspec, :view_specs => false
+    config.to_prepare do
+      Devise::Mailer.layout "layouts/mailers/account" # email.haml or email.erb
     end
-
     isolate_namespace Auth
   end
 end

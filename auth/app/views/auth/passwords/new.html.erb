@@ -1,0 +1,12 @@
+<h2>Забыли пароль?</h2>
+
+<%= form_for(resource, :as => resource_name, :url => auth_engine.user_password_path, :html => { :method => :post }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+<div class="spacer"></div>
+  <div><%= f.submit "Отправить инструкцию по сбросу пароля" %></div>
+<% end %>
+
+<%#= render "links" %>

@@ -8,11 +8,12 @@ Auth::Engine.routes.draw do
       post 'signin' => "sessions#create", :as => :user_session      
       get 'users/register' => "users#new", :as => :new_refinery_user_registration
       post 'users/register' => "users#create", :as => :refinery_user_registration
+#      get 'change_password' => "passwords#new", :as => :
     end
 
 #  match 'login' => 'user_session#new', :as => :login
 #  match 'logout' => 'user_session#destroy', :as => :logout
-#  match 'register' => "users#new", :as => :register_user
+  match 'register' => "users#new", :as => :register_user
 #  match 'recovery' => "users#recovery", :as => :recovery_password
 #  match 'activate/:activation_code' => "users#activate", :as => :activate_user
 #  match 'user_session' => "user_session#create", :as => :create_session

@@ -1,0 +1,58 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+#https://gist.github.com/1910765
+ru:
+  errors:
+    messages:
+      expired: "устарела. Пожалуйста, запросите новую"
+      not_found: "не найдена"
+      already_confirmed: "уже подтверждена. Пожалуйста, попробуйте войти в систему"
+      not_locked: "не заблокирована"
+      not_saved:
+        one: "1 error prohibited this %{resource} from being saved:"
+        other: "%{count} errors prohibited this %{resource} from being saved:"
+
+  devise:
+    failure:
+      already_authenticated: "Вы уже вошли в систему."
+      unauthenticated: "Вам необходимо войти в систему или зарегистрироваться."
+      unconfirmed: "Вы должны подтвердить вашу учётную запись."
+      locked: "Ваша учётная запись заблокирована."
+      invalid: "Неверный адрес e-mail или пароль."
+      invalid_token: "Неверный ключ аутентификации."
+      timeout: "Ваш сеанс закончился. Пожалуйста, войдите в систему снова."
+      inactive: "Ваша учётная запись ещё не активирована."
+    sessions:
+      signed_in: "Приветствуем!"
+      signed_out: "До свидания"
+    passwords:
+      send_instructions: "В течение нескольких минут вы получите письмо с инструкциями по восстановлению вашего пароля."
+      updated: "Ваш пароль изменён. Теперь вы вошли в систему."
+      send_paranoid_instructions: "Если ваш адрес e-mail есть в нашей базе данных, то в течение нескольких минут вы получите письмо с инструкциями по восстановлению вашего пароля."
+      updated_not_active: "Ваш пароль был успешно изменен."
+    confirmations:
+      send_instructions: "В течение нескольких минут вы получите письмо с инструкциями по подтверждению вашей учётной записи."
+      send_paranoid_instructions: "Если ваш адрес e-mail есть в нашей базе данных, то в течение нескольких минут вы получите письмо с инструкциями по подтверждению вашей учётной записи."
+      confirmed: "Ваша учётная запись подтверждена. Теперь вы вошли в систему."
+    registrations:
+      signed_up: "Добро пожаловать! Вы успешно зарегистрировались."
+      inactive_signed_up: "Добро пожаловать! Вы успешно зарегистрировались. Но пока вы не можете войти в систему, т.к. ваша учётная запись %{reason}."
+      signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account.'
+      signed_up_but_inactive: 'Вы успешно зарегистрировались. Но пока вы не можете войти в систему, т.к. ваша учётная запись не активирована.'
+      signed_up_but_locked: 'Вы успешно зарегистрировались. Но пока вы не можете войти в систему, т.к. ваша учётная запись заблокирована.'
+      updated: "Ваша учётная запись изменена."
+      update_needs_confirmation: "Ваша учетная запись изменена, но вы должны поддтвердить новый e-mail адрес. Пожалуйста проверьте ваш почтовый ящик и  You updated your account successfully, but we need to verify your new email address. Please check your email an on the confirm link to finalize confirming your new email address."
+      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+    unlocks:
+      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
+      unlocked: 'Your account has been unlocked successfully. Please sign in to continue.'
+      send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
+    omniauth_callbacks:
+      success: 'Successfully authorized from %{kind} account.'
+      failure: 'Could not authorize you from %{kind} because "%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: 'Confirmation instructions'
+      reset_password_instructions:
+        subject: 'Reset password instructions'
+      unlock_instructions:
+        subject: 'Unlock Instructions'

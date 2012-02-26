@@ -7,6 +7,8 @@ class ChangeTableUsersForAuthlogic < ActiveRecord::Migration
     add_column :users, :confirmation_sent_at, :timestamp
     execute "UPDATE users SET confirmed_at = created_at, confirmation_sent_at = created_at"
     add_column :users, :reset_password_token, :string, :limit => 255
+    
+    add_column :users, :reset_password_sent_at, :datetime
 
     add_column :users, :remember_token, :string, :limit => 255
     add_column :users, :remember_created_at, :timestamp

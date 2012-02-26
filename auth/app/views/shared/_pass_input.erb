@@ -12,8 +12,8 @@
       </div> 
      		<div class="clear"></div>
          <div class="lk-links">
-          <div class="lk-rec"><%#= link_to 'восстановить пароль', auth_engine.recovery_password_path  %> </div>
-          <div class="lk-reg"><%#= link_to 'регистрация', auth_engine.register_user_path  %></div> 
+          <div class="lk-rec"><%= link_to 'восстановить пароль', auth_engine.new_user_password_path   %> </div>
+          <div class="lk-reg"><%= link_to 'регистрация', auth_engine.register_user_path  %></div> 
           <div class="clear"></div>
          </div> 
       <% end %>    
