@@ -18,7 +18,7 @@ def new
   def create    
     params[:i_am] == "2" ?  create_single_user : create_firm_user(params[:i_am]=="3")
     if @user.persisted?
-      UserSession.create @user
+      sign_in @user
       notify_admins(@user)
       render 'thanks'
     else

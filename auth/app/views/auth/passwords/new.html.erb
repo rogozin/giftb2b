@@ -1,9 +1,10 @@
+<% page_title "Восстановление пароля" -%>
 <h2>Забыли пароль?</h2>
 
-<%= form_for(resource, :as => resource_name, :url => auth_engine.user_password_path, :html => { :method => :post }) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => auth_engine.user_password_path, :html => { :method => :post, :class=>"one_line_form" }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
+  <div class="b-formfield-div"><%= f.label :email, "Ваш email:" %>
   <%= f.email_field :email %></div>
 <div class="spacer"></div>
   <div><%= f.submit "Отправить инструкцию по сбросу пароля" %></div>

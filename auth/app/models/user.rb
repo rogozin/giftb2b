@@ -1,7 +1,8 @@
 #encoding: utf-8;
 class User < ActiveRecord::Base  
   has_many :lk_orders
-  devise :database_authenticatable, :registerable, :recoverable, :trackable, :timeoutable, :validatable, :encryptable, :authentication_keys => [:login]
+  devise :database_authenticatable, :recoverable, :trackable, :timeoutable, :validatable, :encryptable, :token_authenticatable, :authentication_keys => [:login]
+  before_save :ensure_authentication_token
   acts_as_authorization_subject :role_class_name => 'Role', :join_table_name => :roles_users
   belongs_to :firm
   has_one :client, :through => :firm

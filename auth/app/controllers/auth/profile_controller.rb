@@ -9,7 +9,7 @@ class Auth::ProfileController < ApplicationController
     @account = current_user
     if @account.update_attributes(params[:user], :as => current_user.is_firm_user? ? :default : :client)
       flash[:notice] = "Профиль изменен"
-      UserSession.create @account
+      #UserSession.create @account
       redirect_to profile_path
     else
       render 'edit'
