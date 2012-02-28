@@ -45,7 +45,7 @@ module Lk::ApplicationHelper
       concat content_tag :li, link_to("Пользователи", lk_engine.accounts_path) if  current_user.is_firm_manager?
       concat content_tag :li, link_to("Профиль компании", lk_engine.profile_path) if current_user.is?(:lk_supplier)
       concat content_tag :li, "", :class => "divider"
-      concat content_tag :li, link_to("Выход", auth_engine.logout_path)      
+      concat content_tag :li, link_to("Выход", auth_engine.logout_path, :method => :delete)      
     end
   end
   

@@ -4,17 +4,17 @@ module LoginSpecHelper
   def login_as user_role
     @user = Factory(user_role)
     visit "/auth/login"
-    within "#login" do
-      fill_in "user_session[username]", :with => @user.username
-      fill_in "user_session[password]", :with => @user.password
+    within "#new_user" do
+      fill_in "user[login]", :with => @user.username
+      fill_in "user[password]", :with => @user.password
       click_button "Войти"
     end
   end
   
   def direct_login_as(user_role)
+    @request.env["devise.mapping"]=Devise.mappings[:user]
     @user = Factory(user_role)
-    activate_authlogic    
-    UserSession.create(@user)
+    sign_in @user
   end
   
   

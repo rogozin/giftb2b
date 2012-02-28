@@ -1,0 +1,15 @@
+<% page_title "Изменение пароля" -%>
+<h2>Изменение Вашего пароля:</h2>
+
+<%= form_for(resource, :as => resource_name, :url => auth_engine.user_password_path, :html => { :method => :put, :class => "one_line_form" }) do |f| %>
+  <%= devise_error_messages! %>
+  <%= f.hidden_field :reset_password_token %>
+
+  <div class="b-formfield-div"><%= f.label :password, "Новый пароль" %>
+  <%= f.password_field :password %></div>
+
+  <div class="b-formfield-div"><%= f.label :password_confirmation, "Подтверждение пароля" %>
+  <%= f.password_field :password_confirmation %></div>
+  <div class="spacer"></div>
+  <div><%= f.submit "Изменить пароль" %></div>
+<% end %>

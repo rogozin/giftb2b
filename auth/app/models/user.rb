@@ -1,7 +1,8 @@
 #encoding: utf-8;
 class User < ActiveRecord::Base  
   has_many :lk_orders
-  devise :database_authenticatable, :registerable, :recoverable, :trackable, :timeoutable, :validatable, :encryptable, :authentication_keys => [:login]
+  devise :database_authenticatable, :recoverable, :trackable, :timeoutable, :validatable, :encryptable, :token_authenticatable, :authentication_keys => [:login]
+  before_save :ensure_authentication_token
   acts_as_authorization_subject :role_class_name => 'Role', :join_table_name => :roles_users
   belongs_to :firm
   has_one :client, :through => :firm
@@ -23,7 +24,7 @@ class User < ActiveRecord::Base
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     login = conditions.delete(:login)
-    where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.strip.downcase }]).first
+    where(conditions).where(["(active = 1) and (lower(username) = :value OR lower(email) = :value)", { :value => login.strip.downcase }]).first
   end
   
   def is?(role_name)
@@ -112,5 +113,7 @@ class User < ActiveRecord::Base
     username
   end 
   
-    
+  def after_token_authentication
+    self.reset_authentication_token
+  end        
 end

@@ -18,7 +18,7 @@ def new
   def create    
     params[:i_am] == "2" ?  create_single_user : create_firm_user(params[:i_am]=="3")
     if @user.persisted?
-      UserSession.create @user
+      sign_in @user
       notify_admins(@user)
       render 'thanks'
     else
@@ -41,48 +41,7 @@ def new
       render :action => 'edit'
     end
   end
-  
-  def activate
-    @user = User.find_using_perishable_token(params[:activation_code], 48.hours)
-    if @user && @user.update_attribute(:active, true)
-      flash[:notice] = "Учетная запись активирована"
-      Auth::AccountMailer.activation_complete(@user).deliver
-    else
-      render 'activation_failed'
-    end
-  end
-  
-  def login_by_token
-    @user = User.find_using_perishable_token(params[:token], 5.hours)
-    if @user 
-      @user.reset_persistence_token!
-      UserSession.create(@user)
-      redirect_to main_app.root_path      
-    else
-      not_found
-    end
-  end
-  
-  def recovery
     
-  end
-  
-  def change_password
-    return redirect_to recovery_password_path, :alert => "Неправильный адрес Email" if EmailValidator.email_pattern !~ params[:email] || params[:email].blank?
-    user = User.find_by_email(params[:email])
-    return redirect_to recovery_password_path, :alert => "Пользователь с таким именем не найден!" if user.nil? || (user.present? && !user.active)
-    pass = User.friendly_pass
-    if user.update_attributes(:password => pass, :password_confirmation => pass)
-      user_session = UserSession.find
-      user_session.destroy if user_session
-      Auth::AccountMailer.recovery_password(user, pass).deliver
-      render 'password_changed'
-    else
-      redirect_to recovery_password_path, :alert => "Просим прощения, пароль не может быть восстановлен по некоторым причинам."
-    end
-    
-  end
-  
   private 
   def notify_admins(user)
     User.joins(:role_objects).where("active = 1 and (roles.name='admin' or roles.name='Главный менеджер')").each do |admin|

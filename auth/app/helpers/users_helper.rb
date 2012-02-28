@@ -12,4 +12,17 @@ module UsersHelper
     user ? (user.fio.present? ? user.fio : user.username) : "неизв?"
   end
   
+  def resource_name
+    :user
+  end
+ 
+  def resource
+    @resource ||= User.new
+  end
+ 
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+  
+  
 end
