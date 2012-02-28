@@ -5,7 +5,7 @@ require 'resolv'
 class Defender < Rack::Throttle::Hourly
 
   IP_WHITELIST = %w(87.236.190.194 66.249.66.161 66.249.71.168 213.180.209.10 95.108.247.252 66.249.66.5 66.249.72.134 66.249.66.22)  
-  LINKS_WHITELIST = %w(/api/categories.json /api/categories/analogs.json /api/categories/thematics.json)
+  LINKS_WHITELIST = [ /^\/api\/categories.json$/, /^\/api\/categories\/analogs.json$/, /^\/api\/categories\/thematics.json$/, /^\/api\/products\/lk.json/ ]
     
   def initialize(app)
     host, ttl = "127.0.0.1:11211", 3600
@@ -60,7 +60,7 @@ class Defender < Rack::Throttle::Hourly
     end  
   
     def need_defense?(request) 
-      IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.exclude?(request.fullpath) && request.fullpath =~ /^\/(api\/products|products|categories\/)/
+      IP_WHITELIST.exclude?(request.ip) && LINKS_WHITELIST.select{|li| request.fullpath =~ li }.empty?  && request.fullpath =~ /^\/(api\/products|products|categories\/)/
     end
     
     def search_bot?(request)

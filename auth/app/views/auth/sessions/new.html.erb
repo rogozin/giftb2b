@@ -2,12 +2,12 @@
 <%= render :partial => 'shared/flashes' %>
 <div id="login">
 <h1>Введите имя и пароль</h1>
-<%= form_for @user_session, :url => auth_engine.create_session_path, :html => { :class => 'one_line_form'} do |form| %>
-  <%= render :partial => 'shared/error_messages', :locals => {:target => @user_session} %>    
+<%= form_for resource, :url => auth_engine.user_session_path, :html => { :class => 'one_line_form'} do |form| %>
+  <%#= render :partial => 'shared/error_messages', :locals => {:target => @user_session} %>    
 
     <div class="b-formfield-div">
-      <%= form.label :username, "Имя пользователя" %>
-      <%= form.text_field :username %>
+      <%= form.label :login, "Имя пользователя" %>
+      <%= form.text_field :login %>
     </div>
     <div class="b-formfield-div">
       <%= form.label :password, "Пароль" %>
@@ -35,5 +35,4 @@
   </div> 
 </div>
 <% end -%>
-
 

@@ -1,10 +1,8 @@
 #encoding: utf-8;
 class User < ActiveRecord::Base  
   has_many :lk_orders
-  acts_as_authentic do |c| 
-    c.maintain_sessions = false
-    c.logged_in_timeout = 3.hours
-  end
+  devise :database_authenticatable, :recoverable, :trackable, :timeoutable, :validatable, :encryptable, :token_authenticatable, :authentication_keys => [:login]
+  before_save :ensure_authentication_token
   acts_as_authorization_subject :role_class_name => 'Role', :join_table_name => :roles_users
   belongs_to :firm
   has_one :client, :through => :firm
@@ -15,13 +13,19 @@ class User < ActiveRecord::Base
   validates :cellphone, :length => {:maximum => 25}
   validates :icq, :length => {:maximum => 25},  :numericality => {:allow_blank => true}
   validates_presence_of :company_name, :city, :phone, :fio, :on => :create
-
-  attr_accessible :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, :city, :url
-  attr_accessible :username, :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, 
+  attr_accessor :login
+  attr_accessible :login, :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, :city, :url
+  attr_accessible :login, :username, :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, 
                   :city, :url, :as => :client
-  attr_accessible :username, :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, :city, :url, 
+  attr_accessible :login, :username, :email, :password, :password_confirmation, :fio, :phone, :appoint, :skype, :icq, :cellphone, :birth_date, :company_name, :city, :url, 
                   :active,  :expire_date, :firm_id, :supplier_id, :role_object_ids, :as => :admin
-  attr_accessible :username, :password, :password_confirmation, :birth_date, :active,  :expire_date, :firm_id, :role_object_ids, :as => :crm
+  attr_accessible :login, :username, :password, :password_confirmation, :birth_date, :active,  :expire_date, :firm_id, :role_object_ids, :as => :crm
+  
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    login = conditions.delete(:login)
+    where(conditions).where(["(active = 1) and (lower(username) = :value OR lower(email) = :value)", { :value => login.strip.downcase }]).first
+  end
   
   def is?(role_name)
     Rails.cache.fetch("#{cache_key}.has_role_#{role_name}") {has_role? role_name}    
@@ -109,5 +113,7 @@ class User < ActiveRecord::Base
     username
   end 
   
-    
+  def after_token_authentication
+    self.reset_authentication_token
+  end        
 end

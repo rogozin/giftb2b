@@ -39,6 +39,10 @@ class Lk::AccountsController < Lk::BaseController
   end
   
   def update
+    if params[:user][:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
     if @account.update_attributes(params[:user])
       flash[:notice] = "Учетная запись изменена"
       redirect_to accounts_path

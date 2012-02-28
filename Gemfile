@@ -4,6 +4,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.3'
 gem 'coffee-rails', '~> 3.1.1'
+gem 'devise'
 
 group :assets do
   gem 'sass-rails',   '3.1.4'
@@ -39,6 +40,6 @@ gem "letter_opener", :group => :development
    gem 'launchy', "~> 2.0.5"
  end
  
-gem "twitter_bootstrap_form_for", :git =>  "git://github.com/tzeskimo/twitter_bootstrap_form_for.git"
+gem "twitter_bootstrap_form_for", :git =>  "git://github.com/rilya/twitter_bootstrap_form_for.git"
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
                               :git => 'git://github.com/anjlab/bootstrap-rails.git' 
