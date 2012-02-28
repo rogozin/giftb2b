@@ -1,9 +1,8 @@
 #encoding: utf-8;
 class Lk::BaseController < Lk::ApplicationController
-  before_filter :require_user, :load_search_data
+  before_filter :authenticate_user!, :load_search_data
   layout 'lk/application'
- 
- 
+  
   def index
     
   end

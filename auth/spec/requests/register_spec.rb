@@ -146,24 +146,23 @@ end
       page.should have_field "Ваш email"
     end
 
-#    it 'валидность email' do
-#      visit "/auth/users/password/new"
-#      fill_in "email", :with => 'aaa'
-#      click_button "Отправить инструкцию по сбросу пароля"
-#      page.should have_selector "#flash_alert", :text => "Неправильный адрес Email"
-#      save_and_open_page
-#      fill_in "email", :with => 'aaaa@example.com'
-#      click_button "Восстановить пароль"
-#      page.should have_selector "#flash_alert", :text => "Пользователь с таким именем не найден!"
-#    end
+    it 'левый email' do
+      visit "/auth/recovery"
+      fill_in "email", :with => 'aaa'
+      click_button "Отправить инструкцию по сбросу пароля"
+      within "#error_explanation" do      
+        page.should have_content "не найдена"      
+      end
+    end
     
     it 'неактивированный пользователь не может запросить восстановление пароля' do
        visit "/auth/recovery"
       user = Factory(:user, :active => false)
       fill_in "email", :with => user.email
       click_button "Отправить инструкцию по сбросу пароля"
-      save_and_open_page
-      page.should have_selector "#flash_alert", :text => "Пользователь с таким именем не найден!"      
+      within "#error_explanation" do      
+        page.should have_content "заблокирована"      
+      end
     end
 
     
@@ -171,15 +170,17 @@ end
       user = Factory(:user)
       visit "/auth/recovery"
       fill_in "email", :with => user.email
-      click_button "Восстановить пароль"
-      page.should have_selector "h1", :text => "Ваш пароль изменен!"
-      UserSession.find.should be_nil
-#      save_and_open_page
-#      page.should have_selector "form#login_form"
+      click_button "Отправить инструкцию по сбросу пароля"
       ActionMailer::Base.deliveries.should have(1).item
       ActionMailer::Base.deliveries.map(&:to).should include([user.email])      
-      ActionMailer::Base.deliveries.first.body.should match(user.username)      
-      ActionMailer::Base.deliveries.first.body.should have_selector "#new_password"
+      ActionMailer::Base.deliveries.first.body.should match(user.email)    
+      user.reload        
+      visit "/auth/users/password/edit/?reset_password_token=#{user.reset_password_token}"
+      page.should have_selector "h2", :text => "Придумайте новый пароль:"
+      fill_in "user_password", :with => "test"
+      fill_in "user_password_confirmation", :with => "test"
+      click_button "Изменить пароль"
+      page.should have_content "Вы вошли как #{user.username}"
     end
     
   end

@@ -1,5 +1,5 @@
 <% page_title "Изменение пароля" -%>
-<h2>Изменение Вашего пароля:</h2>
+<h2>Придумайте новый пароль:</h2>
 
 <%= form_for(resource, :as => resource_name, :url => auth_engine.user_password_path, :html => { :method => :put, :class => "one_line_form" }) do |f| %>
   <%= devise_error_messages! %>
