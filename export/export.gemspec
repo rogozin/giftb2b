@@ -18,4 +18,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.1.3"
   s.add_dependency "gift-core"
+  s.add_dependency "sitemap_generator"
+  
 end
