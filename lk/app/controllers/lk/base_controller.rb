@@ -2,8 +2,7 @@
 class Lk::BaseController < Lk::ApplicationController
   before_filter :authenticate_user!, :load_search_data
   layout 'lk/application'
- 
- 
+  
   def index
     
   end

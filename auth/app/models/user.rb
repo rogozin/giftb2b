@@ -26,6 +26,19 @@ class User < ActiveRecord::Base
     login = conditions.delete(:login)
     where(conditions).where(["(active = 1) and (lower(username) = :value OR lower(email) = :value)", { :value => login.strip.downcase }]).first
   end
+   
+  def self.send_reset_password_instructions(attributes={})
+    recoverable = find_for_authentication(attributes)
+    unless recoverable
+      recoverable = new 
+      recoverable.errors.add(:base, :account_not_found)
+    end
+    if recoverable.persisted?
+      recoverable.active? ? recoverable.send_reset_password_instructions : recoverable.errors.add(:base, :locked)
+    end
+    recoverable
+  end
+  
   
   def is?(role_name)
     Rails.cache.fetch("#{cache_key}.has_role_#{role_name}") {has_role? role_name}    
