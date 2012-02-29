@@ -21,6 +21,6 @@ SitemapGenerator::Sitemap.create do
     dayly_suppliers = [1,2,4,5,28,29,31,37,39,40,47,49,51,52]
   
     Product.find_each do |product|
-      add product_path(product), :lastmod => product.updated_at, :changefreq => dayly_suppliers.include?(product.supplier_id) ? 'dayly' : 'weekly', :priority => 0.6
+      add product_path(product), :lastmod => product.updated_at, :changefreq => dayly_suppliers.include?(product.supplier_id) ? 'daily' : 'weekly', :priority => 0.6
     end
 end
