@@ -1,6 +1,6 @@
 #encoding: utf-8;
 class Auth::ProfileController < ApplicationController
-  before_filter :require_user
+  before_filter :authenticate_user!
  def edit
     @account = current_user
   end

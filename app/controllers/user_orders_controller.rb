@@ -1,7 +1,7 @@
 #encoding: utf-8;
 class UserOrdersController < ApplicationController
 #  layout 'lk'
-  before_filter :require_user
+  before_filter :authenticate_user!
   access_control do
      allow :simple_user
   end
