@@ -142,25 +142,27 @@ end
     
     it 'я могу восстановить пароль' do
       visit "/auth/recovery"
-      page.should have_selector "h1", :text => "Восстановление пароля"
-      page.should have_field "Введите Ваш E-mail"
+      page.should have_selector "h2", :text => "Забыли пароль?"
+      page.should have_field "Ваш email"
     end
 
-    it 'валидность email' do
-      visit "/auth/recovery"
-      fill_in "email", :with => 'aaa'
-      click_button "Восстановить пароль"
-      page.should have_selector "#flash_alert", :text => "Неправильный адрес Email"
-      fill_in "email", :with => 'aaaa@example.com'
-      click_button "Восстановить пароль"
-      page.should have_selector "#flash_alert", :text => "Пользователь с таким именем не найден!"
-    end
+#    it 'валидность email' do
+#      visit "/auth/users/password/new"
+#      fill_in "email", :with => 'aaa'
+#      click_button "Отправить инструкцию по сбросу пароля"
+#      page.should have_selector "#flash_alert", :text => "Неправильный адрес Email"
+#      save_and_open_page
+#      fill_in "email", :with => 'aaaa@example.com'
+#      click_button "Восстановить пароль"
+#      page.should have_selector "#flash_alert", :text => "Пользователь с таким именем не найден!"
+#    end
     
     it 'неактивированный пользователь не может запросить восстановление пароля' do
        visit "/auth/recovery"
       user = Factory(:user, :active => false)
       fill_in "email", :with => user.email
-      click_button "Восстановить пароль"
+      click_button "Отправить инструкцию по сбросу пароля"
+      save_and_open_page
       page.should have_selector "#flash_alert", :text => "Пользователь с таким именем не найден!"      
     end
 

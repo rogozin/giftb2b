@@ -49,7 +49,12 @@ class AccountsController < Admin::BaseController
   def update
     params[:admin_account][:role_object_ids] ||= []
     @account = User.find(params[:id])
-    @account.password_confirmation = params[:admin_account][:password]
+    @account.updated_at = Time.now.utc
+    if params[:admin_account][:password].present?
+      @account.password_confirmation = params[:admin_account][:password]
+    else
+      params[:admin_account].delete(:password)
+    end
     if @account.update_attributes(params[:admin_account], :as => :admin)
       succ_updated
     else

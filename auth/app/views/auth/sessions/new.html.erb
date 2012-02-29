@@ -1,0 +1,38 @@
+<% page_title "Авторизация" %>
+<%= render :partial => 'shared/flashes' %>
+<div id="login">
+<h1>Введите имя и пароль</h1>
+<%= form_for resource, :url => auth_engine.user_session_path, :html => { :class => 'one_line_form'} do |form| %>
+  <%#= render :partial => 'shared/error_messages', :locals => {:target => @user_session} %>    
+
+    <div class="b-formfield-div">
+      <%= form.label :login, "Имя пользователя" %>
+      <%= form.text_field :login %>
+    </div>
+    <div class="b-formfield-div">
+      <%= form.label :password, "Пароль" %>
+      <%= form.password_field :password %>
+    </div>
+    <div class="b-formfield-div">
+      <%= form.submit "Войти" %>
+    </div>
+<% end %>
+<div class="clear"></div>
+</div>
+
+<% if giftpoisk? -%>
+  
+<div class="b-want-to-register">
+<h2>Данный сайт создан специально для рекламных агентств.</h2> 
+<p>
+Пройдите <strong><%= link_to 'регистрацию', auth_engine.register_user_path  %></strong>, после чего Вам будет доступен каталог с более чем 60 000 сувениров с возможностью расширенного поиска. Для каждого из них Вы сможете посмотреть информацию по поставщику и наличию на складе, а так же откроете для себя <a href="http://sale.giftpoisk.ru/why">уникальный функционал</a>, который станет надежным инструментом в работе Вашего рекламного агентства. 
+</p>
+<p>
+На сайте <a href="http://giftb2b.ru" title="Большой каталог бизнес сувениров">giftb2b.ru</a> можно ознакомится с нашим каталогом <strong>без регистрации</strong>
+</p>
+  <div class="additional">
+  <em>Более подробную информацию о нашем функционале прочитайте на сайте <a href="http://sale.giftpoisk.ru">http://sale.giftpoisk.ru</a></em>
+  </div> 
+</div>
+<% end -%>
+
