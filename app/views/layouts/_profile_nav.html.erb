@@ -2,9 +2,9 @@
         <% if current_user %>
           <%= link_to "Администрирование", admin_accounts_path if current_user.is_admin? %>
           <%= link_to current_user.username, auth_engine.profile_path %>
-          <%= link_to "Выход", auth_engine.logout_path  %>
+          <%= link_to "Выход", auth_engine.destroy_user_session_path  %>
         <% else %>
-          <%= link_to "Регистрация", new_user_path  %>
-          <%= link_to "Вход в систему", auth_engine.login_path  %>
+          <%= link_to "Регистрация", auth_engine.register_path  %>
+          <%= link_to "Вход в систему", auth_engine.new_user_session_path  %>
         <% end %>
       </div>

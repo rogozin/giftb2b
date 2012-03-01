@@ -5,10 +5,9 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
   config.mailer_sender = "notification@#{Settings.site_name}"
-
   # Configure the class responsible to send e-mails.
-   config.mailer = "Auth::Mailer"
-
+  config.mailer = "Auth::Mailer"
+  config.router_name = :auth_engine
   # Automatically apply schema changes in tableless databases
   config.apply_schema = false
 

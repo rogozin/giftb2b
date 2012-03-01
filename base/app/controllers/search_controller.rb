@@ -1,12 +1,8 @@
 #encoding:utf-8;
 class SearchController < BaseController
-    helper_method :can_ext_search?
-    before_filter :require_ra_user, :load_search_data 
-    
-#    access_control do 
-#      allow :ext_search, :if => :giftpoisk?
-#      allow all, :if => :giftb2b?
-#    end
+  helper_method :can_ext_search?
+  before_filter { |controller| controller.authenticate_user! if  giftpoisk?}
+  before_filter :load_search_data 
   
     def index
      params[:per_page] ||="20"

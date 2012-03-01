@@ -19,7 +19,7 @@ module Lk
   protected
   def access_denied
      flash[:alert] = 'Доступ запрещен.'
-     redirect_to auth_engine.login_path
+     redirect_to auth_engine.new_user_session_path
   end
 
   end

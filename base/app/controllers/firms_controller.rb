@@ -1,7 +1,5 @@
 #encoding: utf-8;
 class FirmsController < BaseController
-#  before_filter :require_user
-
   def index
     @firms = Firm.where_city_present
   end
@@ -19,5 +17,3 @@ class FirmsController < BaseController
   end
 
 end
-
-

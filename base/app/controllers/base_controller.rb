@@ -15,12 +15,7 @@ class BaseController < ApplicationController
       render :template => 'shared/access_denied'
     else
       flash[:alert] = 'Недостаточно прав для просмотра страницы'
-      redirect_to auth_engine.login_path
+      redirect_to auth_engine.new_user_session_path
     end
   end
-  
-  def require_ra_user
-     require_user if giftpoisk?
-  end
-  
 end
