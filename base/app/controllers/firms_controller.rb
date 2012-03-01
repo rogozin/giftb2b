@@ -15,5 +15,4 @@ class FirmsController < BaseController
   def show
     @firm = Firm.clients.find_by_permalink(params[:id])
   end
-
 end
