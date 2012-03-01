@@ -521,3 +521,15 @@ a.toggle-category {
    }
   }
 }
+
+.pagination {
+  float:right;
+   ul { 
+    display: inline;
+     li {
+      display: inline;
+      font-size:11pt;
+      &.active a {color:#696969; text-decoration:none; font-weight:bold;}
+    }  
+  }  
+}  
