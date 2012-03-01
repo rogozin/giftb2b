@@ -13,6 +13,7 @@ window.save_co = ->
       commercial_offer:
         lk_firm_id: $('#lk_firm_id').val()
         signature: $('#signature').val()
+        name: $("#name").val()
   false      
     
 modify = (target) -> 
@@ -77,7 +78,7 @@ jQuery ->
     else
       false
 
-  $("#signature").live 'keydown', (event)->  
+  $("#name, #signature").live 'keydown', (event)->  
     if event.which in [9,13,32,106,107,109,111,222] || event.which in [65..97] || digital_key(event.which) || event.which in [186..192] 
       if co_timer
         co_timer = false

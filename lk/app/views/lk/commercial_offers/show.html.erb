@@ -5,8 +5,8 @@
 <% if current_user.has_role? :lk_client -%> 
   <div id="co_client" class="form-inline">
     <div class="control-group">
-    <label for="lk_firm_id">Клиент: </label>
-      <%= select_tag :lk_firm_id, options_for_select([["<-Выберите клиента->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm_id) %>
+      <%= text_field_tag :name, @commercial_offer.name, :placeholder => "Название КП" %>
+      <%= select_tag :lk_firm_id, options_for_select([["<-Клиент->", ""]]+ @lk_firms.map{|x| [x.name, x.id]}, @commercial_offer.lk_firm_id) %>
       <%= link_to 'Новый клиент',  new_firm_path, :remote => true, :class=>"btn btn-info" %>
     </div>
   </div>    
