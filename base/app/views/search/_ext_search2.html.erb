@@ -1,7 +1,7 @@
 <% hidden_class = (defined?(hidden) && hidden) ? "g-hidden"  : ""  -%>
 <% up_or_down_class = (defined?(hidden) && hidden) ? "down"  : "up"  -%>
 <% up_or_down_title = (defined?(hidden) && hidden) ? "Развернуть"  : "Свернуть"  -%>
- <%= form_tag main_app.search_path(:anchor => "results"), :method=> :get, :id => "ext_search_form" do  -%>
+ <%= form_tag main_app.search_path(:anchor => "results"), :method=> :get, :id => "ext_search_form", :class => "form-horizontal" do  -%>
 <div class="b-ext-search" id="ext_search">
   <div class="header">
   <h1>Расширенный поиск сувениров</h1>  
@@ -12,90 +12,80 @@
   </div>
   <div class="clear"></div>
   <div class="collapsible-content <%= hidden_class %>">
-    <div class="b-ext-search-inner even">
-       <div class="b-ext-search-center">     
-         <div class="b-search-center-inner">
-              <div class="full-size">
-               <%= text_field_tag :name, params[:name] %>               
-              </div>
-           <%= check_box_tag :eq, "1", params[:eq] %> <%= label_tag :eq, "Искать точную фразу" %>              
-         </div>
-       </div>
-       <div class="b-ext-search-left bold-label v-align">
-         <%= label_tag :name, "Название" %> 
-       </div>
-       <div class="b-ext-search-right">
-         <button class="ext-search-button" type="submit">Найти</button>
-       </div>
-       <div class="clear"></div>     
-    </div>
-  <% if show_ext_search? || current_user && current_user.is?(:lk_order) -%>
-    
-    <div class="b-ext-search-inner">
-       <div class="b-ext-search-center">     
-         <div class="b-search-center-inner">
-           <%= text_field_tag :article, params[:article] %>               
-         </div>
-       </div>
-       <div class="b-ext-search-left bold-label v-align">
-         <%= label_tag :article, "Артикул" %> 
-       </div>
-       <div class="clear"></div>
-    </div>
+  <div class="control-group">
+    <label for="name">Название</label>
+    <div class="controls">
+               <%= text_field_tag :name, params[:name] %>                   
+               <p class="help-block"> 
+               <label for="eq" class="checkbox">
+                <%= check_box_tag :eq, "1", params[:eq] %>            
+                 Искать точную фразу             
+               </label> 
+               </p>
+   <button class="ext-search-button" type="submit">Найти</button>
+    </div>  
+  </div>
+
+  
+  <% if show_ext_search? || current_user && current_user.is?(:lk_order) -%>   
+    <div class="control-group">
+      <label for="article">Артикул</label>
+      <div class="controls">
+           <%= text_field_tag :article, params[:article] %>                     
+      </div>
+    </div>      
   <% end -%>
-  <% if show_ext_search? -%>    
-    <div class="b-ext-search-inner even">
-      <div class="header">
-        <h3>Поставщик</h3> 
-      </div>
-      <div class="collapse">   
-        <a href="" class="up-down" title="Развернуть"><span class="down"></span></a>
-      </div>
-      <div class="collapsible-content g-hidden">
-        <ul class="supplier-items">
+  <% if show_ext_search? -%>
+  
+    <div class="control-group">
+      <label for="" class="control-label">Поставщик</label>
+      <div class="controls">
         <% @suppliers.each do |item| -%>
-          <li>
-          <%= check_box_tag "supplier_ids[]", item.id, params[:supplier_ids] && params[:supplier_ids].include?(item.id.to_s), :id => dom_id(item) %> <%= label_tag dom_id(item), item.name %>
-          </li>
-        <% end -%>
-        </ul>
+          <%= label_tag dom_id(item), :class => :checkbox do %>          
+          <%= check_box_tag "supplier_ids[]", item.id, params[:supplier_ids] && params[:supplier_ids].include?(item.id.to_s), :id => dom_id(item) %> 
+          <%=  item.name %>
+          <% end -%>
+        <% end -%>      
+      
       </div>
-      <div class="clear"></div> 
-    </div>
+    </div>      
 
-    <div class="b-ext-search-inner">
-       <div class="b-ext-search-center">     
-         <div class="b-search-center-inner">
-            <%= select_tag :manufactor_id, options_for_select(@manufactors.map{|x| [x.name, x.id]}, params[:manufactor_id]),  {:include_blank => "<- Выберите бренд ->" } %>
-         </div>
-       </div>
-       
-       <div class="b-ext-search-left bold-label v-align">
-         <%= label_tag :manufactor_id, "Бренд" %> 
-       </div>
-       <div class="clear"></div>
+    <div class="control-group">
+      <label for="manufactor_id" class="control-label">Бренд</label>
+      <div class="controls">    
+        <%= select_tag :manufactor_id, options_for_select(@manufactors.map{|x| [x.name, x.id]}, params[:manufactor_id]),  {:include_blank => "<- Выберите бренд ->" } %>
+      </div>
     </div>
+    
+    <div class="control-group">
+      <label for="store_from" class="control-label">Наличие</label>
+      <div class="controls">    
+        <div class="input-append">
+          <%= text_field_tag :store_from, params[:store_from], :class => "inp-numeric value-from" %> <span class="add-on">шт.</span>
+        </div>        
+        <p class="help-block">
+        <%= label_tag :on_demand, :class => "checkbox inline" do %>
+        <%= check_box_tag :on_demand, "1", params[:on_demand] %>
+        по запросу        
+        <% end -%>        
+        <%= label_tag :in_order, :class => "checkbox inline" do %>
+        <%= check_box_tag :in_order, "1", params[:in_order] %>
+        под заказ
+        <% end -%>                
+        </p>        
+      </div>
+    </div>    
   <% end -%>
-    <%= content_tag :div, :class => (show_ext_search?) ? "b-ext-search-inner even" : "b-ext-search-inner" do %>
-       <div class="b-ext-search-center">     
-         <div class="b-search-center-inner">
-           <span class="span-right-block"><%= label_tag :store_from, "на складе от: " %> 
-           <%= text_field_tag :store_from, params[:store_from], :class => "inp-numeric value-from" %> шт.
-		   </span>
-		   <span class="span-right-block">        
-         <%= check_box_tag :on_demand, "1", params[:on_demand] %> <%= label_tag :on_demand, "по запросу" %>
-        </span><span class="span-right-block">        
-         <%= check_box_tag :in_order, "1", params[:in_order] %> <%= label_tag :in_order, "под заказ" %>
-        </span>
-         </div>
-       </div>
-       <div class="b-ext-search-left bold-label v-align">
-         <%= label_tag :store_from, "Наличие" %> 
-       </div>
-
-       <div class="clear"></div>
-    <% end -%>
+  
     <% if show_ext_search? -%>
+    
+    <div class="control-group">
+      <label for="material-items" class="control-label">Материал</label>
+      <div class="controls">    
+        <%= prop_values_tree(@material, params[prop_name(@material)].present? ? params[prop_name(@material)] : [] , {:class => "material-items", :grouped => true}) %>
+      </div>
+    </div>
+    
     <div class="b-ext-search-inner">
      <div class="header">
         <h3>Материал</h3>
