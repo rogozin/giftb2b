@@ -5,13 +5,10 @@ class Lk::AccountsController < Lk::BaseController
   end
 
   before_filter :find_account, :only => [:edit, :update, :destroy, :activate]  
+  before_filter :check_firm
+  
   def index
-    if current_user.firm_id.present?
-      @users = User.where(:firm_id => current_user.firm_id)
-    else 
-      @users = []
-       not_firm_assigned!
-    end
+    @users = User.where(:firm_id => current_user.firm_id)
   end
 
   def new
@@ -33,9 +30,6 @@ class Lk::AccountsController < Lk::BaseController
       flash[:alert] = "Ошибка при создании нового пользователя!"
       render 'new'
     end
-  end
-
-  def edit
   end
   
   def update
@@ -64,7 +58,5 @@ class Lk::AccountsController < Lk::BaseController
   
   def find_account
     @account = User.where(:firm_id => current_user.firm_id).find(params[:id])
-  end
-  
-  
+  end    
 end

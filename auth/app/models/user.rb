@@ -21,56 +21,70 @@ class User < ActiveRecord::Base
                   :active,  :expire_date, :firm_id, :supplier_id, :role_object_ids, :as => :admin
   attr_accessible :login, :username, :password, :password_confirmation, :birth_date, :active,  :expire_date, :firm_id, :role_object_ids, :as => :crm
   
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    login = conditions.delete(:login)
-    where(conditions).where(["(active = 1) and (lower(username) = :value OR lower(email) = :value)", { :value => login.strip.downcase }]).first
-  end
+  
+  class << self
+  
+    def find_for_database_authentication(warden_conditions)
+      conditions = warden_conditions.dup
+      login = conditions.delete(:login)
+      where(conditions).where(["(active = 1) and (lower(username) = :value OR lower(email) = :value)", { :value => login.strip.downcase }]).first
+    end
    
-  def self.send_reset_password_instructions(attributes={})
-    recoverable = find_for_authentication(attributes)
-    unless recoverable
-      recoverable = new 
-      recoverable.errors.add(:base, :account_not_found)
+    def send_reset_password_instructions(attributes={})
+      recoverable = find_for_authentication(attributes)
+      unless recoverable
+        recoverable = new 
+        recoverable.errors.add(:base, :account_not_found)
+      end
+      if recoverable.persisted?
+        recoverable.active? ? recoverable.send_reset_password_instructions : recoverable.errors.add(:base, :locked)
+      end
+      recoverable
     end
-    if recoverable.persisted?
-      recoverable.active? ? recoverable.send_reset_password_instructions : recoverable.errors.add(:base, :locked)
+  
+    def friendly_pass
+      pass = ""
+      fr_chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+      1.upto(6) { |i| pass << fr_chars[rand(fr_chars.size-1)] }
+      pass
     end
-    recoverable
-  end
   
-  
+    def next_username(firm_id, first_letter='f')
+      cnt = User.where("firm_id = :firm_id and username like :username", {:firm_id => firm_id, :username => "#{first_letter}#{firm_id}.%"}).count
+      "#{first_letter}#{firm_id}.#{cnt + 1}"
+    end
+  end  
+    
   def is?(role_name)
     Rails.cache.fetch("#{cache_key}.has_role_#{role_name}") {has_role? role_name}    
   end
-  
-  
+    
   def is_admin?
-    Rails.cache.fetch("#{cache_key}.is_admin?") {has_role? 'admin'}
+    is?("admin")
   end
   
   def is_lk_user?
-     Rails.cache.fetch("#{cache_key}.is_lk_user?") {role_objects.exists?(["roles.group=2"])}
+    Rails.cache.fetch("#{cache_key}.is_lk_user?") {role_objects.exists?(["roles.group=2"])}
   end
   
   def is_admin_user?
-     Rails.cache.fetch("#{cache_key}.is_admin_user?") {role_objects.exists?(["roles.group=0"])}
+    Rails.cache.fetch("#{cache_key}.is_admin_user?") {role_objects.exists?(["roles.group=0"])}
   end
   
   def is_first_manager?
-     is_admin? || is?("Главный менеджер")
+    is_admin? || is?("Главный менеджер")
   end
   
   def is_second_manager?
-     is?("Менеджер продаж")
+    is?("Менеджер продаж")
   end    
   
   def is_simple_user?
-     Rails.cache.fetch("#{cache_key}.is_simple_user?") {role_objects.exists?(["roles.group=3"])}
+    Rails.cache.fetch("#{cache_key}.is_simple_user?") {role_objects.exists?(["roles.group=3"])}
   end
   
   def is_firm_user?
-     Rails.cache.fetch("#{cache_key}.is_firm_user?") {role_objects.exists?(["roles.group=2"])}
+    Rails.cache.fetch("#{cache_key}.is_firm_user?") {role_objects.exists?(["roles.group=2"])}
   end
     
   def is_firm_manager?
@@ -82,11 +96,6 @@ class User < ActiveRecord::Base
     is?("simple_user") || is?("lk_co") || is?("lk_order")        
   end
   
-  #ids назначенных пользователю поставщиков
-  def assigned_supplier_ids
-    Rails.cache.fetch("#{cache_key}.supplier_ids?") { role_objects.where("roles.authorizable_type='Supplier'").map(&:authorizable_id).uniq}        
-  end
-
   # Личный кабинет поставщика  
   def is_lk_supplier?
     is?(:lk_supplier)
@@ -97,26 +106,18 @@ class User < ActiveRecord::Base
     is?(:ext_search)
   end  
     
+  #ids назначенных пользователю поставщиков
+  def assigned_supplier_ids
+    Rails.cache.fetch("#{cache_key}.supplier_ids?") { role_objects.where("roles.authorizable_type='Supplier'").map(&:authorizable_id).uniq}        
+  end
+  
   def activate!
     self.update_attribute :active, true
   end
-
-  def self.friendly_pass
-      fr_chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
-        newpass = ""
-        1.upto(6) { |i| newpass << fr_chars[rand(fr_chars.size-1)] }
-        newpass
-   end
-   
   
-  def self.next_username(firm_id, first_letter='f')
-    cnt = User.where("firm_id = :firm_id and username like :username", {:firm_id => firm_id, :username => "#{first_letter}#{firm_id}.%"}).count
-    "#{first_letter}#{firm_id}.#{cnt + 1}"
-  end
-  
+  #получаем первое свободное имя из emaila
   def username_from_email
-    username =  email.split("@").first
-    username = (username|| "").ljust(3,'abc')
+    username =  (email.split("@").first || "").ljust(3,'abc')
     if  User.exists?(:username => username)
       username = username + "_1"
       while User.exists?(:username => username)
@@ -126,6 +127,7 @@ class User < ActiveRecord::Base
     username
   end 
   
+  #сбрасываем токен после авторизации 
   def after_token_authentication
     self.reset_authentication_token
   end        

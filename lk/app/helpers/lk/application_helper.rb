@@ -48,11 +48,6 @@ module Lk::ApplicationHelper
       concat content_tag :li, link_to("Выход", auth_engine.destroy_user_session_path, :method => :delete)      
     end
   end
-  
-  def render_cart_menu
-    
-  end
-
  
   def navbar_item title, link
     content_tag :li, link_to(title, link), :class => link.match(controller_name) && controller.class.parent_name == "Lk" ? "active" : nil
