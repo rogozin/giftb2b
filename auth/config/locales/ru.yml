@@ -6,6 +6,7 @@ ru:
       user:
         email: "E-mail"
         username: "Имя пользователя"
+        login: "Имя пользователя"
         password: "Пароль"
         password_confirmation: "Подтверждение пароля"
         phone: "Телефон"

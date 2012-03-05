@@ -6,13 +6,16 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <div class="brand">
-        <a class="site-name" href="/">Giftpoisk.ru</a>
-        <a class="service-name" href="/lk">личный кабинет</a>
+         <% if is_lk? -%>
+        <div class="brand brand-lk">
+          <a class="site-name" href="/">Giftpoisk.ru</a>
+          <a class="service-name" href="/lk">личный кабинет</a>           
         </div>
+        <% else -%>
+          <a class="brand" href="/">Giftpoisk.ru</a>        
+         <% end -%>         
         <div class="nav-collapse">
-        <%= render_navbar_menu %>          
-        
+        <%= user_signed_in? ? render_navbar_menu : render_static_navbar_menu %>                  
           <ul class="nav pull-right">
           <li><a href="http://twitter.com/giftpoisk" class="icon-social picture-twitter" title="Twitter"></a></li>
           <% if cart_items_count -%>           
@@ -25,12 +28,18 @@
               </ul>
             </li>
           <% end -%>
-            
             <li class="divider-vertical"></li>
+            <% if user_signed_in? -%>              
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> <%= user_name current_user %> <b class="caret"></b></a>
                <%= render_user_menu %>
             </li>
+            <% else -%>        
+            <li class="dropdown  nav">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i>Войти<b class="caret"></b></a>
+               <%= render :partial => "shared/inline_login"%>
+            </li>            
+            <% end -%>
           </ul>
         </div><!-- /.nav-collapse -->
       </div>

@@ -25,7 +25,29 @@ body {padding-top: 60px;}
 }
 
 .navbar  {
-  .brand {
+  .dropdown.open {
+    background:$navbarBackground;  
+  }
+  .dropdown-form { padding:10px;
+    form {margin:0;}
+    &:before { content: none;}
+    &:after { content: none;}
+    background:$navbarBackground;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-top-right-radius: 0;
+    -moz-border-top-left-radius: 0;
+    -moz-border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top:-1px;
+    label {color:$navbarText;}
+    .divider { 
+      background-color: $navbarBackground;
+      border-bottom: 1px solid darken($navbarBackground, 5%);
+    }
+    a { color: $navbarLinkColor;}
+  }
+  .brand-lk {
   font-family: sans-serif;
    padding: 2px 20px 4px;
    a { display:block; color: $white; text-decoration:none;}

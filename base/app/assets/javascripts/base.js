@@ -8,6 +8,10 @@ $(function(){
 });
 
 $(function() {
+ $('.dropdown-menu').find('form').click(function (e) {
+    e.stopPropagation();
+  });
+
   $('.b-who_are_you input[type="radio"]').click(function() {
     $('.b-who_are_you .info').hide('fast', function() {   });
         $(this).parent().find('.info').show('fast');    

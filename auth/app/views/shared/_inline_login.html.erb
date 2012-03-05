@@ -1,0 +1,14 @@
+  <ul class="dropdown-menu dropdown-form">
+      <li>
+    <%= twitter_bootstrap_form_for resource, :url => auth_engine.user_session_path, :html=>{:id=>"login_form", :name => "login_form", :class=> ""} do |form| %>
+    <fieldset>
+        <%= form.text_field :login, :class => "span3" %>
+        <%= form.password_field :password, :class => "span3" %>
+  </fieldset>  
+     <%= form.submit "Войти",  :class => "btn" %>
+      <% end %>
+      </li>
+      <div class="divider"></div>
+        <%= link_to 'Забыли пароль?', auth_engine.recovery_path   %> 
+        <%= link_to 'Регистрация', auth_engine.register_user_path  %>
+    </ul>           
